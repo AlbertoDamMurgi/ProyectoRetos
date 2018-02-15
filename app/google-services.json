@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "348416606918-iggc39mp1cs5i4m0edfs5q9qc9vaqu05.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "geogame.proyectoretos",
+            "certificate_hash": "c251d5dae5074b1d51b03f46056fb6f7eb7d032f"
+          }
+        },
+        {
           "client_id": "348416606918-2fhbs57envqt2968ssdic5q137g1tgp0.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "348416606918-2fhbs57envqt2968ssdic5q137g1tgp0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
