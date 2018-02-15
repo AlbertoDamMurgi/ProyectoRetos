@@ -1,4 +1,4 @@
-package geogame.proyectoretos.Data;
+/*package geogame.proyectoretos.Data;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -18,7 +18,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import geogame.proyectoretos.R;
-
+*/
+/*
 public class ActivityLogin extends AppCompatActivity {
 
 
@@ -82,3 +83,4 @@ public class ActivityLogin extends AppCompatActivity {
         }
     }//Fin AsynTack
 }//Fin Acticity
+*/
