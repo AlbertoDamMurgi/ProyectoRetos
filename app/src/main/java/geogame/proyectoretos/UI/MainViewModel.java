@@ -5,7 +5,6 @@ import android.arch.lifecycle.ViewModel;
 
 import com.google.firebase.auth.FirebaseUser;
 
-import geogame.proyectoretos.Data.Usuario;
 
 /**
  * Created by usuario on 15/02/18.

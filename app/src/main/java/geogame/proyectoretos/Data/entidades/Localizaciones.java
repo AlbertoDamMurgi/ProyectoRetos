@@ -16,7 +16,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
         primaryKeys ={"idUsuario","fecha"},
         foreignKeys = @ForeignKey(entity = Usuarios.class,
                 parentColumns = "idUsuario",
-        childColumns = "idUsuario",onDelete = CASCADE)
+        childColumns = "idUsuario",onDelete = CASCADE,onUpdate = CASCADE)
         )
 public class Localizaciones {
 
