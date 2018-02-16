@@ -5,18 +5,18 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
-import geogame.proyectoretos.Data.entidades.Admin;
+import geogame.proyectoretos.Data.entidades.Partidas;
 
 /**
  * Created by usuario on 16/02/18.
  */
 @Dao
-public interface AdminDao {
+public interface PartidasDao {
 
     @Insert
-    void insertarAdmins(Admin... admin);
+    void partidasInsert(Partidas... partida);
 
-    @Query("Select * from admin where nombre = :nombre")
-    LiveData<Admin> getAdminActual(String nombre);
+    @Query("Select * from partidas where nombre = :nombre")
+    LiveData<Partidas> getPartidaActual(String nombre);
 
 }
