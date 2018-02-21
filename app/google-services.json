@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "348416606918",
+    "firebase_url": "https://affable-seat-191610.firebaseio.com",
+    "project_id": "affable-seat-191610",
+    "storage_bucket": "affable-seat-191610.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:348416606918:android:1c87906b85750e2b",
+        "android_client_info": {
+          "package_name": "geogame.proyectoretos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "348416606918-iggc39mp1cs5i4m0edfs5q9qc9vaqu05.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "geogame.proyectoretos",
+            "certificate_hash": "c251d5dae5074b1d51b03f46056fb6f7eb7d032f"
+          }
+        },
+        {
+          "client_id": "348416606918-2fhbs57envqt2968ssdic5q137g1tgp0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3PnKVYDLhyCtdcPT5LTyl9xdFmvPvlJQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "348416606918-2fhbs57envqt2968ssdic5q137g1tgp0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
