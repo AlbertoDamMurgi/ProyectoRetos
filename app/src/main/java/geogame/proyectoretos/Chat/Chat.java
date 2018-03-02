@@ -13,6 +13,10 @@ public class Chat {
         this.autor = autor;
     }
 
+    public Chat(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
     public String getMensaje() {
         return mensaje;
     }
