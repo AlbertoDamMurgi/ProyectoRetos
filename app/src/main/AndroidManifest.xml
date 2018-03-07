@@ -33,7 +33,6 @@
       <activity android:name=".UI.RegistroActivity" />
       <activity android:name=".UI.MapPrincActivity"></activity>
      <activity android:name=".UI.Adm.ActivityInsertarAdmin"></activity>
-
     </application>
 
 </manifest>
