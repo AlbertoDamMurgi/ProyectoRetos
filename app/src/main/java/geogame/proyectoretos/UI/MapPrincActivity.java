@@ -129,6 +129,7 @@ public class MapPrincActivity extends FragmentActivity implements
 
     }
 
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
