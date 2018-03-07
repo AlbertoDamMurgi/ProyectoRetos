@@ -23,10 +23,10 @@ public class Admin  {
     }
 
 
-    public Admin(int id_admin, String user_name, String pass, int superAdmin) {
+    public Admin(int id_admin, String user_name, String passwd, int superAdmin) {
         this.id_admin = id_admin;
         this.user_name = user_name;
-        this.passwd = pass;
+        this.passwd = passwd;
         this.superAdmin = superAdmin;
     }
 
@@ -42,12 +42,16 @@ public class Admin  {
         this.user_name = user_name;
     }
 
-    public String getPass() {
+    public void setId_admin(int id_admin) {
+        this.id_admin = id_admin;
+    }
+
+    public String getPasswd() {
         return passwd;
     }
 
-    public void setPass(String pass) {
-        this.passwd = pass;
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
     }
 
     public int getSuperAdmin() {

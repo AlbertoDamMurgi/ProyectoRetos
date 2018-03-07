@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "348416606918-0g49ht17u4ke2e3sjdm6rsdf1hh30j6i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "geogame.proyectoretos",
+            "certificate_hash": "df1a04bd4c128daf116b627f3df483438e211244"
+          }
+        },
+        {
           "client_id": "348416606918-iggc39mp1cs5i4m0edfs5q9qc9vaqu05.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
