@@ -12,15 +12,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.GoogleMap;
@@ -37,6 +34,7 @@ public class MapPrincActivity extends FragmentActivity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         OnMapReadyCallback, GoogleMap.OnMapClickListener, LocationListener {
+
 
     private GoogleMap mapa;
     private Location myLocation;
@@ -138,6 +136,7 @@ public class MapPrincActivity extends FragmentActivity implements
                 Toast.makeText(getApplicationContext(),"Tienes que activar los permisos primero",Toast.LENGTH_LONG).show();
 
             }
+            //TODO probar que el marker cargar la foto como icono
             mapa.setMyLocationEnabled(true);
             mapa.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
             mapa.addMarker(new MarkerOptions()
@@ -145,7 +144,7 @@ public class MapPrincActivity extends FragmentActivity implements
                     .title("IES Murgi")
                     .snippet("Instituto de Educación Secundaria Murgi")
                     .icon(BitmapDescriptorFactory
-                            .fromResource(android.R.drawable.ic_menu_compass))
+                            .fromResource(R.drawable.logohoja))
                     .anchor(0.5f, 0.5f));
         }
 
@@ -168,7 +167,9 @@ public class MapPrincActivity extends FragmentActivity implements
         mapa.addCircle(co);
 
         //TODO recorrer array que contendrá retos para ver cercano
-        /*
+
+/*
+
 
         for(int i=0;i<posiciones.size(); i++){
 
@@ -178,8 +179,7 @@ public class MapPrincActivity extends FragmentActivity implements
             }
 
         }
-
-        */
+ */
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) ==

@@ -20,7 +20,7 @@ public interface AdminDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertarAdmins(Admin... admin);
 
-    @Query("Select * from admin where nombre = :nombre")
+    @Query("Select * from admin where user_name = :nombre")
     LiveData<Admin> getAdminActual(String nombre);
 
     @Query("Select * from admin")

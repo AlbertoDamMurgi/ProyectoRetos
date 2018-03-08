@@ -23,11 +23,18 @@ public class PruebaModel extends AndroidViewModel {
     public PruebaModel(Application application) {
         super(application);
         mRepositorio = new Repositorio(application);
-        mAdmins = mRepositorio.getAdmins();
+
     }
+
 
     public void insertAdministrador(Admin admin) { mRepositorio.insertarAdmin(admin); }
 
 
+    public LiveData<List<Admin>> getmAdmins() {
+        if(mAdmins==null) {
+            mAdmins = mRepositorio.getAdmins();
+        }
 
+        return mAdmins;
+    }
 }
