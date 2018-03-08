@@ -111,6 +111,7 @@ public class ActivityInsertarAdmin extends AppCompatActivity {
                         }
 
                        Log.e("LISTA AA AAA",response.toString());
+                        Log.e("hola",""+modelo.getmAdmins().getValue().size());
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -122,8 +123,17 @@ public class ActivityInsertarAdmin extends AppCompatActivity {
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 requestQueue.add(request);
 
+
+
+
             }
         });
+
+
+
+
+
+
 
     }
 }
