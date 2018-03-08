@@ -7,6 +7,8 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
+import java.util.List;
+
 import geogame.proyectoretos.Data.entidades.Admin;
 
 /**
@@ -20,6 +22,9 @@ public interface AdminDao {
 
     @Query("Select * from admin where nombre = :nombre")
     LiveData<Admin> getAdminActual(String nombre);
+
+    @Query("Select * from admin")
+    LiveData<List<Admin>> getAdmins();
 
 
 
