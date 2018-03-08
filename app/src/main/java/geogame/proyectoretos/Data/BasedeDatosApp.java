@@ -28,10 +28,24 @@ import geogame.proyectoretos.Data.entidades.Usuarios;
 public abstract class BasedeDatosApp extends RoomDatabase {
 
     private static final String DATABASE_NAME = "ProyectoRetos";
-    private static final Object LOCK = new Object();
-    private static volatile BasedeDatosApp sInstance;
+    private static BasedeDatosApp INSTANCE;
 
-    public abstract AdminDao adminDao();
+    public abstract  AdminDao adminDao();
+
+    public static BasedeDatosApp getAppDatabase(final Context context) {
+        if (INSTANCE == null) {
+            synchronized (BasedeDatosApp.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                            BasedeDatosApp.class, DATABASE_NAME)
+                            .build();
+                }
+            }
+
+        }
+        return INSTANCE;
+    }
+
 
 
 
@@ -40,5 +54,5 @@ public abstract class BasedeDatosApp extends RoomDatabase {
 
 
 
-    //TODO: hay que crear una interfaz(dao) por cada tabla
+
 

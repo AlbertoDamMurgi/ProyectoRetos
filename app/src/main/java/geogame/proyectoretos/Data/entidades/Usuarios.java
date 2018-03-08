@@ -17,7 +17,8 @@ public class Usuarios {
 
     private String participantes;
 
-    public Usuarios(int idUsuario, String username, String passwd,String participantes) {
+
+    public Usuarios(int idUsuario, String username, String passwd, String participantes) {
         this.idUsuario = idUsuario;
         this.username = username;
         this.passwd = passwd;
