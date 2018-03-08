@@ -14,6 +14,7 @@ public class Usuarios {
     private int idUsuario;
     private String username;
     private String passwd;
+
     private String participantes;
 
 
@@ -29,6 +30,9 @@ public class Usuarios {
         this.username = username;
         this.passwd = passwd;
         this.participantes=participantes;
+
+   
+
     }
 
     public int getIdUsuario() {
