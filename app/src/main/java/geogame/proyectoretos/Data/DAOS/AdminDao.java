@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
 import geogame.proyectoretos.Data.entidades.Admin;
@@ -14,7 +15,7 @@ import geogame.proyectoretos.Data.entidades.Admin;
 @Dao
 public interface AdminDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertarAdmins(Admin... admin);
 
     @Query("Select * from admin where nombre = :nombre")
