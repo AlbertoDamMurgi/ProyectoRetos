@@ -1,6 +1,7 @@
 package geogame.proyectoretos.UI.Adm;
 
 import android.app.ProgressDialog;
+import android.arch.lifecycle.ViewModelProviders;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,13 +29,14 @@ import java.util.Map;
 
 import geogame.proyectoretos.Data.entidades.Admin;
 import geogame.proyectoretos.R;
-import geogame.proyectoretos.UI.MainActivity;
+import geogame.proyectoretos.UI.PruebaModel;
+
 
 public class ActivityInsertarAdmin extends AppCompatActivity {
     EditText txt_user,txt_contra;
     Button bt_insertar;
     ProgressDialog progressDialog;
-
+    PruebaModel modelo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +46,7 @@ public class ActivityInsertarAdmin extends AppCompatActivity {
         txt_contra=findViewById(R.id.txt_username);
         bt_insertar=findViewById(R.id.bt_insertarAdmin);
         progressDialog = new ProgressDialog(ActivityInsertarAdmin.this);
-
+        modelo= ViewModelProviders.of(this).get(PruebaModel.class);
         bt_insertar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,8 +102,9 @@ public class ActivityInsertarAdmin extends AppCompatActivity {
 
                             try {
                                 JSONObject o =response.getJSONObject(i);
-                                Admin a=new Admin(o.getInt("idAdmin"),o.getString("username"),o.getString("passwd"),o.getInt("superAdmin"));
-                                Log.e("LISTA AA AAA", a.toString());
+
+                               modelo.insertAdministrador( new Admin(o.getInt("idAdmin"),o.getString("username"),o.getString("passwd"),o.getInt("superAdmin")));
+
                             } catch (JSONException e) {
 
                             }

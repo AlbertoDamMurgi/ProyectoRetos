@@ -29,5 +29,7 @@ public class PruebaModel extends AndroidViewModel {
     public void insertAdministrador(Admin admin) { mRepositorio.insertarAdmin(admin); }
 
 
-
+    public LiveData<List<Admin>> getmAdmins() {
+        return mAdmins;
+    }
 }
