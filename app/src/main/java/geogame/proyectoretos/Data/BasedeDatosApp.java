@@ -7,6 +7,7 @@ import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
+import geogame.proyectoretos.Data.DAOS.AdminDao;
 import geogame.proyectoretos.Data.entidades.Admin;
 import geogame.proyectoretos.Data.entidades.Localizaciones;
 import geogame.proyectoretos.Data.entidades.Partidas;
@@ -30,17 +31,8 @@ public abstract class BasedeDatosApp extends RoomDatabase {
     private static final Object LOCK = new Object();
     private static volatile BasedeDatosApp sInstance;
 
-    public static BasedeDatosApp getInstance(Context context) {
-        if (sInstance == null) {
-            synchronized (LOCK) {
-                if (sInstance == null) {
-                    sInstance = Room.databaseBuilder(context.getApplicationContext(), BasedeDatosApp.class, BasedeDatosApp.DATABASE_NAME).build();
+    public abstract AdminDao adminDao();
 
-                }
-            }
-        }
-
-        return sInstance;
 
 
     }
@@ -50,4 +42,3 @@ public abstract class BasedeDatosApp extends RoomDatabase {
 
     //TODO: hay que crear una interfaz(dao) por cada tabla
 
-}

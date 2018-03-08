@@ -17,6 +17,9 @@ public class Chat {
         this.mensaje = mensaje;
     }
 
+    public Chat() {
+    }
+
     public String getMensaje() {
         return mensaje;
     }

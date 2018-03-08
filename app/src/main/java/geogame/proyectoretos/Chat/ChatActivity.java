@@ -83,12 +83,13 @@ public class ChatActivity extends AppCompatActivity {
         myRef = database.getReference("chat"); // parecido a crear una tabla llamada chat
     }
 
+
     public void leerFirebase() {
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 // comprobamos que dataSnapshot sea distinto de null es obligatorio esta comprobacion
-                if (dataSnapshot != null && dataSnapshot.getValue() != null) {
+                if (dataSnapshot != null ) {
                     try {
                         Chat msg = dataSnapshot.getValue(Chat.class);
                         insertarMensaje(msg);
@@ -140,7 +141,7 @@ public class ChatActivity extends AppCompatActivity {
         // instanciamos el objeto que hemos creado con el POI Mensaje
         Chat msg = new Chat(cadena);
 
-        insertarMensaje(msg);
+
         // guardamos en firebase
         guardarMensaje(msg);
 
