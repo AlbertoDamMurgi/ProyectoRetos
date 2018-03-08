@@ -30,6 +30,7 @@ public class Repositorio {
 
         LiveData<List<Admin>> admins = basedeDatosApp.adminDao().getAdmins();
         return admins;
+
     }
 
 
@@ -48,11 +49,14 @@ public class Repositorio {
             mAdminDao = dao;
         }
 
+
         @Override
         protected Void doInBackground(final Admin... params) {
             mAdminDao.insertarAdmins(params[0]);
+
             return null;
         }
+
 
     }
 

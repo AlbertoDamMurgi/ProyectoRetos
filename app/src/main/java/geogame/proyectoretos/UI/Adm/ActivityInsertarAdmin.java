@@ -1,10 +1,13 @@
 package geogame.proyectoretos.UI.Adm;
 
 import android.app.ProgressDialog;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.LongSparseArray;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import geogame.proyectoretos.Data.entidades.Admin;
@@ -47,6 +51,21 @@ public class ActivityInsertarAdmin extends AppCompatActivity {
         bt_insertar=findViewById(R.id.bt_insertarAdmin);
         progressDialog = new ProgressDialog(ActivityInsertarAdmin.this);
         modelo= ViewModelProviders.of(this).get(PruebaModel.class);
+
+
+        modelo.getmAdmins().observe(this, new Observer<List<Admin>>() {
+            @Override
+            public void onChanged(@Nullable List<Admin> admins) {
+                for (int i = 0; i < admins.size(); i++) {
+                    Log.e("eqwe",""+admins.get(i).getId_admin());
+                    Log.e("eqwe",""+admins.get(i).getUser_name());
+                }
+            }
+        });
+
+
+
+
         bt_insertar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,7 +130,7 @@ public class ActivityInsertarAdmin extends AppCompatActivity {
                         }
 
                        Log.e("LISTA AA AAA",response.toString());
-                        Log.e("hola",""+modelo.getmAdmins().getValue().size());
+
                     }
                 }, new Response.ErrorListener() {
                     @Override
