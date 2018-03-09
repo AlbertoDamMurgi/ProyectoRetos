@@ -19,7 +19,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import geogame.proyectoretos.Chat.ChatActivity;
 import geogame.proyectoretos.R;
-import geogame.proyectoretos.papelera.LoginModel;
 
 public class MainActivity extends AppCompatActivity implements LifecycleObserver {
 

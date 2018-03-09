@@ -40,22 +40,7 @@ public class ActivityInsertarAdmin extends AppCompatActivity {
         txt_contra=findViewById(R.id.txt_username);
         bt_insertar=findViewById(R.id.bt_insertarAdmin);
         progressDialog = new ProgressDialog(ActivityInsertarAdmin.this);
-        modelo= ViewModelProviders.of(this).get(PruebaModel.class);
 
-
-            modelo.getmAdmins().observe(this, new Observer<List<Admin>>() {
-                @Override
-                public void onChanged(@Nullable List<Admin> admins) {
-
-                if(admins.get(0)==null){
-                    modelo.getmAdmins();
-                }
-
-
-                }
-            }
-
-            );
 
 
 

@@ -27,7 +27,6 @@ import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import geogame.proyectoretos.R;
-import geogame.proyectoretos.papelera.LoginModel;
 
 public class LoginActivity extends AppCompatActivity implements LifecycleObserver {
 
