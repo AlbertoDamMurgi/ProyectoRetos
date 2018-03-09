@@ -24,7 +24,7 @@ public interface AdminDao {
     LiveData<Admin> getAdminActual(String nombre);
 
     @Query("Select * from admin")
-    LiveData<List<Admin>> getAdmins();
+   Admin[] getAdmins();
 
 
 

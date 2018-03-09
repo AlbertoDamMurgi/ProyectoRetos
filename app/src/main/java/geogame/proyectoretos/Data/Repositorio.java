@@ -1,10 +1,7 @@
 package geogame.proyectoretos.Data;
 
 import android.app.Application;
-import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
-
-import java.util.List;
 
 import geogame.proyectoretos.Data.DAOS.AdminDao;
 import geogame.proyectoretos.Data.entidades.Admin;
@@ -26,10 +23,10 @@ public class Repositorio {
     }
 
 
-    public LiveData<List<Admin>> getAdmins(){
+    public Admin[] getAdmins(){
 
-        LiveData<List<Admin>> admins = basedeDatosApp.adminDao().getAdmins();
-        return admins;
+
+        return  basedeDatosApp.adminDao().getAdmins();
 
     }
 

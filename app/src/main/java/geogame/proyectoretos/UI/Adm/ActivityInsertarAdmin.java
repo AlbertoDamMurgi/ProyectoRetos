@@ -3,6 +3,7 @@ package geogame.proyectoretos.UI.Adm;
 import android.app.ProgressDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -45,23 +46,33 @@ public class ActivityInsertarAdmin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insertar_admin);
-
+        final Admin[] aux = new Admin[1];
         txt_user=findViewById(R.id.txt_passwd);
         txt_contra=findViewById(R.id.txt_username);
         bt_insertar=findViewById(R.id.bt_insertarAdmin);
         progressDialog = new ProgressDialog(ActivityInsertarAdmin.this);
         modelo= ViewModelProviders.of(this).get(PruebaModel.class);
 
-
-        modelo.getmAdmins().observe(this, new Observer<List<Admin>>() {
+        new AsyncTask<Void,Void,Admin>(){
             @Override
-            public void onChanged(@Nullable List<Admin> admins) {
-                for (int i = 0; i < admins.size(); i++) {
-                    Log.e("eqwe",""+admins.get(i).getId_admin());
-                    Log.e("eqwe",""+admins.get(i).getUser_name());
-                }
+            protected Admin doInBackground(Void... voids) {
+
+                 aux[0] = modelo.getmAdmins()[0];
+
+                 return null;
             }
-        });
+
+            @Override
+            protected void onPostExecute(Admin admin) {
+                super.onPostExecute(admin);
+                Log.e("asdasd", aux[0].getPasswd());
+            }
+        }.execute();
+
+
+
+
+
 
 
 
