@@ -1,4 +1,4 @@
-package geogame.proyectoretos.UI;
+package geogame.proyectoretos.papelera;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
