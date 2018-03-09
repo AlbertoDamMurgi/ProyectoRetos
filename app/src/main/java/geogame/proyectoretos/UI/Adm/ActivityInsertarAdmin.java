@@ -27,10 +27,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import geogame.proyectoretos.Data.Internet;
 import geogame.proyectoretos.Data.entidades.Admin;
 import geogame.proyectoretos.R;
 import geogame.proyectoretos.UI.PruebaModel;
@@ -69,7 +71,11 @@ public class ActivityInsertarAdmin extends AppCompatActivity {
         bt_insertar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Internet internet=new Internet(getApplicationContext());
+               internet.listarAdmins();
 
+                Log.d("pene","aaaaaaaaa");
+/*
                 progressDialog.setMessage("Please Wait, We are Inserting Your Data on Server");
                 progressDialog.show();
 
@@ -102,7 +108,7 @@ public class ActivityInsertarAdmin extends AppCompatActivity {
 
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 requestQueue.add(stringRequest);
-
+*/
             }
         });
 
