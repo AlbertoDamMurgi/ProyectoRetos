@@ -3,6 +3,8 @@ package geogame.proyectoretos.UI.Adm;
 import android.app.ProgressDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Database;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,6 +34,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import geogame.proyectoretos.Data.BasedeDatosApp;
+import geogame.proyectoretos.Data.DAOS.AdminDao;
 import geogame.proyectoretos.Data.Internet;
 import geogame.proyectoretos.Data.entidades.Admin;
 import geogame.proyectoretos.R;
@@ -43,6 +47,8 @@ public class ActivityInsertarAdmin extends AppCompatActivity {
     Button bt_insertar;
     ProgressDialog progressDialog;
     PruebaModel modelo;
+    AdminDao dao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +61,7 @@ public class ActivityInsertarAdmin extends AppCompatActivity {
         modelo= ViewModelProviders.of(this).get(PruebaModel.class);
 
 
+        Log.d("pene","aaaaaaaaa"+dao.getAdmins().getValue().size());
         modelo.getmAdmins().observe(this, new Observer<List<Admin>>() {
             @Override
             public void onChanged(@Nullable List<Admin> admins) {
@@ -116,7 +123,8 @@ public class ActivityInsertarAdmin extends AppCompatActivity {
         findViewById(R.id.bt_listar).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("adad","addwad");
+
+                /*Log.e("adad","addwad");
                 final String URL = "http://geogame.ml/api/lista_admins.php";
 
                 JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {
@@ -147,6 +155,7 @@ public class ActivityInsertarAdmin extends AppCompatActivity {
 
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 requestQueue.add(request);
+*/
 
 
 
