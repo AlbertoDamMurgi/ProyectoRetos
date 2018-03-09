@@ -7,35 +7,18 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.LongSparseArray;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import geogame.proyectoretos.Data.Internet;
+import butterknife.BindView;
+import geogame.proyectoretos.Data.DAOS.AdminDao;
 import geogame.proyectoretos.Data.entidades.Admin;
 import geogame.proyectoretos.R;
-import geogame.proyectoretos.UI.PruebaModel;
+import geogame.proyectoretos.papelera.PruebaModel;
 
 
 public class ActivityInsertarAdmin extends AppCompatActivity {
@@ -43,6 +26,11 @@ public class ActivityInsertarAdmin extends AppCompatActivity {
     Button bt_insertar;
     ProgressDialog progressDialog;
     PruebaModel modelo;
+    AdminDao dao;
+
+    @BindView(R.id.tv_prueba)
+    TextView prueba;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,18 +40,7 @@ public class ActivityInsertarAdmin extends AppCompatActivity {
         txt_contra=findViewById(R.id.txt_username);
         bt_insertar=findViewById(R.id.bt_insertarAdmin);
         progressDialog = new ProgressDialog(ActivityInsertarAdmin.this);
-        modelo= ViewModelProviders.of(this).get(PruebaModel.class);
 
-
-        modelo.getmAdmins().observe(this, new Observer<List<Admin>>() {
-            @Override
-            public void onChanged(@Nullable List<Admin> admins) {
-                for (int i = 0; i < admins.size(); i++) {
-                    Log.e("eqwe",""+admins.get(i).getId_admin());
-                    Log.e("eqwe",""+admins.get(i).getUser_name());
-                }
-            }
-        });
 
 
 
@@ -71,8 +48,7 @@ public class ActivityInsertarAdmin extends AppCompatActivity {
         bt_insertar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Internet internet=new Internet(getApplicationContext());
-               internet.listarAdmins();
+
 
                 Log.d("pene","aaaaaaaaa");
 /*
@@ -116,7 +92,8 @@ public class ActivityInsertarAdmin extends AppCompatActivity {
         findViewById(R.id.bt_listar).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("adad","addwad");
+
+                /*Log.e("adad","addwad");
                 final String URL = "http://geogame.ml/api/lista_admins.php";
 
                 JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {
@@ -147,6 +124,7 @@ public class ActivityInsertarAdmin extends AppCompatActivity {
 
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 requestQueue.add(request);
+*/
 
 
 

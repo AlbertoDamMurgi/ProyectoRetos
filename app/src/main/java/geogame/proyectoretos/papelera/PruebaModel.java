@@ -1,13 +1,12 @@
-package geogame.proyectoretos.UI;
+package geogame.proyectoretos.papelera;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.MutableLiveData;
 
 import java.util.List;
 
-import geogame.proyectoretos.Data.Repositorio;
 import geogame.proyectoretos.Data.entidades.Admin;
 
 /**
@@ -17,7 +16,7 @@ import geogame.proyectoretos.Data.entidades.Admin;
 public class PruebaModel extends AndroidViewModel {
 
     private Repositorio mRepositorio;
-    private LiveData<List<Admin>> mAdmins;
+    private MutableLiveData<List<Admin>> mAdmins;
 
 
     public PruebaModel(Application application) {
@@ -30,10 +29,13 @@ public class PruebaModel extends AndroidViewModel {
     public void insertAdministrador(Admin admin) { mRepositorio.insertarAdmin(admin); }
 
 
+
     public LiveData<List<Admin>> getmAdmins() {
         if(mAdmins==null) {
-            mAdmins = mRepositorio.getAdmins();
+            mAdmins = new MutableLiveData<>();
+            mAdmins.postValue(mRepositorio.internet.listarAdmins());
         }
+
 
         return mAdmins;
     }
