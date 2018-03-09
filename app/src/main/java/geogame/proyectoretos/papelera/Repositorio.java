@@ -2,12 +2,10 @@ package geogame.proyectoretos.papelera;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 
 import java.util.List;
 
 import geogame.proyectoretos.Data.BasedeDatosApp;
-import geogame.proyectoretos.Data.Internet;
 import geogame.proyectoretos.Data.entidades.Admin;
 
 /**

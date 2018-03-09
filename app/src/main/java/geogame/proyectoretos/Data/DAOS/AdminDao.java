@@ -22,10 +22,10 @@ public interface AdminDao {
     void insertarAdmins(Admin... admin);
 
     @Query("Select * from admin where user_name = :nombre")
-    LiveData<Admin> getAdminActual(String nombre);
+    Admin getAdminActual(String nombre);
 
     @Query("Select * from admin")
-    LiveData<List<Admin>> getAdmins();
+   List<Admin> getAdmins();
 
 
 
