@@ -1,15 +1,26 @@
 package geogame.proyectoretos.UI;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -20,22 +31,49 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import geogame.proyectoretos.Data.entidades.Partidas;
 import geogame.proyectoretos.R;
 
 public class CrearRetoActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener{
 
     private double latitud;
     private double longitud;
+    private int idPartida;
     private LatLng latLng;
     GoogleApiClient mClient;
     public static final String TAG = CrearRetoActivity.class.getSimpleName();
     private static final int PLACE_PICKER_REQUEST = 1;
 
+    ProgressDialog progressDialog;
+
+    @BindView(R.id.txt_crearReto_nombre)
+    EditText txt_nombre;
+
+    @BindView(R.id.txt_crearReto_duracion)
+    EditText txt_duracion;
+
+    @BindView(R.id.txt_crearReto_puntuacion)
+    EditText txt_puntos;
+
+    @BindView(R.id.txt_crearReto_pregunta)
+    EditText txt_pregunta;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_reto);
-
+        ButterKnife.bind(this);
+        progressDialog = new ProgressDialog(this);
 
 
         mClient = new GoogleApiClient.Builder(this)
@@ -53,6 +91,131 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
         ImageButton btnMapa = findViewById(R.id.btn_crearReto_mapaLugares);
         btnMapa.setOnClickListener(view -> runApiPlaces(view));
     }
+
+
+
+
+
+    @OnClick(R.id.btn_crearReto_next )
+    void ClickBotonReto() {
+        Log.i("LOOOOOOOOOOOG","ENTRE EN CLIK");
+        progressDialog.setMessage("Creando reto...");
+        progressDialog.show();
+        InsertarReto();
+
+
+    }//End OnClick
+
+
+
+    void CargarIDPartida(){
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+////////////////////////////////////////////// Partida
+
+        final String URL = "http://geogame.ml/api/obtener_partida.php?clavereto="+1;
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                for (int i=0;i<response.length();i++){
+
+                    try {
+                        JSONObject o =response.getJSONObject(i);
+                        Log.e("LISTA Partida","una vuelta");
+
+
+                                o.getInt("idPartida");
+                                o.getString("nombre");
+                                o.getString("passwd");
+                                o.getInt("maxDuracion");
+
+
+                    } catch (JSONException e) {
+                        Log.e("Log Json error Partida",e.getMessage());
+                    }
+                }//endgfor
+                Log.e("LISTA Partida",response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Partida",error.getMessage());
+                Toast.makeText(getApplicationContext(),"failed",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        requestQueue.add(request);
+
+    }//End CargarIDPartida
+
+
+//////////////////////////////////////
+    void InsertarReto(){
+        //INSERTART
+        final String URL = "http://geogame.ml/api/insertar_reto.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if (response.contains("success")) {
+
+                }else{
+                    Toast.makeText(getApplicationContext(), "Ups! ha habido algun error", Toast.LENGTH_SHORT).show();
+
+                }
+                Log.e("ON RESPONDE",response.toString());
+                progressDialog.dismiss();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+            }
+
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("nombre", txt_nombre.getText().toString());
+                params.put("descripcion", txt_pregunta.getText().toString());
+                params.put("maxDuracion", txt_duracion.getText().toString());
+                params.put("tipo", "1");
+                params.put("puntuacion", txt_puntos.getText().toString());
+                params.put("localizacionLatitud", ""+4);
+                params.put("localizacionLongitud", ""+4);
+                params.put("idPartida", ""+1);
+                return params;
+            }
+        };
+
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(stringRequest);
+    }//InsertarReto
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public void runApiPlaces(View view){
@@ -103,5 +266,31 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+
+/////////////////////////////////////////////
+
+    class CargarPartida extends AsyncTask<Void,Void,Integer> {
+        @Override
+        protected Integer doInBackground(Void... p) {
+
+            return 0;
+        }
+    }
+    class CrearReto extends AsyncTask<Void,Void,Integer> {
+        @Override
+        protected Integer doInBackground(Void... p) {
+
+            return 0;
+        }
+    }
+
+    class CrearRespuestas extends AsyncTask<Void,Void,Integer> {
+        @Override
+        protected Integer doInBackground(Void... p) {
+
+            return 0;
+        }
     }
 }

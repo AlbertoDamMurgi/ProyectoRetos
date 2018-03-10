@@ -1,6 +1,7 @@
 package geogame.proyectoretos.UI;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +19,8 @@ import com.android.volley.toolbox.Volley;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import butterknife.ButterKnife;
 import geogame.proyectoretos.R;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -37,6 +40,7 @@ public class CrearPartida extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_partida);
+        ButterKnife.bind(this);
         progressDialog = new ProgressDialog(this);
 
     }
@@ -54,6 +58,7 @@ public class CrearPartida extends AppCompatActivity {
             public void onResponse(String response) {
                 if (response.contains("success")) {
                     Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(),CrearRetoActivity.class));
                 }
                 progressDialog.dismiss();
             }
