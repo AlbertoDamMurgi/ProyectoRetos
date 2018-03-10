@@ -81,9 +81,8 @@ public class MapPrincActivity extends FragmentActivity implements
                 .addApi(Places.PLACE_DETECTION_API)
                 .enableAutoManage(this ,this )
                 .build();
-        myClient.connect();
+        //myClient.connect();
     }
-
 
     @Override
     public void onLocationChanged(Location location) {
@@ -157,7 +156,8 @@ public class MapPrincActivity extends FragmentActivity implements
 
         }
         gestorLoc.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,1,this);
-        myLocation=LocationServices.FusedLocationApi.getLastLocation(myClient);
+
+        myLocation=gestorLoc.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         myPos=new LatLng(myLocation.getLatitude(),myLocation.getLongitude());
 
 
