@@ -73,7 +73,8 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
 
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));
                 }else{
-                    startActivity(new Intent(getApplicationContext(),LoginAdmin.class));
+                    //startActivity(new Intent(getApplicationContext(),LoginAdmin.class));
+                    Toast.makeText(LoginActivity.this, "Credenciales erroneas.", Toast.LENGTH_SHORT).show();
                 }
             }
         });

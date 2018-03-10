@@ -18,6 +18,8 @@ import com.android.volley.toolbox.Volley;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import butterknife.ButterKnife;
 import geogame.proyectoretos.R;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -33,10 +35,12 @@ public class CrearPartida extends AppCompatActivity {
     EditText txt_duracion;
     @BindView(R.id.bt_crearpartida_continuar)
     Button bt_continuar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_partida);
+        ButterKnife.bind(this);
         progressDialog = new ProgressDialog(this);
 
     }
