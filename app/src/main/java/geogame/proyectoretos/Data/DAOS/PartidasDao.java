@@ -20,4 +20,6 @@ public interface PartidasDao {
     @Query("Select * from partidas where nombre = :nombre")
     Partidas getPartidaActual(String nombre);
 
+
+
 }

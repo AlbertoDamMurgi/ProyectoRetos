@@ -31,4 +31,7 @@ public class LoginModel extends ViewModel {
     public void setUsuario(MutableLiveData<FirebaseUser> usuario) {
         this.usuario = usuario;
     }
+
+
+
 }
