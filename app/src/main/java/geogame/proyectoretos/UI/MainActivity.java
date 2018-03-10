@@ -40,7 +40,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import geogame.proyectoretos.Chat.ChatActivity;
 import geogame.proyectoretos.Data.BasedeDatosApp;
-import geogame.proyectoretos.Data.BasedeDatosApp_Impl;
+
 import geogame.proyectoretos.Data.entidades.Admin;
 import geogame.proyectoretos.Data.entidades.Retos;
 import geogame.proyectoretos.R;
