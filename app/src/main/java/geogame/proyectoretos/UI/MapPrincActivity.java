@@ -156,6 +156,7 @@ public class MapPrincActivity extends FragmentActivity implements
 
         }
         gestorLoc.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,1,this);
+
         myLocation=gestorLoc.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         myPos=new LatLng(myLocation.getLatitude(),myLocation.getLongitude());
 
