@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="@+id/guideline6" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/txt_contraPartida"
         android:layout_width="0dp"
         android:layout_height="46dp"
         android:layout_marginBottom="16dp"
@@ -28,7 +28,7 @@
         android:ems="10"
         android:hint="Contraseña de partida"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintBottom_toTopOf="@+id/bt_iniciarPartida"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline6" />
 
@@ -41,7 +41,7 @@
         android:layout_marginStart="8dp"
         android:text="Inicia el juego"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/editText"
+        app:layout_constraintBottom_toTopOf="@+id/txt_contraPartida"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline6" />
 
@@ -74,7 +74,7 @@
         app:srcCompat="@drawable/logohoja" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/bt_iniciarPartida"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
