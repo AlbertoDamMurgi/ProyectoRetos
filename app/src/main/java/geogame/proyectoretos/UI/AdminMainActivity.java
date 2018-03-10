@@ -35,10 +35,10 @@ public class AdminMainActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_chat_main_registro:
-                new Intent(getApplicationContext(), ChatActivity.class);
+                startActivity(new Intent(getApplicationContext(), ChatActivity.class));
                 break;
             case R.id.btn_main_admin_crear_partida:
-               // new Intent(getApplicationContext(),CrearPartidaActivity.class);
+                startActivity(new Intent(getApplicationContext(),CrearPartida.class));
                 break;
             case R.id.btn_main_admin_desconectarse:
                 desconectarAdmin();
