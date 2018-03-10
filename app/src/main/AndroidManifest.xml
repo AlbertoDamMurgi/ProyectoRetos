@@ -29,7 +29,7 @@
         <activity android:name=".UI.LoginAdmin" />
         <activity android:name=".UI.RegistroAdminActivity" />
         <activity android:name=".UI.AdminMainActivity" />
-        <activity android:name=".UI.CrearRetoActivity" />
+        <activity android:name=".UI.CrearRetoActivity"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
