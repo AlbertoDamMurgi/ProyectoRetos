@@ -18,10 +18,10 @@ import com.android.volley.toolbox.Volley;
 
 import java.util.HashMap;
 import java.util.Map;
-
+import geogame.proyectoretos.R;
 import butterknife.BindView;
 import butterknife.OnClick;
-import geogame.proyectoretos.R;
+
 
 public class CrearPartida extends AppCompatActivity {
     ProgressDialog progressDialog;
