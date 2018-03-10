@@ -22,11 +22,9 @@ import geogame.proyectoretos.R;
 
 public class MainActivity extends AppCompatActivity implements LifecycleObserver {
 
-    @BindView(R.id.pruebaemail)
-    TextView pruebaemail;
 
-    @BindView(R.id.textView3)
-    TextView textView3;
+
+
 
     private LoginModel mLoginModel;
 
@@ -47,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         String email = mLoginModel.getConection().getValue().getInstance().getCurrentUser().getEmail();
 
 
-        pruebaemail.setText(email);
+
 
 
 
@@ -85,13 +83,14 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         mLoginModel.getUsuario().postValue(null);
 
     }
-
+/*
     @OnClick(R.id.btn_chat)
     public void iralChat() {
 
         startActivity(new Intent(getApplicationContext(), ChatActivity.class));
 
     }
+    */
 }
 
 

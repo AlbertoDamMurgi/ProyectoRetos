@@ -88,7 +88,13 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
     }
 
 
+    @OnClick(R.id.bt_register)
+    void stratRetistro(){
+        startActivity(new Intent(getApplicationContext(),RegistroActivity.class));
+    }
 
+
+/*
     @OnClick(R.id.btn_registrarse)
     void registrarAdmin() {
 
@@ -119,6 +125,7 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
 
 
     }
+    */
 
     @OnClick(R.id.btn_conectarse)
     void conectarUsuario(){
