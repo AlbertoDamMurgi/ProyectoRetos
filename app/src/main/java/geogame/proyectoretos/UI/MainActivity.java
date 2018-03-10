@@ -42,6 +42,7 @@ import geogame.proyectoretos.Chat.ChatActivity;
 import geogame.proyectoretos.Data.BasedeDatosApp;
 import geogame.proyectoretos.Data.BasedeDatosApp_Impl;
 import geogame.proyectoretos.Data.entidades.Admin;
+import geogame.proyectoretos.Data.entidades.Partidas;
 import geogame.proyectoretos.Data.entidades.Retos;
 import geogame.proyectoretos.R;
 import geogame.proyectoretos.UI.Adm.ActivityInsertarAdmin;
@@ -124,13 +125,18 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
     @OnClick(R.id.bt_iniciarPartida)
     void iniciarPartida(){
-        retos = new ArrayList<>();
+
+
         progressDialog.setMessage("Cargando partida...");
         progressDialog.show();
-    new comprobarDescargado().execute();
 
-        final String URL = "http://geogame.ml/api/Lista_Retos_Clave.php?clavereto="+txt_contraPartida.getText().toString();
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
+
+
+////////////////////////////////////////////// Partida
+
+        final String URL = "http://geogame.ml/api/obtener_partida.php?clavereto="+txt_contraPartida.getText().toString();
 
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {
@@ -142,21 +148,57 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                     try {
                         JSONObject o =response.getJSONObject(i);
                         Log.e("LISTA AA AAA","una vuelta");
-                        /*
-                         new Retos(
 
-                                        o.getInt("idReto"),
-                                        o.getString("nombre"),
-                                        o.getString("descripcion"),
-                                        o.getInt("maxDuracion"),
-                                        o.getInt("tipo"),
-                                        o.getInt("puntuacion"),
-                                        o.getDouble("localizacionLatitud"),
-                                        o.getDouble("localizacionLongitud"),
-                                        o.getInt("idPartida")
-                                )
+                        new InsertarPartida().execute( new Partidas(
+                                o.getInt("idPartida"),
+                                o.getString("nombre"),
+                                o.getString("passwd"),
+                                o.getInt("maxDuracion")
+                        ));
 
-                        * */
+                    } catch (JSONException e) {
+                        Log.e("Log Json error",e.getMessage());
+                    }
+                }//endgfor
+                progressDialog.dismiss();
+
+
+                Log.e("LISTA AA AAA",response.toString());
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("adad",error.getMessage());
+                Toast.makeText(getApplicationContext(),"failed",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        requestQueue.add(request);
+
+
+        ///////////////////////////////////////////////////////////////// RETOS
+
+
+
+
+
+
+        new comprobarDescargado().execute();
+
+        final String URL2 = "http://geogame.ml/api/Lista_Retos_Clave.php?clavereto="+txt_contraPartida.getText().toString();
+
+
+
+        JsonArrayRequest request2 = new JsonArrayRequest(Request.Method.POST, URL2, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                for (int i=0;i<response.length();i++){
+
+                    try {
+                        JSONObject o =response.getJSONObject(i);
+                        Log.e("LISTA AA AAA","una vuelta");
 
                     new InsertarReto().execute( new Retos(
 
@@ -171,14 +213,11 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                             o.getInt("idPartida")
                     ));
 
-                        Log.e("LISTA size",""+retos.size());
-
                     } catch (JSONException e) {
                         Log.e("Log Json error",e.getMessage());
                     }
                 }//endgfor
                 progressDialog.dismiss();
-
 
                 Log.e("LISTA AA AAA",response.toString());
 
@@ -201,11 +240,12 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
             }}
           */
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        requestQueue.add(request);
+
+        requestQueue.add(request2);
 
 
-    }
+
+    }//fin onclick
 
 
     class comprobarDescargado extends AsyncTask<Void,Void,Integer> {
@@ -240,7 +280,18 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
     }
 
+    class InsertarPartida extends AsyncTask<Partidas,Void,Integer> {
 
+
+
+        @Override
+        protected Integer doInBackground(Partidas... p) {
+            db.partidasDao().partidasInsert(p);
+            return 0;
+        }
+
+
+    }
 /*
     void comprobarDescargado(){
         Log.e("size retos",""+retos.size());

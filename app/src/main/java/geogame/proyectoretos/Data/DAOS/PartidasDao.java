@@ -3,6 +3,7 @@ package geogame.proyectoretos.Data.DAOS;
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
 import geogame.proyectoretos.Data.entidades.Partidas;
@@ -13,7 +14,7 @@ import geogame.proyectoretos.Data.entidades.Partidas;
 @Dao
 public interface PartidasDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void partidasInsert(Partidas... partida);
 
 
