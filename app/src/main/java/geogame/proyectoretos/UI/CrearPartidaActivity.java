@@ -1,4 +1,4 @@
-package geogame.proyectoretos.UI.Adm;
+package geogame.proyectoretos.UI;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

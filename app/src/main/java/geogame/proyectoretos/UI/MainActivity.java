@@ -13,10 +13,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -30,10 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,12 +36,10 @@ import butterknife.OnClick;
 import geogame.proyectoretos.Chat.ChatActivity;
 import geogame.proyectoretos.Data.BasedeDatosApp;
 
-import geogame.proyectoretos.Data.entidades.Admin;
 import geogame.proyectoretos.Data.entidades.Partidas;
 import geogame.proyectoretos.Data.entidades.Respuestas;
 import geogame.proyectoretos.Data.entidades.Retos;
 import geogame.proyectoretos.R;
-import geogame.proyectoretos.UI.Adm.ActivityInsertarAdmin;
 
 public class MainActivity extends AppCompatActivity implements LifecycleObserver {
 
