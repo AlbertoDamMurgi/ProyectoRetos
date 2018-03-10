@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".UI.Adm.ActivityInsertarAdmin">
+        <activity android:name=".UI.LoginActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,7 +32,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
       <activity android:name=".UI.RegistroActivity" />
       <activity android:name=".UI.MapPrincActivity"></activity>
-    <!-- <activity android:name=".UI.Adm.ActivityInsertarAdmin"></activity>-->
+    <activity android:name=".UI.Adm.ActivityInsertarAdmin"></activity>
     </application>
 
 </manifest>

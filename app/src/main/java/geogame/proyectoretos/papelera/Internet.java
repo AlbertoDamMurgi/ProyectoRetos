@@ -1,4 +1,4 @@
-package geogame.proyectoretos.papelera;
+/*package geogame.proyectoretos.papelera;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -23,6 +23,26 @@ import geogame.proyectoretos.Data.entidades.Admin;
 /**
  * Created by Santi on 09/03/2018.
  */
+/*
+import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import geogame.proyectoretos.Data.entidades.Admin;
 
 public class Internet {
          static String URL;
@@ -63,7 +83,7 @@ public class Internet {
     }
 
 
-    private class InternetGetAdmin extends AsyncTask<Void,Void,List<Admin>>{
+    private class InternetGetAdmin extends AsyncTask<Void,Void,List<Admin>> {
 
         List<Admin> mAdmins = new ArrayList<>();
 
@@ -117,3 +137,4 @@ public class Internet {
 
 
 }
+*/

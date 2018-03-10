@@ -44,11 +44,12 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
         escuchador();
 
-
         String email = mLoginModel.getConection().getValue().getInstance().getCurrentUser().getEmail();
 
 
         pruebaemail.setText(email);
+
+
 
 
     }
