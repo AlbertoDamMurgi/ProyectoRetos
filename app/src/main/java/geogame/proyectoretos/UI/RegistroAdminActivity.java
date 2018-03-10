@@ -19,17 +19,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import geogame.proyectoretos.R;
 
-public class RegistroActivity extends AppCompatActivity {
+public class RegistroAdminActivity extends AppCompatActivity {
 
-    private static final String TAG = "Registro_Equipo";
-    @BindView(R.id.ed_nombre_equipo)
-     EditText nombreequipo;
-
-    @BindView(R.id.ed_pass_equipo)
-     EditText passequipo;
-
-    @BindView(R.id.ed_correo_equipo)
-    EditText correoequipo;
+    private static final String TAG = "REGISTROADMIN";
+    @BindView(R.id.ed_correo_admin_registrar)
+    EditText correoadmin;
+    @BindView(R.id.ed_pass_equipo_admin_registrar)
+    EditText passadmin;
 
 
     private LoginModel mLoginModel;
@@ -39,21 +35,22 @@ public class RegistroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registro);
+        setContentView(R.layout.activity_registro_admin);
+
         ButterKnife.bind(this);
 
         mLoginModel = ViewModelProviders.of(this).get(LoginModel.class);
 
         mAuth = FirebaseAuth.getInstance();
 
+
     }
 
+    @OnClick(R.id.btn_registro_admin_registrar)
+    void registrarAdmin() {
 
-    @OnClick(R.id.btn_registro_equipo)
-    void registrarEquipo() {
 
-
-        mAuth.createUserWithEmailAndPassword(correoequipo.getText().toString(), passequipo.getText().toString())
+        mAuth.createUserWithEmailAndPassword(correoadmin.getText().toString(), passadmin.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -65,7 +62,7 @@ public class RegistroActivity extends AppCompatActivity {
                             mLoginModel.getUsuario().setValue(mAuth.getInstance().getCurrentUser());
 
 
-                            String name = nombreequipo.getText().toString();
+                            String name = "Administrador";
                             UserProfileChangeRequest update = new UserProfileChangeRequest.Builder()
                                     .setDisplayName(name)
                                     .build();
@@ -76,12 +73,12 @@ public class RegistroActivity extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
 
-                                                Toast.makeText(RegistroActivity.this, "user updated", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(RegistroAdminActivity.this, "user updated", Toast.LENGTH_SHORT).show();
                                                 Log.e("asdasd", "cambiado");
                                                 Log.e("qweqwe", mLoginModel.getUsuario().getValue().getDisplayName());
 
                                             } else {
-                                                Toast.makeText(RegistroActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(RegistroAdminActivity.this, "Error", Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                     });
@@ -90,7 +87,7 @@ public class RegistroActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(RegistroActivity.this, "Authentication failed.",
+                            Toast.makeText(RegistroAdminActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
 
                         }
@@ -100,4 +97,5 @@ public class RegistroActivity extends AppCompatActivity {
                 });
 
     }
+
 }
