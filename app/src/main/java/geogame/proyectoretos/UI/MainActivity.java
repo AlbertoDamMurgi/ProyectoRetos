@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
         String email = mLoginModel.getConection().getValue().getInstance().getCurrentUser().getEmail();
         progressDialog = new ProgressDialog(this);
-        db=BasedeDatosApp.getAppDatabase(getApplication());
+        db=BasedeDatosApp.getAppDatabase(this);
 
 
 
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         retos = new ArrayList<>();
         progressDialog.setMessage("Cargando partida...");
         progressDialog.show();
-
+    new comprobarDescargado().execute();
 
         final String URL = "http://geogame.ml/api/Lista_Retos_Clave.php?clavereto="+txt_contraPartida.getText().toString();
 
@@ -142,8 +142,8 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                     try {
                         JSONObject o =response.getJSONObject(i);
                         Log.e("LISTA AA AAA","una vuelta");
-                       retos.add(
-                                new Retos(
+                        /*
+                         new Retos(
 
                                         o.getInt("idReto"),
                                         o.getString("nombre"),
@@ -155,16 +155,30 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                                         o.getDouble("localizacionLongitud"),
                                         o.getInt("idPartida")
                                 )
-                        );
+
+                        * */
+
+                    new InsertarReto().execute( new Retos(
+
+                            o.getInt("idReto"),
+                            o.getString("nombre"),
+                            o.getString("descripcion"),
+                            o.getInt("maxDuracion"),
+                            o.getInt("tipo"),
+                            o.getInt("puntuacion"),
+                            o.getDouble("localizacionLatitud"),
+                            o.getDouble("localizacionLongitud"),
+                            o.getInt("idPartida")
+                    ));
 
                         Log.e("LISTA size",""+retos.size());
 
                     } catch (JSONException e) {
-
+                        Log.e("Log Json error",e.getMessage());
                     }
                 }//endgfor
                 progressDialog.dismiss();
-                comprobarDescargado();
+
 
                 Log.e("LISTA AA AAA",response.toString());
 
@@ -194,16 +208,12 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
     }
 
 
-    class comprobarDescargado extends AsyncTask<Retos,Void,Integer> {
+    class comprobarDescargado extends AsyncTask<Void,Void,Integer> {
 
 
 
         @Override
-        protected Integer doInBackground(Retos... retos) {
-
-            for (int i = 0; i <retos.length ; i++) {
-               db.retosDao().retosInsert(retos[i]);
-            }
+        protected Integer doInBackground(Void... v) {
 
             return db.retosDao().getRetos().size();
         }
@@ -217,13 +227,27 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         }
 
     }
+    class InsertarReto extends AsyncTask<Retos,Void,Integer> {
 
+
+
+        @Override
+        protected Integer doInBackground(Retos... r) {
+            db.retosDao().retosInsert(r);
+            return db.retosDao().getRetos().size();
+        }
+
+
+    }
+
+
+/*
     void comprobarDescargado(){
         Log.e("size retos",""+retos.size());
         new comprobarDescargado().execute(retos.get(0));
 
     }//end comprobar
-
+*/
 
 }
 
