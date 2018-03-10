@@ -43,6 +43,7 @@ import geogame.proyectoretos.Data.BasedeDatosApp;
 import geogame.proyectoretos.Data.BasedeDatosApp_Impl;
 import geogame.proyectoretos.Data.entidades.Admin;
 import geogame.proyectoretos.Data.entidades.Partidas;
+import geogame.proyectoretos.Data.entidades.Respuestas;
 import geogame.proyectoretos.Data.entidades.Retos;
 import geogame.proyectoretos.R;
 import geogame.proyectoretos.UI.Adm.ActivityInsertarAdmin;
@@ -129,129 +130,184 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
         progressDialog.setMessage("Cargando partida...");
         progressDialog.show();
-
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-
-
-
-////////////////////////////////////////////// Partida
-
-        final String URL = "http://geogame.ml/api/obtener_partida.php?clavereto="+txt_contraPartida.getText().toString();
-
-
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-
-                for (int i=0;i<response.length();i++){
-
-                    try {
-                        JSONObject o =response.getJSONObject(i);
-                        Log.e("LISTA AA AAA","una vuelta");
-
-                        new InsertarPartida().execute( new Partidas(
-                                o.getInt("idPartida"),
-                                o.getString("nombre"),
-                                o.getString("passwd"),
-                                o.getInt("maxDuracion")
-                        ));
-
-                    } catch (JSONException e) {
-                        Log.e("Log Json error",e.getMessage());
-                    }
-                }//endgfor
-                progressDialog.dismiss();
-
-
-                Log.e("LISTA AA AAA",response.toString());
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("adad",error.getMessage());
-                Toast.makeText(getApplicationContext(),"failed",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        requestQueue.add(request);
-
-
-        ///////////////////////////////////////////////////////////////// RETOS
-
-
-
-
+        new cargarPartida().execute();
 
 
         new comprobarDescargado().execute();
-
-        final String URL2 = "http://geogame.ml/api/Lista_Retos_Clave.php?clavereto="+txt_contraPartida.getText().toString();
-
-
-
-        JsonArrayRequest request2 = new JsonArrayRequest(Request.Method.POST, URL2, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-
-                for (int i=0;i<response.length();i++){
-
-                    try {
-                        JSONObject o =response.getJSONObject(i);
-                        Log.e("LISTA AA AAA","una vuelta");
-
-                    new InsertarReto().execute( new Retos(
-
-                            o.getInt("idReto"),
-                            o.getString("nombre"),
-                            o.getString("descripcion"),
-                            o.getInt("maxDuracion"),
-                            o.getInt("tipo"),
-                            o.getInt("puntuacion"),
-                            o.getDouble("localizacionLatitud"),
-                            o.getDouble("localizacionLongitud"),
-                            o.getInt("idPartida")
-                    ));
-
-                    } catch (JSONException e) {
-                        Log.e("Log Json error",e.getMessage());
-                    }
-                }//endgfor
-                progressDialog.dismiss();
-
-                Log.e("LISTA AA AAA",response.toString());
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("adad",error.getMessage());
-                Toast.makeText(getApplicationContext(),"failed",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-/*        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                Log.e("adad","parametros mandar");
-                params.put("clavereto", txt_contraPartida.getText().toString());
-                return params;
-            }}
-          */
-
-
-        requestQueue.add(request2);
-
-
-
     }//fin onclick
 
 
+
+
+
+
+    class cargarRespuesta extends AsyncTask<Respuestas,Void,Integer> {
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+        @Override
+        protected Integer doInBackground(Respuestas... r) {
+            final String URL3 = "http://geogame.ml/api/obtener_respuestas.php?clavereto="+txt_contraPartida.getText().toString();
+
+
+
+            JsonArrayRequest request3 = new JsonArrayRequest(Request.Method.POST, URL3, null, new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+
+                    for (int i=0;i<response.length();i++){
+
+                        try {
+                            JSONObject o =response.getJSONObject(i);
+                            Log.e("LISTA AA AAA Respuestas","una vuelta");
+
+                            new InsertarRespuesta().execute( new Respuestas(
+                                    o.getInt("idRespuesta"),
+                                    o.getInt("idReto"),
+                                    o.getString("descripcion"),
+                                    o.getInt("verdadero")
+                            ));
+
+                        } catch (JSONException e) {
+                            Log.e("Json error Respuestas",e.getMessage());
+                        }
+
+                    }//endgfor
+                    progressDialog.dismiss();
+
+                    Log.e("LISTA Respuestas",response.toString());
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("Respuestas",error.getMessage());
+                    Toast.makeText(getApplicationContext(),"failed",Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
+            requestQueue.add(request3);
+
+
+            return 0;
+        }
+    }
+
+
+
+    class cargarReto extends AsyncTask<Void,Void,Integer> {
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        final String URL2 = "http://geogame.ml/api/Lista_Retos_Clave.php?clavereto="+txt_contraPartida.getText().toString();
+
+        @Override
+        protected Integer doInBackground(Void... r) {
+            JsonArrayRequest request2 = new JsonArrayRequest(Request.Method.POST, URL2, null, new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+
+                    for (int i=0;i<response.length();i++){
+
+                        try {
+                            JSONObject o =response.getJSONObject(i);
+                            Log.e("LISTA Retos ","una vuelta");
+
+                            new InsertarReto().execute( new Retos(
+
+                                    o.getInt("idReto"),
+                                    o.getString("nombre"),
+                                    o.getString("descripcion"),
+                                    o.getInt("maxDuracion"),
+                                    o.getInt("tipo"),
+                                    o.getInt("puntuacion"),
+                                    o.getDouble("localizacionLatitud"),
+                                    o.getDouble("localizacionLongitud"),
+                                    o.getInt("idPartida")
+                            ));
+
+                        } catch (JSONException e) {
+                            Log.e("Log Json error Retos",e.getMessage());
+                        }
+                    }//endgfor
+                    new cargarRespuesta().execute();
+
+                    Log.e("LISTA Retos",response.toString());
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("Retos",error.getMessage());
+                    Toast.makeText(getApplicationContext(),"failed",Toast.LENGTH_SHORT).show();
+                }
+            });
+            requestQueue.add(request2);
+
+
+            return 0;
+        }
+    }
+
+
+
+
+
+
+
+    class cargarPartida extends AsyncTask<Void,Void,Integer> {
+        @Override
+        protected Integer doInBackground(Void... r) {
+
+            RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+////////////////////////////////////////////// Partida
+
+            final String URL = "http://geogame.ml/api/obtener_partida.php?clavereto="+txt_contraPartida.getText().toString();
+
+
+            JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+
+                    for (int i=0;i<response.length();i++){
+
+                        try {
+                            JSONObject o =response.getJSONObject(i);
+                            Log.e("LISTA Partida","una vuelta");
+
+                            new InsertarPartida().execute( new Partidas(
+                                    o.getInt("idPartida"),
+                                    o.getString("nombre"),
+                                    o.getString("passwd"),
+                                    o.getInt("maxDuracion")
+                            ));
+
+                        } catch (JSONException e) {
+                            Log.e("Log Json error Partida",e.getMessage());
+                        }
+                    }//endgfor
+                    new cargarReto().execute();
+
+
+                    Log.e("LISTA Partida",response.toString());
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("Partida",error.getMessage());
+                    Toast.makeText(getApplicationContext(),"failed",Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            requestQueue.add(request);
+
+            return 0;
+        }
+    }
+
+
+
     class comprobarDescargado extends AsyncTask<Void,Void,Integer> {
-
-
-
         @Override
         protected Integer doInBackground(Void... v) {
 
@@ -262,43 +318,33 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         protected void onPostExecute(Integer cant) {
             super.onPostExecute(cant);
             Log.i("RETOS DESCARGADOS:", cant+"");
-
-
         }
 
     }
     class InsertarReto extends AsyncTask<Retos,Void,Integer> {
-
-
-
         @Override
         protected Integer doInBackground(Retos... r) {
             db.retosDao().retosInsert(r);
-            return db.retosDao().getRetos().size();
+            return 0;
         }
-
-
     }
 
     class InsertarPartida extends AsyncTask<Partidas,Void,Integer> {
-
-
-
         @Override
         protected Integer doInBackground(Partidas... p) {
             db.partidasDao().partidasInsert(p);
             return 0;
         }
-
-
     }
-/*
-    void comprobarDescargado(){
-        Log.e("size retos",""+retos.size());
-        new comprobarDescargado().execute(retos.get(0));
 
-    }//end comprobar
-*/
+    class InsertarRespuesta extends AsyncTask<Respuestas,Void,Integer> {
+        @Override
+        protected Integer doInBackground(Respuestas... r) {
+            db.respuestasDao().insertarRespuestas(r);
+            return db.retosDao().getRetos().size();
+        }
+    }
+
 
 }
 

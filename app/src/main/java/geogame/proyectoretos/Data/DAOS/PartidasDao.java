@@ -14,7 +14,7 @@ import geogame.proyectoretos.Data.entidades.Partidas;
 @Dao
 public interface PartidasDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void partidasInsert(Partidas... partida);
 
 
