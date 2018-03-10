@@ -15,17 +15,18 @@ import android.widget.TextView;
 import java.util.List;
 
 import butterknife.BindView;
+import geogame.proyectoretos.Data.BasedeDatosApp;
 import geogame.proyectoretos.Data.DAOS.AdminDao;
 import geogame.proyectoretos.Data.entidades.Admin;
 import geogame.proyectoretos.R;
-import geogame.proyectoretos.papelera.PruebaModel;
+
 
 
 public class ActivityInsertarAdmin extends AppCompatActivity {
     EditText txt_user,txt_contra;
     Button bt_insertar;
     ProgressDialog progressDialog;
-    PruebaModel modelo;
+
     AdminDao dao;
 
     @BindView(R.id.tv_prueba)

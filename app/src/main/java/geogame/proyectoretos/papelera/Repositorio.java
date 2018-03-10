@@ -1,3 +1,11 @@
+/*import android.app.Application;
+import android.arch.lifecycle.LiveData;
+
+import java.util.List;
+
+import geogame.proyectoretos.Data.BasedeDatosApp;
+import geogame.proyectoretos.Data.entidades.Admin;
+import geogame.proyectoretos.papelera.Internet;
 package geogame.proyectoretos.papelera;
 
 import android.app.Application;
@@ -11,6 +19,15 @@ import geogame.proyectoretos.Data.entidades.Admin;
 /**
  * Created by Farra on 08/03/2018.
  */
+/*
+import android.app.Application;
+import android.arch.lifecycle.LiveData;
+
+import java.util.List;
+
+import geogame.proyectoretos.Data.BasedeDatosApp;
+import geogame.proyectoretos.Data.entidades.Admin;
+import geogame.proyectoretos.papelera.Internet;
 
 public class Repositorio {
 
@@ -51,3 +68,4 @@ public class Repositorio {
     }
 
 
+*/
