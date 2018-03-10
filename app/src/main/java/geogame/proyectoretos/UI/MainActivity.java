@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
     private FirebaseAuth mAuth;
 
+    private List<Retos> retos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -111,18 +113,18 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         mLoginModel.getUsuario().postValue(null);
 
     }
-/*
-    @OnClick(R.id.btn_chat)
+
+    @OnClick(R.id.btn_chat_prueba)
     public void iralChat() {
 
         startActivity(new Intent(getApplicationContext(), ChatActivity.class));
 
     }
-    */
+
 
     @OnClick(R.id.bt_iniciarPartida)
     void iniciarPartida(){
-        comprobarDescargado();
+        retos = new ArrayList<>();
         progressDialog.setMessage("Cargando partida...");
         progressDialog.show();
 
@@ -140,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                     try {
                         JSONObject o =response.getJSONObject(i);
                         Log.e("LISTA AA AAA","una vuelta");
-                        db.retosDao().retosInsert(
+                       retos.add(
                                 new Retos(
 
                                         o.getInt("idReto"),
@@ -155,12 +157,14 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                                 )
                         );
 
+                        Log.e("LISTA size",""+retos.size());
+
                     } catch (JSONException e) {
 
                     }
                 }//endgfor
                 progressDialog.dismiss();
-
+                comprobarDescargado();
 
                 Log.e("LISTA AA AAA",response.toString());
 
@@ -188,10 +192,18 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
 
     }
-    class comprobarDescargado extends AsyncTask<Void,Void,Integer> {
+
+
+    class comprobarDescargado extends AsyncTask<Retos,Void,Integer> {
+
+
 
         @Override
-        protected Integer doInBackground(Void... voids) {
+        protected Integer doInBackground(Retos... retos) {
+
+            for (int i = 0; i <retos.length ; i++) {
+               db.retosDao().retosInsert(retos[i]);
+            }
 
             return db.retosDao().getRetos().size();
         }
@@ -205,8 +217,10 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         }
 
     }
+
     void comprobarDescargado(){
-        new comprobarDescargado().execute();
+        Log.e("size retos",""+retos.size());
+        new comprobarDescargado().execute(retos.get(0));
 
     }//end comprobar
 
