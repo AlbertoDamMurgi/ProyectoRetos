@@ -26,15 +26,22 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".UI.RegistroActivity" />
         <activity android:name=".UI.MapPrincActivity" />
+
+        <activity android:name=".papelera.ActivityInsertarAdmin" />
         <activity android:name=".UI.LoginAdmin" />
         <activity android:name=".UI.RegistroAdminActivity" />
         <activity android:name=".UI.AdminMainActivity" />
+        <activity android:name=".UI.CrearPartidaActivity" />
+        <activity android:name=".UI.CrearRetoActivity"></activity>
+
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB-w-3OXA6NcjcZrzEjhHdUq_0SDGYqfl8" />
 
+
         <activity android:name=".UI.CrearPartida"></activity>
+
     </application>
 
 </manifest>
