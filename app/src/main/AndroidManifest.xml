@@ -15,11 +15,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBIna3uk3h14u-ooE2G_sD1DFbai5ABrrI" />
 
+        
+
         <activity android:name=".UI.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
 
         </activity>
@@ -28,25 +33,33 @@
             android:name=".Chat.ChatActivity"
             android:label="@string/title_activity_chat"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".UI.RegistroActivity" />
+        <activity android:name=".UI.MapPrincActivity" />
+
+        <activity android:name=".papelera.ActivityInsertarAdmin" />
+        <activity android:name=".UI.LoginAdmin" />
+        <activity android:name=".UI.RegistroAdminActivity" />
+        <activity android:name=".UI.AdminMainActivity" />
+        <activity android:name=".UI.CrearPartidaActivity" />
+        <activity android:name=".UI.CrearRetoActivity"></activity>
+
 
 
       <!-- <activity android:name=".UI.MapPrincActivity"></activity> -->
     <activity android:name=".UI.Adm.ActivityInsertarAdmin"></activity>
 
-
-
         <activity android:name=".UI.RegistroActivity" />
         <activity android:name=".UI.MapPrincActivity" >
-                <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-              </intent-filter>
+        
            </activity>
         <activity android:name=".UI.Adm.ActivityInsertarAdmin" />
         <activity android:name=".UI.LoginAdmin" />
         <activity android:name=".UI.RegistroAdminActivity" />
         <activity android:name=".UI.AdminMainActivity"></activity>
+
+
+        <activity android:name=".UI.CrearPartida"></activity>
+
 
     </application>
 

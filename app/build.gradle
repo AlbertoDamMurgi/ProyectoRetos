@@ -22,6 +22,7 @@ android {
     }
 }
 
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'
@@ -46,18 +47,9 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
 
     compile 'com.jakewharton:butterknife:8.8.1'
-
-    compile 'com.jakewharton:butterknife:8.8.1'
-
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
 
 }
-
-
-
-
-
-
 
 apply plugin: 'com.google.gms.google-services'
