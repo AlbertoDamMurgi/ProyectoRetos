@@ -243,9 +243,13 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
                 Log.i(TAG, "ningun lugar seleccionado");
                 return;
             }
+            Log.v("lat1", String.valueOf(latitud));
+            Log.v("long1", String.valueOf(longitud));
             latLng = place.getLatLng();
             latitud = latLng.latitude;
             longitud = latLng.longitude;
+            Log.v("lat2", String.valueOf(latitud));
+            Log.v("long2", String.valueOf(longitud));
 
             Toast.makeText(getApplicationContext(),"Ubicacion del reto seleccionada!!",Toast.LENGTH_LONG).show();
         }

@@ -23,6 +23,7 @@ import java.util.Map;
 import butterknife.ButterKnife;
 import geogame.proyectoretos.R;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
@@ -58,7 +59,12 @@ public class CrearPartida extends AppCompatActivity {
             public void onResponse(String response) {
                 if (response.contains("success")) {
                     Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
+
+                    Intent i = new Intent(getApplicationContext(), CrearRetoActivity.class);
+                    startActivity(i);
+
                     startActivity(new Intent(getApplicationContext(),CrearRetoActivity.class));
+
                 }
                 progressDialog.dismiss();
             }
