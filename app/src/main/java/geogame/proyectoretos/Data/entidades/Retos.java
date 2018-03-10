@@ -20,12 +20,12 @@ public class Retos {
     private int maxDuracion;
     private int tipo;
     private int puntuacion;
-    private float localizacionLatitud;
-    private float localizacionLongitud;
+    private double localizacionLatitud;
+    private double localizacionLongitud;
     private int idPartida;
 
     @Ignore
-    public Retos(String nombre, String descripcion, int maxDuracion, int tipo, int puntuacion, float localizacionLatitud, float localizacionLongitud, int idPartida) {
+    public Retos(String nombre, String descripcion, int maxDuracion, int tipo, int puntuacion, double localizacionLatitud, double localizacionLongitud, int idPartida) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.maxDuracion = maxDuracion;
@@ -36,7 +36,7 @@ public class Retos {
         this.idPartida = idPartida;
     }
 
-    public Retos(int idReto, String nombre, String descripcion, int maxDuracion, int tipo, int puntuacion, float localizacionLatitud, float localizacionLongitud, int idPartida) {
+    public Retos(int idReto, String nombre, String descripcion, int maxDuracion, int tipo, int puntuacion, double localizacionLatitud, double localizacionLongitud, int idPartida) {
         this.idReto = idReto;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -96,19 +96,19 @@ public class Retos {
         this.puntuacion = puntuacion;
     }
 
-    public float getLocalizacionLatitud() {
+    public double getLocalizacionLatitud() {
         return localizacionLatitud;
     }
 
-    public void setLocalizacionLatitud(float localizacionLatitud) {
+    public void setLocalizacionLatitud(double localizacionLatitud) {
         this.localizacionLatitud = localizacionLatitud;
     }
 
-    public float getLocalizacionLongitud() {
+    public double getLocalizacionLongitud() {
         return localizacionLongitud;
     }
 
-    public void setLocalizacionLongitud(float localizacionLongitud) {
+    public void setLocalizacionLongitud(double localizacionLongitud) {
         this.localizacionLongitud = localizacionLongitud;
     }
 
