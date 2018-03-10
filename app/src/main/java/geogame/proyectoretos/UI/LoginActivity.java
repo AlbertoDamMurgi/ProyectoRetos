@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +28,7 @@ import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 import geogame.proyectoretos.R;
 
 public class LoginActivity extends AppCompatActivity implements LifecycleObserver {
@@ -37,8 +39,9 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
     EditText email;
     @BindView(R.id.et_pass)
     EditText pass;
-    @BindViews({R.id.et_email,R.id.et_pass})
-    List<EditText> asd;
+
+
+
 
     private LoginModel mLoginModel;
 
@@ -66,8 +69,11 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
         mLoginModel.getConection().observe(this, new Observer<FirebaseAuth>() {
             @Override
             public void onChanged(@Nullable FirebaseAuth firebaseAuth) {
-                if(firebaseAuth!=null){
+                if(firebaseAuth!=null&&!firebaseAuth.getCurrentUser().getDisplayName().equalsIgnoreCase("administrador")){
+
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                }else{
+                    startActivity(new Intent(getApplicationContext(),LoginAdmin.class));
                 }
             }
         });
@@ -75,18 +81,7 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
     }
 
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    void comprobarLogin(){
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-
-        if(currentUser!=null){
-
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
-
-        }
-
-    }
 
 
     @OnClick(R.id.bt_register)
@@ -127,6 +122,15 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
 
     }
     */
+
+    @OnLongClick(R.id.loginsecreto_admin)
+    boolean loginAdminSecreto(){
+
+        startActivity(new Intent(getApplicationContext(),LoginAdmin.class));
+
+        return true;
+    }
+
 
     @OnClick(R.id.btn_conectarse)
     void conectarUsuario(){
