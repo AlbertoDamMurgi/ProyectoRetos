@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".UI.LoginActivity">
+        <activity android:name=".UI.MapPrincActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,8 +31,12 @@
             android:label="@string/title_activity_chat"
             android:theme="@style/AppTheme.NoActionBar" />
       <activity android:name=".UI.RegistroActivity" />
-      <activity android:name=".UI.MapPrincActivity"></activity>
+      <!-- <activity android:name=".UI.MapPrincActivity"></activity> -->
     <activity android:name=".UI.Adm.ActivityInsertarAdmin"></activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB-w-3OXA6NcjcZrzEjhHdUq_0SDGYqfl8" />
     </application>
 
 </manifest>

@@ -38,7 +38,7 @@ public class MapPrincActivity extends FragmentActivity implements
 
     private GoogleMap mapa;
     private Location myLocation;
-    private LatLng myPos;
+    LatLng myPos;
     private String proveedor = "";
     private LocationManager gestorLoc;
     private GoogleApiClient myClient;
@@ -48,7 +48,7 @@ public class MapPrincActivity extends FragmentActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map_princ);
+        //setContentView(R.layout.activity_map_princ);
 
         //forzamos la asignacion de permisos de localizacion
         ActivityCompat.requestPermissions(MapPrincActivity.this,
@@ -67,21 +67,21 @@ public class MapPrincActivity extends FragmentActivity implements
 
         }
 
-        myLocation = gestorLoc.getLastKnownLocation(proveedor);
-        setContentView(R.layout.activity_main);
+        myLocation = gestorLoc.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        setContentView(R.layout.activity_map_princ);
         SupportMapFragment mapFragment = (SupportMapFragment)
                 getSupportFragmentManager().findFragmentById(R.id.mapa);
         mapFragment.getMapAsync(this);
 
         myClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */,
-                        this /* OnConnectionFailedListener */)
                 .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .addApi(Places.GEO_DATA_API)
                 .addApi(Places.PLACE_DETECTION_API)
+                .enableAutoManage(this ,this )
                 .build();
-        myClient.connect();
+        //myClient.connect();
     }
 
     @Override
@@ -154,15 +154,13 @@ public class MapPrincActivity extends FragmentActivity implements
             gestorLoc.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,1,this);
             myLocation=gestorLoc.getLastKnownLocation(proveedor);
 
-
-
         }
         gestorLoc.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,1,this);
         myLocation=gestorLoc.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         myPos=new LatLng(myLocation.getLatitude(),myLocation.getLongitude());
 
 
-        CircleOptions co = new CircleOptions().center(myPos).radius(150).strokeColor(Color.RED).fillColor(Color.TRANSPARENT);
+        CircleOptions co = new CircleOptions().center(myPos).radius(50).strokeColor(Color.RED).fillColor(Color.TRANSPARENT);
 
         mapa.addCircle(co);
 
