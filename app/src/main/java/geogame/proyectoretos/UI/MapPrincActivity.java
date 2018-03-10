@@ -1,7 +1,9 @@
 package geogame.proyectoretos.UI;
 
 import android.Manifest;
+import android.app.PendingIntent;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Criteria;
@@ -21,6 +23,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.Geofence;
+import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.GoogleMap;
@@ -29,13 +35,19 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import geogame.proyectoretos.R;
+import java.util.ArrayList;
 
-public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+import geogame.proyectoretos.R;
+import geogame.proyectoretos.UI.geofences.GeofenceTransitions;
+import geogame.proyectoretos.UI.geofences.Posiciones;
+
+public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ResultCallback<Status> {
 
     private static final int REQUEST_LOCATION_PERMISSION_CODE = 1;
+    private static final String TAG = "GEOFENCE" ;
 
 
     public GoogleMap mapa;
@@ -44,7 +56,19 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     private LocationModel locationModel;
     private LocationManager gestorLoc;
     private GoogleApiClient myClient;
+    private GeofencingRequest geofencingRequest;
+    private boolean isMonitoring = false;
+    protected ArrayList<Geofence> mGeofenceList;
+    private MarkerOptions markerOptions;
+    private PendingIntent pendingIntent;
+    private Marker destinoactual;
+    private ArrayList<Posiciones> posiciones = new ArrayList<>();
     private final LatLng Murgi = new LatLng(36.7822801, -2.815255);
+
+    public static final long GEOFENCE_EXPIRATION_IN_HOURS = 1;
+
+    public static final long GEOFENCE_EXPIRATION_IN_MILLISECONDS =
+            GEOFENCE_EXPIRATION_IN_HOURS * 60 * 60 * 1000;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
@@ -68,9 +92,15 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_princ);
 
+        if(posiciones.isEmpty()) {
+            posiciones.add(new Posiciones(new LatLng(36.775132, -2.812932), "Ayuntamiento de El Ejido"));
+            posiciones.add(new Posiciones(new LatLng(36.764014, -2.800453), "Estadio Municipal de Santo Domingo"));
+            posiciones.add(new Posiciones(new LatLng(36.773189, -2.805506), "El Corte Inglés"));
+        }
+
         locationModel = ViewModelProviders.of(this).get(LocationModel.class);
         mGpsListener = new MyLocationListener(locationModel);
-
+        mGeofenceList = new ArrayList<Geofence>();
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
@@ -96,7 +126,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
                 .addApi(Places.PLACE_DETECTION_API)
                 .enableAutoManage(this, this)
                 .build();
-
+            
         locationModel.getmLocation().observe(this, location -> {
             if (location != null && mapa != null) {
 
@@ -109,6 +139,111 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
             }
 
         });
+        movida();
+        populateGeofenceList();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (!myClient.isConnecting() || !myClient.isConnected()) {
+            myClient.connect();
+        }
+    }
+
+
+
+        @Override
+        protected void onStop(){
+            super.onStop();
+            if (myClient.isConnecting() || myClient.isConnected()) {
+                myClient.disconnect();
+            }
+        }
+
+
+    private void populateGeofenceList() {
+
+        for (int i = 0; i < posiciones.size(); i++) {
+
+
+
+            mGeofenceList.add(new Geofence.Builder()
+                    // Set the request ID of the geofence. This is a string to identify this
+                    // geofence.
+                    .setRequestId(posiciones.get(i).getNombre())
+
+                    // Set the circular region of this geofence.
+                    .setCircularRegion(
+                            posiciones.get(i).getCoordenadas().latitude,
+                            posiciones.get(i).getCoordenadas().longitude,
+                            150
+                    )
+
+                    // Set the expiration duration of the geofence. This geofence gets automatically
+                    // removed after this period of time.
+                    .setExpirationDuration(GEOFENCE_EXPIRATION_IN_MILLISECONDS)
+
+                    // Set the transition types of interest. Alerts are only generated for these
+                    // transition. We track entry and exit transitions in this sample.
+                    .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER |
+                            Geofence.GEOFENCE_TRANSITION_EXIT)
+
+                    // Create the geofence.
+                    .build());
+        }
+
+    }
+
+
+    public void onResult(Status status) {
+        if (status.isSuccess()) {
+            Toast.makeText(
+                    this,
+                    "Geofences Added",
+                    Toast.LENGTH_SHORT
+            ).show();
+        } else {
+            // Get the status code for the error and log it using a user-friendly message.
+
+        }
+    }
+
+    private PendingIntent getGeofencePendingIntent() {
+        Intent intent = new Intent(this, GeofenceTransitions.class);
+        // We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when calling addgeoFences()
+        return PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
+    private GeofencingRequest getGeofencingRequest() {
+        GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
+        builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER);
+        builder.addGeofences(mGeofenceList);
+        return builder.build();
+    }
+
+
+
+    private void movida(){
+
+        if (!myClient.isConnected()) {
+            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            LocationServices.GeofencingApi.addGeofences(
+                    myClient,
+                    // The GeofenceRequest object.
+                    getGeofencingRequest(),
+                    // A pending intent that that is reused when calling removeGeofences(). This
+                    // pending intent is used to generate an intent when a matched geofence
+                    // transition is observed.
+                    getGeofencePendingIntent()
+            ).setResultCallback(this); // Result processed in onResult().
+        } catch (SecurityException securityException) {
+            // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
+        }
 
 
     }
@@ -160,6 +295,11 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
 }

@@ -13,11 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".UI.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity android:name=".UI.MainActivity" />
         <activity
@@ -25,10 +21,17 @@
             android:label="@string/title_activity_chat"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".UI.RegistroActivity" />
-        <activity android:name=".UI.MapPrincActivity" />
+        <activity android:name=".UI.MapPrincActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            </activity>
         <activity android:name=".UI.LoginAdmin" />
         <activity android:name=".UI.RegistroAdminActivity" />
         <activity android:name=".UI.AdminMainActivity" />
+        <activity android:name=".UI.CrearRetoActivity"/>
         
         <meta-data
             android:name="com.google.android.geo.API_KEY"
