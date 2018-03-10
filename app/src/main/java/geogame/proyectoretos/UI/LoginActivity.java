@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.util.List;
 
@@ -130,6 +131,8 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
     @OnClick(R.id.btn_conectarse)
     void conectarUsuario(){
 
+
+
         mAuth.signInWithEmailAndPassword(email.getText().toString(), pass.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -147,7 +150,6 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
 
                         }
 
-                        // ...
                     }
                 });
 
