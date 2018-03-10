@@ -129,6 +129,7 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
 
     @OnClick(R.id.btn_conectarse)
     void conectarUsuario(){
+
         mAuth.signInWithEmailAndPassword(email.getText().toString(), pass.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
