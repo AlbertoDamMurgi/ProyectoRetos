@@ -197,6 +197,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
                     if(results[0]<150){
                         if(i==retoactual-1) {
                             puedespinchar = true;
+
                             Log.e("puedes pinchar", "puedes pinchar" + puedespinchar);
 
                         }
