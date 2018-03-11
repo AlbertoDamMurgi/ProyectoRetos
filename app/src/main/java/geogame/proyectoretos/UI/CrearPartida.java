@@ -24,6 +24,7 @@ import java.util.Map;
 import butterknife.ButterKnife;
 import geogame.proyectoretos.R;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
@@ -73,6 +74,7 @@ public class CrearPartida extends AppCompatActivity {
                     startActivity(i);
                 }else {
                     Toast.makeText(getApplicationContext(), "Nombre ya esta en uso, ponga otro.", Toast.LENGTH_LONG).show();
+
                 }
                 progressDialog.dismiss();
             }
