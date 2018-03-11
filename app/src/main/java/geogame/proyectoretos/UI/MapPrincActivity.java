@@ -63,6 +63,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     public GoogleMap mapa;
 
 
+
     static final int RETO_FINALIZADO = 1;
     private int retoactual;
     private LocationListener mGpsListener;
