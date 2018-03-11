@@ -111,7 +111,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     class RecuperarRetos extends AsyncTask<Integer, Void, Integer> {
         @Override
         protected Integer doInBackground(Integer... p) {
-            retos =  retosdao.getRetosPartida(p[0]);
+            retos =  retosdao.getRetosPartida(p[0].intValue());
             return 0;
         }
     }
@@ -122,7 +122,6 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
     private List<Retos> retos = new ArrayList<>();
     private RetosDao retosdao;
-
 
 
 
@@ -411,21 +410,24 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(Murgi, zoom);
         mapa.animateCamera(cameraUpdate);
 
-        if(puedespinchar) {
+
             mapa.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                 @Override
                 public boolean onMarkerClick(Marker marker) {
+                    if(puedespinchar) {
                     for (int i = 0; i < marcadores.size() ; i++) {
-                        if(marcadores.get(i).getPosition().equals(marker.getPosition())){
+
+                        if(marcadores.get(i).getTitle().equalsIgnoreCase(marker.getTitle())){
                                 int [] aux;
                                 aux = new int[]{idpartida,i};
                               startActivityForResult(new Intent(getApplicationContext(),RetoActivity.class).putExtra("PARTIDAYRETO",aux),RETO_FINALIZADO);
+                        }
                         }
                     }
                     return false;
                 }
             });
-        }
+
 
 
     }
@@ -463,8 +465,9 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
                     locationModel.setNumReto(retoactual+1);
                     retoactual++;
                     mapa.clear();
-                    onMapReady(mapa);
                     mapa.addMarker(marcadores.get(retoactual-1));
+                    onMapReady(mapa);
+
                 }else{
 
                     //todo finalizar juego
