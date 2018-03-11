@@ -419,7 +419,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
                         if(marcadores.get(i).getTitle().equalsIgnoreCase(marker.getTitle())){
                                 int [] aux;
-                                aux = new int[]{idpartida,retos.get(i).getIdPartida()};
+                                aux = new int[]{idpartida,retos.get(i).getIdReto()};
                               startActivityForResult(new Intent(getApplicationContext(),RetoActivity.class).putExtra("PARTIDAYRETO",aux),RETO_FINALIZADO);
                         }
                         }
