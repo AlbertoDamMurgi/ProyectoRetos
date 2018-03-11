@@ -1,6 +1,8 @@
 package geogame.proyectoretos.UI;
 
 import android.app.ProgressDialog;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
@@ -49,11 +51,12 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
     private double latitud;
     private double longitud;
     private int idPartida;
+    private String nombrePartida;
+    private String clavePartida;
     private LatLng latLng;
     GoogleApiClient mClient;
     public static final String TAG = CrearRetoActivity.class.getSimpleName();
     private static final int PLACE_PICKER_REQUEST = 1;
-
     ProgressDialog progressDialog;
 
     @BindView(R.id.txt_crearReto_nombre)
@@ -75,7 +78,6 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
         ButterKnife.bind(this);
         progressDialog = new ProgressDialog(this);
 
-
         mClient = new GoogleApiClient.Builder(this)
                 //lo que nos devuelve google
                 .addConnectionCallbacks(this)
@@ -87,9 +89,13 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
                 .enableAutoManage(this, this)
                 .build();
 
+        nombrePartida=getIntent().getStringExtra("partidaNombre");
+        clavePartida=getIntent().getStringExtra("partidaContra");
 
         ImageButton btnMapa = findViewById(R.id.btn_crearReto_mapaLugares);
         btnMapa.setOnClickListener(view -> runApiPlaces(view));
+
+
     }
 
 
@@ -101,7 +107,9 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
         Log.i("LOOOOOOOOOOOG","ENTRE EN CLIK");
         progressDialog.setMessage("Creando reto...");
         progressDialog.show();
-        InsertarReto();
+
+
+       CargarIDPartida();
 
 
     }//End OnClick
@@ -113,7 +121,7 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
 
 ////////////////////////////////////////////// Partida
 
-        final String URL = "http://geogame.ml/api/obtener_partida.php?clavereto="+1;
+        final String URL = "http://geogame.ml/api/obtener_partida.php?nombre="+nombrePartida+"&passwd="+clavePartida;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {
             @Override
@@ -126,12 +134,12 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
                         Log.e("LISTA Partida","una vuelta");
 
 
-                                o.getInt("idPartida");
+                             idPartida= o.getInt("idPartida");
                                 o.getString("nombre");
                                 o.getString("passwd");
                                 o.getInt("maxDuracion");
 
-
+                        InsertarReto();
                     } catch (JSONException e) {
                         Log.e("Log Json error Partida",e.getMessage());
                     }
@@ -183,9 +191,9 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
                 params.put("maxDuracion", txt_duracion.getText().toString());
                 params.put("tipo", "1");
                 params.put("puntuacion", txt_puntos.getText().toString());
-                params.put("localizacionLatitud", ""+4);
-                params.put("localizacionLongitud", ""+4);
-                params.put("idPartida", ""+1);
+                params.put("localizacionLatitud", ""+latitud);
+                params.put("localizacionLongitud", ""+longitud);
+                params.put("idPartida", ""+idPartida);
                 return params;
             }
         };
