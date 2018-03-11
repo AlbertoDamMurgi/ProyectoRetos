@@ -161,6 +161,14 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
         }else {
             Toast.makeText(getApplicationContext(), "Porfavor rellena todos los campos.", Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+    @OnClick(R.id.btn_login_acercaDe)
+    void acercaDe(){
+
+        Intent i = new Intent(getApplicationContext(), AcercaDeActivity.class);
+        startActivity(i);
     }
 
     @OnClick(R.id.btn_login_acercaDe)
