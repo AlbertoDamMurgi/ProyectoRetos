@@ -79,7 +79,7 @@ public class RetoActivity extends AppCompatActivity {
 
     }
 
-    class RecuperarReto extends AsyncTask<Integer, Void, Integer> {
+   class RecuperarReto extends AsyncTask<Integer, Void, Integer> {
         @Override
         protected Integer doInBackground(Integer... p) {
 
