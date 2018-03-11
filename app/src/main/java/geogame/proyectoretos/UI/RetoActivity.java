@@ -183,6 +183,7 @@ public class RetoActivity extends AppCompatActivity {
                     if (!salida) {
                         salida = true;
                         setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), MapPrincActivity.class));
+                        finish();
                     }
                 }
             }.start();
@@ -204,6 +205,7 @@ public class RetoActivity extends AppCompatActivity {
                     if (!salida) {
                         salida = true;
                         setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), MapPrincActivity.class));
+                        finish();
                     }
                 }
             }.start();
@@ -247,6 +249,7 @@ public class RetoActivity extends AppCompatActivity {
                         }
 
                         setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), MapPrincActivity.class));
+                        finish();
                     }
                 }
             }
@@ -258,6 +261,7 @@ public class RetoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "No puntas este reto...", Toast.LENGTH_SHORT).show();
                 setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), MapPrincActivity.class));
+                finish();
             }
         });
 
