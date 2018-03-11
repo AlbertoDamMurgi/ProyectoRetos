@@ -42,6 +42,7 @@ public class CrearPartida extends AppCompatActivity {
 
     @BindView(R.id.bt_crearpartida_numeroderetos)
     EditText txt_numeroretos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,50 +56,68 @@ public class CrearPartida extends AppCompatActivity {
 
     @OnClick(R.id.bt_crearpartida_continuar)
     void BottonInsertarPartida() {
-        Log.i("LOOOOOOOOOOOG","ENTRE EN CLIK");
-        progressDialog.setMessage("Creando partida...");
-        progressDialog.show();
+        int nR;
+        if (
+                !txt_nombre.getText().toString().isEmpty() &&
+                        !txt_nombre.getText().toString().isEmpty() &&
+                        !txt_nombre.getText().toString().isEmpty() &&
+                        !txt_numeroretos.getText().toString().isEmpty()
+                ) {
+            nR =Integer.parseInt( txt_numeroretos.getText().toString());
+            if (nR<=10 && nR>=1){
 
-        final String URL = "http://geogame.ml/api/insertar_partida.php";
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                if (response.contains("success")) {
-                    Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
+                progressDialog.setMessage("Creando partida...");
+            progressDialog.show();
+
+            final String URL = "http://geogame.ml/api/insertar_partida.php";
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    if (response.contains("success")) {
+                        Toast.makeText(getApplicationContext(), "Partida creada!", Toast.LENGTH_SHORT).show();
 
 
-                  Intent i = new Intent(getApplicationContext(),CrearRetoActivity.class);
-                   i.putExtra("partidaNombre",txt_nombre.getText().toString());
-                    i.putExtra("partidaContra",txt_contra.getText().toString());
-                    i.putExtra("partidaNumerosRetos",txt_numeroretos.getText().toString());
+                        Intent i = new Intent(getApplicationContext(), CrearRetoActivity.class);
+                        i.putExtra("partidaNombre", txt_nombre.getText().toString());
+                        i.putExtra("partidaContra", txt_contra.getText().toString());
+                        i.putExtra("partidaNumerosRetos", txt_numeroretos.getText().toString());
 
-                    startActivity(i);
-                }else {
-                    Toast.makeText(getApplicationContext(), "Nombre ya esta en uso, ponga otro.", Toast.LENGTH_LONG).show();
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Nombre ya esta en uso, ponga otro.", Toast.LENGTH_LONG).show();
 
+                    }
+                    progressDialog.dismiss();
                 }
-                progressDialog.dismiss();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
-                progressDialog.dismiss();
-            }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
+                    progressDialog.dismiss();
+                }
 
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("nombre", txt_nombre.getText().toString());
-                params.put("passwd", txt_contra.getText().toString());
-                params.put("maxDuracion", txt_duracion.getText().toString());
-                return params;
-            }
-        };
+            }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("nombre", txt_nombre.getText().toString());
+                    params.put("passwd", txt_contra.getText().toString());
+                    params.put("maxDuracion", txt_duracion.getText().toString());
+                    return params;
+                }
+            };
 
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        requestQueue.add(stringRequest);
-    }
+            RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+            requestQueue.add(stringRequest);
+            }else{
+                Toast.makeText(getApplicationContext(), "La cantidad de retos debe ser de 1 a 10", Toast.LENGTH_LONG).show();
+            }
+        } else {
+
+            Toast.makeText(getApplicationContext(), "Tiene que rellenar todos los campos", Toast.LENGTH_LONG).show();
+        }
+
+
+    }//end metodo
 }
