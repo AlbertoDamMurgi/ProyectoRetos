@@ -52,6 +52,7 @@
             />
         
         <activity android:name=".UI.CrearPartida"></activity>
+        <activity android:name=".UI.RetoActivity" />
 
 
         <service android:name=".UI.geofences.GeofenceTransiciones" />
