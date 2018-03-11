@@ -46,7 +46,8 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
     @BindView(R.id.txt_contraPartida)
     EditText txt_contraPartida;
-
+    @BindView(R.id.txt_main_nombrepartida)
+    EditText txt_nombrepartida;
     ProgressDialog progressDialog;
     BasedeDatosApp db;
     private LoginModel mLoginModel;
@@ -139,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
         @Override
         protected Integer doInBackground(Respuestas... r) {
-            final String URL3 = "http://geogame.ml/api/obtener_respuestas.php?clavereto="+txt_contraPartida.getText().toString();
+            final String URL3 = "http://geogame.ml/api/obtener_respuestas.php?nombre="+txt_nombrepartida.getText().toString();
 
 
 
@@ -163,7 +164,9 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                         } catch (JSONException e) {
                             Log.e("Json error Respuestas",e.getMessage());
                         }
-
+                        if (response.length()-1 == i) {
+                            startActivity(new Intent(getApplicationContext(),MapPrincActivity.class));
+                        }
                     }//endgfor
                     progressDialog.dismiss();
 
@@ -190,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
     class cargarReto extends AsyncTask<Void,Void,Integer> {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        final String URL2 = "http://geogame.ml/api/Lista_Retos_Clave.php?clavereto="+txt_contraPartida.getText().toString();
+        final String URL2 = "http://geogame.ml/api/Lista_Retos_Clave.php?nombre="+txt_nombrepartida.getText().toString();
 
         @Override
         protected Integer doInBackground(Void... r) {
@@ -254,13 +257,13 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
 ////////////////////////////////////////////// Partida
 
-            final String URL = "http://geogame.ml/api/obtener_partida.php?clavereto="+txt_contraPartida.getText().toString();
+            final String URL = "http://geogame.ml/api/obtener_partida.php?nombre="+txt_nombrepartida.getText().toString()+"&passwd="+txt_contraPartida.getText().toString();
 
 
             JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
-
+                    boolean partidadescargada=false;
                     for (int i=0;i<response.length();i++){
 
                         try {
@@ -277,8 +280,15 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                         } catch (JSONException e) {
                             Log.e("Log Json error Partida",e.getMessage());
                         }
+                        partidadescargada=true;
                     }//endgfor
-                    new cargarReto().execute();
+                    if (partidadescargada){
+                        new cargarReto().execute();
+                    }else{
+                        progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(),"Datos erroneos",Toast.LENGTH_LONG).show();
+                    }
+
 
 
                     Log.e("LISTA Partida",response.toString());

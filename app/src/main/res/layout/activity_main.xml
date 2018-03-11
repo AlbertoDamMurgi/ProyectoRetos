@@ -36,12 +36,12 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="Inicia el juego"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/txt_contraPartida"
+        app:layout_constraintBottom_toTopOf="@+id/txt_main_nombrepartida"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline6" />
 
@@ -63,7 +63,7 @@
         android:id="@+id/imageView3"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -93,5 +93,19 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintTop_toBottomOf="@+id/guideline6"
         tools:layout_editor_absoluteX="7dp" />
+
+    <EditText
+        android:id="@+id/txt_main_nombrepartida"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:hint="Nombre de partida"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/txt_contraPartida"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="@+id/guideline6" />
 
 </android.support.constraint.ConstraintLayout>
