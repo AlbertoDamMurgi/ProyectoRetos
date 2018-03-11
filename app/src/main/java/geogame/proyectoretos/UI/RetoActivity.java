@@ -1,6 +1,8 @@
 package geogame.proyectoretos.UI;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,7 +15,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import butterknife.BindView;
+import geogame.proyectoretos.Data.BasedeDatosApp;
+import geogame.proyectoretos.Data.DAOS.RespuestasDao;
+import geogame.proyectoretos.Data.DAOS.RetosDao;
 import geogame.proyectoretos.Data.entidades.Respuestas;
 import geogame.proyectoretos.Data.entidades.Retos;
 import geogame.proyectoretos.R;
@@ -24,26 +31,99 @@ public class RetoActivity extends AppCompatActivity {
     private Retos miReto;
     private String resElegida;
 
+    @BindView(R.id.txt_reto_nombre)
+    TextView nombre;
+
+    @BindView(R.id.txt_reto_descripcion)
+    TextView descr;
+
+    @BindView(R.id.btn_reto_responder)
+    Button btnResponder;
+
+    @BindView(R.id.btn_reto_cancelar)
+    Button btnCancel;
+
+    @BindView(R.id.rg_reto_rgrupo)
+    RadioGroup btnGrupo;
+
+    @BindView(R.id.rb_reto_opcion1)
+    RadioButton radio1;
+
+    @BindView(R.id.rb_reto_opcion2)
+    RadioButton radio2;
+
+    @BindView(R.id.rb_reto_opcion3)
+    RadioButton radio3;
+
+    @BindView(R.id.txt_reto_crono)
+    TextView crono;
+
+    private  LoginModel cronoViewModel;
+    private long nTiempo;
+
+    private RetosDao retosDao;
+    private RespuestasDao respuestasDao;
+    private int idpartida;
+    private int idreto;
+    private List<Respuestas> respuestas = new ArrayList<>();
+    private boolean salida=false;
+
+    class RecuperarRespuestas extends AsyncTask<Integer, Void, Integer> {
+        @Override
+        protected Integer doInBackground(Integer... p) {
+
+            respuestas = respuestasDao.getRespuestas(p[0]);
+            return 0;
+        }
+
+
+    }
+
+    class RecuperarReto extends AsyncTask<Integer, Void, Integer> {
+        @Override
+        protected Integer doInBackground(Integer... p) {
+
+            miReto = retosDao.getReto_Partida(p[0],p[1]);
+            return 0;
+        }
+
+
+    }
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reto);
 
-        TextView nombre = findViewById(R.id.txt_reto_nombre);
-        TextView descr = findViewById(R.id.txt_reto_descripcion);
-        Button btnResponder = findViewById(R.id.btn_reto_responder);
-        Button btnCancel = findViewById(R.id.btn_reto_cancelar);
-        RadioGroup btnGrupo = findViewById(R.id.rg_reto_rgrupo);
-        RadioButton radio1 = findViewById(R.id.rb_reto_opcion1);
-        RadioButton radio2 = findViewById(R.id.rb_reto_opcion2);
-        RadioButton radio3 = findViewById(R.id.rb_reto_opcion3);
+        retosDao =  BasedeDatosApp.getAppDatabase(this).retosDao();
 
-        if (misRespuestas.isEmpty()){
 
-            rellenarArray();
-        }
+        int [] aux = getIntent().getExtras().getIntArray("PARTIDAYRETO");
+        Log.e("idpartida",""+aux[0]);
+        Log.e("idreto",""+aux[1]);
+
+        new RecuperarReto().execute(aux[0],aux[1]);
+
+
+        respuestasDao = BasedeDatosApp.getAppDatabase(this).respuestasDao();
+        new RecuperarRespuestas().execute(aux[1]);
+
+
 
         //rellenado de los radioBtn aleatoriamente
+        Log.e("respuestas",""+respuestas.size());
+        Log.e("retos",""+miReto.getNombre());
+
+        if(misRespuestas.isEmpty()||misResBorrar.isEmpty()){
+
+            misResBorrar.clear();
+            misRespuestas.clear();
+            rellenarArray();
+
+        }
+
         int selec =  elegirRandom(0, misResBorrar.size()-1);
         radio1.setText(String.valueOf(misResBorrar.get(selec).getDescripcion()));
         misResBorrar.remove(selec);
@@ -59,9 +139,10 @@ public class RetoActivity extends AppCompatActivity {
         descr.setText(String.valueOf(miReto.getDescripcion()));
 
 
+
         //este bloque es el control de la cuenta atras
-        LoginModel cronoViewModel = ViewModelProviders.of(this).get(LoginModel.class);
-        TextView crono = findViewById(R.id.txt_reto_crono);
+        cronoViewModel = ViewModelProviders.of(this).get(LoginModel.class);
+
         Log.v("mitiempo", String.valueOf(cronoViewModel.getMiTiempo()));
 
         long timeRec = miReto.getMaxDuracion() * 1000;
@@ -78,6 +159,10 @@ public class RetoActivity extends AppCompatActivity {
                 public void onFinish() {
                     crono.setText("No puntuas!");
                     cronoViewModel.setMiTiempo((long) 0);
+                    if(!salida) {
+                        salida=true;
+                        setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), MapPrincActivity.class));
+                    }
                 }
             }.start();
 
@@ -94,6 +179,11 @@ public class RetoActivity extends AppCompatActivity {
                 public void onFinish() {
                     crono.setText("No puntuas!");
                     cronoViewModel.setMiTiempo((long) 0);
+                    setResult(MapPrincActivity.RESULT_OK,new Intent(getApplicationContext(),MapPrincActivity.class));
+                    if(!salida) {
+                        salida = true;
+                        setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), MapPrincActivity.class));
+                    }
                 }
             }.start();
 
@@ -121,28 +211,32 @@ public class RetoActivity extends AppCompatActivity {
             }
         });
 
+        //fin aqui
         btnResponder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for (int i = 0; i <misRespuestas.size() ; i++) {
-                    if (misRespuestas.get(i).getDescripcion().equals(resElegida)){
+                for (int i = 0; i <respuestas.size() ; i++) {
+                    if (respuestas.get(i).getDescripcion().equals(resElegida)){
 
-                        if (misRespuestas.get(i).getVerdadero()==1){
+                        if (respuestas.get(i).getVerdadero()==1){
 
                             Toast.makeText(getApplicationContext(), "Has acertado!!", Toast.LENGTH_SHORT).show();
                         }else{
                             Toast.makeText(getApplicationContext(), "Has fallado!! no puntuas!!", Toast.LENGTH_SHORT).show();
                         }
+
+                        setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), MapPrincActivity.class));
                     }
                 }
             }
         });
 
+        //fin aqui
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "No puntas este reto...", Toast.LENGTH_SHORT).show();
-
+                setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), MapPrincActivity.class));
             }
         });
 
@@ -150,18 +244,15 @@ public class RetoActivity extends AppCompatActivity {
     }
 
     public void rellenarArray(){
-        miReto = new Retos(1,"La fuente","cual es el numero total de cabezas de leon, blablalblablabllablbablblablalab", 180,1,10, 2.3451,23.234,1 );
 
-        Respuestas res1 = new Respuestas(1, 1, "cuatro",1);
-        Respuestas res2 = new Respuestas(2, 1, "siete",0);
-        Respuestas res3 = new Respuestas(3, 1, "ninguno",0);
+        for (int i = 0; i <respuestas.size() ; i++) {
+            misRespuestas.add(respuestas.get(i));
 
-        misRespuestas.add(res1);
-        misRespuestas.add(res2);
-        misRespuestas.add(res3);
-        misResBorrar.add(res1);
-        misResBorrar.add(res2);
-        misResBorrar.add(res3);
+            misResBorrar.add(respuestas.get(i));
+
+        }
+
+
     }
 
 
