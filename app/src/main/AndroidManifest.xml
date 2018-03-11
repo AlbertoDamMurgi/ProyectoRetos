@@ -45,7 +45,6 @@
         <activity android:name=".UI.RetoActivity" />
         <activity android:name=".UI.FinPartidaActivity" />
         <activity android:name=".UI.AcercaDeActivity"></activity>
-    </application>
 
         <meta-data
             android:name="com.google.android.gsm.version"
