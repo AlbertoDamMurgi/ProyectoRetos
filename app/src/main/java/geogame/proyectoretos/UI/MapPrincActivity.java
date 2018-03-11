@@ -111,7 +111,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     class RecuperarRetos extends AsyncTask<Integer, Void, Integer> {
         @Override
         protected Integer doInBackground(Integer... p) {
-            retos =  retosdao.getRetosPartida(p[0].intValue());
+            retos =  retosdao.getRetosPartida(p[0]);
             return 0;
         }
     }
@@ -368,7 +368,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         if (mapa == null) {
             mapa = googleMap;
             if(retoactual==1) {
-                mapa.addMarker(marcadores.get(0));
+                  mapa.addMarker(marcadores.get(0));
             }
 
         }
@@ -419,7 +419,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
                         if(marcadores.get(i).getTitle().equalsIgnoreCase(marker.getTitle())){
                                 int [] aux;
-                                aux = new int[]{idpartida,i};
+                                aux = new int[]{idpartida,retos.get(i).getIdPartida()};
                               startActivityForResult(new Intent(getApplicationContext(),RetoActivity.class).putExtra("PARTIDAYRETO",aux),RETO_FINALIZADO);
                         }
                         }

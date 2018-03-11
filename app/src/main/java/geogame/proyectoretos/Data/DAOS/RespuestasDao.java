@@ -18,8 +18,8 @@ public interface RespuestasDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertarRespuestas(Respuestas... respuestas);
 
-    @Query("select respuestas.* from respuestas,retos,partidas where respuestas.idReto=:idreto and respuestas.idReto=retos.idReto and partidas.idPartida =:idpartida and partidas.idPartida=retos.idPartida ")
-    List<Respuestas> getRespuestas(int idreto,int idpartida);
+    @Query("select * from respuestas where idReto=:idreto")
+    List<Respuestas> getRespuestas(int idreto);
 
 
 }

@@ -72,7 +72,7 @@ public class RetoActivity extends AppCompatActivity {
         @Override
         protected Integer doInBackground(Integer... p) {
 
-            respuestas = respuestasDao.getRespuestas(p[0],p[1]);
+            respuestas = respuestasDao.getRespuestas(p[0]);
             return 0;
         }
 
@@ -98,15 +98,23 @@ public class RetoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reto);
 
         retosDao =  BasedeDatosApp.getAppDatabase(this).retosDao();
-        respuestasDao = BasedeDatosApp.getAppDatabase(this).respuestasDao();
+
 
         int [] aux = getIntent().getExtras().getIntArray("PARTIDAYRETO");
+        Log.e("idpartida",""+aux[0]);
+        Log.e("idreto",""+aux[1]);
+
         new RecuperarReto().execute(aux[0],aux[1]);
 
-        new RecuperarRespuestas().execute(aux[0],aux[1]);
+
+        respuestasDao = BasedeDatosApp.getAppDatabase(this).respuestasDao();
+        new RecuperarRespuestas().execute(aux[1]);
+
+
 
         //rellenado de los radioBtn aleatoriamente
         Log.e("respuestas",""+respuestas.size());
+        Log.e("retos",""+miReto.getNombre());
 
         if(misRespuestas.isEmpty()||misResBorrar.isEmpty()){
 
@@ -116,10 +124,10 @@ public class RetoActivity extends AppCompatActivity {
 
         }
 
-        int selec =  elegirRandom(0, misResBorrar.size());
+        int selec =  elegirRandom(0, misResBorrar.size()-1);
         radio1.setText(String.valueOf(misResBorrar.get(selec).getDescripcion()));
         misResBorrar.remove(selec);
-        int selec2 =  elegirRandom(0, misResBorrar.size());
+        int selec2 =  elegirRandom(0, misResBorrar.size()-1);
         radio2.setText(String.valueOf(misResBorrar.get(selec2).getDescripcion()));
         misResBorrar.remove(selec2);
         int selec3 =  0;
