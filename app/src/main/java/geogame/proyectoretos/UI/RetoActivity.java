@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
 import geogame.proyectoretos.Data.entidades.Respuestas;
 import geogame.proyectoretos.Data.entidades.Retos;
 import geogame.proyectoretos.R;
@@ -24,19 +25,42 @@ public class RetoActivity extends AppCompatActivity {
     private Retos miReto;
     private String resElegida;
 
+    @BindView(R.id.txt_reto_nombre)
+    TextView nombre;
+
+    @BindView(R.id.txt_reto_descripcion)
+    TextView descr;
+
+    @BindView(R.id.btn_reto_responder)
+    Button btnResponder;
+
+    @BindView(R.id.btn_reto_cancelar)
+    Button btnCancel;
+
+    @BindView(R.id.rg_reto_rgrupo)
+    RadioGroup btnGrupo;
+
+    @BindView(R.id.rb_reto_opcion1)
+    RadioButton radio1;
+
+    @BindView(R.id.rb_reto_opcion2)
+    RadioButton radio2;
+
+    @BindView(R.id.rb_reto_opcion3)
+    RadioButton radio3;
+
+    @BindView(R.id.txt_reto_crono)
+    TextView crono;
+
+    private  LoginModel cronoViewModel;
+    private long nTiempo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reto);
 
-        TextView nombre = findViewById(R.id.txt_reto_nombre);
-        TextView descr = findViewById(R.id.txt_reto_descripcion);
-        Button btnResponder = findViewById(R.id.btn_reto_responder);
-        Button btnCancel = findViewById(R.id.btn_reto_cancelar);
-        RadioGroup btnGrupo = findViewById(R.id.rg_reto_rgrupo);
-        RadioButton radio1 = findViewById(R.id.rb_reto_opcion1);
-        RadioButton radio2 = findViewById(R.id.rb_reto_opcion2);
-        RadioButton radio3 = findViewById(R.id.rb_reto_opcion3);
+
 
         if (misRespuestas.isEmpty()){
 
@@ -44,6 +68,7 @@ public class RetoActivity extends AppCompatActivity {
         }
 
         //rellenado de los radioBtn aleatoriamente
+
         int selec =  elegirRandom(0, misResBorrar.size()-1);
         radio1.setText(String.valueOf(misResBorrar.get(selec).getDescripcion()));
         misResBorrar.remove(selec);
@@ -60,8 +85,8 @@ public class RetoActivity extends AppCompatActivity {
 
 
         //este bloque es el control de la cuenta atras
-        LoginModel cronoViewModel = ViewModelProviders.of(this).get(LoginModel.class);
-        TextView crono = findViewById(R.id.txt_reto_crono);
+        cronoViewModel = ViewModelProviders.of(this).get(LoginModel.class);
+
         Log.v("mitiempo", String.valueOf(cronoViewModel.getMiTiempo()));
 
         long timeRec = miReto.getMaxDuracion() * 1000;

@@ -12,7 +12,15 @@ public class LocationModel extends ViewModel{
 
     private MutableLiveData<Location> mLocation = new MutableLiveData<>();
 
+    private int numReto=1;
 
+    public int getNumReto() {
+        return numReto;
+    }
+
+    public void setNumReto(int numReto) {
+        this.numReto = numReto;
+    }
 
     public MutableLiveData<Location> getmLocation() {
         return mLocation;
@@ -21,4 +29,9 @@ public class LocationModel extends ViewModel{
     public void setmLocation(Location location) {
         this.mLocation.setValue(location);
     }
+
+
+
+
+
 }
