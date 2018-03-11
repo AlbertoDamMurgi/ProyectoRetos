@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -41,8 +42,12 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import geogame.proyectoretos.Data.BasedeDatosApp;
+import geogame.proyectoretos.Data.DAOS.RetosDao;
+import geogame.proyectoretos.Data.entidades.Partidas;
 import geogame.proyectoretos.Data.entidades.Retos;
 import geogame.proyectoretos.R;
 import geogame.proyectoretos.UI.geofences.GeofenceTransiciones;
@@ -58,7 +63,8 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     public GoogleMap mapa;
 
 
-
+    static final int RETO_FINALIZADO = 1;
+    private int retoactual;
     private LocationListener mGpsListener;
     private LocationModel locationModel;
     private LocationManager gestorLoc;
@@ -73,7 +79,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     private GeofencingClient mGeofencingClient;
     private CircleOptions co = new CircleOptions();
     private Marker destinoactual;
-    private ArrayList<Posiciones> posiciones = new ArrayList<>();
+    private int idpartida;
     private final LatLng Murgi = new LatLng(36.7822801, -2.815255);
 
 
@@ -81,6 +87,8 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
     public static final long GEOFENCE_EXPIRATION_IN_MILLISECONDS =
             GEOFENCE_EXPIRATION_IN_HOURS * 60 * 60 * 1000;
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
@@ -99,24 +107,49 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         BoundLocationManager.bindLocationListenerIn(this, mGpsListener, getApplicationContext());
     }
 
+
+    class RecuperarRetos extends AsyncTask<Integer, Void, Integer> {
+        @Override
+        protected Integer doInBackground(Integer... p) {
+            retos =  retosdao.getRetosPartida(p[0]);
+            return 0;
+        }
+    }
+
+
+
+
+
+    private List<Retos> retos = new ArrayList<>();
+    private RetosDao retosdao;
+
+
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_princ);
+        idpartida= getIntent().getExtras().getInt("IDPARTIDA");
 
-        BasedeDatosApp.getAppDatabase(this).retosDao().getRetosPartida(8);
+        retosdao =  BasedeDatosApp.getAppDatabase(this).retosDao();
 
-        ArrayList<Retos> retos = new ArrayList<>();
 
-        if (posiciones.isEmpty()) {
-            posiciones.add(new Posiciones(new LatLng(36.775132, -2.812932), "Ayuntamiento de El Ejido"));
-            posiciones.add(new Posiciones(new LatLng(36.764014, -2.800453), "Estadio Municipal de Santo Domingo"));
-            posiciones.add(new Posiciones(new LatLng(36.773189, -2.805506), "El Corte Inglés"));
-        }
+         new  RecuperarRetos().execute(idpartida);
+
+
 
         locationModel = ViewModelProviders.of(this).get(LocationModel.class);
         mGpsListener = new MyLocationListener(locationModel);
         mGeofenceList = new ArrayList<Geofence>();
+
+
+        retoactual = locationModel.getNumReto();
+
+
 
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -145,13 +178,13 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
                     .addOnConnectionFailedListener(this)
                     .addApi(LocationServices.API)
                     .addApi(Places.GEO_DATA_API)
-
                     .addApi(Places.PLACE_DETECTION_API)
                     .enableAutoManage(this, this)
 
                     .build();
         }
 
+        crearmarcadores();
 
         locationModel.getmLocation().observe(this, location -> {
             if (location != null && mapa != null) {
@@ -160,11 +193,14 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
                 Log.e("no puedes pinchar","no puedes pinchar"+puedespinchar);
                 Log.e("he entrado", "he entrado" + location.getLatitude() + " " + location.getLongitude());
 
-                for(int i=0;i<posiciones.size(); i++){
-                    Location.distanceBetween(location.getLatitude(),location.getLongitude(),posiciones.get(i).getCoordenadas().latitude,posiciones.get(i).getCoordenadas().longitude,results);
+                for(int i=0;i<retos.size(); i++){
+                    Location.distanceBetween(location.getLatitude(),location.getLongitude(),retos.get(i).getLocalizacionLatitud(),retos.get(i).getLocalizacionLongitud(),results);
                     if(results[0]<150){
-                        puedespinchar=true;
-                        Log.e("puedes pinchar","puedes pinchar"+puedespinchar);
+                        if(i==retoactual-1) {
+                            puedespinchar = true;
+                            Log.e("puedes pinchar", "puedes pinchar" + puedespinchar);
+
+                        }
                     }
                 }
 
@@ -219,8 +255,8 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     // Start Geofence creation process
     private void startGeofences() {
         Log.i(TAG, "startGeofence()");
-        for (int i = 0; i < posiciones.size(); i++) {
-            Geofence geofence = createGeofence(posiciones.get(i).getCoordenadas(), 150, posiciones.get(i).getNombre());
+        for (int i = 0; i < retos.size(); i++) {
+            Geofence geofence = createGeofence(new LatLng(retos.get(i).getLocalizacionLatitud(),retos.get(i).getLocalizacionLongitud()), 150, retos.get(i).getNombre());
             GeofencingRequest geofenceRequest = createGeofenceRequest(geofence);
             addGeofence(geofenceRequest);
         }
@@ -325,14 +361,16 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
 
 
-    //-----------------------------------------------------------mapas----------------------------------------------------------------------------
+    //-----------------------------------------------------------mapa----------------------------------------------------------------------------
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
         if (mapa == null) {
             mapa = googleMap;
-
+            if(retoactual==1) {
+                mapa.addMarker(marcadores.get(0));
+            }
 
         }
 
@@ -373,11 +411,73 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(Murgi, zoom);
         mapa.animateCamera(cameraUpdate);
 
+        if(puedespinchar) {
+            mapa.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker) {
+                    for (int i = 0; i < marcadores.size() ; i++) {
+                        if(marcadores.get(i).getPosition().equals(marker.getPosition())){
+                                int [] aux;
+                                aux = new int[]{idpartida,i};
+                              startActivityForResult(new Intent(getApplicationContext(),RetoActivity.class).putExtra("PARTIDAYRETO",aux),RETO_FINALIZADO);
+                        }
+                    }
+                    return false;
+                }
+            });
+        }
+
+
+    }
+
+    private ArrayList<MarkerOptions> marcadores = new ArrayList<>();
+
+    private void crearmarcadores() {
+
+        for (int i = 0; i < retos.size() ; i++) {
+            marcadores.add(new MarkerOptions().position(new LatLng(retos.get(i).getLocalizacionLatitud(),retos.get(i).getLocalizacionLongitud()))
+                    .title(retos.get(i).getNombre())
+
+                    .icon(BitmapDescriptorFactory
+                            .fromResource(R.drawable.hojapequenia))
+                    .anchor(0.5f, 0.5f));
+
+        }
 
 
 
     }
 
+
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RETO_FINALIZADO) {
+
+            if (resultCode == RESULT_OK) {
+                if (retoactual < retos.size()) {
+                    locationModel.setNumReto(retoactual+1);
+                    retoactual++;
+                    mapa.clear();
+                    onMapReady(mapa);
+                    mapa.addMarker(marcadores.get(retoactual-1));
+                }else{
+
+                    //todo finalizar juego
+
+
+
+                }
+
+            }
+
+
+        }
+    }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
