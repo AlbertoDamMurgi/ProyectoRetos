@@ -51,8 +51,10 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
     private double latitud;
     private double longitud;
     private int idPartida;
+    private int idReto;
     private String nombrePartida;
     private String clavePartida;
+    private int partidaNumerosRetos;
     private LatLng latLng;
     GoogleApiClient mClient;
     public static final String TAG = CrearRetoActivity.class.getSimpleName();
@@ -91,6 +93,7 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
 
         nombrePartida=getIntent().getStringExtra("partidaNombre");
         clavePartida=getIntent().getStringExtra("partidaContra");
+        partidaNumerosRetos=Integer.parseInt(getIntent().getStringExtra("partidaNumerosRetos"));
 
         ImageButton btnMapa = findViewById(R.id.btn_crearReto_mapaLugares);
         btnMapa.setOnClickListener(view -> runApiPlaces(view));
@@ -108,11 +111,56 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
         progressDialog.setMessage("Creando reto...");
         progressDialog.show();
 
+        CargarIDPartida();
 
-       CargarIDPartida();
 
 
     }//End OnClick
+
+
+
+    void CargarIDReto(){
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+////////////////////////////////////////////// CargarIDReto
+
+        final String URL = "http://geogame.ml/api/obtener_reto_con_datos_de_reto.php?nombre="+txt_nombre.getText().toString()+"&descripcion="+txt_pregunta.getText().toString()+"&maxDuracion="+txt_duracion.getText().toString()+"&tipo=1&puntuacion="+txt_puntos.getText().toString()+"&localizacionLatitud="+latitud+"&localizacionLongitud="+longitud+"&idPartida="+idPartida;
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                for (int i=0;i<response.length();i++){
+
+                    try {
+                        JSONObject o =response.getJSONObject(i);
+
+
+
+                        idReto= o.getInt("idReto");
+
+                        Log.e("Obteniendo id reto",""+idReto);
+
+                    } catch (JSONException e) {
+                        Log.e("Log Json error Partida",e.getMessage());
+                    }
+                }
+
+                //endgfor
+                Log.e("LISTA Partida",response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Partida",error.getMessage());
+                Toast.makeText(getApplicationContext(),"failed",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        requestQueue.add(request);
+
+    }//End CargarIDReto
+
 
 
 
@@ -167,7 +215,7 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
             @Override
             public void onResponse(String response) {
                 if (response.contains("success")) {
-
+                    CargarIDReto();
                 }else{
                     Toast.makeText(getApplicationContext(), "Ups! ha habido algun error", Toast.LENGTH_SHORT).show();
 
@@ -279,26 +327,4 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
 
 /////////////////////////////////////////////
 
-    class CargarPartida extends AsyncTask<Void,Void,Integer> {
-        @Override
-        protected Integer doInBackground(Void... p) {
-
-            return 0;
-        }
-    }
-    class CrearReto extends AsyncTask<Void,Void,Integer> {
-        @Override
-        protected Integer doInBackground(Void... p) {
-
-            return 0;
-        }
-    }
-
-    class CrearRespuestas extends AsyncTask<Void,Void,Integer> {
-        @Override
-        protected Integer doInBackground(Void... p) {
-
-            return 0;
-        }
-    }
 }

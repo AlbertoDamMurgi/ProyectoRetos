@@ -38,6 +38,8 @@ public class CrearPartida extends AppCompatActivity {
     EditText txt_duracion;
     @BindView(R.id.bt_crearpartida_continuar)
     Button bt_continuar;
+    @BindView(R.id.bt_crearpartida_numeroderetos)
+    EditText txt_numeroretos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +68,7 @@ public class CrearPartida extends AppCompatActivity {
                   Intent i = new Intent(getApplicationContext(),CrearRetoActivity.class);
                    i.putExtra("partidaNombre",txt_nombre.getText().toString());
                     i.putExtra("partidaContra",txt_contra.getText().toString());
-
+                    i.putExtra("partidaNumerosRetos",txt_numeroretos.getText().toString());
 
                     startActivity(i);
                 }else {
@@ -77,7 +79,7 @@ public class CrearPartida extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
                 progressDialog.dismiss();
             }
 
