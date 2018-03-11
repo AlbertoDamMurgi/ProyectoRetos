@@ -76,8 +76,6 @@ public class RetoActivity extends AppCompatActivity {
             return null;
         }
 
-
-
     }
 
    class RecReto extends AsyncTask<Integer, Void, Void> {
