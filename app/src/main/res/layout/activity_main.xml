@@ -27,7 +27,7 @@
         android:layout_marginStart="8dp"
         android:ems="10"
         android:hint="Contraseña de partida"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/bt_iniciarPartida"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline6" />
