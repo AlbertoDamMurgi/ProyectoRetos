@@ -23,7 +23,8 @@ public interface RetosDao {
     @Query("Select * from retos")
     List<Retos> getRetos();
 
-    @Query("select * from retos where ")
+    @Query("select * from retos where idPartida = :idpartida")
+    List<Retos> getRetosPartida(int idpartida);
 
 
 

@@ -97,7 +97,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_princ);
 
-        BasedeDatosApp.getAppDatabase(this);
+        BasedeDatosApp.getAppDatabase(this).retosDao().getRetosPartida(8);
 
         ArrayList<Retos> retos = new ArrayList<>();
 
