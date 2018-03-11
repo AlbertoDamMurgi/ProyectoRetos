@@ -164,12 +164,6 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
 
     }
 
-    @OnClick(R.id.btn_login_acercaDe)
-    void acercaDe(){
-
-        Intent i = new Intent(getApplicationContext(), AcercaDeActivity.class);
-        startActivity(i);
-    }
 
     @OnClick(R.id.btn_login_acercaDe)
     void acercaDe(){
