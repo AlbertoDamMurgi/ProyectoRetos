@@ -74,14 +74,6 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
     }
 
 
-    @OnClick(R.id.btn_mapa)
-    public void onViewClicked() {
-
-        new Intent(getApplicationContext(),MapPrincActivity.class);
-
-
-    }
-
 
     private void escuchador() {
 
