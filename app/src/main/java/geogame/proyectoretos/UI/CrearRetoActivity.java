@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -46,7 +47,7 @@ import butterknife.OnClick;
 import geogame.proyectoretos.Data.entidades.Partidas;
 import geogame.proyectoretos.R;
 
-public class CrearRetoActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener{
+public class CrearRetoActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private double latitud;
     private double longitud;
@@ -54,7 +55,10 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
     private int idReto;
     private String nombrePartida;
     private String clavePartida;
+
     private int partidaNumerosRetos;
+    private int partidaNumerosRetosActual=1;
+
     private LatLng latLng;
     GoogleApiClient mClient;
     public static final String TAG = CrearRetoActivity.class.getSimpleName();
@@ -72,6 +76,20 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
 
     @BindView(R.id.txt_crearReto_pregunta)
     EditText txt_pregunta;
+
+    @BindView(R.id.txt_crearReto_respuestaFalse1)
+    EditText txt_rfalse1;
+
+    @BindView(R.id.txt_crearReto_respuestaFalse2)
+    EditText txt_rfalse2;
+
+    @BindView(R.id.txt_crearReto_respuestaTrue)
+    EditText txt_rtrue;
+    @BindView(R.id.txt_crearreto_mensaje)
+    TextView txt_mensaje;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,69 +109,154 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
                 .enableAutoManage(this, this)
                 .build();
 
-        nombrePartida=getIntent().getStringExtra("partidaNombre");
-        clavePartida=getIntent().getStringExtra("partidaContra");
-        partidaNumerosRetos=Integer.parseInt(getIntent().getStringExtra("partidaNumerosRetos"));
+        nombrePartida = getIntent().getStringExtra("partidaNombre");
+        clavePartida = getIntent().getStringExtra("partidaContra");
+        partidaNumerosRetos = Integer.parseInt(getIntent().getStringExtra("partidaNumerosRetos"));
 
         ImageButton btnMapa = findViewById(R.id.btn_crearReto_mapaLugares);
         btnMapa.setOnClickListener(view -> runApiPlaces(view));
 
-
+        txt_mensaje.setText("Introduce los datos del reto "+partidaNumerosRetosActual+"/"+partidaNumerosRetos);
     }
 
 
-
-
-
-    @OnClick(R.id.btn_crearReto_next )
+    @OnClick(R.id.btn_crearReto_next)
     void ClickBotonReto() {
-        Log.i("LOOOOOOOOOOOG","ENTRE EN CLIK");
-        progressDialog.setMessage("Creando reto...");
-        progressDialog.show();
+        Log.i("LOOOOOOOOOOOG", "ENTRE EN CLIK");
 
-        CargarIDPartida();
 
+        if (comprobarcampos()) {
+            progressDialog.setMessage("Creando reto...");
+            progressDialog.show();
+            CargarIDPartida();
+        } else {
+            Toast.makeText(getApplicationContext(), "Debes de rellenar, todos los campos ", Toast.LENGTH_LONG).show();
+        }
 
 
     }//End OnClick
 
+    boolean comprobarcampos() {
+        boolean ok = false;
+
+        if (
+                        !txt_puntos.getText().toString().isEmpty() &&
+                        !txt_duracion.getText().toString().isEmpty() &&
+                        !txt_pregunta.getText().toString().isEmpty() &&
+                        !txt_nombre.getText().toString().isEmpty() &&
+                        !txt_rfalse1.getText().toString().isEmpty() &&
+                        !txt_rfalse2.getText().toString().isEmpty() &&
+                        !txt_rtrue.getText().toString().isEmpty() &&
+                        latitud!=0 && longitud!=0
+                ) {
+            ok = true;
+        }
+        return ok;
+    }
+
+    void limpiarcampos(){
+        txt_puntos.setText("");
+        txt_duracion.setText("");
+        txt_pregunta.setText("");
+        txt_nombre.setText("");
+        txt_rfalse1.setText("");
+        txt_rfalse2.setText("");
+        txt_rtrue.setText("");
+        latitud=0;
+        longitud=0;
+    }
+    void insertarRespuestas() {
+        final String URL = "http://geogame.ml/api/insertar_respuesta.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if (response.contains("success")) {
+
+                    partidaNumerosRetosActual++;
+                    if (partidaNumerosRetosActual<=partidaNumerosRetos){
+                        txt_mensaje.setText("Introduce los datos del reto "+partidaNumerosRetosActual+"/"+partidaNumerosRetos);
+                        limpiarcampos();
+                        Toast.makeText(getApplicationContext(), "Reto creado, rellena el siguiente", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Todos los retos creados, Ya puede jugar la partida!", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(getApplicationContext(),AdminMainActivity.class));
+                    }
 
 
-    void CargarIDReto(){
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "Ups! ha habido algun error", Toast.LENGTH_SHORT).show();
+                }
+                progressDialog.dismiss();
+                Log.e("ON RESPONDE", response.toString());
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+
+            }
+
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("idReto", "" + idReto);
+
+                params.put("descripcion1", txt_rtrue.getText().toString());
+                params.put("verdadero1", "1");
+
+                params.put("descripcion2", txt_rfalse1.getText().toString());
+                params.put("verdadero2", "0");
+
+                params.put("descripcion3", txt_rfalse2.getText().toString());
+                params.put("verdadero3", "0");
+
+                return params;
+            }
+        };
+
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(stringRequest);
+    }//fin insertarPregunta
+
+
+    void CargarIDReto() {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
 ////////////////////////////////////////////// CargarIDReto
 
-        final String URL = "http://geogame.ml/api/obtener_reto_con_datos_de_reto.php?nombre="+txt_nombre.getText().toString()+"&descripcion="+txt_pregunta.getText().toString()+"&maxDuracion="+txt_duracion.getText().toString()+"&tipo=1&puntuacion="+txt_puntos.getText().toString()+"&localizacionLatitud="+latitud+"&localizacionLongitud="+longitud+"&idPartida="+idPartida;
+        final String URL = "http://geogame.ml/api/obtener_reto_con_datos_de_reto.php?nombre=" + txt_nombre.getText().toString() + "&descripcion=" + txt_pregunta.getText().toString() + "&maxDuracion=" + txt_duracion.getText().toString() + "&tipo=1&puntuacion=" + txt_puntos.getText().toString() + "&localizacionLatitud=" + latitud + "&localizacionLongitud=" + longitud + "&idPartida=" + idPartida;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
-                for (int i=0;i<response.length();i++){
+                for (int i = 0; i < response.length(); i++) {
 
                     try {
-                        JSONObject o =response.getJSONObject(i);
+                        JSONObject o = response.getJSONObject(i);
 
 
-
-                        idReto= o.getInt("idReto");
-
-                        Log.e("Obteniendo id reto",""+idReto);
+                        idReto = o.getInt("idReto");
+                        insertarRespuestas();
+                        Log.e("Obteniendo id reto", "" + idReto);
 
                     } catch (JSONException e) {
-                        Log.e("Log Json error Partida",e.getMessage());
+                        Log.e("Log Json error Partida", e.getMessage());
                     }
                 }
 
                 //endgfor
-                Log.e("LISTA Partida",response.toString());
+                Log.e("LISTA SACAR RETO", response.toString());
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Partida",error.getMessage());
-                Toast.makeText(getApplicationContext(),"failed",Toast.LENGTH_SHORT).show();
+                Log.e("Partida", error.getMessage());
+                Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -162,43 +265,41 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
     }//End CargarIDReto
 
 
-
-
-    void CargarIDPartida(){
+    void CargarIDPartida() {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
 ////////////////////////////////////////////// Partida
 
-        final String URL = "http://geogame.ml/api/obtener_partida.php?nombre="+nombrePartida+"&passwd="+clavePartida;
+        final String URL = "http://geogame.ml/api/obtener_partida.php?nombre=" + nombrePartida + "&passwd=" + clavePartida;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
-                for (int i=0;i<response.length();i++){
+                for (int i = 0; i < response.length(); i++) {
 
                     try {
-                        JSONObject o =response.getJSONObject(i);
-                        Log.e("LISTA Partida","una vuelta");
+                        JSONObject o = response.getJSONObject(i);
+                        Log.e("LISTA Partida", "una vuelta");
 
 
-                             idPartida= o.getInt("idPartida");
-                                o.getString("nombre");
-                                o.getString("passwd");
-                                o.getInt("maxDuracion");
+                        idPartida = o.getInt("idPartida");
+                        o.getString("nombre");
+                        o.getString("passwd");
+                        o.getInt("maxDuracion");
 
                         InsertarReto();
                     } catch (JSONException e) {
-                        Log.e("Log Json error Partida",e.getMessage());
+                        Log.e("Log Json error Partida", e.getMessage());
                     }
                 }//endgfor
-                Log.e("LISTA Partida",response.toString());
+                Log.e("LISTA Partida", response.toString());
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Partida",error.getMessage());
-                Toast.makeText(getApplicationContext(),"failed",Toast.LENGTH_SHORT).show();
+                Log.e("Partida", error.getMessage());
+                Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -207,8 +308,8 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
     }//End CargarIDPartida
 
 
-//////////////////////////////////////
-    void InsertarReto(){
+    //////////////////////////////////////
+    void InsertarReto() {
         //INSERTART
         final String URL = "http://geogame.ml/api/insertar_reto.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
@@ -216,18 +317,18 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
             public void onResponse(String response) {
                 if (response.contains("success")) {
                     CargarIDReto();
-                }else{
+                } else {
                     Toast.makeText(getApplicationContext(), "Ups! ha habido algun error", Toast.LENGTH_SHORT).show();
 
                 }
-                Log.e("ON RESPONDE",response.toString());
-                progressDialog.dismiss();
+                Log.e("ON RESPONDE", response.toString());
+
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
-                progressDialog.dismiss();
+
             }
 
         }) {
@@ -239,9 +340,9 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
                 params.put("maxDuracion", txt_duracion.getText().toString());
                 params.put("tipo", "1");
                 params.put("puntuacion", txt_puntos.getText().toString());
-                params.put("localizacionLatitud", ""+latitud);
-                params.put("localizacionLongitud", ""+longitud);
-                params.put("idPartida", ""+idPartida);
+                params.put("localizacionLatitud", "" + latitud);
+                params.put("localizacionLongitud", "" + longitud);
+                params.put("idPartida", "" + idPartida);
                 return params;
             }
         };
@@ -252,29 +353,7 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
     }//InsertarReto
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public void runApiPlaces(View view){
+    public void runApiPlaces(View view) {
         try {
             // Start a new Activity for the Place Picker API, this will trigger {@code #onActivityResult}
             // when a place is selected or with the user cancels.
@@ -289,6 +368,7 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
         }
 
     }
+
     //este metodo se lanza cuando el metodo RunApiplaces termina
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_PICKER_REQUEST && resultCode == RESULT_OK) {
@@ -307,10 +387,9 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
             Log.v("lat2", String.valueOf(latitud));
             Log.v("long2", String.valueOf(longitud));
 
-            Toast.makeText(getApplicationContext(),"Ubicacion del reto seleccionada!!",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Ubicacion del reto seleccionada!!", Toast.LENGTH_LONG).show();
         }
     }
-
 
 
     @Override
