@@ -39,6 +39,7 @@ public class CrearPartida extends AppCompatActivity {
     EditText txt_duracion;
     @BindView(R.id.bt_crearpartida_continuar)
     Button bt_continuar;
+
     @BindView(R.id.bt_crearpartida_numeroderetos)
     EditText txt_numeroretos;
     @Override

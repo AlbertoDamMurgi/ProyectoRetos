@@ -35,7 +35,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import geogame.proyectoretos.Chat.ChatActivity;
 import geogame.proyectoretos.Data.BasedeDatosApp;
-
 import geogame.proyectoretos.Data.entidades.Partidas;
 import geogame.proyectoretos.Data.entidades.Respuestas;
 import geogame.proyectoretos.Data.entidades.Retos;
@@ -70,13 +69,11 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
         String email = mLoginModel.getConection().getValue().getInstance().getCurrentUser().getEmail();
         progressDialog = new ProgressDialog(this);
-        db=BasedeDatosApp.getAppDatabase(this);
-
-
-
+        db = BasedeDatosApp.getAppDatabase(this);
 
 
     }
+
 
 
     private void escuchador() {
@@ -119,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
 
     @OnClick(R.id.bt_iniciarPartida)
-    void iniciarPartida(){
+    void iniciarPartida() {
 
 
         progressDialog.setMessage("Cargando partida...");
@@ -133,14 +130,14 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
 
 
-
-
-    class cargarRespuesta extends AsyncTask<Respuestas,Void,Integer> {
+    class cargarRespuesta extends AsyncTask<Respuestas, Void, Integer> {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         @Override
         protected Integer doInBackground(Respuestas... r) {
+
             final String URL3 = "http://geogame.ml/api/obtener_respuestas.php?nombre="+txt_nombrepartida.getText().toString();
+
 
 
 
@@ -148,13 +145,13 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                 @Override
                 public void onResponse(JSONArray response) {
 
-                    for (int i=0;i<response.length();i++){
+                    for (int i = 0; i < response.length(); i++) {
 
                         try {
-                            JSONObject o =response.getJSONObject(i);
-                            Log.e("LISTA AA AAA Respuestas","una vuelta");
+                            JSONObject o = response.getJSONObject(i);
+                            Log.e("LISTA AA AAA Respuestas", "una vuelta");
 
-                            new InsertarRespuesta().execute( new Respuestas(
+                            new InsertarRespuesta().execute(new Respuestas(
                                     o.getInt("idRespuesta"),
                                     o.getInt("idReto"),
                                     o.getString("descripcion"),
@@ -162,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                             ));
 
                         } catch (JSONException e) {
-                            Log.e("Json error Respuestas",e.getMessage());
+                            Log.e("Json error Respuestas", e.getMessage());
                         }
                         if (response.length()-1 == i) {
                             startActivity(new Intent(getApplicationContext(),MapPrincActivity.class));
@@ -170,14 +167,14 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                     }//endgfor
                     progressDialog.dismiss();
 
-                    Log.e("LISTA Respuestas",response.toString());
+                    Log.e("LISTA Respuestas", response.toString());
 
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("Respuestas",error.getMessage());
-                    Toast.makeText(getApplicationContext(),"failed",Toast.LENGTH_SHORT).show();
+                    Log.e("Respuestas", error.getMessage());
+                    Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -190,10 +187,11 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
     }
 
 
-
-    class cargarReto extends AsyncTask<Void,Void,Integer> {
+    class cargarReto extends AsyncTask<Void, Void, Integer> {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+
         final String URL2 = "http://geogame.ml/api/Lista_Retos_Clave.php?nombre="+txt_nombrepartida.getText().toString();
+
 
         @Override
         protected Integer doInBackground(Void... r) {
@@ -201,13 +199,13 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                 @Override
                 public void onResponse(JSONArray response) {
 
-                    for (int i=0;i<response.length();i++){
+                    for (int i = 0; i < response.length(); i++) {
 
                         try {
-                            JSONObject o =response.getJSONObject(i);
-                            Log.e("LISTA Retos ","una vuelta");
+                            JSONObject o = response.getJSONObject(i);
+                            Log.e("LISTA Retos ", "una vuelta");
 
-                            new InsertarReto().execute( new Retos(
+                            new InsertarReto().execute(new Retos(
 
                                     o.getInt("idReto"),
                                     o.getString("nombre"),
@@ -221,19 +219,19 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                             ));
 
                         } catch (JSONException e) {
-                            Log.e("Log Json error Retos",e.getMessage());
+                            Log.e("Log Json error Retos", e.getMessage());
                         }
                     }//endgfor
                     new cargarRespuesta().execute();
 
-                    Log.e("LISTA Retos",response.toString());
+                    Log.e("LISTA Retos", response.toString());
 
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("Retos",error.getMessage());
-                    Toast.makeText(getApplicationContext(),"failed",Toast.LENGTH_SHORT).show();
+                    Log.e("Retos", error.getMessage());
+                    Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
                 }
             });
             requestQueue.add(request2);
@@ -244,12 +242,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
     }
 
 
-
-
-
-
-
-    class cargarPartida extends AsyncTask<Void,Void,Integer> {
+    class cargarPartida extends AsyncTask<Void, Void, Integer> {
         @Override
         protected Integer doInBackground(Void... r) {
 
@@ -257,20 +250,24 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
 ////////////////////////////////////////////// Partida
 
+
             final String URL = "http://geogame.ml/api/obtener_partida.php?nombre="+txt_nombrepartida.getText().toString()+"&passwd="+txt_contraPartida.getText().toString();
+
 
 
             JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
+
                     boolean partidadescargada=false;
                     for (int i=0;i<response.length();i++){
 
-                        try {
-                            JSONObject o =response.getJSONObject(i);
-                            Log.e("LISTA Partida","una vuelta");
 
-                            new InsertarPartida().execute( new Partidas(
+                        try {
+                            JSONObject o = response.getJSONObject(i);
+                            Log.e("LISTA Partida", "una vuelta");
+
+                            new InsertarPartida().execute(new Partidas(
                                     o.getInt("idPartida"),
                                     o.getString("nombre"),
                                     o.getString("passwd"),
@@ -278,7 +275,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                             ));
 
                         } catch (JSONException e) {
-                            Log.e("Log Json error Partida",e.getMessage());
+                            Log.e("Log Json error Partida", e.getMessage());
                         }
                         partidadescargada=true;
                     }//endgfor
@@ -291,14 +288,14 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
 
 
-                    Log.e("LISTA Partida",response.toString());
+                    Log.e("LISTA Partida", response.toString());
 
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("Partida",error.getMessage());
-                    Toast.makeText(getApplicationContext(),"failed",Toast.LENGTH_SHORT).show();
+                    Log.e("Partida", error.getMessage());
+                    Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -309,8 +306,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
     }
 
 
-
-    class comprobarDescargado extends AsyncTask<Void,Void,Integer> {
+    class comprobarDescargado extends AsyncTask<Void, Void, Integer> {
         @Override
         protected Integer doInBackground(Void... v) {
 
@@ -320,11 +316,12 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         @Override
         protected void onPostExecute(Integer cant) {
             super.onPostExecute(cant);
-            Log.i("RETOS DESCARGADOS:", cant+"");
+            Log.i("RETOS DESCARGADOS:", cant + "");
         }
 
     }
-    class InsertarReto extends AsyncTask<Retos,Void,Integer> {
+
+    class InsertarReto extends AsyncTask<Retos, Void, Integer> {
         @Override
         protected Integer doInBackground(Retos... r) {
             db.retosDao().retosInsert(r);
@@ -332,7 +329,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         }
     }
 
-    class InsertarPartida extends AsyncTask<Partidas,Void,Integer> {
+    class InsertarPartida extends AsyncTask<Partidas, Void, Integer> {
         @Override
         protected Integer doInBackground(Partidas... p) {
             db.partidasDao().partidasInsert(p);
@@ -340,7 +337,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         }
     }
 
-    class InsertarRespuesta extends AsyncTask<Respuestas,Void,Integer> {
+    class InsertarRespuesta extends AsyncTask<Respuestas, Void, Integer> {
         @Override
         protected Integer doInBackground(Respuestas... r) {
             db.respuestasDao().insertarRespuestas(r);

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="geogame.proyectoretos">
-
+    
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-
+    
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,11 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".UI.LoginActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity android:name=".UI.MainActivity" />
         <activity
@@ -25,7 +27,11 @@
             android:label="@string/title_activity_chat"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".UI.RegistroActivity" />
-        <activity android:name=".UI.MapPrincActivity" />
+
+        <activity android:name=".UI.MapPrincActivity">
+
+            </activity>
+
         <activity android:name=".UI.LoginAdmin" />
         <activity android:name=".UI.RegistroAdminActivity" />
         <activity android:name=".UI.AdminMainActivity" />
@@ -35,8 +41,15 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB-w-3OXA6NcjcZrzEjhHdUq_0SDGYqfl8" />
 
-        <activity android:name=".UI.CrearPartida" />
-        <activity android:name=".UI.RetoActivity"></activity>
-    </application>
+        <meta-data
+            android:name="com.google.android.gsm.version"
+            android:value="@integer/google_play_services_version"
+            />
+        
+        <activity android:name=".UI.CrearPartida"></activity>
 
+        <service android:name=".UI.geofences.GeofenceTransiciones" />
+
+    </application>
+    
 </manifest>
