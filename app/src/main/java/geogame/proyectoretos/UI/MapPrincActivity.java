@@ -1,10 +1,12 @@
 package geogame.proyectoretos.UI;
 
 import android.Manifest;
+
 import android.app.PendingIntent;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -15,6 +17,7 @@ import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -51,7 +54,10 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     private static final String TAG = "GEOFENCE";
 
 
+
     public GoogleMap mapa;
+
+
 
     private LocationListener mGpsListener;
     private LocationModel locationModel;
@@ -69,6 +75,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     private Marker destinoactual;
     private ArrayList<Posiciones> posiciones = new ArrayList<>();
     private final LatLng Murgi = new LatLng(36.7822801, -2.815255);
+
 
     public static final long GEOFENCE_EXPIRATION_IN_HOURS = 1;
 
@@ -110,6 +117,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         locationModel = ViewModelProviders.of(this).get(LocationModel.class);
         mGpsListener = new MyLocationListener(locationModel);
         mGeofenceList = new ArrayList<Geofence>();
+
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
@@ -289,6 +297,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
             // inform about fail
         }
 
+
     }
 
     // Clear Geofence
@@ -333,6 +342,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
 
 
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -344,8 +354,10 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
             return;
         }
 
+
         mapa.setMyLocationEnabled(true);
         mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
 
         mapa.addMarker(new MarkerOptions()
                 .position(Murgi)
@@ -356,9 +368,11 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
                 .anchor(0.5f, 0.5f));
 
+
         float zoom = 14f;
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(Murgi, zoom);
         mapa.animateCamera(cameraUpdate);
+
 
 
 
@@ -379,6 +393,49 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+}
+
+     class MyLocationListener implements LocationListener {
+
+       private LocationModel model;
+
+         public MyLocationListener(LocationModel locationModel) {
+             model = locationModel;
+         }
+
+         @Override
+        public void onLocationChanged(Location location) {
+            Log.d("onLocationChanged","Changed 1");
+                if(location!=null&&model.getmLocation()!=null) {model.setmLocation(location);}
+            Log.d("onLocationChanged","Changed 2");
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
+    }
+
+
+
+/*
+
+
+
+
+
+
+
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
