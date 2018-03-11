@@ -68,6 +68,7 @@ public class RetoActivity extends AppCompatActivity {
     private List<Respuestas> respuestas = new ArrayList<>();
     private boolean salida=false;
 
+
     class recRes extends AsyncTask<Integer, Void, Void> {
         @Override
         protected Void doInBackground(Integer... p) {
@@ -85,6 +86,7 @@ public class RetoActivity extends AppCompatActivity {
             miReto = retosDao.getReto_Partida(p[0],p[1]);
             return  null;
         }
+
 
 
     }
