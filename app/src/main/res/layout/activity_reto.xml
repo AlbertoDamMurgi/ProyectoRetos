@@ -13,6 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="128dp"
         android:orientation="vertical"
+        android:gravity="center_horizontal"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/txt_reto_descripcion">
@@ -21,7 +22,7 @@
             android:id="@+id/rb_reto_opcion1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:layout_gravity="center"
             android:layout_margin="8dp"
             android:layout_weight="1"
             android:text="Respuesta1" />
@@ -33,6 +34,7 @@
             android:layout_margin="8dp"
             android:layout_marginTop="8dp"
             android:layout_weight="1"
+            android:layout_gravity="center"
             android:text="Respuesta2" />
 
         <RadioButton
@@ -63,8 +65,8 @@
 
     <ImageView
         android:id="@+id/imageView6"
-        android:layout_width="244dp"
-        android:layout_height="172dp"
+        android:layout_width="184dp"
+        android:layout_height="108dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -88,22 +90,22 @@
     <TextView
         android:id="@+id/txt_reto_descripcion"
         android:layout_width="0dp"
-        android:layout_height="95dp"
+        android:layout_height="36dp"
         android:layout_marginTop="8dp"
         android:text="Descripcion del reto"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_reto_nombre" />
 
     <Button
         android:id="@+id/btn_reto_responder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:text="responder"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline" />
+        app:layout_constraintEnd_toStartOf="@+id/btn_reto_cancelar" />
 
     <Button
         android:id="@+id/btn_reto_cancelar"
@@ -111,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:text="cancelar"
+        android:text="Saltar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline2" />
 
@@ -124,5 +126,15 @@
         android:text="Tiempo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_reto_nombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Nombre del reto"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 </android.support.constraint.ConstraintLayout>
