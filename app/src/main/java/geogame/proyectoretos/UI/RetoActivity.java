@@ -68,23 +68,23 @@ public class RetoActivity extends AppCompatActivity {
     private List<Respuestas> respuestas = new ArrayList<>();
     private boolean salida=false;
 
-    class RecuperarRespuestas extends AsyncTask<Integer, Void, Integer> {
+    class recRes extends AsyncTask<Integer, Void, Void> {
         @Override
-        protected Integer doInBackground(Integer... p) {
+        protected Void doInBackground(Integer... p) {
 
             respuestas = respuestasDao.getRespuestas(p[0]);
-            return 0;
+            return null;
         }
 
 
     }
 
-   class RecuperarReto extends AsyncTask<Integer, Void, Integer> {
+   class RecReto extends AsyncTask<Integer, Void, Void> {
         @Override
-        protected Integer doInBackground(Integer... p) {
+        protected Void doInBackground(Integer... p) {
 
             miReto = retosDao.getReto_Partida(p[0],p[1]);
-            return 0;
+            return  null;
         }
 
 
@@ -97,18 +97,19 @@ public class RetoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reto);
 
-        retosDao =  BasedeDatosApp.getAppDatabase(this).retosDao();
+
 
 
         int [] aux = getIntent().getExtras().getIntArray("PARTIDAYRETO");
         Log.e("idpartida",""+aux[0]);
         Log.e("idreto",""+aux[1]);
 
-        new RecuperarReto().execute(aux[0],aux[1]);
+        retosDao = BasedeDatosApp.getAppDatabase(this).retosDao();
+        new RecReto().execute(aux[0],aux[1]);
 
 
         respuestasDao = BasedeDatosApp.getAppDatabase(this).respuestasDao();
-        new RecuperarRespuestas().execute(aux[1]);
+        new recRes().execute(aux[1]);
 
 
 
