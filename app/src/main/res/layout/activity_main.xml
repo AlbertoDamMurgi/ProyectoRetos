@@ -25,7 +25,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:ems="10"
+
         android:hint="Contraseña de partida"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/bt_iniciarPartida"
@@ -90,10 +90,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
         android:text="chat"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline6"
-        tools:layout_editor_absoluteX="7dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/txt_main_nombrepartida"

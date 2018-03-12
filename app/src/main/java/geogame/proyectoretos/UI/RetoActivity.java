@@ -166,14 +166,15 @@ public class RetoActivity extends AppCompatActivity {
 
         Log.v("mitiempo", "" + cronoViewModel.getMiTiempo());
 
-        long timeRec = miReto.getMaxDuracion() * 1000;
+        long timeRec = miReto.getMaxDuracion() * 1000*60;
         if (cronoViewModel.getMiTiempo() == null) {
             cronoViewModel.setMiTiempo(timeRec);
             new CountDownTimer(timeRec, 1000) {
 
                 public void onTick(long tiempo) {
-
-                    txtRetoCrono.setText("Tiempo: " + tiempo / 1000);
+                    int mins =(int) (tiempo/(1000*60))%60;
+                    int seg = (int) (tiempo/1000)%60;
+                    txtRetoCrono.setText("Tiempo: " + mins+":"+seg);
                     cronoViewModel.setMiTiempo(tiempo);
                 }
 
@@ -194,7 +195,9 @@ public class RetoActivity extends AppCompatActivity {
             new CountDownTimer(ntiempo, 1000) {
 
                 public void onTick(long ntiempo) {
-                    txtRetoCrono.setText("Tiempo: " + ntiempo / 1000);
+                    int mins =(int) (ntiempo/(1000*60))%60;
+                    int seg = (int) (ntiempo/1000)%60;
+                    txtRetoCrono.setText("Tiempo: " +mins+":"+seg);
                     cronoViewModel.setMiTiempo(ntiempo);
                 }
 
