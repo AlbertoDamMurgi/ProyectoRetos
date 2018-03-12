@@ -46,7 +46,7 @@
 
     <Button
         android:id="@+id/btn_conectarse"
-        android:layout_width="276dp"
+        android:layout_width="0dp"
         android:layout_height="45dp"
 
         android:layout_marginBottom="16dp"

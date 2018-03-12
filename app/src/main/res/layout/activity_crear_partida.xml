@@ -44,7 +44,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="Duracion"
+        android:hint="Duracion(minutos)"
         android:inputType="text|number"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.508"

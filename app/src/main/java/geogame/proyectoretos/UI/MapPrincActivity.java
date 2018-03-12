@@ -473,7 +473,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
                 }else{
 
                     //todo finalizar juego
-
+                    startActivity(new Intent(getApplicationContext(),FinPartidaActivity.class));
 
 
                 }
