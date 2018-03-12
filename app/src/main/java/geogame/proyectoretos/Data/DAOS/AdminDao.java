@@ -1,6 +1,7 @@
 package geogame.proyectoretos.Data.DAOS;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -21,10 +22,10 @@ public interface AdminDao {
     void insertarAdmins(Admin... admin);
 
     @Query("Select * from admin where user_name = :nombre")
-    LiveData<Admin> getAdminActual(String nombre);
+    Admin getAdminActual(String nombre);
 
     @Query("Select * from admin")
-   Admin[] getAdmins();
+   List<Admin> getAdmins();
 
 
 

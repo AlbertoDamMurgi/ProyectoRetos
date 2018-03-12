@@ -2,23 +2,14 @@ package geogame.proyectoretos.Chat;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
-import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,7 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import geogame.proyectoretos.R;
-import geogame.proyectoretos.UI.MainViewModel;
+import geogame.proyectoretos.UI.LoginModel;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -42,11 +33,17 @@ public class ChatActivity extends AppCompatActivity {
     @BindView(R.id.entrada)
     EditText entrada;
 
+    @BindView(R.id.scrollchat)
+    ScrollView scrollchat;
 
     FirebaseDatabase database;
     DatabaseReference myRef;
 
     private ChatModel mChatModel;
+
+    private LoginModel logmodel;
+    private FirebaseAuth mAuth;
+    private String autor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +54,12 @@ public class ChatActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mChatModel = ViewModelProviders.of(this).get(ChatModel.class);
+        logmodel = ViewModelProviders.of(this).get(LoginModel.class);
+
+        mAuth = FirebaseAuth.getInstance();
+
+        autor = mAuth.getCurrentUser().getDisplayName();
+
 
         if(historial.getText().toString().isEmpty()){
 
@@ -93,6 +96,7 @@ public class ChatActivity extends AppCompatActivity {
                     try {
                         Chat msg = dataSnapshot.getValue(Chat.class);
                         insertarMensaje(msg);
+                        scrollchat.fullScroll(ScrollView.FOCUS_DOWN);
                     } catch (Exception ex) {
                         Log.e("Error", ex.getMessage());
                     }
@@ -128,6 +132,7 @@ public class ChatActivity extends AppCompatActivity {
             historial.append("\n");
             historial.append(msg.getMensaje());
             mChatModel.getTexto().postValue(historial.getText().toString());
+            scrollchat.fullScroll(ScrollView.FOCUS_DOWN);
         }
     }
 
@@ -139,11 +144,14 @@ public class ChatActivity extends AppCompatActivity {
         // vaciamos el edittext
         limpiarEntrada();
         // instanciamos el objeto que hemos creado con el POI Mensaje
-        Chat msg = new Chat(cadena);
+        Chat msg = new Chat(autor+": "+cadena);
 
 
         // guardamos en firebase
         guardarMensaje(msg);
+
+
+
 
     }
 

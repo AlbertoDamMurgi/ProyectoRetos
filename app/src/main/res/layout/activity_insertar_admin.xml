@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="geogame.proyectoretos.UI.Adm.ActivityInsertarAdmin">
+    tools:context="geogame.proyectoretos.papelera.ActivityInsertarAdmin">
 
     <EditText
         android:id="@+id/txt_username"
@@ -57,5 +57,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_prueba"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="163dp"
+        tools:layout_editor_absoluteY="276dp" />
 
 </android.support.constraint.ConstraintLayout>
