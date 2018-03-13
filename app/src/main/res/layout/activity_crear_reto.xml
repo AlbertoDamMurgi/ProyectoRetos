@@ -30,6 +30,7 @@
         android:layout_height="43dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:textColor="#FFF"
         android:textColorHint="#FFF"
         android:ems="10"
         android:background="#11000000"
@@ -57,7 +58,7 @@
         android:layout_width="0dp"
         android:layout_height="122dp"
         android:textColorHint="#FFF"
-
+        android:textColor="#FFF"
         android:layout_marginEnd="8dp"
         android:background="#11000000"
         android:layout_marginStart="8dp"
@@ -76,7 +77,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:background="#11000000"
-
+        android:textColor="#FFF"
         android:ems="10"
         android:hint="Duracion (minutos)"
         android:inputType="number"
@@ -93,7 +94,7 @@
         android:layout_marginTop="16dp"
         android:background="#11000000"
         android:ems="10"
-
+        android:textColor="#FFF"
         android:hint="Puntos"
         android:inputType="number"
         android:textColorHint="#FFF"
@@ -106,7 +107,7 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginEnd="8dp"
-
+        android:textColor="#FFF"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="#11000000"
@@ -126,7 +127,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="#11000000"
-
+        android:textColor="#FFF"
         android:ems="10"
         android:hint="Respuesta Incorrecta"
         android:inputType="textPersonName"
@@ -146,7 +147,7 @@
         android:ems="10"
         android:hint="Respuesta Incorrecta"
         android:inputType="textPersonName"
-
+        android:textColor="#FFF"
         android:textColorHint="#FFF"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"

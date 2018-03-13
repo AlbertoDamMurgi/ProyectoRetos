@@ -32,7 +32,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-
+        android:textColor="#FFF"
         android:hint="Contraseña"
         android:inputType="textPassword"
         android:singleLine="true"
@@ -53,7 +53,7 @@
         android:ems="10"
         android:hint="Correo"
         android:inputType="textEmailAddress"
-
+        android:textColor="#FFF"
         android:singleLine="true"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
