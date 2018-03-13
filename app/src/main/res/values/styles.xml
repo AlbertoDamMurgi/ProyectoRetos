@@ -1,11 +1,12 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -16,5 +17,47 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <style name="logo">
+
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">150dp</item>
+    </style>
+
+    <style name="usuario" parent="Base.Widget.AppCompat.EditText">
+
+        <item name="android:background">#11000000</item>
+        <item name="android:drawableLeft">@drawable/ic_action_user</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:ems">10</item>
+
+        <item name="android:textColorHint">#fff</item>
+
+    </style>
+
+    <style name="pass" parent="Base.Widget.AppCompat.EditText">
+
+        <item name="android:background">#11000000</item>
+        <item name="android:drawableLeft">@drawable/ic_action_pass</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:ems">10</item>
+
+        <item name="android:textColorHint">#fff</item>
+
+    </style>
+    <style name="boton" parent="Base.Widget.AppCompat.Button">
+        <item name="android:elevation">10dp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:layout_width">300dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@drawable/buttonshape</item>
+        <item name="android:shadowColor">#A8A8A8</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowRadius">5</item>
+
+
+    </style>
 
 </resources>
