@@ -373,10 +373,9 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
         if (mapa == null) {
             mapa = googleMap;
-            if(retoactual==1) {
-                  mapa.addMarker(marcadores.get(0));
-            }
-
+            mapa.addMarker(marcadores.get(locationModel.getNumReto()));
+        }else{
+            mapa.addMarker(marcadores.get(locationModel.getNumReto()));
         }
 
 
