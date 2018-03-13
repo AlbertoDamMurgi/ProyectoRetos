@@ -18,7 +18,7 @@ public class LocationModel extends ViewModel{
     private MutableLiveData<Location> mLocation = new MutableLiveData<>();
     private List<Retos> retos = new ArrayList<>();
     boolean cargados=false;
-    private int numReto=1;
+    private int numReto=0;
 
     public List<Retos> getRetos() {
         return retos;
