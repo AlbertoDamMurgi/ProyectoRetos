@@ -65,7 +65,6 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
 
     static final int RETO_FINALIZADO = 1;
-    private int retoactual;
     private LocationListener mGpsListener;
     private LocationModel locationModel;
     private LocationManager gestorLoc;
@@ -112,7 +111,9 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     class RecuperarRetos extends AsyncTask<Integer, Void, Integer> {
         @Override
         protected Integer doInBackground(Integer... p) {
-            retos =  retosdao.getRetosPartida(p[0]);
+            retos =  BasedeDatosApp.getAppDatabase(getApplicationContext()).retosDao().getRetosPartida(p[0]);
+            locationModel.setRetos(retos);
+            locationModel.setCargados(true);
             return 0;
         }
     }
@@ -122,7 +123,6 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
 
     private List<Retos> retos = new ArrayList<>();
-    private RetosDao retosdao;
 
 
 
@@ -134,21 +134,26 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_princ);
         idpartida= getIntent().getExtras().getInt("IDPARTIDA");
+        locationModel = ViewModelProviders.of(this).get(LocationModel.class);
 
-        retosdao =  BasedeDatosApp.getAppDatabase(this).retosDao();
+        if (!locationModel.isCargados()) {
+            new RecuperarRetos().execute(idpartida);
+        }else{
+            retos=locationModel.getRetos();
+        }
 
 
-         new  RecuperarRetos().execute(idpartida);
+
 
 
 
         locationModel = ViewModelProviders.of(this).get(LocationModel.class);
 
+
         mGpsListener = new MyLocationListener(locationModel);
         mGeofenceList = new ArrayList<Geofence>();
 
 
-        retoactual = locationModel.getNumReto();
 
 
 
@@ -197,7 +202,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
                 for(int i=0;i<retos.size(); i++){
                     Location.distanceBetween(location.getLatitude(),location.getLongitude(),retos.get(i).getLocalizacionLatitud(),retos.get(i).getLocalizacionLongitud(),results);
                     if(results[0]<150){
-                        if(i==retoactual-1) {
+                        if(i==locationModel.getNumReto()) {
                             puedespinchar = true;
 
                             Log.e("puedes pinchar", "puedes pinchar" + puedespinchar);
@@ -367,13 +372,12 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
+        Log.e("Numero reto",locationModel.getNumReto()+"");
         if (mapa == null) {
             mapa = googleMap;
-            if(retoactual==1) {
-                  mapa.addMarker(marcadores.get(0));
-            }
-
+            mapa.addMarker(marcadores.get(locationModel.getNumReto()));
+        }else{
+            mapa.addMarker(marcadores.get(locationModel.getNumReto()));
         }
 
 
@@ -464,18 +468,18 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         if (requestCode == RETO_FINALIZADO) {
 
             if (resultCode == RESULT_OK) {
-                if (retoactual < retos.size()) {
-                    locationModel.setNumReto(retoactual+1);
-                    retoactual++;
+                locationModel.setNumReto(locationModel.getNumReto()+1);
+                if (locationModel.getNumReto() < retos.size()) {
+
                     mapa.clear();
-                    mapa.addMarker(marcadores.get(retoactual-1));
                     onMapReady(mapa);
 
                 }else{
 
                     //todo finalizar juego
                     startActivity(new Intent(getApplicationContext(),FinPartidaActivity.class));
-
+                    Log.e("FINISH","FINISH");
+                    finish();
 
                 }
 
