@@ -195,6 +195,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         final String URL2 = "http://geogame.ml/api/Lista_Retos_Clave.php?nombre="+txt_nombrepartida.getText().toString();
 
 
+
         @Override
         protected Integer doInBackground(Void... r) {
             JsonArrayRequest request2 = new JsonArrayRequest(Request.Method.POST, URL2, null, new Response.Listener<JSONArray>() {
