@@ -112,7 +112,9 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     class RecuperarRetos extends AsyncTask<Integer, Void, Integer> {
         @Override
         protected Integer doInBackground(Integer... p) {
-            retos =  retosdao.getRetosPartida(p[0]);
+            retos =  BasedeDatosApp.getAppDatabase(getApplicationContext()).retosDao().getRetosPartida(p[0]);
+            locationModel.setRetos(retos);
+            locationModel.setCargados(true);
             return 0;
         }
     }
@@ -122,7 +124,6 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
 
     private List<Retos> retos = new ArrayList<>();
-    private RetosDao retosdao;
 
 
 
@@ -134,15 +135,18 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_princ);
         idpartida= getIntent().getExtras().getInt("IDPARTIDA");
-
-        retosdao =  BasedeDatosApp.getAppDatabase(this).retosDao();
-
-
-         new  RecuperarRetos().execute(idpartida);
-
-
-
         locationModel = ViewModelProviders.of(this).get(LocationModel.class);
+
+        if (!locationModel.isCargados()) {
+            new RecuperarRetos().execute(idpartida);
+        }else{
+            retos=locationModel.getRetos();
+        }
+
+
+
+
+
         mGpsListener = new MyLocationListener(locationModel);
         mGeofenceList = new ArrayList<Geofence>();
 
