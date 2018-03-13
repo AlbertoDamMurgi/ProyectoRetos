@@ -146,6 +146,10 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
 
 
+
+        locationModel = ViewModelProviders.of(this).get(LocationModel.class);
+
+
         mGpsListener = new MyLocationListener(locationModel);
         mGeofenceList = new ArrayList<Geofence>();
 
