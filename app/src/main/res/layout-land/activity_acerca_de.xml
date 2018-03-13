@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient"
     tools:context="geogame.proyectoretos.UI.AcercaDeActivity">
 
     <TextView
@@ -12,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:textColor="#FFF"
         android:autoLink="email"
         android:text="santiago.alvarez.dam@gmail.com"
         app:layout_constraintEnd_toStartOf="@+id/imageView8"
@@ -22,6 +24,7 @@
         android:id="@+id/textView22"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
+        android:textColor="#FFF"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:autoLink="email"
@@ -33,6 +36,7 @@
     <TextView
         android:id="@+id/textView23"
         android:layout_width="wrap_content"
+        android:textColor="#FFF"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -60,6 +64,7 @@
     <TextView
         android:id="@+id/textView7"
         android:layout_width="0dp"
+        android:textColor="#FFF"
         android:layout_height="38dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
@@ -74,6 +79,7 @@
         android:layout_width="0dp"
         android:layout_height="19dp"
         android:layout_marginEnd="20dp"
+        android:textColor="#FFF"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:text="Desarrollo de Aplicaciones Multiplataforma"
@@ -84,6 +90,7 @@
     <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
+        android:textColor="#FFF"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
@@ -97,6 +104,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:textColor="#FFF"
         android:text="Santiago Álvarez Fernández"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
@@ -105,6 +113,7 @@
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#FFF"
         android:layout_marginTop="16dp"
         android:text="Alberto Fernández Fernández"
         app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -116,6 +125,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Joaquín Pérez Rodríguez"
+        android:textColor="#FFF"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
@@ -124,6 +134,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
+        android:textColor="#FFF"
         android:layout_marginTop="8dp"
         android:text="En colaboración con:"
         android:textStyle="bold"
@@ -133,6 +144,7 @@
     <ImageView
         android:id="@+id/imageView8"
         android:layout_width="85dp"
+
         android:layout_height="85dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toStartOf="@+id/textView17"
@@ -144,6 +156,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:textColor="#FFF"
+
         android:layout_marginTop="24dp"
         android:text="Jose Antonio Cárceles"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
@@ -152,6 +166,7 @@
     <TextView
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
+        android:textColor="#FFF"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
@@ -180,6 +195,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/imageView8"
         app:layout_constraintTop_toBottomOf="@+id/imageView8"
-        app:srcCompat="@drawable/erasmuslogo" />
+        app:srcCompat="@drawable/Cofinanciado_blancoEN" />
 
 </android.support.constraint.ConstraintLayout>
