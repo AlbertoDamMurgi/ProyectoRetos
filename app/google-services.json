@@ -1,43 +1,27 @@
 {
   "project_info": {
-    "project_number": "348416606918",
-    "firebase_url": "https://affable-seat-191610.firebaseio.com",
-    "project_id": "affable-seat-191610",
-    "storage_bucket": "affable-seat-191610.appspot.com"
+    "project_number": "210284045659",
+    "firebase_url": "https://reta2-198018.firebaseio.com",
+    "project_id": "reta2-198018",
+    "storage_bucket": "reta2-198018.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:348416606918:android:1c87906b85750e2b",
+        "mobilesdk_app_id": "1:210284045659:android:8593c02b1b565a9a",
         "android_client_info": {
-          "package_name": "geogame.proyectoretos"
+          "package_name": "org.iesmurgi.reta2"
         }
       },
       "oauth_client": [
         {
-          "client_id": "348416606918-0g49ht17u4ke2e3sjdm6rsdf1hh30j6i.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "geogame.proyectoretos",
-            "certificate_hash": "df1a04bd4c128daf116b627f3df483438e211244"
-          }
-        },
-        {
-          "client_id": "348416606918-iggc39mp1cs5i4m0edfs5q9qc9vaqu05.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "geogame.proyectoretos",
-            "certificate_hash": "c251d5dae5074b1d51b03f46056fb6f7eb7d032f"
-          }
-        },
-        {
-          "client_id": "348416606918-2fhbs57envqt2968ssdic5q137g1tgp0.apps.googleusercontent.com",
+          "client_id": "210284045659-2imjidai96bpoqmi8tbbl50qqavmoif1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA3PnKVYDLhyCtdcPT5LTyl9xdFmvPvlJQ"
+          "current_key": "AIzaSyAkT88PSPxF4ZAffCwlbvJggjJtEuCtAIw"
         }
       ],
       "services": {
@@ -45,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "348416606918-2fhbs57envqt2968ssdic5q137g1tgp0.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2
