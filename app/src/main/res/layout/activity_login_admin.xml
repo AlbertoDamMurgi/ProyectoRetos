@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient"
     tools:context="geogame.proyectoretos.UI.LoginAdmin">
 
     <android.support.constraint.Guideline
@@ -23,10 +24,11 @@
     <EditText
 
         android:id="@+id/et_email_admin"
+        style="@style/usuario"
         android:layout_width="0dp"
-
         android:layout_height="52dp"
         android:layout_marginBottom="8dp"
+        android:textColor="#FFF"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:ems="10"
@@ -34,42 +36,49 @@
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/et_pass_admin"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline8" />
 
     <EditText
-
         android:id="@+id/et_pass_admin"
+        style="@style/pass"
         android:layout_width="0dp"
         android:layout_height="52dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="68dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:textColor="#FFF"
         android:ems="10"
         android:hint="pass"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/btn_conectarse_admin"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline8" />
 
 
     <Button
         android:id="@+id/btn_conectarse_admin"
+        style="@style/boton"
         android:layout_width="0dp"
         android:layout_height="52dp"
-        android:layout_marginBottom="42dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="Conectarse"
         app:layout_constraintBottom_toTopOf="@+id/bt_register_admin"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline8" />
 
 
     <Button
         android:id="@+id/bt_register_admin"
+        style="@style/boton"
         android:layout_width="276dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
+
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="Registrar Admin"
@@ -79,8 +88,7 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        style="@style/logo"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -96,10 +104,11 @@
         android:id="@+id/txtLogeate_admin"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="Login Admin"
+        android:textColor="#FFF"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/et_email_admin"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"

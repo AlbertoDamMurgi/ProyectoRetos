@@ -99,7 +99,7 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
         progressDialog = new ProgressDialog(this);
 
         mClient = new GoogleApiClient.Builder(this)
-                //lo que nos devuelve google
+
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 //añadimos las apis que nos interesan

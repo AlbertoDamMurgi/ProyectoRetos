@@ -22,7 +22,6 @@ public class Admin  {
         this.superAdmin = superAdmin;
     }
 
-
     public Admin(int id_admin, String user_name, String passwd, int superAdmin) {
         this.id_admin = id_admin;
         this.user_name = user_name;
