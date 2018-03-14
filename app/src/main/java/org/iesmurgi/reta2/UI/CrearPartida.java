@@ -72,8 +72,6 @@ public class CrearPartida extends AppCompatActivity {
                 public void onResponse(String response) {
                     if (response.contains("success")) {
                         Toast.makeText(getApplicationContext(), "Partida creada!", Toast.LENGTH_SHORT).show();
-
-
                         Intent i = new Intent(getApplicationContext(), CrearRetoActivity.class);
                         i.putExtra("partidaNombre", txt_nombre.getText().toString());
                         i.putExtra("partidaContra", txt_contra.getText().toString());
@@ -82,7 +80,6 @@ public class CrearPartida extends AppCompatActivity {
                         startActivity(i);
                     } else {
                         Toast.makeText(getApplicationContext(), "Nombre ya esta en uso, ponga otro.", Toast.LENGTH_LONG).show();
-
                     }
                     progressDialog.dismiss();
                 }
@@ -92,7 +89,6 @@ public class CrearPartida extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
                     progressDialog.dismiss();
                 }
-
             }) {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {

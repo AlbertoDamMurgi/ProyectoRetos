@@ -89,13 +89,9 @@ public class RegistroAdminActivity extends AppCompatActivity {
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(RegistroAdminActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-
                         }
-
-
                     }
                 });
-
     }
 
 }

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/gradient"
     android:layout_height="match_parent"
     tools:context="org.iesmurgi.reta2.UI.FinPartidaActivity">
 
@@ -23,8 +24,7 @@
 
     <ImageView
         android:id="@+id/imageView7"
-        android:layout_width="246dp"
-        android:layout_height="169dp"
+        style="@style/logo"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -38,6 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:textColor="#FFF"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="Enhorabuena!! Has finalizado todos los retos!!!"
@@ -51,6 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:textColor="#FFF"
         android:text="Puntuacion final: "
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -61,6 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:textColor="#FFF"
         android:text="50"
         app:layout_constraintStart_toEndOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -70,6 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:textColor="#FFF"
         android:layout_marginTop="16dp"
         android:text="Nombre Equipo :"
         app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -80,14 +84,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:textColor="#FFF"
         android:layout_marginTop="16dp"
-        android:text="nombreEquipo"
+
+        android:text="The True Elite V2.0 no PePe"
+
         app:layout_constraintStart_toEndOf="@+id/textView8"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <TextView
         android:id="@+id/textView10"
         android:layout_width="273dp"
+        android:textColor="#FFF"
         android:layout_height="70dp"
         android:layout_marginBottom="8dp"
         android:text="Gracias por usar nuestra app, esperamos que hayais disfrutado realizando los retos y aprendiendo de ellos."
@@ -98,7 +106,8 @@
 
     <Button
         android:id="@+id/btn_finpartida_volverLogin"
-        android:layout_width="wrap_content"
+        style="@style/boton"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
@@ -108,7 +117,8 @@
 
     <Button
         android:id="@+id/btn_finpartida_verranking"
-        android:layout_width="wrap_content"
+        style="@style/boton"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
