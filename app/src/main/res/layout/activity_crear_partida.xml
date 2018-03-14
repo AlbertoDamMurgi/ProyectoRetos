@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="@drawable/gradient"
     android:layout_height="match_parent"
-    tools:context="geogame.proyectoretos.UI.CrearPartidaActivity">
+    tools:context="org.iesmurgi.reta2.UI.CrearPartidaActivity">
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
