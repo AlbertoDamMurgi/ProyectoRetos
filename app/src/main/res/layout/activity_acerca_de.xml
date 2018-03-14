@@ -50,13 +50,13 @@
     <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
-        android:textColor="#FFF"
-
         android:layout_height="wrap_content"
+
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Desarrollado por:"
+        android:text="Equipo de desarrollo Reta2:"
+        android:textColor="#FFF"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -122,9 +122,9 @@
         android:id="@+id/imageView8"
         android:layout_width="85dp"
         android:layout_height="85dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView15"
         app:srcCompat="@drawable/logohoja" />
 
@@ -133,9 +133,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:textColor="#FFF"
         android:layout_marginTop="24dp"
-        android:text="Jose Antonio Cárceles"
+        android:text="Proyecto E+ Gamificando el aula"
+        android:textColor="#FFF"
         app:layout_constraintStart_toEndOf="@+id/imageView8"
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
@@ -145,8 +145,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:text="I.E.S. Sierra de Gádor(Berja)"
         android:textColor="#FFF"
-        android:text="I.E.S. Sierra de Gádor"
         app:layout_constraintStart_toEndOf="@+id/imageView8"
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
@@ -158,20 +158,20 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/murgilogo" />
+        app:srcCompat="@drawable/murgiblanco" />
 
     <ImageView
         android:id="@+id/imageView12"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="36dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/imageView8"
         app:srcCompat="@drawable/cofinanciadoblancoen" />
 
