@@ -252,6 +252,7 @@ public class RetoActivity extends AppCompatActivity {
             }
         });
 
+
         //fin aqui
         btnRetoResponder.setOnClickListener(new View.OnClickListener() {
             @Override
