@@ -1,4 +1,4 @@
-package org.iesmurgi.reta2.UI;
+package org.iesmurgi.reta2.UI.admin;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -12,9 +12,11 @@ import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import org.iesmurgi.reta2.Chat.ChatActivity;
+
 import org.iesmurgi.reta2.Chat.ChatAdminActivity;
 import org.iesmurgi.reta2.R;
+import org.iesmurgi.reta2.UI.usuario.LoginActivity;
+import org.iesmurgi.reta2.UI.usuario.LoginModel;
 
 public class AdminMainActivity extends AppCompatActivity {
 
@@ -32,11 +34,11 @@ public class AdminMainActivity extends AppCompatActivity {
 
     }
 
-    @OnClick({R.id.btn_chat_main_registro, R.id.btn_main_admin_crear_partida, R.id.btn_main_admin_desconectarse})
+    @OnClick({R.id.btn_administrarPartida_main_registro, R.id.btn_main_admin_crear_partida, R.id.btn_main_admin_desconectarse})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btn_chat_main_registro:
-                startActivity(new Intent(getApplicationContext(), ChatAdminActivity.class));
+            case R.id.btn_administrarPartida_main_registro:
+                startActivity(new Intent(getApplicationContext(), ListarPartidasAdminActivity.class));
                 break;
             case R.id.btn_main_admin_crear_partida:
                 startActivity(new Intent(getApplicationContext(),CrearPartida.class));

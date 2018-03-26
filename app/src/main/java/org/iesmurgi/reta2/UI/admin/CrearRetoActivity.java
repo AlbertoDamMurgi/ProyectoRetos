@@ -1,4 +1,4 @@
-package org.iesmurgi.reta2.UI;
+package org.iesmurgi.reta2.UI.admin;
 
 import android.app.ProgressDialog;
 import android.content.Intent;

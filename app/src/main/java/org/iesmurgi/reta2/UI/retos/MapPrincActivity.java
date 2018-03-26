@@ -1,4 +1,4 @@
-package org.iesmurgi.reta2.UI;
+package org.iesmurgi.reta2.UI.retos;
 
 import android.Manifest;
 
@@ -47,6 +47,7 @@ import org.iesmurgi.reta2.Data.BasedeDatosApp;
 import org.iesmurgi.reta2.Data.entidades.Retos;
 import org.iesmurgi.reta2.R;
 import org.iesmurgi.reta2.UI.geofences.GeofenceTransiciones;
+import org.iesmurgi.reta2.UI.usuario.FinPartidaActivity;
 
 public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ResultCallback<Status> {
 

@@ -1,4 +1,4 @@
-package org.iesmurgi.reta2.UI;
+package org.iesmurgi.reta2.UI.usuario;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

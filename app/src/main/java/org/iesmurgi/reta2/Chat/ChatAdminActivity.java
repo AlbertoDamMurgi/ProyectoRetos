@@ -49,7 +49,7 @@ public class ChatAdminActivity extends AppCompatActivity {
 
                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-                recyclerView.setAdapter(new ChatAdapter(nombres,getApplicationContext()));
+                recyclerView.setAdapter(new ChatAdapter(nombres,getApplicationContext(),0));
 
 
             }
