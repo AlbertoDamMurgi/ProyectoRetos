@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseUser;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import org.iesmurgi.reta2.Chat.ChatActivity;
+import org.iesmurgi.reta2.Chat.ChatAdminActivity;
 import org.iesmurgi.reta2.R;
 
 public class AdminMainActivity extends AppCompatActivity {
@@ -35,7 +36,7 @@ public class AdminMainActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_chat_main_registro:
-                startActivity(new Intent(getApplicationContext(), ChatActivity.class));
+                startActivity(new Intent(getApplicationContext(), ChatAdminActivity.class));
                 break;
             case R.id.btn_main_admin_crear_partida:
                 startActivity(new Intent(getApplicationContext(),CrearPartida.class));

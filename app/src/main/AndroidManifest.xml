@@ -1,59 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.iesmurgi.reta2">
-    
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="org.iesmurgi.reta2.UI.LoginActivity">
-
+        <activity android:name=".UI.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity android:name="org.iesmurgi.reta2.UI.MainActivity" />
+        <activity android:name=".UI.MainActivity" />
         <activity
-            android:name="org.iesmurgi.reta2.Chat.ChatActivity"
+            android:name=".Chat.ChatActivity"
             android:label="@string/title_activity_chat"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="org.iesmurgi.reta2.UI.RegistroActivity" />
-
-        <activity android:name="org.iesmurgi.reta2.UI.MapPrincActivity">
-
-            </activity>
-
-        <activity android:name="org.iesmurgi.reta2.UI.LoginAdmin" />
-        <activity android:name="org.iesmurgi.reta2.UI.RegistroAdminActivity" />
-        <activity android:name="org.iesmurgi.reta2.UI.AdminMainActivity" />
-        <activity android:name="org.iesmurgi.reta2.UI.CrearRetoActivity" />
-        <activity android:name="org.iesmurgi.reta2.UI.RetoActivity" />
-        <activity android:name="org.iesmurgi.reta2.UI.FinPartidaActivity" />
-        <activity android:name="org.iesmurgi.reta2.UI.AcercaDeActivity"></activity>
-        <activity android:name="org.iesmurgi.reta2.UI.CrearPartida"></activity>
+        <activity android:name=".UI.RegistroActivity" />
+        <activity android:name=".UI.MapPrincActivity"></activity>
+        <activity android:name=".UI.LoginAdmin" />
+        <activity android:name=".UI.RegistroAdminActivity" />
+        <activity android:name=".UI.AdminMainActivity" />
+        <activity android:name=".UI.CrearRetoActivity" />
+        <activity android:name=".UI.RetoActivity" />
+        <activity android:name=".UI.FinPartidaActivity" />
+        <activity android:name=".UI.AcercaDeActivity" />
+        <activity android:name=".UI.CrearPartida" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBWtLJ5YAfriw0Iw_Rx4Zz00-_ersN0KMQ" />
-
         <meta-data
             android:name="com.google.android.gsm.version"
-            android:value="@integer/google_play_services_version"
-            />
-        
+            android:value="@integer/google_play_services_version" />
 
-        <service android:name="org.iesmurgi.reta2.UI.geofences.GeofenceTransiciones" />
+        <service android:name=".UI.geofences.GeofenceTransiciones" />
 
+        <activity android:name=".Chat.ChatAdminActivity"></activity>
     </application>
-    
+
 </manifest>
