@@ -336,7 +336,6 @@ public class RetoActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }//fin insertarPuntos
 
-
     public int elegirRandom(int min, int max) {
 
         int rango = (max - min) + 1;
