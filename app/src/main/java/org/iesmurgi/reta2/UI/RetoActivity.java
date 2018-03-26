@@ -1,5 +1,6 @@
 package org.iesmurgi.reta2.UI;
 
+import android.app.ProgressDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -14,8 +15,18 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,6 +57,7 @@ public class RetoActivity extends AppCompatActivity {
     TextView txtRetoCrono;
     @BindView(R.id.txt_reto_nombre)
     TextView txtRetoNombre;
+    ProgressDialog progressDialog;
 
     private List<Respuestas> misRespuestas = new ArrayList<>();
     private List<Respuestas> misResBorrar = new ArrayList<>();
@@ -117,6 +129,7 @@ public class RetoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reto);
         ButterKnife.bind(this);
 
+        progressDialog = new ProgressDialog(this);
 
         db = BasedeDatosApp.getAppDatabase(this);
 
@@ -183,8 +196,8 @@ public class RetoActivity extends AppCompatActivity {
                     cronoViewModel.setMiTiempo((long) 0);
                     if (!salida) {
                         salida = true;
-                        setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), MapPrincActivity.class));
-                        finish();
+                        insertarPuntos(0,"Se acabo el tiempo, puntuas 0");
+
                     }
                 }
             }.start();
@@ -204,11 +217,12 @@ public class RetoActivity extends AppCompatActivity {
                 public void onFinish() {
                     txtRetoCrono.setText("No puntuas!");
                     cronoViewModel.setMiTiempo((long) 0);
-                    setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), MapPrincActivity.class));
+                    insertarPuntos(0,"Se acabo el tiempo, puntuas 0");
+
                     if (!salida) {
                         salida = true;
-                        setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), MapPrincActivity.class));
-                        finish();
+                        insertarPuntos(0,"Se acabo el tiempo, puntuas 0");
+
                     }
                 }
             }.start();
@@ -246,13 +260,11 @@ public class RetoActivity extends AppCompatActivity {
 
                         if (respuestas.get(i).getVerdadero() == 1) {
 
-                            Toast.makeText(getApplicationContext(), "Has acertado!!", Toast.LENGTH_SHORT).show();
+                            insertarPuntos(miReto.getPuntuacion(),"Acertaste!! puntuas:"+ miReto.getPuntuacion());
                         } else {
-                            Toast.makeText(getApplicationContext(), "Has fallado!! no puntuas!!", Toast.LENGTH_SHORT).show();
+                            insertarPuntos(0,"Has fallado el reto, puntuas 0");
                         }
 
-                        setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), MapPrincActivity.class));
-                        finish();
                     }
                 }
             }
@@ -262,9 +274,8 @@ public class RetoActivity extends AppCompatActivity {
         btnRetoCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "No puntas este reto...", Toast.LENGTH_SHORT).show();
-                setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), MapPrincActivity.class));
-                finish();
+
+                insertarPuntos(0,"Saltaste el reto, puntuas 0");
             }
         });
 
@@ -282,6 +293,50 @@ public class RetoActivity extends AppCompatActivity {
         }
 
     }
+
+    void insertarPuntos(int puntos,String mensaje) {
+        progressDialog.setMessage("Insertando tu puntuacion ...");
+       // progressDialog.setCancelable(false);
+        progressDialog.show();
+        final String URL = "http://geogame.ml/api/insertar_puntuacion.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("ON RESPONDE", response.toString());
+
+                if (response.contains("success")) {
+                    progressDialog.dismiss();
+                    Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG).show();
+                    setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), MapPrincActivity.class));
+                    finish();
+
+                } else {
+
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Fallo del servidor", Toast.LENGTH_SHORT).show();
+            }
+
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("idUsuario", "" + 1);
+                params.put("idReto", "" + miReto.getIdReto());
+                params.put("tiempo", "11" );
+                params.put("puntuacion", ""+puntos);
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(stringRequest);
+    }//fin insertarPuntos
 
 
     public int elegirRandom(int min, int max) {
