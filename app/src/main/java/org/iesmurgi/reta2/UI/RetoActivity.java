@@ -332,11 +332,9 @@ public class RetoActivity extends AppCompatActivity {
                 return params;
             }
         };
-
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
     }//fin insertarPuntos
-
 
     public int elegirRandom(int min, int max) {
 
