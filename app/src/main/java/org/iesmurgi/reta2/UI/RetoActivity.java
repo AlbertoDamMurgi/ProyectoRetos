@@ -133,7 +133,6 @@ public class RetoActivity extends AppCompatActivity {
 
         db = BasedeDatosApp.getAppDatabase(this);
 
-
         aux = getIntent().getExtras().getIntArray("PARTIDAYRETO");
         Log.e("idpartida", "" + aux[0]);
         Log.e("idreto", "" + aux[1]);
