@@ -44,6 +44,7 @@ public class ChatActivity extends AppCompatActivity {
     private LoginModel logmodel;
     private FirebaseAuth mAuth;
     private String autor;
+    private boolean admin = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +84,13 @@ public class ChatActivity extends AppCompatActivity {
         // copiado del asistente de firebase
         // Write a message to the database
         database = FirebaseDatabase.getInstance(); // instancia la base de datos
-        myRef = database.getReference("chat"); // parecido a crear una tabla llamada chat
+        if(autor.equalsIgnoreCase("administrador")){
+            admin = true;
+            autor = getIntent().getExtras().getString("SALA");
+        }else{
+            admin = false;
+        }
+        myRef = database.getReference("chat").child(autor); // parecido a crear una tabla llamada chat
     }
 
 
@@ -144,11 +151,17 @@ public class ChatActivity extends AppCompatActivity {
         // vaciamos el edittext
         limpiarEntrada();
         // instanciamos el objeto que hemos creado con el POI Mensaje
-        Chat msg = new Chat(autor+": "+cadena);
+        if(admin){
+            Chat msg = new Chat("Administrador: "+cadena);
+            guardarMensaje(msg);
 
+        }else {
+            Chat msg = new Chat(autor + ": " + cadena);
+            guardarMensaje(msg);
+
+        }
 
         // guardamos en firebase
-        guardarMensaje(msg);
 
 
 
