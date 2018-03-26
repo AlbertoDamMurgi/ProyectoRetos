@@ -23,8 +23,8 @@ import com.google.android.gms.location.GeofencingEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.iesmurgi.reta2.UI.MainActivity;
-import org.iesmurgi.reta2.UI.MapPrincActivity;
+import org.iesmurgi.reta2.UI.usuario.MainActivity;
+import org.iesmurgi.reta2.UI.retos.MapPrincActivity;
 
 /**
  * Created by delaroy on 4/18/17.

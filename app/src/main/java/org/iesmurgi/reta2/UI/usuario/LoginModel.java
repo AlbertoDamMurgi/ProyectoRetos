@@ -1,4 +1,4 @@
-package org.iesmurgi.reta2.UI;
+package org.iesmurgi.reta2.UI.usuario;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;

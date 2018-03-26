@@ -27,26 +27,39 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     private ArrayList<String> salas;
     private Context context;
+    private int tipo;
 
-    public ChatAdapter(ArrayList<String> salas, Context context) {
+    public ChatAdapter(ArrayList<String> salas, Context context,int tipo) {
         this.salas = salas;
         this.context=context;
+        this.tipo = tipo;
     }
+
 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_admin_item,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_admin_item, parent,false);
         return new ViewHolder(v);
+
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+
+        if(tipo==0) {
             holder.nombreChat.setText(salas.get(position));
             holder.nombreChat.setOnClickListener(v -> {
-                context.startActivity(new Intent(context,ChatActivity.class).putExtra("SALA",salas.get(position)));
+                context.startActivity(new Intent(context, ChatActivity.class).putExtra("SALA", salas.get(position)));
             });
+        }else if(tipo==1){
+
+            holder.nombreChat.setText(salas.get(position));
+            holder.nombreChat.setOnClickListener(v -> {
+               //onclick
+            });
+        }
     }
 
     @Override

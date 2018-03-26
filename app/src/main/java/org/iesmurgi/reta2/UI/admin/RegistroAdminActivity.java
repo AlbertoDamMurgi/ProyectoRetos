@@ -1,4 +1,4 @@
-package org.iesmurgi.reta2.UI;
+package org.iesmurgi.reta2.UI.admin;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.NonNull;
@@ -18,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import org.iesmurgi.reta2.R;
+import org.iesmurgi.reta2.UI.usuario.LoginModel;
 
 public class RegistroAdminActivity extends AppCompatActivity {
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.iesmurgi.reta2.UI;
+package org.iesmurgi.reta2.UI.retos;
 
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;

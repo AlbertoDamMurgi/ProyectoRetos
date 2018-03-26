@@ -1,4 +1,4 @@
-package org.iesmurgi.reta2.UI;
+package org.iesmurgi.reta2.UI.usuario;
 
 import android.app.ProgressDialog;
 import android.arch.lifecycle.Lifecycle;
@@ -24,6 +24,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.iesmurgi.reta2.UI.retos.MapPrincActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

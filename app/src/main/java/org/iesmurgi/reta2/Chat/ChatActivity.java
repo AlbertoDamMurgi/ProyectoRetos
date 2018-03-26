@@ -20,7 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import org.iesmurgi.reta2.R;
-import org.iesmurgi.reta2.UI.LoginModel;
+import org.iesmurgi.reta2.UI.usuario.LoginModel;
 
 public class ChatActivity extends AppCompatActivity {
 
