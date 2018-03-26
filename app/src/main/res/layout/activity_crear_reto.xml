@@ -57,18 +57,18 @@
         android:id="@+id/txt_crearReto_pregunta"
         android:layout_width="0dp"
         android:layout_height="122dp"
-        android:textColorHint="#FFF"
-        android:textColor="#FFF"
         android:layout_marginEnd="8dp"
-        android:background="#11000000"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="#11000000"
         android:ems="10"
         android:hint="Escribe aqui la pregunta"
         android:inputType="textMultiLine"
+        android:textColor="#FFF"
+        android:textColorHint="#FFF"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/txt_crearReto_duracion" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner_crearreto_tipos" />
 
     <EditText
         android:id="@+id/txt_crearReto_duracion"
@@ -180,6 +180,48 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
+
+    <Spinner
+        android:id="@+id/spinner_crearreto_tipos"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:textColor="#FFF"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toEndOf="@+id/textView24"
+        app:layout_constraintTop_toBottomOf="@+id/txt_crearReto_urlVideo" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:text="Tipo"
+        android:textColor="#FFF"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/txt_crearReto_urlVideo" />
+
+    <EditText
+        android:id="@+id/txt_crearReto_urlVideo"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="#11000000"
+        android:ems="10"
+        android:hint="Enlace video YouTube(opcional)"
+        android:inputType="textUri"
+        android:textColor="#FFF"
+        android:textColorHint="#FFF"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/txt_crearReto_duracion" />
 
 
 </android.support.constraint.ConstraintLayout>

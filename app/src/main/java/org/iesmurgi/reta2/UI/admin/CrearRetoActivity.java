@@ -8,8 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -84,6 +87,8 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
     EditText txt_rtrue;
     @BindView(R.id.txt_crearreto_mensaje)
     TextView txt_mensaje;
+    @BindView(R.id.spinner_crearreto_tipos)
+    Spinner spinnerTipos;
 
 
 
@@ -109,6 +114,44 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
         nombrePartida = getIntent().getStringExtra("partidaNombre");
         clavePartida = getIntent().getStringExtra("partidaContra");
         partidaNumerosRetos = Integer.parseInt(getIntent().getStringExtra("partidaNumerosRetos"));
+
+        ArrayAdapter<CharSequence> adapterSpinner = ArrayAdapter.createFromResource(getApplicationContext(), R.array.tipos, R.layout.spinner_item);
+        adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTipos.setAdapter(adapterSpinner);
+
+        spinnerTipos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                switch (i){
+
+                    case 0:
+                        txt_rtrue.setVisibility(View.VISIBLE);
+                        txt_rfalse1.setVisibility(View.VISIBLE);
+                        txt_rfalse2.setVisibility(View.VISIBLE);
+                        break;
+
+                    case 1:
+                        txt_rtrue.setVisibility(View.VISIBLE);
+                        txt_rfalse1.setVisibility(View.GONE);
+                        txt_rfalse2.setVisibility(View.GONE);
+                        break;
+
+                    case 2:
+                        txt_rtrue.setVisibility(View.GONE);
+                        txt_rfalse1.setVisibility(View.GONE);
+                        txt_rfalse2.setVisibility(View.GONE);
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         ImageButton btnMapa = findViewById(R.id.btn_crearReto_mapaLugares);
         btnMapa.setOnClickListener(view -> runApiPlaces(view));

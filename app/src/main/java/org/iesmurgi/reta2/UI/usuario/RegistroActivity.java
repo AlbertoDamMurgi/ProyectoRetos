@@ -8,6 +8,13 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -18,6 +25,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import org.iesmurgi.reta2.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegistroActivity extends AppCompatActivity {
 
@@ -31,6 +41,8 @@ public class RegistroActivity extends AppCompatActivity {
     @BindView(R.id.ed_correo_equipo)
     EditText correoequipo;
 
+    @BindView(R.id.ed_participantes_equipo)
+    EditText participantesEquipo;
 
     private LoginModel mLoginModel;
 
@@ -75,17 +87,56 @@ public class RegistroActivity extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
+                                                //Insertar a la base de datos
 
-                                                Toast.makeText(RegistroActivity.this, "user updated", Toast.LENGTH_SHORT).show();
-                                                Log.e("asdasd", "cambiado");
-                                                Log.e("qweqwe", mLoginModel.getUsuario().getValue().getDisplayName());
+
+
+
+                                                final String URL = "http://geogame.ml/api/insertar_equipo.php";
+                                                StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                                                    @Override
+                                                    public void onResponse(String response) {
+                                                        Log.e("ON RESPONDE", response.toString());
+
+                                                        if (response.contains("success")) {
+                                                            finish();
+
+                                                        } else {
+
+                                                        }
+
+                                                    }
+                                                }, new Response.ErrorListener() {
+                                                    @Override
+                                                    public void onErrorResponse(VolleyError error) {
+                                                        Toast.makeText(getApplicationContext(), "Fallo del servidor", Toast.LENGTH_SHORT).show();
+                                                    }
+
+                                                }) {
+                                                    @Override
+                                                    protected Map<String, String> getParams() throws AuthFailureError {
+                                                        Map<String, String> params = new HashMap<>();
+                                                        params.put("username", nombreequipo.getText().toString());
+                                                        params.put("correo", correoequipo.getText().toString());
+                                                        params.put("passwd", "" + passequipo.getText().toString());
+                                                        params.put("participantes", ""+participantesEquipo.getText().toString());
+                                                        return params;
+                                                    }
+                                                };
+
+                                                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                                                requestQueue.add(stringRequest);
+
+
+                                                // fin insertar a db
+
+
 
                                             } else {
                                                 Toast.makeText(RegistroActivity.this, "Error", Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                     });
-                            // ...
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -94,7 +145,6 @@ public class RegistroActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
 
                         }
-
 
                     }
                 });
