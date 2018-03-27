@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.iesmurgi.reta2.R;
+import org.iesmurgi.reta2.UI.admin.AdministrarPartidaAdminActivity;
 
 import java.util.ArrayList;
 
@@ -58,6 +59,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             holder.nombreChat.setText(salas.get(position));
             holder.nombreChat.setOnClickListener(v -> {
                //onclick
+                context.startActivity(new Intent(context, AdministrarPartidaAdminActivity.class).putExtra("PARTIDA",salas.get(position)));
             });
         }
     }

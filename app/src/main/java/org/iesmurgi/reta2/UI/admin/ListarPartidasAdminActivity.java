@@ -61,6 +61,7 @@ public class ListarPartidasAdminActivity extends AppCompatActivity {
                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
                 recyclerView.setAdapter(new ChatAdapter(partidas,getApplicationContext(),1));
+
             }
         }, new Response.ErrorListener() {
             @Override

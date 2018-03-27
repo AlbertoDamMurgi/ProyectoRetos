@@ -18,6 +18,8 @@ import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -43,11 +45,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.iesmurgi.reta2.Chat.ChatActivity;
 import org.iesmurgi.reta2.Data.BasedeDatosApp;
 import org.iesmurgi.reta2.Data.entidades.Retos;
 import org.iesmurgi.reta2.R;
 import org.iesmurgi.reta2.UI.geofences.GeofenceTransiciones;
 import org.iesmurgi.reta2.UI.usuario.FinPartidaActivity;
+
+import butterknife.OnClick;
 
 public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ResultCallback<Status> {
 
@@ -114,6 +119,14 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         }
     }
 
+    class NombrePartida extends AsyncTask<Integer, Void, Integer> {
+        @Override
+        protected Integer doInBackground(Integer... p) {
+            nombrepartida =  BasedeDatosApp.getAppDatabase(getApplicationContext()).partidasDao().getPartidaActual(p[0]);
+
+            return 0;
+        }
+    }
 
 
 
@@ -122,8 +135,8 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
 
 
-
-
+    private String nombrepartida;
+    private Button mChat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +145,8 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         idpartida= getIntent().getExtras().getInt("IDPARTIDA");
         locationModel = ViewModelProviders.of(this).get(LocationModel.class);
 
+
+        new NombrePartida().execute(idpartida);
         if (!locationModel.isCargados()) {
             new RecuperarRetos().execute(idpartida);
         }else{
@@ -139,7 +154,11 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         }
 
 
-
+        mChat = findViewById(R.id.btn_mapa_chat);
+        mChat.setOnClickListener(v -> {
+            Log.e("chat","deberia abrir el chat"+nombrepartida);
+            startActivity(new Intent(getApplicationContext(),ChatActivity.class).putExtra("SALA",nombrepartida));
+        });
 
 
 
@@ -197,7 +216,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
                 for(int i=0;i<retos.size(); i++){
                     Location.distanceBetween(location.getLatitude(),location.getLongitude(),retos.get(i).getLocalizacionLatitud(),retos.get(i).getLocalizacionLongitud(),results);
-                    if(results[0]<150){
+                    if(results[0]<20){
                         if(i==locationModel.getNumReto()) {
                             puedespinchar = true;
 
@@ -207,21 +226,15 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
                     }
                 }
 
-
-
-                /*
-                co.center(new LatLng(location.getLatitude(),location.getLongitude())).radius(50).strokeColor(Color.RED).fillColor(Color.TRANSPARENT).strokeWidth(2F);
-
-
-                mapa.clear();
-                mapa.addCircle(co);
-                onMapReady(mapa);
-                */
             }
 
         });
 
     }
+
+
+
+
 
     private void buildGoogleApiClient() {
     }
