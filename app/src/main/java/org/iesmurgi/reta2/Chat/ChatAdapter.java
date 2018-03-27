@@ -29,6 +29,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private ArrayList<String> salas;
     private Context context;
     private int tipo;
+    private String sala ="";
 
     public ChatAdapter(ArrayList<String> salas, Context context,int tipo) {
         this.salas = salas;
@@ -36,6 +37,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         this.tipo = tipo;
     }
 
+    public ChatAdapter(ArrayList<String> salas, Context context,int tipo,String sala) {
+        this.salas = salas;
+        this.context=context;
+        this.tipo = tipo;
+        this.sala =sala;
+    }
 
 
     @Override
@@ -60,6 +67,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             holder.nombreChat.setOnClickListener(v -> {
                //onclick
                 context.startActivity(new Intent(context, AdministrarPartidaAdminActivity.class).putExtra("PARTIDA",salas.get(position)));
+            });
+        }else if(tipo==3){
+            holder.nombreChat.setText(salas.get(position));
+            holder.nombreChat.setOnClickListener(v -> {
+                context.startActivity(new Intent(context, ChatActivity.class).putExtra("USUARIO", salas.get(position)).putExtra("SALA",sala));
             });
         }
     }

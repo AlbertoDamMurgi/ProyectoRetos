@@ -136,7 +136,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
 
     private String nombrepartida;
-    private Button mChat;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,7 +154,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         }
 
 
-        mChat = findViewById(R.id.btn_mapa_chat);
+       Button mChat = findViewById(R.id.btn_mapa_chat);
         mChat.setOnClickListener(v -> {
             Log.e("chat","deberia abrir el chat"+nombrepartida);
             startActivity(new Intent(getApplicationContext(),ChatActivity.class).putExtra("SALA",nombrepartida));

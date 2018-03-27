@@ -34,12 +34,12 @@ public class ChatAdminActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_admin);
         ButterKnife.bind(this);
-
+        String sala = getIntent().getExtras().getString("SALA");
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
-        myRef.child("chat").addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.child("chat").child(sala).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot uniqueKeySnapshot : dataSnapshot.getChildren()){
@@ -49,7 +49,7 @@ public class ChatAdminActivity extends AppCompatActivity {
 
                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-                recyclerView.setAdapter(new ChatAdapter(nombres,getApplicationContext(),0));
+                recyclerView.setAdapter(new ChatAdapter(nombres,getApplicationContext(),3,sala));
 
 
             }

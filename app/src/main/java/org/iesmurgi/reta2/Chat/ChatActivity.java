@@ -90,7 +90,7 @@ public class ChatActivity extends AppCompatActivity {
         if(autor.equalsIgnoreCase("administrador")){
             admin = true;
 
-
+            autor = getIntent().getExtras().getString("USUARIO");
         }else{
             admin = false;
         }

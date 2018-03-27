@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import org.iesmurgi.reta2.Chat.ChatActivity;
+import org.iesmurgi.reta2.Chat.ChatAdminActivity;
 import org.iesmurgi.reta2.R;
 
 import butterknife.ButterKnife;
@@ -32,7 +33,7 @@ public class AdministrarPartidaAdminActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_admin_chat)
         void abrirChat(){
-            startActivity(new Intent(getApplicationContext(), ChatActivity.class).putExtra("SALA",sala));
+            startActivity(new Intent(getApplicationContext(),ChatAdminActivity.class).putExtra("SALA",sala));
         }
 
 }
