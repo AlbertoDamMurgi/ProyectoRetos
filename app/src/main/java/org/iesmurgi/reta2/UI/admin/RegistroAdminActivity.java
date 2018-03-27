@@ -74,9 +74,11 @@ public class RegistroAdminActivity extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
 
-                                                Toast.makeText(RegistroAdminActivity.this, "user updated", Toast.LENGTH_SHORT).show();
-                                                Log.e("asdasd", "cambiado");
-                                                Log.e("qweqwe", mLoginModel.getUsuario().getValue().getDisplayName());
+
+                                                //TODO Registrar admin en db
+
+
+
 
                                             } else {
                                                 Toast.makeText(RegistroAdminActivity.this, "Error", Toast.LENGTH_SHORT).show();

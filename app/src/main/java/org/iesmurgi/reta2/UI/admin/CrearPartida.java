@@ -65,7 +65,7 @@ public class CrearPartida extends AppCompatActivity {
 
                 progressDialog.setMessage("Creando partida...");
             progressDialog.show();
-
+            //TODO Insertar el admin que creo la partida
             final String URL = "http://geogame.ml/api/insertar_partida.php";
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override

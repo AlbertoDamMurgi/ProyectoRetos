@@ -107,7 +107,6 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         mLoginModel.getConection().getValue().getInstance().signOut();
         mLoginModel.getConection().postValue(null);
         mLoginModel.getUsuario().postValue(null);
-
     }
 
     @OnClick(R.id.btn_chat_prueba)
