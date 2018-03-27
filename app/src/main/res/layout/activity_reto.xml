@@ -5,9 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
-    tools:context="geogame.proyectoretos.UI.RetoActivity"
+    tools:context="org.iesmurgi.reta2.UI.retos.RetoActivity"
     tools:layout_editor_absoluteY="81dp">
-
 
     <RadioGroup
         android:id="@+id/rg_reto_rgrupo"
@@ -70,9 +69,11 @@
     <ImageView
         android:id="@+id/imageView6"
         style="@style/logo"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline13"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="parent"
@@ -89,7 +90,7 @@
         android:textColor="#FFF"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+        app:layout_constraintTop_toTopOf="@+id/guideline13" />
 
     <TextView
         android:id="@+id/txt_reto_descripcion"
@@ -130,6 +131,19 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btn_reto_responder" />
 
+    <Button
+        android:id="@+id/btn_reto_verVideo"
+        style="@style/boton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Ver video"
+        app:layout_constraintBottom_toTopOf="@+id/btn_reto_responder"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/guideline" />
+
     <TextView
         android:id="@+id/txt_reto_crono"
         android:layout_width="wrap_content"
@@ -151,5 +165,42 @@
         android:textColor="#FFF"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <EditText
+        android:id="@+id/et_reto_respuestaUnica"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:textColor="#FFF"
+        android:textColorHint="#FFF"
+        android:textSize="18sp"
+        android:inputType="textPersonName"
+        android:hint="Respuesta"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/txt_reto_descripcion" />
+
+    <Button
+        android:id="@+id/btn_reto_subirImagen"
+        style="@style/boton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Subir imagen"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/txt_reto_descripcion" />
 
 </android.support.constraint.ConstraintLayout>

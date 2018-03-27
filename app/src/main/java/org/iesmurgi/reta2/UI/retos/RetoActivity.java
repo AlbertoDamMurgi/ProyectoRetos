@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -36,7 +37,6 @@ import org.iesmurgi.reta2.Data.DAOS.RetosDao;
 import org.iesmurgi.reta2.Data.entidades.Respuestas;
 import org.iesmurgi.reta2.Data.entidades.Retos;
 import org.iesmurgi.reta2.R;
-import org.iesmurgi.reta2.UI.retos.MapPrincActivity;
 import org.iesmurgi.reta2.UI.usuario.LoginModel;
 
 public class RetoActivity extends AppCompatActivity {
@@ -59,7 +59,15 @@ public class RetoActivity extends AppCompatActivity {
     TextView txtRetoCrono;
     @BindView(R.id.txt_reto_nombre)
     TextView txtRetoNombre;
+    @BindView(R.id.btn_reto_verVideo)
+    Button btnRetoVerVideo;
+    @BindView(R.id.et_reto_respuestaUnica)
+    EditText etRetoRespuestaUnica;
+    @BindView(R.id.btn_reto_subirImagen)
+    Button btnRetoSubirImagen;
+
     ProgressDialog progressDialog;
+
 
     private List<Respuestas> misRespuestas = new ArrayList<>();
     private List<Respuestas> misResBorrar = new ArrayList<>();
@@ -79,6 +87,7 @@ public class RetoActivity extends AppCompatActivity {
     BasedeDatosApp db;
 
     int[] aux;
+
 
 
     class recRes extends AsyncTask<Integer, Void, Void> {
@@ -159,16 +168,53 @@ public class RetoActivity extends AppCompatActivity {
         Log.i("COMPROBAR misResBorrar:", misResBorrar.size() + "");
         Log.i("COMPROBAR misRespuesta:", misRespuestas.size() + "");
 
+        int tipoReto = miReto.getTipo();
 
-        int selec = elegirRandom(0, misResBorrar.size() - 1);
-        rbRetoOpcion1.setText(misResBorrar.get(selec).getDescripcion());
-        misResBorrar.remove(selec);
-        int selec2 = elegirRandom(0, misResBorrar.size() - 1);
-        rbRetoOpcion2.setText(misResBorrar.get(selec2).getDescripcion());
-        misResBorrar.remove(selec2);
-        int selec3 = 0;
-        rbRetoOpcion3.setText(misResBorrar.get(selec3).getDescripcion());
-        misResBorrar.remove(selec3);
+
+        switch (tipoReto){
+            //segun el tipo de reto mostrará los campos correspondientes
+
+            case 1:     //tipo multirespuesta
+
+                rbRetoOpcion1.setVisibility(View.VISIBLE);
+                rbRetoOpcion2.setVisibility(View.VISIBLE);
+                rbRetoOpcion3.setVisibility(View.VISIBLE);
+                etRetoRespuestaUnica.setVisibility(View.GONE);
+                btnRetoSubirImagen.setVisibility(View.GONE);
+
+                int selec = elegirRandom(0, misResBorrar.size() - 1);
+                rbRetoOpcion1.setText(misResBorrar.get(selec).getDescripcion());
+                misResBorrar.remove(selec);
+                int selec2 = elegirRandom(0, misResBorrar.size() - 1);
+                rbRetoOpcion2.setText(misResBorrar.get(selec2).getDescripcion());
+                misResBorrar.remove(selec2);
+                int selec3 = 0;
+                rbRetoOpcion3.setText(misResBorrar.get(selec3).getDescripcion());
+                misResBorrar.remove(selec3);
+
+                break;
+
+            case 2:     //tipo respuesta unica
+
+                rbRetoOpcion1.setVisibility(View.GONE);
+                rbRetoOpcion2.setVisibility(View.GONE);
+                rbRetoOpcion3.setVisibility(View.GONE);
+                etRetoRespuestaUnica.setVisibility(View.VISIBLE);
+                btnRetoSubirImagen.setVisibility(View.GONE);
+
+
+                break;
+
+            case 3:     //tipo subir imagen
+                rbRetoOpcion1.setVisibility(View.GONE);
+                rbRetoOpcion2.setVisibility(View.GONE);
+                rbRetoOpcion3.setVisibility(View.GONE);
+                etRetoRespuestaUnica.setVisibility(View.GONE);
+                btnRetoSubirImagen.setVisibility(View.VISIBLE);
+
+                break;
+        }
+
 
 
         txtRetoNombre.setText(miReto.getNombre());
@@ -257,18 +303,57 @@ public class RetoActivity extends AppCompatActivity {
         btnRetoResponder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for (int i = 0; i < respuestas.size(); i++) {
-                    if (respuestas.get(i).getDescripcion().equals(resElegida)) {
 
-                        if (respuestas.get(i).getVerdadero() == 1) {
+                //segun el tipo de reto controla la respuesta de diferentes maneras
+                switch (tipoReto){
 
-                            insertarPuntos(miReto.getPuntuacion(),"Acertaste!! puntuas:"+ miReto.getPuntuacion());
-                        } else {
-                            insertarPuntos(0,"Has fallado el reto, puntuas 0");
+                    case 1:     //tipo multirespuesta
+
+                        for (int i = 0; i < respuestas.size(); i++) {
+                            if (respuestas.get(i).getDescripcion().equals(resElegida)) {
+
+                                if (respuestas.get(i).getVerdadero() == 1) {
+
+                                    insertarPuntos(miReto.getPuntuacion(),"Acertaste!! puntuas:"+ miReto.getPuntuacion());
+                                } else {
+                                    insertarPuntos(0,"Has fallado el reto, puntuas 0");
+                                }
+                            }
                         }
 
-                    }
+                        break;
+
+                    case 2:     //tipo respuesta unica
+
+                        if (!etRetoRespuestaUnica.getText().toString().isEmpty()){
+                            if (etRetoRespuestaUnica.getText().toString().equals(respuestas.get(0))){
+
+                                insertarPuntos(miReto.getPuntuacion(),"Acertaste!! puntuas:"+ miReto.getPuntuacion());
+                            }else{
+                                insertarPuntos(0,"Has fallado el reto, puntuas 0");
+                            }
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Introduce una respuesta!!", Toast.LENGTH_SHORT).show();
+                        }
+
+
+
+                        break;
+
+                    case 3:     //tipo subir imagen
+
+                        break;
+
                 }
+
+            }
+        });
+
+        btnRetoVerVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), RetoVideoActivity.class);
+                startActivity(i);
             }
         });
 

@@ -55,6 +55,7 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
     private int idReto;
     private String nombrePartida;
     private String clavePartida;
+    private int tipoReto;
 
     private int partidaNumerosRetos;
     private int partidaNumerosRetosActual=1;
@@ -129,18 +130,21 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
                         txt_rtrue.setVisibility(View.VISIBLE);
                         txt_rfalse1.setVisibility(View.VISIBLE);
                         txt_rfalse2.setVisibility(View.VISIBLE);
+                        tipoReto=1;
                         break;
 
                     case 1:
                         txt_rtrue.setVisibility(View.VISIBLE);
                         txt_rfalse1.setVisibility(View.GONE);
                         txt_rfalse2.setVisibility(View.GONE);
+                        tipoReto=2;
                         break;
 
                     case 2:
                         txt_rtrue.setVisibility(View.GONE);
                         txt_rfalse1.setVisibility(View.GONE);
                         txt_rfalse2.setVisibility(View.GONE);
+                        tipoReto=3;
                         break;
 
                 }
@@ -378,7 +382,7 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
                 params.put("nombre", txt_nombre.getText().toString());
                 params.put("descripcion", txt_pregunta.getText().toString());
                 params.put("maxDuracion", txt_duracion.getText().toString());
-                params.put("tipo", "1");
+                params.put("tipo", "" + tipoReto);
                 params.put("puntuacion", txt_puntos.getText().toString());
                 params.put("localizacionLatitud", "" + latitud);
                 params.put("localizacionLongitud", "" + longitud);
