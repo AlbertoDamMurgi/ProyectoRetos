@@ -309,7 +309,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         Log.d(TAG, "addGeofence");
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
+            //
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
             //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
@@ -384,7 +384,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
+            //
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
             //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
@@ -472,7 +472,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
                 }else{
 
-                    //todo finalizar juego
+                    // finalizar juego
                     startActivity(new Intent(getApplicationContext(),FinPartidaActivity.class));
                     Log.e("FINISH","FINISH");
                     finish();
@@ -604,7 +604,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         if (mapa == null) {
             mapa = googleMap;
 
-            //TODO probar que el marker cargar la foto como icono
+            // probar que el marker cargar la foto como icono
             mapa.setMyLocationEnabled(true);
             mapa.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
             mapa.addMarker(new MarkerOptions()
@@ -635,7 +635,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
         mapa.addCircle(co);
 
-        //TODO recorrer array que contendrá retos para ver cercano
+        // recorrer array que contendrá retos para ver cercano
 
 
         for(int i=0;i<posiciones.size(); i++){
