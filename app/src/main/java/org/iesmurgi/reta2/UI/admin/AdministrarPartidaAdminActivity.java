@@ -36,4 +36,9 @@ public class AdministrarPartidaAdminActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(),ChatAdminActivity.class).putExtra("SALA",sala));
         }
 
+        @OnClick(R.id.btn_admin_mapa)
+        void abrirMapa(){
+            startActivity(new Intent(getApplicationContext(),AdminMapaActivity.class).putExtra("PARTIDA",sala));
+        }
+
 }

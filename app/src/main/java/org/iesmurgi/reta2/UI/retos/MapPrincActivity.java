@@ -41,6 +41,9 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,8 +66,9 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
     public GoogleMap mapa;
 
-
-
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+    private String usuario;
     static final int RETO_FINALIZADO = 1;
     private LocationListener mGpsListener;
     private LocationModel locationModel;
@@ -82,7 +86,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     private Marker destinoactual;
     private int idpartida;
     private final LatLng Murgi = new LatLng(36.7822801, -2.815255);
-
+    private FirebaseAuth mAuth;
 
     public static final long GEOFENCE_EXPIRATION_IN_HOURS = 1;
 
@@ -207,12 +211,38 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
         crearmarcadores();
 
+
+        database = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        usuario = mAuth.getCurrentUser().getDisplayName();
+        if(usuario == null){
+            usuario = locationModel.getUsuario();
+        }else{
+            locationModel.setUsuario(usuario);
+        }
+
+        if(nombrepartida==null){
+            nombrepartida=locationModel.getPartida();
+
+        }else{
+            locationModel.setPartida(nombrepartida);
+        }
+
+        myRef = database.getReference("Localizaciones").child(nombrepartida).child(usuario);
+
+
         locationModel.getmLocation().observe(this, location -> {
             if (location != null && mapa != null) {
 
                 puedespinchar=false;
                 Log.e("no puedes pinchar","no puedes pinchar"+puedespinchar);
                 Log.e("he entrado", "he entrado" + location.getLatitude() + " " + location.getLongitude());
+
+                LatLng lat = new LatLng(location.getLatitude(),location.getLongitude());
+
+                myRef.push().setValue(lat);
+
+
 
                 for(int i=0;i<retos.size(); i++){
                     Location.distanceBetween(location.getLatitude(),location.getLongitude(),retos.get(i).getLocalizacionLatitud(),retos.get(i).getLocalizacionLongitud(),results);

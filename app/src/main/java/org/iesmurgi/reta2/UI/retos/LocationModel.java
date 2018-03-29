@@ -19,6 +19,24 @@ public class LocationModel extends ViewModel{
     private List<Retos> retos = new ArrayList<>();
     boolean cargados=false;
     private int numReto=0;
+    private String usuario="";
+    private String partida ="";
+
+    public String getPartida() {
+        return partida;
+    }
+
+    public void setPartida(String partida) {
+        this.partida = partida;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
 
     public List<Retos> getRetos() {
         return retos;
