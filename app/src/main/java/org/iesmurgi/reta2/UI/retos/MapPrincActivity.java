@@ -18,6 +18,8 @@ import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -39,15 +41,21 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.iesmurgi.reta2.Chat.ChatActivity;
 import org.iesmurgi.reta2.Data.BasedeDatosApp;
 import org.iesmurgi.reta2.Data.entidades.Retos;
 import org.iesmurgi.reta2.R;
 import org.iesmurgi.reta2.UI.geofences.GeofenceTransiciones;
 import org.iesmurgi.reta2.UI.usuario.FinPartidaActivity;
+
+import butterknife.OnClick;
 
 public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ResultCallback<Status> {
 
@@ -58,8 +66,9 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
     public GoogleMap mapa;
 
-
-
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+    private String usuario;
     static final int RETO_FINALIZADO = 1;
     private LocationListener mGpsListener;
     private LocationModel locationModel;
@@ -77,7 +86,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     private Marker destinoactual;
     private int idpartida;
     private final LatLng Murgi = new LatLng(36.7822801, -2.815255);
-
+    private FirebaseAuth mAuth;
 
     public static final long GEOFENCE_EXPIRATION_IN_HOURS = 1;
 
@@ -114,6 +123,14 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         }
     }
 
+    class NombrePartida extends AsyncTask<Integer, Void, Integer> {
+        @Override
+        protected Integer doInBackground(Integer... p) {
+            nombrepartida =  BasedeDatosApp.getAppDatabase(getApplicationContext()).partidasDao().getPartidaActual(p[0]);
+
+            return 0;
+        }
+    }
 
 
 
@@ -122,7 +139,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
 
 
-
+    private String nombrepartida;
 
 
     @Override
@@ -132,6 +149,8 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         idpartida= getIntent().getExtras().getInt("IDPARTIDA");
         locationModel = ViewModelProviders.of(this).get(LocationModel.class);
 
+
+        new NombrePartida().execute(idpartida);
         if (!locationModel.isCargados()) {
             new RecuperarRetos().execute(idpartida);
         }else{
@@ -139,7 +158,11 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         }
 
 
-
+       Button mChat = findViewById(R.id.btn_mapa_chat);
+        mChat.setOnClickListener(v -> {
+            Log.e("chat","deberia abrir el chat"+nombrepartida);
+            startActivity(new Intent(getApplicationContext(),ChatActivity.class).putExtra("SALA",nombrepartida));
+        });
 
 
 
@@ -188,6 +211,26 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
         crearmarcadores();
 
+
+        database = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        usuario = mAuth.getCurrentUser().getDisplayName();
+        if(usuario == null){
+            usuario = locationModel.getUsuario();
+        }else{
+            locationModel.setUsuario(usuario);
+        }
+
+        if(nombrepartida==null){
+            nombrepartida=locationModel.getPartida();
+
+        }else{
+            locationModel.setPartida(nombrepartida);
+        }
+
+        myRef = database.getReference("Localizaciones").child(nombrepartida).child(usuario);
+
+
         locationModel.getmLocation().observe(this, location -> {
             if (location != null && mapa != null) {
 
@@ -195,9 +238,15 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
                 Log.e("no puedes pinchar","no puedes pinchar"+puedespinchar);
                 Log.e("he entrado", "he entrado" + location.getLatitude() + " " + location.getLongitude());
 
+                LatLng lat = new LatLng(location.getLatitude(),location.getLongitude());
+
+                myRef.push().setValue(lat);
+
+
+
                 for(int i=0;i<retos.size(); i++){
                     Location.distanceBetween(location.getLatitude(),location.getLongitude(),retos.get(i).getLocalizacionLatitud(),retos.get(i).getLocalizacionLongitud(),results);
-                    if(results[0]<150){
+                    if(results[0]<20){
                         if(i==locationModel.getNumReto()) {
                             puedespinchar = true;
 
@@ -207,21 +256,15 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
                     }
                 }
 
-
-
-                /*
-                co.center(new LatLng(location.getLatitude(),location.getLongitude())).radius(50).strokeColor(Color.RED).fillColor(Color.TRANSPARENT).strokeWidth(2F);
-
-
-                mapa.clear();
-                mapa.addCircle(co);
-                onMapReady(mapa);
-                */
             }
 
         });
 
     }
+
+
+
+
 
     private void buildGoogleApiClient() {
     }

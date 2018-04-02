@@ -90,17 +90,6 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline6" />
 
-    <Button
-        android:id="@+id/btn_chat_prueba"
-        style="@style/boton"
-        android:layout_width="98dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:text="chat"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <EditText
         android:id="@+id/txt_main_nombrepartida"
         android:layout_width="0dp"

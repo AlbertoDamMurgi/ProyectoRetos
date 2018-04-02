@@ -45,7 +45,7 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String autor;
     private boolean admin = true;
-
+    private String sala;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,12 +54,15 @@ public class ChatActivity extends AppCompatActivity {
         // para que funcione el ButterKnife
         ButterKnife.bind(this);
 
+        sala = getIntent().getExtras().getString("SALA");
+
         mChatModel = ViewModelProviders.of(this).get(ChatModel.class);
         logmodel = ViewModelProviders.of(this).get(LoginModel.class);
 
         mAuth = FirebaseAuth.getInstance();
 
         autor = mAuth.getCurrentUser().getDisplayName();
+
 
 
         if(historial.getText().toString().isEmpty()){
@@ -86,11 +89,12 @@ public class ChatActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance(); // instancia la base de datos
         if(autor.equalsIgnoreCase("administrador")){
             admin = true;
-            autor = getIntent().getExtras().getString("SALA");
+
+            autor = getIntent().getExtras().getString("USUARIO");
         }else{
             admin = false;
         }
-        myRef = database.getReference("chat").child(autor); // parecido a crear una tabla llamada chat
+        myRef = database.getReference("chat").child(sala).child(autor); // parecido a crear una tabla llamada chat
     }
 
 

@@ -17,8 +17,8 @@ public interface PartidasDao {
     void partidasInsert(Partidas... partida);
 
 
-    @Query("Select * from partidas where nombre = :nombre")
-    Partidas getPartidaActual(String nombre);
+    @Query("Select nombre from partidas where idPartida = :idpartida")
+    String getPartidaActual(int idpartida);
 
 
 

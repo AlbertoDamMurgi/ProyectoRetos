@@ -45,8 +45,13 @@
         <service android:name=".UI.geofences.GeofenceTransiciones" />
 
         <activity android:name=".Chat.ChatAdminActivity" />
-        <activity android:name=".UI.retos.RetoVideoActivity"/>
+
         <activity android:name=".UI.admin.ListarPartidasAdminActivity" />
+        <activity android:name=".UI.admin.AdministrarPartidaAdminActivity" />
+        <activity
+            android:name=".UI.admin.AdminMapaActivity"
+            android:label="@string/title_activity_admin_mapa"></activity>
+
     </application>
 
 </manifest>

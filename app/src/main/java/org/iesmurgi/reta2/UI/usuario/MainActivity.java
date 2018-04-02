@@ -109,12 +109,6 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         mLoginModel.getUsuario().postValue(null);
     }
 
-    @OnClick(R.id.btn_chat_prueba)
-    public void iralChat() {
-
-        startActivity(new Intent(getApplicationContext(), ChatActivity.class));
-
-    }
 
 
     @OnClick(R.id.bt_iniciarPartida)

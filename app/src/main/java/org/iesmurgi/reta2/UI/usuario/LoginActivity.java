@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -51,6 +52,7 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
         mLoginModel = ViewModelProviders.of(this).get(LoginModel.class);
 
         //conexion con la base de datos
+
         mAuth = FirebaseAuth.getInstance();
 
        observador();
@@ -65,6 +67,7 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
                 if(firebaseAuth!=null&&!firebaseAuth.getCurrentUser().getDisplayName().equalsIgnoreCase("administrador")){
 
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));
+
                 }else{
                     //startActivity(new Intent(getApplicationContext(),LoginAdmin.class));
                     Toast.makeText(LoginActivity.this, "Credenciales erroneas.", Toast.LENGTH_SHORT).show();
