@@ -52,6 +52,7 @@ import org.iesmurgi.reta2.Chat.ChatActivity;
 import org.iesmurgi.reta2.Data.BasedeDatosApp;
 import org.iesmurgi.reta2.Data.entidades.Retos;
 import org.iesmurgi.reta2.R;
+import org.iesmurgi.reta2.UI.admin.PruebaLoc;
 import org.iesmurgi.reta2.UI.geofences.GeofenceTransiciones;
 import org.iesmurgi.reta2.UI.usuario.FinPartidaActivity;
 
@@ -238,7 +239,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
                 Log.e("no puedes pinchar","no puedes pinchar"+puedespinchar);
                 Log.e("he entrado", "he entrado" + location.getLatitude() + " " + location.getLongitude());
 
-                LatLng lat = new LatLng(location.getLatitude(),location.getLongitude());
+                PruebaLoc lat = new PruebaLoc(String.valueOf(location.getLatitude()),String.valueOf(location.getLongitude()));
 
                 myRef.push().setValue(lat);
 
