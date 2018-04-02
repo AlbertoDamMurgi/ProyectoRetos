@@ -5,16 +5,30 @@ import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
+import org.iesmurgi.reta2.Chat.Chat;
 import org.iesmurgi.reta2.R;
+import org.iesmurgi.reta2.UI.geofences.Posiciones;
+import org.iesmurgi.reta2.UI.retos.Localizacion;
+
+import java.util.ArrayList;
 
 public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -22,6 +36,10 @@ public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCal
     private GoogleMap mMap;
     private String partida;
     private final LatLng Murgi = new LatLng(36.7822801, -2.815255);
+    FirebaseDatabase database;
+    DatabaseReference myRef,mRefAux;
+    private ArrayList<MarkerOptions> marcadores = new ArrayList<>();
+    private ArrayList<String> participantes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +51,7 @@ public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCal
         mapFragment.getMapAsync(this);
 
         partida = getIntent().getExtras().getString("PARTIDA");
+        Log.e("PArtida",partida);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
@@ -43,9 +62,107 @@ public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCal
                     REQUEST_LOCATION_PERMISSION_CODE);
         }
 
-        //todo necesito saber los usuarios que tiene la partida par terminar esta parte
+      escucharUsuarios();
 
     }
+
+    void actualizarPosiciones(){
+
+        for (int i = 0; i < participantes.size(); i++) {
+            mRefAux = database.getReference("Localizaciones").child(partida).child(participantes.get(i));
+            Log.e("participan",participantes.get(i));
+            int finalI1 = i;
+            mRefAux.orderByKey().limitToLast(1).addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    if(dataSnapshot!=null) {
+                        try {
+                            Log.e("data",dataSnapshot.toString());
+                            PruebaLoc loc =  dataSnapshot.getValue(PruebaLoc.class);
+
+                            mMap.clear();
+
+                            mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory
+                                    .fromResource(R.drawable.hojapequenia)).title(participantes.get(finalI1)).position(new LatLng(Double.parseDouble(loc.getLatitud()),Double.parseDouble(loc.getLongitud()))));
+                        }catch (Exception ex){
+                            Log.e("error",ex.getMessage());
+                        }
+                    }
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+
+
+
+        }
+
+    }
+
+    void escucharUsuarios(){
+
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("Localizaciones").child(partida);
+
+        myRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                if(dataSnapshot!=null) {
+                    try {
+                        String participante = dataSnapshot.getKey();
+                        Log.e("participante",participante);
+                        participantes.add(participante);
+                        actualizarPosiciones();
+                    }catch (Exception ex){
+                        Log.e("ERROR",ex.getMessage());
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
 
 
     @Override

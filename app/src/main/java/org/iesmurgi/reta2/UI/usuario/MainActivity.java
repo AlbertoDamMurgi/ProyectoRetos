@@ -1,5 +1,6 @@
 package org.iesmurgi.reta2.UI.usuario;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;
@@ -7,9 +8,11 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.OnLifecycleEvent;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.EditText;
@@ -44,6 +47,7 @@ import org.iesmurgi.reta2.R;
 public class MainActivity extends AppCompatActivity implements LifecycleObserver {
 
 
+    private static final int REQUEST_LOCATION_PERMISSION_CODE = 1;
     @BindView(R.id.txt_contraPartida)
     EditText txt_contraPartida;
     @BindView(R.id.txt_main_nombrepartida)
@@ -65,6 +69,15 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION},
+                    REQUEST_LOCATION_PERMISSION_CODE);
+        }
 
         mLoginModel = ViewModelProviders.of(this).get(LoginModel.class);
 

@@ -8,10 +8,15 @@ public class Localizacion {
 
     private LatLng loc;
 
+
+    public Localizacion() {
+    }
+
     public Localizacion(LatLng loc) {
         this.loc = loc;
 
     }
+
 
     public LatLng getLoc() {
         return loc;

@@ -52,7 +52,7 @@ public class BoundLocationManager {
 
             mLocationManager =
                     (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
-            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0, mListener);
+            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 1, mListener);
             Log.d("BoundLocationMgr", "Listener added");
 
             // Force an update with the last location, if available.
