@@ -66,12 +66,36 @@ public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCal
 
     }
 
-    void actualizarPosiciones(){
+    void pintarMapa(){
 
-        for (int i = 0; i < participantes.size(); i++) {
-            mRefAux = database.getReference("Localizaciones").child(partida).child(participantes.get(i));
-            Log.e("participan",participantes.get(i));
-            int finalI1 = i;
+        mMap.clear();
+
+        for (int i = 0; i < marcadores.size() ; i++) {
+            mMap.addMarker(marcadores.get(i));
+        }
+
+    }
+
+    void comprobarMarcador(String participante){
+
+        for (int i = 0; i <marcadores.size() ; i++) {
+
+            if(marcadores.get(i).getTitle().equalsIgnoreCase(participante)){
+
+                marcadores.remove(i);
+
+            }
+
+        }
+
+    }
+
+    void actualizarPosiciones(String participante){
+
+
+            mRefAux = database.getReference("Localizaciones").child(partida).child(participante);
+           // Log.e("participan",participantes.get(i));
+
             mRefAux.orderByKey().limitToLast(1).addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -80,10 +104,13 @@ public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCal
                             Log.e("data",dataSnapshot.toString());
                             PruebaLoc loc =  dataSnapshot.getValue(PruebaLoc.class);
 
-                            mMap.clear();
+                            comprobarMarcador(participante);
 
-                            mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory
-                                    .fromResource(R.drawable.hojapequenia)).title(participantes.get(finalI1)).position(new LatLng(Double.parseDouble(loc.getLatitud()),Double.parseDouble(loc.getLongitud()))));
+
+                            marcadores.add(new MarkerOptions().icon(BitmapDescriptorFactory
+                                    .fromResource(R.drawable.hojapequenia)).title(participante).position(new LatLng(Double.parseDouble(loc.getLatitud()),Double.parseDouble(loc.getLongitud()))));
+
+                            pintarMapa();
                         }catch (Exception ex){
                             Log.e("error",ex.getMessage());
                         }
@@ -116,7 +143,7 @@ public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCal
 
         }
 
-    }
+
 
     void escucharUsuarios(){
 
@@ -128,10 +155,13 @@ public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCal
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if(dataSnapshot!=null) {
                     try {
+
                         String participante = dataSnapshot.getKey();
                         Log.e("participante",participante);
-                        participantes.add(participante);
-                        actualizarPosiciones();
+                       // participantes.add(participante);
+                        marcadores.add(new MarkerOptions().position(Murgi).title(participante));
+                       // Log.e("size",""+participantes.size());
+                        actualizarPosiciones(participante);
                     }catch (Exception ex){
                         Log.e("ERROR",ex.getMessage());
                     }
