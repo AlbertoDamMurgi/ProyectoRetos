@@ -159,9 +159,6 @@ public class RetoActivity extends AppCompatActivity {
     void init() {
 
 
-
-
-
         misResBorrar.clear();
         misRespuestas.clear();
         rellenarArray();
@@ -201,8 +198,6 @@ public class RetoActivity extends AppCompatActivity {
                 rbRetoOpcion3.setVisibility(View.GONE);
                 etRetoRespuestaUnica.setVisibility(View.VISIBLE);
                 btnRetoSubirImagen.setVisibility(View.GONE);
-
-
                 break;
 
             case 3:     //tipo subir imagen
@@ -211,8 +206,8 @@ public class RetoActivity extends AppCompatActivity {
                 rbRetoOpcion3.setVisibility(View.GONE);
                 etRetoRespuestaUnica.setVisibility(View.GONE);
                 btnRetoSubirImagen.setVisibility(View.VISIBLE);
-
                 break;
+
         }
 
 
