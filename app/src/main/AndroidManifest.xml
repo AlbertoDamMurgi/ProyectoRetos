@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UI.usuario.LoginActivity" >
+        <activity android:name=".UI.usuario.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,13 +45,12 @@
         <service android:name=".UI.geofences.GeofenceTransiciones" />
 
         <activity android:name=".Chat.ChatAdminActivity" />
-
         <activity android:name=".UI.admin.ListarPartidasAdminActivity" />
         <activity android:name=".UI.admin.AdministrarPartidaAdminActivity" />
         <activity
             android:name=".UI.admin.AdminMapaActivity"
-            android:label="@string/title_activity_admin_mapa"></activity>
-
+            android:label="@string/title_activity_admin_mapa" />
+        <activity android:name=".UI.admin.AdminVerJugadoresActivity"></activity>
     </application>
 
 </manifest>
