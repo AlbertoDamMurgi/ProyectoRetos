@@ -73,6 +73,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             holder.nombreChat.setOnClickListener(v -> {
                 context.startActivity(new Intent(context, ChatActivity.class).putExtra("USUARIO", salas.get(position)).putExtra("SALA",sala));
             });
+        }else if(tipo == 4){
+            holder.nombreChat.setText(salas.get(position));
         }
     }
 
