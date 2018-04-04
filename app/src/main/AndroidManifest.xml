@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UI.usuario.LoginActivity" >
+        <activity android:name=".UI.usuario.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,6 +37,7 @@
         <activity android:name=".UI.usuario.FinPartidaActivity" />
         <activity android:name=".UI.usuario.AcercaDeActivity" />
         <activity android:name=".UI.admin.CrearPartida" />
+        <activity android:name=".UI.retos.RetoVideoActivity"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -45,13 +49,12 @@
         <service android:name=".UI.geofences.GeofenceTransiciones" />
 
         <activity android:name=".Chat.ChatAdminActivity" />
-
         <activity android:name=".UI.admin.ListarPartidasAdminActivity" />
         <activity android:name=".UI.admin.AdministrarPartidaAdminActivity" />
         <activity
             android:name=".UI.admin.AdminMapaActivity"
-            android:label="@string/title_activity_admin_mapa"></activity>
-
+            android:label="@string/title_activity_admin_mapa" />
+        <activity android:name=".UI.retos.RetoFotoActivity"></activity>
     </application>
 
 </manifest>
