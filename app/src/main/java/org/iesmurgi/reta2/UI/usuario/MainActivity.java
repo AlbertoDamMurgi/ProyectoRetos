@@ -220,6 +220,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                                     o.getInt("idReto"),
                                     o.getString("nombre"),
                                     o.getString("descripcion"),
+                                    o.getString("video"),
                                     o.getInt("maxDuracion"),
                                     o.getInt("tipo"),
                                     o.getInt("puntuacion"),
