@@ -41,4 +41,11 @@ public class AdministrarPartidaAdminActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(),AdminMapaActivity.class).putExtra("PARTIDA",sala));
         }
 
+
+        @OnClick(R.id.btn_admin_verjugadores)
+        void verJugadores(){
+            startActivity(new Intent(getApplicationContext(),AdminVerJugadoresActivity.class).putExtra("PARTIDA",sala));
+        }
+
+
 }

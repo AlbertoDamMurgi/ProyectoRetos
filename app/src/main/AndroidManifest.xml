@@ -54,7 +54,10 @@
         <activity
             android:name=".UI.admin.AdminMapaActivity"
             android:label="@string/title_activity_admin_mapa" />
+
         <activity android:name=".UI.retos.RetoFotoActivity"></activity>
+        <activity android:name=".UI.admin.AdminVerJugadoresActivity"></activity>
+
     </application>
 
 </manifest>
