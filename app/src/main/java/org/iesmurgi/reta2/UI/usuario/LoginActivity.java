@@ -3,7 +3,9 @@ package org.iesmurgi.reta2.UI.usuario;
 import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -34,7 +36,7 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
     @BindView(R.id.et_pass)
     EditText pass;
 
-
+    SharedPreferences prefs;
 
 
     private LoginModel mLoginModel;
@@ -50,15 +52,23 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
         this.getLifecycle().addObserver(this);
         //enlace con el viewmodel
         mLoginModel = ViewModelProviders.of(this).get(LoginModel.class);
-
         //conexion con la base de datos
-
         mAuth = FirebaseAuth.getInstance();
 
-       observador();
 
+
+        prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+        String userGuardado = prefs.getString("usuario", "");
+        String passGuardado = prefs.getString("pass", "");
+        email.setText(userGuardado);
+        pass.setText(passGuardado);
+        if (!email.getText().toString().isEmpty() && !pass.getText().toString().isEmpty())
+        {
+            conectarUsuario();
+        }
     }
 
+    /*
     private void observador() {
 
         mLoginModel.getConection().observe(this, new Observer<FirebaseAuth>() {
@@ -66,7 +76,7 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
             public void onChanged(@Nullable FirebaseAuth firebaseAuth) {
                 if(firebaseAuth!=null&&!firebaseAuth.getCurrentUser().getDisplayName().equalsIgnoreCase("administrador")){
 
-                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+
 
                 }else{
                     //startActivity(new Intent(getApplicationContext(),LoginAdmin.class));
@@ -77,7 +87,7 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
 
     }
 
-
+*/
 
 
 
@@ -143,6 +153,15 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
                                 Log.d(TAG, "signInWithEmail:success");
                                 mLoginModel.getUsuario().setValue(mAuth.getInstance().getCurrentUser());
                                 mLoginModel.getConection().setValue(mAuth);
+
+                                SharedPreferences.Editor editor = prefs.edit();
+                                editor.putString("usuario", email.getText().toString());
+                                editor.putString("pass", pass.getText().toString());
+                                editor.apply();
+
+                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                finish();
+
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
