@@ -17,6 +17,7 @@ public class Retos {
     private int idReto;
     private String nombre;
     private String descripcion;
+    private String video;
     private int maxDuracion;
     private int tipo;
     private int puntuacion;
@@ -25,9 +26,10 @@ public class Retos {
     private int idPartida;
 
     @Ignore
-    public Retos(String nombre, String descripcion, int maxDuracion, int tipo, int puntuacion, double localizacionLatitud, double localizacionLongitud, int idPartida) {
+    public Retos(String nombre, String descripcion,String video, int maxDuracion, int tipo, int puntuacion, double localizacionLatitud, double localizacionLongitud, int idPartida) {
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.video = video;
         this.maxDuracion = maxDuracion;
         this.tipo = tipo;
         this.puntuacion = puntuacion;
@@ -36,10 +38,11 @@ public class Retos {
         this.idPartida = idPartida;
     }
 
-    public Retos(int idReto, String nombre, String descripcion, int maxDuracion, int tipo, int puntuacion, double localizacionLatitud, double localizacionLongitud, int idPartida) {
+    public Retos(int idReto, String nombre, String descripcion,String video, int maxDuracion, int tipo, int puntuacion, double localizacionLatitud, double localizacionLongitud, int idPartida) {
         this.idReto = idReto;
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.video = video;
         this.maxDuracion = maxDuracion;
         this.tipo = tipo;
         this.puntuacion = puntuacion;
@@ -118,5 +121,13 @@ public class Retos {
 
     public void setIdPartida(int idPartida) {
         this.idPartida = idPartida;
+    }
+
+    public String getVideo() {
+        return video;
+    }
+
+    public void setVideo(String video) {
+        this.video = video;
     }
 }

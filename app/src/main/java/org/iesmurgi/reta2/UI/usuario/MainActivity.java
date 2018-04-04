@@ -7,7 +7,9 @@ import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.OnLifecycleEvent;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -120,6 +122,14 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         mLoginModel.getConection().getValue().getInstance().signOut();
         mLoginModel.getConection().postValue(null);
         mLoginModel.getUsuario().postValue(null);
+
+        SharedPreferences prefs2 = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs2.edit();
+        editor.clear();
+        editor.apply();
+        startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+        finish();
+
     }
 
 
@@ -220,6 +230,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                                     o.getInt("idReto"),
                                     o.getString("nombre"),
                                     o.getString("descripcion"),
+                                    o.getString("video"),
                                     o.getInt("maxDuracion"),
                                     o.getInt("tipo"),
                                     o.getInt("puntuacion"),

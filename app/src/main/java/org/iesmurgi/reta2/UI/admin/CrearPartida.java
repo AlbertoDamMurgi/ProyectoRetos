@@ -78,6 +78,7 @@ public class CrearPartida extends AppCompatActivity {
                         i.putExtra("partidaNumerosRetos", txt_numeroretos.getText().toString());
 
                         startActivity(i);
+                        finish();
                     } else {
                         Toast.makeText(getApplicationContext(), "Nombre ya esta en uso, ponga otro.", Toast.LENGTH_LONG).show();
                     }
