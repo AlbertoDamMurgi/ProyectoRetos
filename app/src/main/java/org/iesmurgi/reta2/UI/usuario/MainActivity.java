@@ -183,7 +183,10 @@ int idUsuario;
                         }
 
                     }//endgfor
-                    startActivity(new Intent(getApplicationContext(),MapPrincActivity.class).putExtra("IDPARTIDA",ID_PARTIDA).putExtra("NOMBREPARTIDA",NOMBREPARTIDA));
+                    startActivity(new Intent(getApplicationContext(),MapPrincActivity.class)
+                            .putExtra("IDPARTIDA",ID_PARTIDA)
+                            .putExtra("NOMBREPARTIDA",NOMBREPARTIDA)
+                            .putExtra("idUsuario",idUsuario));
                     progressDialog.dismiss();
 
                     Log.e("LISTA Respuestas", response.toString());

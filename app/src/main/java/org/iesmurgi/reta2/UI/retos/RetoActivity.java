@@ -77,7 +77,7 @@ public class RetoActivity extends AppCompatActivity {
     private Retos miReto;
     private String resElegida;
 
-
+int idUsuario;
     private LoginModel cronoViewModel;
     private long nTiempo;
     private String nombrepartida;
@@ -153,7 +153,7 @@ public class RetoActivity extends AppCompatActivity {
         db = BasedeDatosApp.getAppDatabase(this);
 
         aux = getIntent().getExtras().getIntArray("PARTIDAYRETO");
-
+        idUsuario= getIntent().getIntExtra("idUsuario",0);
         nombrepartida = getIntent().getExtras().getString("NOMBREPARTIDA");
         Log.e("partidanombrereto",nombrepartida);
         Log.e("idpartida", "" + aux[0]);
@@ -444,7 +444,7 @@ public class RetoActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("idUsuario", "" + 1);
+                params.put("idUsuario", "" + idUsuario);
                 params.put("idReto", "" + miReto.getIdReto());
                 params.put("tiempo", "11" );
                 params.put("puntuacion", ""+puntos);
