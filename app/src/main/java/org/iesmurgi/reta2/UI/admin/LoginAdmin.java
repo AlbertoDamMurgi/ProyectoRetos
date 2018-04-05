@@ -12,6 +12,12 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -22,9 +28,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import org.iesmurgi.reta2.R;
 import org.iesmurgi.reta2.UI.usuario.LoginModel;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class LoginAdmin extends AppCompatActivity implements LifecycleObserver {
-
+ int idAdmin;
     private static final String TAG = "LOGIN_ADMIN";
     @BindView(R.id.et_email_admin)
     EditText email;
@@ -65,6 +74,7 @@ public class LoginAdmin extends AppCompatActivity implements LifecycleObserver {
                     if (firebaseAuth.getCurrentUser().getDisplayName().equalsIgnoreCase("administrador")) {
 
                         startActivity(new Intent(getApplicationContext(), AdminMainActivity.class));
+
 
                     } else {
                         Toast.makeText(LoginAdmin.this, "Credenciales erroneas.", Toast.LENGTH_SHORT).show();
@@ -112,6 +122,46 @@ public class LoginAdmin extends AppCompatActivity implements LifecycleObserver {
         }
 
     }
+
+    void obtenerIDyLanzar(){
+
+
+        //Sacamos la id de usaario
+        final String URL = "http://geogame.ml/api/obtener_admin.php?correo="+email.getText().toString()+"&passwd="+email.getText().toString();
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                for (int i = 0; i < response.length(); i++) {
+
+                    try {
+                        JSONObject o = response.getJSONObject(i);
+                        idAdmin=o.getInt("idAdmin");
+
+                    } catch (JSONException e) {
+                        Log.e("Log Json error Partida", e.getMessage());
+                    }
+                }
+                startActivity(new Intent(getApplicationContext(), AdminMainActivity.class).putExtra("idAdmin",idAdmin));
+
+                finish();
+                //endgfor
+                Log.e("ADMIN RESPONDE ", response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Partida", error.getMessage());
+                Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(request);
+
+    }
+
+
 }
 
 
