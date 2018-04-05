@@ -107,7 +107,7 @@ public class RetoFotoActivity extends AppCompatActivity {
 
                         startActivity(new Intent(getApplicationContext(),MapPrincActivity.class));
 
-                        finish();
+                       // finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
