@@ -67,7 +67,6 @@ public class RetoFotoActivity extends AppCompatActivity {
     String path;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

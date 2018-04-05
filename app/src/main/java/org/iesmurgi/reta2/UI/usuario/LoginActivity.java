@@ -14,6 +14,13 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
@@ -26,10 +33,13 @@ import butterknife.OnClick;
 import butterknife.OnLongClick;
 import org.iesmurgi.reta2.R;
 import org.iesmurgi.reta2.UI.admin.LoginAdmin;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity implements LifecycleObserver {
 
-
+    int idUsuario;
     private static final String TAG = "LOGIN";
     @BindView(R.id.et_email)
     EditText email;
@@ -157,13 +167,11 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
 
                                 if( !mLoginModel.getConection().getValue().getCurrentUser().getDisplayName().equalsIgnoreCase("administrador")) {
 
-                                    SharedPreferences.Editor editor = prefs.edit();
-                                    editor.putString("usuario", email.getText().toString());
-                                    editor.putString("pass", pass.getText().toString());
-                                    editor.apply();
 
-                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                    finish();
+
+
+                                    obtenerid();
+
                                 }else {
                                     Toast.makeText(LoginActivity.this, "Credenciales erroneas.", Toast.LENGTH_SHORT).show();
                                 }
@@ -185,6 +193,42 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
 
     }
 
+    void obtenerid(){
+
+        //Sacamos la id de usaario
+        final String URL = "http://geogame.ml/api/obtener_usuario.php?correo="+email.getText().toString()+"&passwd="+email.getText().toString();
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                for (int i = 0; i < response.length(); i++) {
+
+                    try {
+                        JSONObject o = response.getJSONObject(i);
+                       idUsuario=o.getInt("idUsuario");
+
+                    } catch (JSONException e) {
+                        Log.e("Log Json error Partida", e.getMessage());
+                    }
+                }
+                guardarylanzar();
+                //endgfor
+                Log.e("LISTA SACAR RETO", response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Partida", error.getMessage());
+                Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(request);
+
+    }//End
+
+
 
     @OnClick(R.id.btn_login_acercaDe)
     void acercaDe(){
@@ -192,7 +236,14 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
         Intent i = new Intent(getApplicationContext(), AcercaDeActivity.class);
         startActivity(i);
     }
-
+void guardarylanzar(){
+    SharedPreferences.Editor editor = prefs.edit();
+    editor.putString("usuario", email.getText().toString());
+    editor.putString("pass", pass.getText().toString());
+    editor.apply();
+    startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("idUsuario",idUsuario));
+    finish();
+}
 
 
 
