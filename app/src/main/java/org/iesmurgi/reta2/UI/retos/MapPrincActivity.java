@@ -63,7 +63,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     private static final int REQUEST_LOCATION_PERMISSION_CODE = 1;
     private static final String TAG = "GEOFENCE";
 
-
+    int idUsuario;
 
     public GoogleMap mapa;
 
@@ -141,6 +141,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_princ);
         idpartida= getIntent().getExtras().getInt("IDPARTIDA");
+        idUsuario=getIntent().getIntExtra("idUsuario",0);
         locationModel = ViewModelProviders.of(this).get(LocationModel.class);
 
 
@@ -156,7 +157,9 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
        Button mChat = findViewById(R.id.btn_mapa_chat);
         mChat.setOnClickListener(v -> {
             Log.e("chat","deberia abrir el chat"+nombrepartida);
-            startActivity(new Intent(getApplicationContext(),ChatActivity.class).putExtra("SALA",nombrepartida));
+            startActivity(new Intent(getApplicationContext(),ChatActivity.class)
+                    .putExtra("SALA",nombrepartida)
+            );
         });
 
 
@@ -461,7 +464,8 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
                         if(marcadores.get(i).getTitle().equalsIgnoreCase(marker.getTitle())){
                                 int [] aux;
                                 aux = new int[]{idpartida,retos.get(i).getIdReto()};
-                              startActivityForResult(new Intent(getApplicationContext(),RetoActivity.class).putExtra("PARTIDAYRETO",aux).putExtra("NOMBREPARTIDA",nombrepartida),RETO_FINALIZADO);
+                              startActivityForResult(
+                                      new Intent(getApplicationContext(),RetoActivity.class).putExtra("idUsuario",idUsuario).putExtra("PARTIDAYRETO",aux).putExtra("NOMBREPARTIDA",nombrepartida),RETO_FINALIZADO);
                         }
                         }
                     }
