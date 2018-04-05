@@ -103,11 +103,9 @@ public class RetoFotoActivity extends AppCompatActivity {
 
                         Toast.makeText(RetoFotoActivity.this, "La foto se ha subido correctamente.", Toast.LENGTH_SHORT).show();
 
-                        setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), MapPrincActivity.class));
+                        setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), RetoActivity.class));
 
-                        startActivity(new Intent(getApplicationContext(),MapPrincActivity.class));
-
-                       // finish();
+                        finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
