@@ -140,12 +140,33 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_princ);
-        idpartida= getIntent().getExtras().getInt("IDPARTIDA");
-        idUsuario=getIntent().getIntExtra("idUsuario",0);
         locationModel = ViewModelProviders.of(this).get(LocationModel.class);
 
+        if(locationModel.getIdpartida()==null){
+            idpartida= getIntent().getExtras().getInt("IDPARTIDA");
+            locationModel.setIdpartida(idpartida);
+        }else{
+            idpartida = locationModel.getIdpartida();
+        }
 
-       nombrepartida = getIntent().getExtras().getString("NOMBREPARTIDA");
+        if(locationModel.getIdusuario()==null){
+            idUsuario= getIntent().getExtras().getInt("idUsuario");
+            locationModel.setIdusuario(idUsuario);
+        }else{
+            idUsuario = locationModel.getIdusuario();
+        }
+
+
+        if(locationModel.getNombrepartida()==null){
+            nombrepartida = getIntent().getExtras().getString("NOMBREPARTIDA");
+            locationModel.setNombrepartida(nombrepartida);
+        }else{
+            nombrepartida=locationModel.getNombrepartida();
+        }
+
+
+
+
         Log.e("nombrepartida mapa",nombrepartida);
         if (!locationModel.isCargados()) {
             new RecuperarRetos().execute(idpartida);
