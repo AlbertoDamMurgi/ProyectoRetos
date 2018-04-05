@@ -140,12 +140,40 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_princ);
-        idpartida= getIntent().getExtras().getInt("IDPARTIDA");
-        idUsuario=getIntent().getIntExtra("idUsuario",0);
         locationModel = ViewModelProviders.of(this).get(LocationModel.class);
+        idpartida= getIntent().getExtras().getInt("IDPARTIDA",0);
+        idUsuario= getIntent().getExtras().getInt("idUsuario",0);
+        nombrepartida = getIntent().getExtras().getString("NOMBREPARTIDA","asd");
+        if(locationModel.getIdpartida()==null){
+
+           // Log.e("idpartidamodel",""+idpartida);
+            locationModel.setIdpartida(idpartida);
+          //  Log.e("idpartidamodeldentro",""+locationModel.getIdpartida());
+        }else{
+            idpartida = locationModel.getIdpartida();
+        }
+
+        if(locationModel.getIdusuario()==null){
+
+          //  Log.e("idususmodel",""+idUsuario);
+            locationModel.setIdusuario(idUsuario);
+          //  Log.e("idusudentro",""+locationModel.getIdusuario());
+        }else{
+            idUsuario = locationModel.getIdusuario();
+        }
 
 
-       nombrepartida = getIntent().getExtras().getString("NOMBREPARTIDA");
+        if(locationModel.getNombrepartida()==null){
+
+          //  Log.e("nombreparidamodel",""+nombrepartida);
+            locationModel.setNombrepartida(nombrepartida);
+        }else{
+            nombrepartida=locationModel.getNombrepartida();
+        }
+
+
+
+
         Log.e("nombrepartida mapa",nombrepartida);
         if (!locationModel.isCargados()) {
             new RecuperarRetos().execute(idpartida);
