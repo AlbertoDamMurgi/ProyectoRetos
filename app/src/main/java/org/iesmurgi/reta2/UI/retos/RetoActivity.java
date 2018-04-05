@@ -31,9 +31,12 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 import org.iesmurgi.reta2.Data.BasedeDatosApp;
 import org.iesmurgi.reta2.Data.DAOS.RespuestasDao;
 import org.iesmurgi.reta2.Data.DAOS.RetosDao;
+import org.iesmurgi.reta2.Data.entidades.Partidas;
 import org.iesmurgi.reta2.Data.entidades.Respuestas;
 import org.iesmurgi.reta2.Data.entidades.Retos;
 import org.iesmurgi.reta2.R;
@@ -84,6 +87,7 @@ public class RetoActivity extends AppCompatActivity {
     private int idreto;
     private List<Respuestas> respuestas = new ArrayList<>();
     private boolean salida = false;
+    private String nombrepartida;
     BasedeDatosApp db;
 
     int[] aux;
@@ -129,6 +133,28 @@ public class RetoActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
 
             new recRes().execute(aux[1]);
+
+            new NomPartida().execute(aux[0]);
+
+        }
+    }
+
+    class NomPartida extends AsyncTask<Integer, Void, Void> {
+        @Override
+        protected Void doInBackground(Integer... p) {
+
+
+            nombrepartida = db.partidasDao().getPartidaActual(p[0]);
+
+
+            return null;
+
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
 
         }
     }
@@ -213,6 +239,8 @@ public class RetoActivity extends AppCompatActivity {
 
 
 
+
+
         txtRetoNombre.setText(miReto.getNombre());
         txtRetoDescripcion.setText(miReto.getDescripcion());
 
@@ -273,6 +301,8 @@ public class RetoActivity extends AppCompatActivity {
         }
 
         Log.v("mitiempo", String.valueOf(cronoViewModel.getMiTiempo()));
+
+
 
 
         //cuando cambia la seleccion setea la resElegida con el string del radiobuton
@@ -365,6 +395,13 @@ public class RetoActivity extends AppCompatActivity {
 
     }
 
+
+    @OnClick(R.id.btn_reto_subirImagen)
+    void abrirRetoFoto(){
+
+        startActivity(new Intent(getApplicationContext(),RetoFotoActivity.class).putExtra("PARTIDA", nombrepartida));
+
+    }
 
     public void rellenarArray() {
 

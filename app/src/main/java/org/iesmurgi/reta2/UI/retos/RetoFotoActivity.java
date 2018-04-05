@@ -25,13 +25,22 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
 import org.iesmurgi.reta2.R;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -41,7 +50,7 @@ import static android.support.v4.content.FileProvider.getUriForFile;
 public class RetoFotoActivity extends AppCompatActivity {
 
     private final String CARPETA_RAIZ="Reta2/";
-    private final String RUTA_IMAGEN=CARPETA_RAIZ+"Imagenes Reta2";
+    private final String RUTA_IMAGEN=CARPETA_RAIZ+"Imagenes_Reta2";
 
     final int COD_SELECCIONA=10;
     final int COD_FOTO=20;
@@ -50,9 +59,11 @@ public class RetoFotoActivity extends AppCompatActivity {
     Button botonCargar;
     @BindView(R.id.img_retoFoto_foto)
     ImageView imagen;
-    @BindView(R.id.btn_reto_subirImagen)
-    Button botonSubirImagen;
 
+    private StorageReference mStorage;
+    private FirebaseAuth mAuth;
+    private String nombrepartida;
+    private String autor;
     String path;
 
 
@@ -62,7 +73,13 @@ public class RetoFotoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reto_foto);
         ButterKnife.bind(this);
+
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
+
+        mAuth = FirebaseAuth.getInstance();
+        nombrepartida = getIntent().getExtras().getString("PARTIDA");
+        mStorage = FirebaseStorage.getInstance().getReference();
+        autor = mAuth.getCurrentUser().getDisplayName();
 
         if(validaPermisos()){
             botonCargar.setEnabled(true);
@@ -71,6 +88,34 @@ public class RetoFotoActivity extends AppCompatActivity {
         }
 
     }
+
+
+    @OnClick(R.id.btn_retoFoto_subirfoto)
+    void subirFotoFirebase(){
+
+        Uri file = Uri.fromFile(new File(path));
+      //  StorageReference riversRef = mStorage.child("Imagenes").child(nombrepartida).child(autor);
+        StorageReference riversRef = mStorage.child("Imagenes").child(nombrepartida).child(autor).child(file.getLastPathSegment());
+        riversRef.putFile(file)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                        Toast.makeText(RetoFotoActivity.this, "La foto se ha subido correctamente.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+
+                        Toast.makeText(RetoFotoActivity.this, "Error al subir la foto.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+    }
+
+
 
     private boolean validaPermisos() {
 
@@ -153,7 +198,7 @@ public class RetoFotoActivity extends AppCompatActivity {
 
     private void cargarImagen() {
 
-        final CharSequence[] opciones={"Tomar Foto","Cargar Imagen","Cancelar"};
+        final CharSequence[] opciones={"Tomar Foto","Cancelar"};
         final AlertDialog.Builder alertOpciones=new AlertDialog.Builder(RetoFotoActivity.this);
         alertOpciones.setTitle("Seleccione una Opción");
         alertOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
@@ -162,12 +207,10 @@ public class RetoFotoActivity extends AppCompatActivity {
                 if (opciones[i].equals("Tomar Foto")){
                     tomarFotografia();
                 }else{
-                    if (opciones[i].equals("Cargar Imagen")){
-                        Intent intent=new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        intent.setType("image/");
-                        startActivityForResult(intent.createChooser(intent,"Seleccione la Aplicación"),COD_SELECCIONA);
-                    }else{
+                    if (opciones[i].equals("Cancelar")){
                         dialogInterface.dismiss();
+                    }else{
+
                     }
                 }
             }
@@ -193,6 +236,7 @@ public class RetoFotoActivity extends AppCompatActivity {
                 File.separator+RUTA_IMAGEN+File.separator+nombreImagen;
 
         File imagen=new File(path);
+        Log.e("path de tomarfoto",path);
 
         Intent intent=null;
         intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -218,6 +262,13 @@ public class RetoFotoActivity extends AppCompatActivity {
             switch (requestCode){
                 case COD_SELECCIONA:
                     Uri miPath=data.getData();
+
+                    path = miPath.getPath();
+
+                    new Intent().putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(miPath.getPath())));
+
+
+                    Log.e("path", ""+miPath.getPath());
                     imagen.setImageURI(miPath);
                     break;
 
