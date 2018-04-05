@@ -65,7 +65,7 @@ public class RetoFotoActivity extends AppCompatActivity {
     private String nombrepartida;
     private String autor;
     String path;
-
+    private String idreto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +73,7 @@ public class RetoFotoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reto_foto);
         ButterKnife.bind(this);
         nombrepartida = getIntent().getExtras().getString("PARTIDA");
+        idreto = String.valueOf(getIntent().getExtras().getInt("IDRETO"));
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
 
         mAuth = FirebaseAuth.getInstance();
@@ -94,7 +95,7 @@ public class RetoFotoActivity extends AppCompatActivity {
 
         Uri file = Uri.fromFile(new File(path));
       //  StorageReference riversRef = mStorage.child("Imagenes").child(nombrepartida).child(autor);
-        StorageReference riversRef = mStorage.child("Imagenes").child(nombrepartida).child(autor).child(file.getLastPathSegment());
+        StorageReference riversRef = mStorage.child("Imagenes").child(nombrepartida).child(autor).child(idreto).child(file.getLastPathSegment());
         riversRef.putFile(file)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override

@@ -391,7 +391,7 @@ int idUsuario;
             @Override
             public void onClick(View view) {
                 Log.e("partidaretoactivity",nombrepartida);
-                startActivity(new Intent(getApplicationContext(),RetoFotoActivity.class).putExtra("PARTIDA", nombrepartida));
+                startActivity(new Intent(getApplicationContext(),RetoFotoActivity.class).putExtra("PARTIDA", nombrepartida).putExtra("IDRETO",aux[1]));
             }
         });
 
