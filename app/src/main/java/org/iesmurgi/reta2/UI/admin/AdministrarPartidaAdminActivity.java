@@ -17,6 +17,7 @@ public class AdministrarPartidaAdminActivity extends AppCompatActivity {
 
 
     private String sala;
+    private int idpartida;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,7 @@ public class AdministrarPartidaAdminActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         sala = getIntent().getExtras().getString("PARTIDA");
-
+        idpartida = getIntent().getExtras().getInt("ID");
         Log.e("partida",""+sala);
 
     }

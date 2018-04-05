@@ -32,7 +32,7 @@ public class ListarPartidasAdminActivity extends AppCompatActivity {
     RecyclerView recyclerView;
 
 
-    private ArrayList<String> partidas = new ArrayList<>();
+    private ArrayList<NombreAndID> nombreseIDs = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class ListarPartidasAdminActivity extends AppCompatActivity {
         setContentView(R.layout.activity_listar_partidas_admin);
         ButterKnife.bind(this);
 
-        partidas.clear();
+        nombreseIDs.clear();
 
         final String URL = "http://geogame.ml/api/obtener_partida_admin.php?idAdmin=1";
 
@@ -60,7 +60,7 @@ public class ListarPartidasAdminActivity extends AppCompatActivity {
                 Log.e("LISTA Partida", response.toString());
                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-                recyclerView.setAdapter(new ChatAdapter(partidas,getApplicationContext(),1));
+                recyclerView.setAdapter(new ChatAdapter(nombreseIDs,getApplicationContext(),5,0));
 
             }
         }, new Response.ErrorListener() {

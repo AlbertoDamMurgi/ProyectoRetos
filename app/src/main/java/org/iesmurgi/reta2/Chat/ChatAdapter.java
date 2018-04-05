@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import org.iesmurgi.reta2.R;
 import org.iesmurgi.reta2.UI.admin.AdministrarPartidaAdminActivity;
+import org.iesmurgi.reta2.UI.admin.NombreAndID;
 
 import java.util.ArrayList;
 
@@ -27,6 +28,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
 
     private ArrayList<String> salas;
+    private ArrayList<NombreAndID> nombreAndIDS;
     private Context context;
     private int tipo;
     private String sala ="";
@@ -44,6 +46,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         this.sala =sala;
     }
 
+    public ChatAdapter(ArrayList<NombreAndID> nombresAndIDs, Context context, int tipo,int asd) {
+        this.nombreAndIDS = nombresAndIDs;
+        this.context=context;
+        this.tipo = tipo;
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -75,6 +82,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             });
         }else if(tipo == 4){
             holder.nombreChat.setText(salas.get(position));
+        }else if(tipo==5){
+            holder.nombreChat.setText(nombreAndIDS.get(position).getNombre());
+            context.startActivity(new Intent(context,AdministrarPartidaAdminActivity.class).putExtra("PARTIDA",nombreAndIDS.get(position).getNombre()).putExtra("ID",nombreAndIDS.get(position).getId()));
         }
     }
 
