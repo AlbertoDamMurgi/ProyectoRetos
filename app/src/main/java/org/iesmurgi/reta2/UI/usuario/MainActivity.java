@@ -47,7 +47,7 @@ import org.iesmurgi.reta2.Data.entidades.Retos;
 import org.iesmurgi.reta2.R;
 
 public class MainActivity extends AppCompatActivity implements LifecycleObserver {
-
+int idUsuario;
 
     private static final int REQUEST_LOCATION_PERMISSION_CODE = 1;
     @BindView(R.id.txt_contraPartida)
@@ -84,8 +84,8 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
         mLoginModel = ViewModelProviders.of(this).get(LoginModel.class);
 
-
-
+        idUsuario=getIntent().getIntExtra("idUsuario",0);
+        Log.e("idUsuario",""+idUsuario);
         String email = mLoginModel.getConection().getValue().getInstance().getCurrentUser().getEmail();
         progressDialog = new ProgressDialog(this);
         db = BasedeDatosApp.getAppDatabase(this);
