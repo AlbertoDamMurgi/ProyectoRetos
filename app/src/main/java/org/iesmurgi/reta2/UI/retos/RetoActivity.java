@@ -40,7 +40,10 @@ import org.iesmurgi.reta2.Data.entidades.Partidas;
 import org.iesmurgi.reta2.Data.entidades.Respuestas;
 import org.iesmurgi.reta2.Data.entidades.Retos;
 import org.iesmurgi.reta2.R;
+import org.iesmurgi.reta2.UI.usuario.FinPartidaActivity;
 import org.iesmurgi.reta2.UI.usuario.LoginModel;
+
+import static org.iesmurgi.reta2.UI.retos.MapPrincActivity.RETO_FINALIZADO;
 
 public class RetoActivity extends AppCompatActivity {
 
@@ -391,13 +394,38 @@ int idUsuario;
             @Override
             public void onClick(View view) {
                 Log.e("partidaretoactivity",nombrepartida);
-                startActivity(new Intent(getApplicationContext(),RetoFotoActivity.class).putExtra("PARTIDA", nombrepartida).putExtra("IDRETO",aux[1]));
+                startActivityForResult(new Intent(getApplicationContext(),RetoFotoActivity.class).putExtra("PARTIDA", nombrepartida).putExtra("IDRETO",aux[1]),RETO_FINALIZADO);
             }
         });
 
 
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RETO_FINALIZADO) {
+
+            if (resultCode == RESULT_OK) {
+
+                setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), MapPrincActivity.class));
+
+
+
+                finish();
+
+                }else{
+
+
+
+                }
+
+            }
+
+
+        }
 
 
 
