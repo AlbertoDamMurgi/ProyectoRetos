@@ -21,6 +21,32 @@ public class LocationModel extends ViewModel{
     private int numReto=0;
     private String usuario="";
     private String partida ="";
+    private Integer idpartida,idusuario;
+    private String nombrepartida;
+
+    public Integer getIdpartida() {
+        return idpartida;
+    }
+
+    public void setIdpartida(Integer idpartida) {
+        this.idpartida = idpartida;
+    }
+
+    public Integer getIdusuario() {
+        return idusuario;
+    }
+
+    public void setIdusuario(Integer idusuario) {
+        this.idusuario = idusuario;
+    }
+
+    public String getNombrepartida() {
+        return nombrepartida;
+    }
+
+    public void setNombrepartida(String nombrepartida) {
+        this.nombrepartida = nombrepartida;
+    }
 
     public String getPartida() {
         return partida;
