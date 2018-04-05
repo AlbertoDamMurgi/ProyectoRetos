@@ -167,6 +167,7 @@ public class RetoActivity extends AppCompatActivity {
 
         int tipoReto = miReto.getTipo();
 
+        
 
         switch (tipoReto){
             //segun el tipo de reto mostrará los campos correspondientes
