@@ -141,9 +141,11 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_princ);
         locationModel = ViewModelProviders.of(this).get(LocationModel.class);
-
+        idpartida= getIntent().getExtras().getInt("IDPARTIDA",0);
+        idUsuario= getIntent().getExtras().getInt("idUsuario",0);
+        nombrepartida = getIntent().getExtras().getString("NOMBREPARTIDA","asd");
         if(locationModel.getIdpartida()==null){
-            idpartida= getIntent().getExtras().getInt("IDPARTIDA");
+
            // Log.e("idpartidamodel",""+idpartida);
             locationModel.setIdpartida(idpartida);
           //  Log.e("idpartidamodeldentro",""+locationModel.getIdpartida());
@@ -152,7 +154,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         }
 
         if(locationModel.getIdusuario()==null){
-            idUsuario= getIntent().getExtras().getInt("idUsuario");
+
           //  Log.e("idususmodel",""+idUsuario);
             locationModel.setIdusuario(idUsuario);
           //  Log.e("idusudentro",""+locationModel.getIdusuario());
@@ -162,7 +164,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
 
         if(locationModel.getNombrepartida()==null){
-            nombrepartida = getIntent().getExtras().getString("NOMBREPARTIDA");
+
           //  Log.e("nombreparidamodel",""+nombrepartida);
             locationModel.setNombrepartida(nombrepartida);
         }else{
