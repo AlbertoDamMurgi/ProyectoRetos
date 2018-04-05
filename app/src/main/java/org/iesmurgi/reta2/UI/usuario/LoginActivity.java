@@ -149,18 +149,24 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "signInWithEmail:success");
                                 mLoginModel.getUsuario().setValue(mAuth.getInstance().getCurrentUser());
                                 mLoginModel.getConection().setValue(mAuth);
 
-                                SharedPreferences.Editor editor = prefs.edit();
-                                editor.putString("usuario", email.getText().toString());
-                                editor.putString("pass", pass.getText().toString());
-                                editor.apply();
+                                if( !mLoginModel.getConection().getValue().getCurrentUser().getDisplayName().equalsIgnoreCase("administrador")) {
 
-                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                                finish();
+                                    SharedPreferences.Editor editor = prefs.edit();
+                                    editor.putString("usuario", email.getText().toString());
+                                    editor.putString("pass", pass.getText().toString());
+                                    editor.apply();
+
+                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                    finish();
+                                }else {
+                                    Toast.makeText(LoginActivity.this, "Credenciales erroneas.", Toast.LENGTH_SHORT).show();
+                                }
 
                             } else {
                                 // If sign in fails, display a message to the user.

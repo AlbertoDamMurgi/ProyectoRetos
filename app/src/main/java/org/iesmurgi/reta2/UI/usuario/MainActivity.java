@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
         mLoginModel = ViewModelProviders.of(this).get(LoginModel.class);
 
-        escuchador();
+
 
         String email = mLoginModel.getConection().getValue().getInstance().getCurrentUser().getEmail();
         progressDialog = new ProgressDialog(this);
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
     }
 
 
-
+/*
     private void escuchador() {
 
         mLoginModel.getUsuario().observe(this, new Observer<FirebaseUser>() {
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         });
 
     }
-
+*/
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     void comprobarLogin() {
 

@@ -322,7 +322,7 @@ public class RetoActivity extends AppCompatActivity {
                     case 2:     //tipo respuesta unica
 
                         if (!etRetoRespuestaUnica.getText().toString().isEmpty()){
-                            if (etRetoRespuestaUnica.getText().toString().equals(respuestas.get(0))){
+                            if (etRetoRespuestaUnica.getText().toString().equals(respuestas.get(0).getDescripcion())){
 
                                 insertarPuntos(miReto.getPuntuacion(),"Acertaste!! puntuas:"+ miReto.getPuntuacion());
                             }else{
