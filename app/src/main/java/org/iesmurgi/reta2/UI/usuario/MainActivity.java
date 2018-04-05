@@ -180,10 +180,9 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                         } catch (JSONException e) {
                             Log.e("Json error Respuestas", e.getMessage());
                         }
-                        if (response.length()-1 == i) {
-                            startActivity(new Intent(getApplicationContext(),MapPrincActivity.class).putExtra("IDPARTIDA",ID_PARTIDA));
-                        }
+
                     }//endgfor
+                    startActivity(new Intent(getApplicationContext(),MapPrincActivity.class).putExtra("IDPARTIDA",ID_PARTIDA));
                     progressDialog.dismiss();
 
                     Log.e("LISTA Respuestas", response.toString());

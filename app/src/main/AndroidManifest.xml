@@ -17,6 +17,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".UI.usuario.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity android:name=".UI.usuario.MainActivity" />
@@ -53,11 +58,6 @@
             android:label="@string/title_activity_admin_mapa" />
 
         <activity android:name=".UI.retos.RetoFotoActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity android:name=".UI.admin.AdminVerJugadoresActivity"></activity>
