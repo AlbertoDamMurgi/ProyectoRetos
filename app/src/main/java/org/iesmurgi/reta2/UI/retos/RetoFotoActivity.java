@@ -1,7 +1,9 @@
 package org.iesmurgi.reta2.UI.retos;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,7 +14,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -26,19 +28,20 @@ import android.widget.Toast;
 import org.iesmurgi.reta2.R;
 
 import java.io.File;
+import java.net.URI;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-
 import static android.support.v4.content.FileProvider.getUriForFile;
+
 
 public class RetoFotoActivity extends AppCompatActivity {
 
     private final String CARPETA_RAIZ="Reta2/";
-    private final String RUTA_IMAGEN=CARPETA_RAIZ+"FotosReta2";
+    private final String RUTA_IMAGEN=CARPETA_RAIZ+"Imagenes Reta2";
 
     final int COD_SELECCIONA=10;
     final int COD_FOTO=20;
@@ -47,16 +50,19 @@ public class RetoFotoActivity extends AppCompatActivity {
     Button botonCargar;
     @BindView(R.id.img_retoFoto_foto)
     ImageView imagen;
-
+    @BindView(R.id.btn_reto_subirImagen)
+    Button botonSubirImagen;
 
     String path;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reto_foto);
         ButterKnife.bind(this);
-
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
 
         if(validaPermisos()){
             botonCargar.setEnabled(true);
@@ -68,18 +74,18 @@ public class RetoFotoActivity extends AppCompatActivity {
 
     private boolean validaPermisos() {
 
-        if(Build.VERSION.SDK_INT< Build.VERSION_CODES.M){
+        if(Build.VERSION.SDK_INT<Build.VERSION_CODES.M){
             return true;
         }
 
-        if((checkSelfPermission(CAMERA)== PackageManager.PERMISSION_GRANTED)&&
+        if((checkSelfPermission(CAMERA)==PackageManager.PERMISSION_GRANTED)&&
                 (checkSelfPermission(WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED)){
             return true;
         }
 
         if((shouldShowRequestPermissionRationale(CAMERA)) ||
                 (shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE))){
-            cargarDialogoRecomendacion();
+            //cargarDialogoRecomendacion();
         }else{
             requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100);
         }
@@ -124,20 +130,22 @@ public class RetoFotoActivity extends AppCompatActivity {
         alertOpciones.show();
     }
 
-    private void cargarDialogoRecomendacion() {
-        AlertDialog.Builder dialogo=new AlertDialog.Builder(RetoFotoActivity.this);
+    /*
+        private void cargarDialogoRecomendacion() {
+        AlertDialog.Builder dialogo=new AlertDialog.Builder(MainActivity.this);
         dialogo.setTitle("Permisos Desactivados");
         dialogo.setMessage("Debe aceptar los permisos para el correcto funcionamiento de la App");
 
         dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100);
+                ActivityCompat.requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100);
             }
         });
         dialogo.show();
     }
+     */
+
 
     public void onclick(View view) {
         cargarImagen();
@@ -186,8 +194,18 @@ public class RetoFotoActivity extends AppCompatActivity {
 
         File imagen=new File(path);
 
-        Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imagen));
+        Intent intent=null;
+        intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N)
+        {
+            String authorities=getApplicationContext().getPackageName()+".provider";
+            Uri imageUri=FileProvider.getUriForFile(this,authorities,imagen);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        }else
+        {
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imagen));
+        }
         startActivityForResult(intent,COD_FOTO);
 
     }
