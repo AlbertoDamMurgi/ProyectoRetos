@@ -167,7 +167,14 @@ public class RetoActivity extends AppCompatActivity {
 
         int tipoReto = miReto.getTipo();
 
-        
+        String enlaceVideo = miReto.getVideo();
+
+        if (enlaceVideo.isEmpty()){
+            btnRetoVerVideo.setVisibility(View.GONE);
+        }else{
+            btnRetoVerVideo.setVisibility(View.VISIBLE);
+        }
+
 
         switch (tipoReto){
             //segun el tipo de reto mostrará los campos correspondientes
@@ -349,6 +356,7 @@ public class RetoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), RetoVideoActivity.class);
+                i.putExtra("enlaceVideo", enlaceVideo);
                 startActivity(i);
             }
         });
@@ -359,6 +367,14 @@ public class RetoActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 insertarPuntos(0,"Saltaste el reto, puntuas 0");
+            }
+        });
+
+        btnRetoSubirImagen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), RetoFotoActivity.class);
+                startActivity(i);
             }
         });
 

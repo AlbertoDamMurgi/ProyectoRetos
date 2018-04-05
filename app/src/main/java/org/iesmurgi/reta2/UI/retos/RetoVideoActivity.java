@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -13,6 +15,9 @@ import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
 import org.iesmurgi.reta2.R;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +34,6 @@ public class RetoVideoActivity extends YouTubeBaseActivity implements YouTubePla
         setContentView(R.layout.activity_reto_video);
         ButterKnife.bind(this);
         ytPlayer.initialize(claveAPI, this);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
 
     }
 
@@ -37,7 +41,15 @@ public class RetoVideoActivity extends YouTubeBaseActivity implements YouTubePla
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean restaurado) {
         if(!restaurado){
             //si no fue restaurado inicia el video
-            youTubePlayer.cueVideo("azxDhcKYku4");  //https://www.youtube.com/watch?v=azxDhcKYku4&t=195s , necesita la id del video osea lo que va entre = =
+
+            //capturamos el enlace desde el intent y extraemos su id
+
+            String enlaceVideo = getIntent().getExtras().getString("enlaceVideo");
+            Log.v("enlacevideo", enlaceVideo);
+            String idVideo = extractYTId(enlaceVideo);
+            Log.v("idvideo", ""+idVideo);
+
+            youTubePlayer.cueVideo(idVideo);  //https://www.youtube.com/watch?v=azxDhcKYku4&t=195s , necesita la id del video osea lo que va entre = =
 
         }
     }
@@ -92,5 +104,35 @@ public class RetoVideoActivity extends YouTubeBaseActivity implements YouTubePla
     @Override
     public void onSeekTo(int i) {
 
+    }
+
+    public static String extractYTId(String ytUrl) {
+        if (TextUtils.isEmpty(ytUrl)) {
+            return "";
+        }
+        String video_id = "";
+
+        String expression = "^.*((youtu.be" + "\\/)" + "|(v\\/)|(\\/u\\/w\\/)|(embed\\/)|(watch\\?))\\??v?=?([^#\\&\\?]*).*"; // var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+        CharSequence input = ytUrl;
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(input);
+        if (matcher.matches()) {
+            String groupIndex1 = matcher.group(7);
+            if (groupIndex1 != null && groupIndex1.length() == 11)
+                video_id = groupIndex1;
+        }
+        if (TextUtils.isEmpty(video_id)) {
+            if (ytUrl.contains("youtu.be/")  ) {
+                String spl = ytUrl.split("youtu.be/")[1];
+                if (spl.contains("\\?")) {
+                    video_id = spl.split("\\?")[0];
+                }else {
+                    video_id =spl;
+                }
+
+            }
+        }
+
+        return video_id;
     }
 }
