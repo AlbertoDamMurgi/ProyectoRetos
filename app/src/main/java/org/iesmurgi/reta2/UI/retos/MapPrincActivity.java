@@ -124,14 +124,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         }
     }
 
-    class NombrePartida extends AsyncTask<Integer, Void, Integer> {
-        @Override
-        protected Integer doInBackground(Integer... p) {
-            nombrepartida =  BasedeDatosApp.getAppDatabase(getApplicationContext()).partidasDao().getPartidaActual(p[0]);
 
-            return 0;
-        }
-    }
 
 
 
@@ -151,7 +144,8 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         locationModel = ViewModelProviders.of(this).get(LocationModel.class);
 
 
-        new NombrePartida().execute(idpartida);
+       nombrepartida = getIntent().getExtras().getString("NOMBREPARTIDA");
+        Log.e("nombrepartida mapa",nombrepartida);
         if (!locationModel.isCargados()) {
             new RecuperarRetos().execute(idpartida);
         }else{
@@ -467,7 +461,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
                         if(marcadores.get(i).getTitle().equalsIgnoreCase(marker.getTitle())){
                                 int [] aux;
                                 aux = new int[]{idpartida,retos.get(i).getIdReto()};
-                              startActivityForResult(new Intent(getApplicationContext(),RetoActivity.class).putExtra("PARTIDAYRETO",aux),RETO_FINALIZADO);
+                              startActivityForResult(new Intent(getApplicationContext(),RetoActivity.class).putExtra("PARTIDAYRETO",aux).putExtra("NOMBREPARTIDA",nombrepartida),RETO_FINALIZADO);
                         }
                         }
                     }

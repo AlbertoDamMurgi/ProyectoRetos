@@ -73,11 +73,11 @@ public class RetoFotoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reto_foto);
         ButterKnife.bind(this);
-
+        nombrepartida = getIntent().getExtras().getString("PARTIDA");
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
 
         mAuth = FirebaseAuth.getInstance();
-        nombrepartida = getIntent().getExtras().getString("PARTIDA");
+
         mStorage = FirebaseStorage.getInstance().getReference();
         autor = mAuth.getCurrentUser().getDisplayName();
 
@@ -209,8 +209,6 @@ public class RetoFotoActivity extends AppCompatActivity {
                 }else{
                     if (opciones[i].equals("Cancelar")){
                         dialogInterface.dismiss();
-                    }else{
-
                     }
                 }
             }

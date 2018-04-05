@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
     private List<Retos> retos;
 
     private int ID_PARTIDA;
+    private String NOMBREPARTIDA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                         }
 
                     }//endgfor
-                    startActivity(new Intent(getApplicationContext(),MapPrincActivity.class).putExtra("IDPARTIDA",ID_PARTIDA));
+                    startActivity(new Intent(getApplicationContext(),MapPrincActivity.class).putExtra("IDPARTIDA",ID_PARTIDA).putExtra("NOMBREPARTIDA",NOMBREPARTIDA));
                     progressDialog.dismiss();
 
                     Log.e("LISTA Respuestas", response.toString());
@@ -288,9 +289,11 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                             JSONObject o = response.getJSONObject(i);
                             Log.e("LISTA Partida", "una vuelta");
                             ID_PARTIDA = o.getInt("idPartida");
+                            NOMBREPARTIDA = o.getString("nombre");
+                            Log.e("nombrepartida main",NOMBREPARTIDA);
                             new InsertarPartida().execute(new Partidas(
                                     ID_PARTIDA,
-                                    o.getString("nombre"),
+                                   NOMBREPARTIDA,
                                     o.getString("passwd"),
                                     o.getInt("maxDuracion")
                             ));

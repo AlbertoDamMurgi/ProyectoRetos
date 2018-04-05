@@ -80,14 +80,14 @@ public class RetoActivity extends AppCompatActivity {
 
     private LoginModel cronoViewModel;
     private long nTiempo;
-
+    private String nombrepartida;
     private RetosDao retosDao;
     private RespuestasDao respuestasDao;
     private int idpartida;
     private int idreto;
     private List<Respuestas> respuestas = new ArrayList<>();
     private boolean salida = false;
-    private String nombrepartida;
+
     BasedeDatosApp db;
 
     int[] aux;
@@ -134,30 +134,12 @@ public class RetoActivity extends AppCompatActivity {
 
             new recRes().execute(aux[1]);
 
-            new NomPartida().execute(aux[0]);
-
-        }
-    }
-
-    class NomPartida extends AsyncTask<Integer, Void, Void> {
-        @Override
-        protected Void doInBackground(Integer... p) {
-
-
-            nombrepartida = db.partidasDao().getPartidaActual(p[0]);
-
-
-            return null;
-
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
 
 
         }
     }
+
+
 
 
     @Override
@@ -171,6 +153,9 @@ public class RetoActivity extends AppCompatActivity {
         db = BasedeDatosApp.getAppDatabase(this);
 
         aux = getIntent().getExtras().getIntArray("PARTIDAYRETO");
+
+        nombrepartida = getIntent().getExtras().getString("NOMBREPARTIDA");
+        Log.e("partidanombrereto",nombrepartida);
         Log.e("idpartida", "" + aux[0]);
         Log.e("idreto", "" + aux[1]);
 
@@ -391,6 +376,8 @@ public class RetoActivity extends AppCompatActivity {
             }
         });
 
+
+
         //fin aqui
         btnRetoCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -403,8 +390,8 @@ public class RetoActivity extends AppCompatActivity {
         btnRetoSubirImagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), RetoFotoActivity.class);
-                startActivity(i);
+                Log.e("partidaretoactivity",nombrepartida);
+                startActivity(new Intent(getApplicationContext(),RetoFotoActivity.class).putExtra("PARTIDA", nombrepartida));
             }
         });
 
@@ -412,12 +399,7 @@ public class RetoActivity extends AppCompatActivity {
     }
 
 
-    @OnClick(R.id.btn_reto_subirImagen)
-    void abrirRetoFoto(){
 
-        startActivity(new Intent(getApplicationContext(),RetoFotoActivity.class).putExtra("PARTIDA", nombrepartida));
-
-    }
 
     public void rellenarArray() {
 
