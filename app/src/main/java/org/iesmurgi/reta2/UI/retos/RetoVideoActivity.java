@@ -14,6 +14,9 @@ import com.google.android.youtube.player.YouTubePlayerView;
 
 import org.iesmurgi.reta2.R;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -37,7 +40,11 @@ public class RetoVideoActivity extends YouTubeBaseActivity implements YouTubePla
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean restaurado) {
         if(!restaurado){
             //si no fue restaurado inicia el video
-            youTubePlayer.cueVideo("azxDhcKYku4");  //https://www.youtube.com/watch?v=azxDhcKYku4&t=195s , necesita la id del video osea lo que va entre = =
+
+            String enlaceVideo = getIntent().getExtras().getString("enlaceVideo");
+            String idVideo = extractYTId(enlaceVideo);
+
+            youTubePlayer.cueVideo(idVideo);  //https://www.youtube.com/watch?v=azxDhcKYku4&t=195s , necesita la id del video osea lo que va entre = =
 
         }
     }
@@ -92,5 +99,17 @@ public class RetoVideoActivity extends YouTubeBaseActivity implements YouTubePla
     @Override
     public void onSeekTo(int i) {
 
+    }
+
+    public static String extractYTId(String ytUrl) {
+        String vId = null;
+        Pattern pattern = Pattern.compile(
+                "^https?://.*(?:youtu.be/|v/|u/\\w/|embed/|watch?v=)([^#&?]*).*$",
+                Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(ytUrl);
+        if (matcher.matches()){
+            vId = matcher.group(1);
+        }
+        return vId;
     }
 }
