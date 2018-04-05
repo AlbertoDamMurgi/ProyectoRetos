@@ -102,7 +102,9 @@ public class RetoFotoActivity extends AppCompatActivity {
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                         Toast.makeText(RetoFotoActivity.this, "La foto se ha subido correctamente.", Toast.LENGTH_SHORT).show();
+
                         setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), MapPrincActivity.class));
+
                         finish();
                     }
                 })
