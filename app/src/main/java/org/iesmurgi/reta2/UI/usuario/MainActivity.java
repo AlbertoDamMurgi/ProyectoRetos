@@ -39,6 +39,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 import org.iesmurgi.reta2.Chat.ChatActivity;
 import org.iesmurgi.reta2.Data.BasedeDatosApp;
 import org.iesmurgi.reta2.Data.entidades.Partidas;
@@ -47,7 +48,7 @@ import org.iesmurgi.reta2.Data.entidades.Retos;
 import org.iesmurgi.reta2.R;
 
 public class MainActivity extends AppCompatActivity implements LifecycleObserver {
-int idUsuario;
+    int idUsuario;
 
     private static final int REQUEST_LOCATION_PERMISSION_CODE = 1;
     @BindView(R.id.txt_contraPartida)
@@ -73,19 +74,10 @@ int idUsuario;
         ButterKnife.bind(this);
 
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION},
-                    REQUEST_LOCATION_PERMISSION_CODE);
-        }
-
         mLoginModel = ViewModelProviders.of(this).get(LoginModel.class);
 
-        idUsuario=getIntent().getIntExtra("idUsuario",0);
-        Log.e("idUsuario",""+idUsuario);
+        idUsuario = getIntent().getIntExtra("idUsuario", 0);
+        Log.e("idUsuario", "" + idUsuario);
         String email = mLoginModel.getConection().getValue().getInstance().getCurrentUser().getEmail();
         progressDialog = new ProgressDialog(this);
         db = BasedeDatosApp.getAppDatabase(this);
@@ -94,28 +86,62 @@ int idUsuario;
     }
 
 
-/*
-    private void escuchador() {
+    /*
+        private void escuchador() {
 
-        mLoginModel.getUsuario().observe(this, new Observer<FirebaseUser>() {
-            @Override
-            public void onChanged(@Nullable FirebaseUser firebaseUser) {
-                if (firebaseUser == null) {
+            mLoginModel.getUsuario().observe(this, new Observer<FirebaseUser>() {
+                @Override
+                public void onChanged(@Nullable FirebaseUser firebaseUser) {
+                    if (firebaseUser == null) {
 
-                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
 
+                    }
                 }
-            }
-        });
+            });
 
-    }
-*/
+        }
+    */
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     void comprobarLogin() {
 
 
     }
 
+    boolean comprobarPermisos() {
+        boolean ok = false;
+
+        if (
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+                        ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+                        ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
+                        ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+                        ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                ) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION,
+                            Manifest.permission.CAMERA,
+                            Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+
+                    },
+
+
+                    REQUEST_LOCATION_PERMISSION_CODE);
+        }
+        if (
+                          ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                                  ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                        ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
+                        ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                        ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+                ) {
+            ok = true;
+        }
+        return ok;
+    }
 
     @OnClick(R.id.btn_logout)
     public void desconectarse() {
@@ -128,26 +154,28 @@ int idUsuario;
         SharedPreferences.Editor editor = prefs2.edit();
         editor.clear();
         editor.apply();
-        startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         finish();
 
     }
 
 
-
     @OnClick(R.id.bt_iniciarPartida)
     void iniciarPartida() {
 
-
-        progressDialog.setMessage("Cargando partida...");
-        progressDialog.show();
-        new cargarPartida().execute();
+        if (comprobarPermisos()) {
 
 
-        new comprobarDescargado().execute();
+            progressDialog.setMessage("Cargando partida...");
+            progressDialog.show();
+            new cargarPartida().execute();
+
+
+            new comprobarDescargado().execute();
+        } else {
+            Toast.makeText(getApplicationContext(), "Necesitas todos los permisos para poder jugar", Toast.LENGTH_LONG).show();
+        }
     }//fin onclick
-
-
 
 
     class cargarRespuesta extends AsyncTask<Respuestas, Void, Integer> {
@@ -156,9 +184,7 @@ int idUsuario;
         @Override
         protected Integer doInBackground(Respuestas... r) {
 
-            final String URL3 = "http://geogame.ml/api/obtener_respuestas.php?nombre="+txt_nombrepartida.getText().toString();
-
-
+            final String URL3 = "http://geogame.ml/api/obtener_respuestas.php?nombre=" + txt_nombrepartida.getText().toString();
 
 
             JsonArrayRequest request3 = new JsonArrayRequest(Request.Method.POST, URL3, null, new Response.Listener<JSONArray>() {
@@ -183,10 +209,10 @@ int idUsuario;
                         }
 
                     }//endgfor
-                    startActivity(new Intent(getApplicationContext(),MapPrincActivity.class)
-                            .putExtra("IDPARTIDA",ID_PARTIDA)
-                            .putExtra("NOMBREPARTIDA",NOMBREPARTIDA)
-                            .putExtra("idUsuario",idUsuario));
+                    startActivity(new Intent(getApplicationContext(), MapPrincActivity.class)
+                            .putExtra("IDPARTIDA", ID_PARTIDA)
+                            .putExtra("NOMBREPARTIDA", NOMBREPARTIDA)
+                            .putExtra("idUsuario", idUsuario));
                     progressDialog.dismiss();
 
                     Log.e("LISTA Respuestas", response.toString());
@@ -212,8 +238,7 @@ int idUsuario;
     class cargarReto extends AsyncTask<Void, Void, Integer> {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
-        final String URL2 = "http://geogame.ml/api/Lista_Retos_Clave.php?nombre="+txt_nombrepartida.getText().toString();
-
+        final String URL2 = "http://geogame.ml/api/Lista_Retos_Clave.php?nombre=" + txt_nombrepartida.getText().toString();
 
 
         @Override
@@ -266,7 +291,6 @@ int idUsuario;
     }
 
 
-
     class cargarPartida extends AsyncTask<Void, Void, Integer> {
         @Override
         protected Integer doInBackground(Void... r) {
@@ -276,16 +300,15 @@ int idUsuario;
 ////////////////////////////////////////////// Partida
 
 
-            final String URL = "http://geogame.ml/api/obtener_partida.php?nombre="+txt_nombrepartida.getText().toString()+"&passwd="+txt_contraPartida.getText().toString();
-
+            final String URL = "http://geogame.ml/api/obtener_partida.php?nombre=" + txt_nombrepartida.getText().toString() + "&passwd=" + txt_contraPartida.getText().toString();
 
 
             JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
 
-                    boolean partidadescargada=false;
-                    for (int i=0;i<response.length();i++){
+                    boolean partidadescargada = false;
+                    for (int i = 0; i < response.length(); i++) {
 
 
                         try {
@@ -293,10 +316,10 @@ int idUsuario;
                             Log.e("LISTA Partida", "una vuelta");
                             ID_PARTIDA = o.getInt("idPartida");
                             NOMBREPARTIDA = o.getString("nombre");
-                            Log.e("nombrepartida main",NOMBREPARTIDA);
+                            Log.e("nombrepartida main", NOMBREPARTIDA);
                             new InsertarPartida().execute(new Partidas(
                                     ID_PARTIDA,
-                                   NOMBREPARTIDA,
+                                    NOMBREPARTIDA,
                                     o.getString("passwd"),
                                     o.getInt("maxDuracion")
                             ));
@@ -304,15 +327,14 @@ int idUsuario;
                         } catch (JSONException e) {
                             Log.e("Log Json error Partida", e.getMessage());
                         }
-                        partidadescargada=true;
+                        partidadescargada = true;
                     }//endgfor
-                    if (partidadescargada){
+                    if (partidadescargada) {
                         new cargarReto().execute();
-                    }else{
+                    } else {
                         progressDialog.dismiss();
-                        Toast.makeText(getApplicationContext(),"Datos erroneos",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Datos erroneos", Toast.LENGTH_LONG).show();
                     }
-
 
 
                     Log.e("LISTA Partida", response.toString());
