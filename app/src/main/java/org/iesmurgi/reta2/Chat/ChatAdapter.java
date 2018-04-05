@@ -24,8 +24,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
 
 
-
-
     private ArrayList<String> salas;
     private Context context;
     private int tipo;
