@@ -8,6 +8,7 @@ import android.util.Log;
 import org.iesmurgi.reta2.Chat.ChatActivity;
 import org.iesmurgi.reta2.Chat.ChatAdminActivity;
 import org.iesmurgi.reta2.R;
+import org.iesmurgi.reta2.UI.usuario.RankingActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -43,10 +44,20 @@ public class AdministrarPartidaAdminActivity extends AppCompatActivity {
         }
 
 
-        @OnClick(R.id.btn_admin_verjugadores)
+
+    @OnClick(R.id.btn_admin_verjugadores3)
         void verJugadores(){
             startActivity(new Intent(getApplicationContext(),AdminVerJugadoresActivity.class).putExtra("PARTIDA",sala));
         }
+    @OnClick(R.id.btn_admin_PuntuarFotos)
+    void verFotos(){
+        startActivity(new Intent(getApplicationContext(),AdminVerJugadoresActivity.class).putExtra("PARTIDA",sala));
+    }
+
+    @OnClick(R.id.btn_admin_ranking)
+    void verRanking(){
+        startActivity(new Intent(getApplicationContext(),RankingActivity.class).putExtra("PARTIDA",sala).putExtra("idPartida",idpartida));
+    }
 
 
 }
