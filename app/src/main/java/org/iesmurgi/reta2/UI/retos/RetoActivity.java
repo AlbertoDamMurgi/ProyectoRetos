@@ -198,6 +198,7 @@ int idUsuario;
                 rbRetoOpcion1.setVisibility(View.VISIBLE);
                 rbRetoOpcion2.setVisibility(View.VISIBLE);
                 rbRetoOpcion3.setVisibility(View.VISIBLE);
+                btnRetoResponder.setVisibility(View.VISIBLE);
                 etRetoRespuestaUnica.setVisibility(View.GONE);
                 btnRetoSubirImagen.setVisibility(View.GONE);
 
@@ -219,6 +220,7 @@ int idUsuario;
                 rbRetoOpcion2.setVisibility(View.GONE);
                 rbRetoOpcion3.setVisibility(View.GONE);
                 etRetoRespuestaUnica.setVisibility(View.VISIBLE);
+                btnRetoResponder.setVisibility(View.VISIBLE);
                 btnRetoSubirImagen.setVisibility(View.GONE);
                 break;
 
@@ -227,6 +229,7 @@ int idUsuario;
                 rbRetoOpcion2.setVisibility(View.GONE);
                 rbRetoOpcion3.setVisibility(View.GONE);
                 etRetoRespuestaUnica.setVisibility(View.GONE);
+                btnRetoResponder.setVisibility(View.GONE);
                 btnRetoSubirImagen.setVisibility(View.VISIBLE);
                 break;
 

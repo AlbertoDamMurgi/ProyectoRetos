@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient"
     tools:context="org.iesmurgi.reta2.UI.retos.RetoFotoActivity">
 
     <ImageView
@@ -29,24 +30,30 @@
 
     <Button
         android:id="@+id/btn_retoFoto_dialog"
-        android:layout_width="wrap_content"
+        style="@style/boton"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:onClick="onclick"
         android:text="Menu foto"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btn_retoFoto_subirfoto"
-        android:layout_width="wrap_content"
+        style="@style/boton"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:text="subir foto"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline12" />
 
     <TextView
         android:id="@+id/textView25"
@@ -56,7 +63,15 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Esta será la imagen que enviaras."
+        android:textColor="#FFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline11" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 </android.support.constraint.ConstraintLayout>
