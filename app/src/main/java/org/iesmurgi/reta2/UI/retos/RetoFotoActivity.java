@@ -28,6 +28,8 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -66,7 +68,7 @@ public class RetoFotoActivity extends AppCompatActivity {
     private String autor;
     String path;
     private String idreto;
-
+    private DatabaseReference reference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +79,7 @@ public class RetoFotoActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
 
         mAuth = FirebaseAuth.getInstance();
-
+        reference = FirebaseDatabase.getInstance().getReference().child("Imagenes").child(nombrepartida).child(idreto);
         mStorage = FirebaseStorage.getInstance().getReference();
         autor = mAuth.getCurrentUser().getDisplayName();
 
@@ -96,10 +98,13 @@ public class RetoFotoActivity extends AppCompatActivity {
         Uri file = Uri.fromFile(new File(path));
       //  StorageReference riversRef = mStorage.child("Imagenes").child(nombrepartida).child(autor);
         StorageReference riversRef = mStorage.child("Imagenes").child(nombrepartida).child(autor).child(idreto).child(file.getLastPathSegment());
+
         riversRef.putFile(file)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                        reference.push().setValue(riversRef.getPath());
 
                         Toast.makeText(RetoFotoActivity.this, "La foto se ha subido correctamente.", Toast.LENGTH_SHORT).show();
 
