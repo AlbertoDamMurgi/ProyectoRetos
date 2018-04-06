@@ -67,7 +67,8 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".UI.usuario.RankingActivity"></activity>
+        <activity android:name=".UI.usuario.RankingActivity" />
+        <activity android:name=".UI.admin.PuntuarFotosAdmin"></activity>
     </application>
 
 </manifest>
