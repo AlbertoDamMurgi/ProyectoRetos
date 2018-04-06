@@ -95,31 +95,36 @@ public class RetoFotoActivity extends AppCompatActivity {
     @OnClick(R.id.btn_retoFoto_subirfoto)
     void subirFotoFirebase(){
 
-        Uri file = Uri.fromFile(new File(path));
-      //  StorageReference riversRef = mStorage.child("Imagenes").child(nombrepartida).child(autor);
-        StorageReference riversRef = mStorage.child("Imagenes").child(nombrepartida).child(autor).child(idreto).child(file.getLastPathSegment());
+        if (path!=null){
+            Uri file = Uri.fromFile(new File(path));
+            //  StorageReference riversRef = mStorage.child("Imagenes").child(nombrepartida).child(autor);
+            StorageReference riversRef = mStorage.child("Imagenes").child(nombrepartida).child(autor).child(idreto).child(file.getLastPathSegment());
 
-        riversRef.putFile(file)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+            riversRef.putFile(file)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                        reference.push().setValue(riversRef.getPath());
+                            reference.push().setValue(riversRef.getPath());
 
-                        Toast.makeText(RetoFotoActivity.this, "La foto se ha subido correctamente.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RetoFotoActivity.this, "La foto se ha subido correctamente.", Toast.LENGTH_SHORT).show();
 
-                        setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), RetoActivity.class));
+                            setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), RetoActivity.class));
 
-                        finish();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
+                            finish();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
 
-                        Toast.makeText(RetoFotoActivity.this, "Error al subir la foto.", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                            Toast.makeText(RetoFotoActivity.this, "Error al subir la foto.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }else{
+            Toast.makeText(getApplicationContext(),"Ninguna foto para enviar!!!!",Toast.LENGTH_SHORT).show();
+        }
+
 
 
     }
