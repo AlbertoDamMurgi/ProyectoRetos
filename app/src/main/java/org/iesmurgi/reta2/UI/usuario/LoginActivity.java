@@ -196,7 +196,7 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
     void obtenerid(){
 
         //Sacamos la id de usaario
-        final String URL = "http://geogame.ml/api/obtener_usuario.php?correo="+email.getText().toString()+"&passwd="+email.getText().toString();
+        final String URL = "http://geogame.ml/api/obtener_usuario.php?correo="+email.getText().toString()+"&passwd="+pass.getText().toString();
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {
             @Override

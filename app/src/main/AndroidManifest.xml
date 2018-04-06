@@ -8,9 +8,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-
     <application
-        android:allowBackup="false"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -22,7 +21,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity android:name=".UI.usuario.MainActivity" />
         <activity
@@ -39,7 +37,7 @@
         <activity android:name=".UI.usuario.FinPartidaActivity" />
         <activity android:name=".UI.usuario.AcercaDeActivity" />
         <activity android:name=".UI.admin.CrearPartida" />
-        <activity android:name=".UI.retos.RetoVideoActivity"/>
+        <activity android:name=".UI.retos.RetoVideoActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -56,10 +54,8 @@
         <activity
             android:name=".UI.admin.AdminMapaActivity"
             android:label="@string/title_activity_admin_mapa" />
-
-        <activity android:name=".UI.retos.RetoFotoActivity">
-         </activity>
-        <activity android:name=".UI.admin.AdminVerJugadoresActivity"></activity>
+        <activity android:name=".UI.retos.RetoFotoActivity" />
+        <activity android:name=".UI.admin.AdminVerJugadoresActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -68,9 +64,10 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
 
+        <activity android:name=".UI.usuario.RankingActivity"></activity>
     </application>
 
 </manifest>
