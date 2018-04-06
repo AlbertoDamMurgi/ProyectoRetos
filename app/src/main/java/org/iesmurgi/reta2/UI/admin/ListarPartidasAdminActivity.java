@@ -50,7 +50,7 @@ public class ListarPartidasAdminActivity extends AppCompatActivity {
                 for (int i=0;i<response.length();i++){
                     try {
                         JSONObject o = response.getJSONObject(i);
-                             partidas.add( o.getString("nombre"));
+                             nombreseIDs.add( new NombreAndID(o.getString("nombre"),o.getInt("idPartida")));
 
                     } catch (JSONException e) {
                         Log.e("Log Json error Partida", e.getMessage());

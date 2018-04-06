@@ -30,13 +30,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private ArrayList<String> salas;
     private ArrayList<NombreAndID> nombreAndIDS;
     private Context context;
-    private int tipo;
+    private int tipo,size;
     private String sala ="";
 
     public ChatAdapter(ArrayList<String> salas, Context context,int tipo) {
         this.salas = salas;
         this.context=context;
         this.tipo = tipo;
+        size = salas.size();
     }
 
     public ChatAdapter(ArrayList<String> salas, Context context,int tipo,String sala) {
@@ -44,12 +45,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         this.context=context;
         this.tipo = tipo;
         this.sala =sala;
+        size= salas.size();
     }
 
     public ChatAdapter(ArrayList<NombreAndID> nombresAndIDs, Context context, int tipo,int asd) {
         this.nombreAndIDS = nombresAndIDs;
         this.context=context;
         this.tipo = tipo;
+        size = nombresAndIDs.size();
     }
 
     @Override
@@ -84,13 +87,15 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             holder.nombreChat.setText(salas.get(position));
         }else if(tipo==5){
             holder.nombreChat.setText(nombreAndIDS.get(position).getNombre());
+            holder.nombreChat.setOnClickListener(v -> {
             context.startActivity(new Intent(context,AdministrarPartidaAdminActivity.class).putExtra("PARTIDA",nombreAndIDS.get(position).getNombre()).putExtra("ID",nombreAndIDS.get(position).getId()));
+            });
         }
     }
 
     @Override
     public int getItemCount() {
-        return salas.size();
+        return size;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
