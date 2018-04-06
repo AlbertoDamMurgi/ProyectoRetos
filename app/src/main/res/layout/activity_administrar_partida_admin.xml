@@ -2,26 +2,49 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/gradient"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient"
     tools:context="org.iesmurgi.reta2.UI.admin.AdministrarPartidaAdminActivity">
 
     <Button
-        android:id="@+id/btn_admin_verjugadores"
+        android:id="@+id/btn_admin_PuntuarFotos"
         style="@style/boton"
-        android:layout_width="0dp"
+        android:layout_width="276dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Ver jugadores"
-        app:layout_constraintBottom_toTopOf="@+id/btn_admin_chat"
+        android:text="Puntuar Fotos"
+        app:layout_constraintBottom_toTopOf="@+id/btn_admin_ranking"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/guideline10"
+        app:layout_constraintTop_toBottomOf="@+id/btn_admin_verjugadores3" />
+
+    <Button
+        android:id="@+id/btn_admin_verjugadores3"
+        style="@style/boton"
+        android:layout_width="276dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Ver jugadores"
+        app:layout_constraintBottom_toTopOf="@+id/btn_admin_PuntuarFotos"
+        app:layout_constraintEnd_toStartOf="@+id/guideline9"
         app:layout_constraintStart_toStartOf="@+id/guideline10"
         app:layout_constraintTop_toBottomOf="@+id/btn_admin_mapa" />
+
+    <Button
+        android:id="@+id/btn_admin_ranking"
+        style="@style/boton"
+        android:layout_width="276dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Ver ranking"
+        app:layout_constraintBottom_toTopOf="@+id/btn_admin_chat"
+        app:layout_constraintEnd_toStartOf="@+id/guideline9"
+        app:layout_constraintStart_toStartOf="@+id/guideline10"
+        app:layout_constraintTop_toBottomOf="@+id/btn_admin_PuntuarFotos" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -38,33 +61,28 @@
     <Button
         android:id="@+id/btn_admin_mapa"
         style="@style/boton"
-        android:layout_width="0dp"
+        android:layout_width="276dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
         android:text="Ver Mapa"
-        app:layout_constraintBottom_toTopOf="@+id/btn_admin_verjugadores"
+        app:layout_constraintBottom_toTopOf="@+id/btn_admin_verjugadores3"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline10"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5"
-        app:layout_constraintVertical_chainStyle="spread" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
     <Button
         android:id="@+id/btn_admin_chat"
         style="@style/boton"
-        android:layout_width="0dp"
+        android:layout_width="276dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="chat"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline10"
-        app:layout_constraintTop_toBottomOf="@+id/btn_admin_verjugadores" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_admin_ranking" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline9"
@@ -79,4 +97,5 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.12" />
+
 </android.support.constraint.ConstraintLayout>
