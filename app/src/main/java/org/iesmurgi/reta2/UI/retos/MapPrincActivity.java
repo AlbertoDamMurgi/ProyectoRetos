@@ -541,7 +541,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
                 }else{
 
                     // finalizar juego
-                    startActivity(new Intent(getApplicationContext(),FinPartidaActivity.class).putExtra("idPartida",idpartida).putExtra("nombreEquipo","nombre"));
+                    startActivity(new Intent(getApplicationContext(),FinPartidaActivity.class).putExtra("idPartida",idpartida).putExtra("idUsuario",idUsuario));
                     Log.e("FINISH","FINISH");
                     finish();
 
