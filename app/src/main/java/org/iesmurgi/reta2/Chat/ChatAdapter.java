@@ -79,14 +79,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         }else if(tipo==3){
             holder.nombreChat.setText(salas.get(position));
             holder.nombreChat.setOnClickListener(v -> {
-                context.startActivity(new Intent(context, ChatActivity.class).putExtra("USUARIO", salas.get(position)).putExtra("SALA",sala));
+                context.startActivity(new Intent(context, ChatActivity.class).putExtra("USUARIO", salas.get(position)).putExtra("SALA",sala).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             });
         }else if(tipo == 4){
             holder.nombreChat.setText(salas.get(position));
         }else if(tipo==5){
             holder.nombreChat.setText(nombreAndIDS.get(position).getNombre());
             holder.nombreChat.setOnClickListener(v -> {
-            context.startActivity(new Intent(context,AdministrarPartidaAdminActivity.class).putExtra("PARTIDA",nombreAndIDS.get(position).getNombre()).putExtra("ID",nombreAndIDS.get(position).getId()));
+            context.startActivity(new Intent(context,AdministrarPartidaAdminActivity.class).putExtra("PARTIDA",nombreAndIDS.get(position).getNombre()).putExtra("ID",nombreAndIDS.get(position).getId()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             });
         }
     }
