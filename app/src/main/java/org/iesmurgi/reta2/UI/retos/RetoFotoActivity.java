@@ -1,6 +1,7 @@
 package org.iesmurgi.reta2.UI.retos;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -63,9 +64,8 @@ public class RetoFotoActivity extends AppCompatActivity {
     Button botonCargar;
     @BindView(R.id.img_retoFoto_foto)
     ImageView imagen;
-    @BindView(R.id.bar_reto_foto)
-    ProgressBar bar;
 
+    ProgressDialog progressDialog;
     private StorageReference mStorage;
     private FirebaseAuth mAuth;
     private String nombrepartida;
@@ -81,7 +81,7 @@ public class RetoFotoActivity extends AppCompatActivity {
         nombrepartida = getIntent().getExtras().getString("PARTIDA");
         idreto = String.valueOf(getIntent().getExtras().getInt("IDRETO"));
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
-
+        progressDialog = new ProgressDialog(this);
         mAuth = FirebaseAuth.getInstance();
         reference = FirebaseDatabase.getInstance().getReference().child("Imagenes").child(nombrepartida).child(idreto);
         mStorage = FirebaseStorage.getInstance().getReference();
@@ -103,25 +103,28 @@ public class RetoFotoActivity extends AppCompatActivity {
             Uri file = Uri.fromFile(new File(path));
             //  StorageReference riversRef = mStorage.child("Imagenes").child(nombrepartida).child(autor);
             StorageReference riversRef = mStorage.child("Imagenes").child(nombrepartida).child(autor).child(idreto).child(file.getLastPathSegment());
-
+            progressDialog.setMessage("Subiendo imagen");
+            progressDialog.show();
             riversRef.putFile(file).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                     double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
                     int currentprogress = (int) progress;
-                    bar.setProgress(currentprogress);
+
+                    progressDialog.setProgress(currentprogress);
                 }
+
+
             })
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                             reference.push().setValue(taskSnapshot.getDownloadUrl().getPath());
-
+                            progressDialog.dismiss();
                             Toast.makeText(RetoFotoActivity.this, "La foto se ha subido correctamente.", Toast.LENGTH_SHORT).show();
 
                             setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), RetoActivity.class));
-
                             finish();
                         }
                     })
