@@ -11,6 +11,7 @@ import android.widget.TextView;
 import org.iesmurgi.reta2.R;
 import org.iesmurgi.reta2.UI.admin.AdministrarPartidaAdminActivity;
 import org.iesmurgi.reta2.UI.admin.NombreAndID;
+import org.iesmurgi.reta2.UI.admin.PuntuarFotoGridAdminActivity;
 
 import java.util.ArrayList;
 
@@ -64,31 +65,43 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        if(tipo==0) {
-            holder.nombreChat.setText(salas.get(position));
-            holder.nombreChat.setOnClickListener(v -> {
-                context.startActivity(new Intent(context, ChatActivity.class).putExtra("SALA", salas.get(position)));
-            });
-        }else if(tipo==1){
-
-            holder.nombreChat.setText(salas.get(position));
-            holder.nombreChat.setOnClickListener(v -> {
-               //onclick
-                context.startActivity(new Intent(context, AdministrarPartidaAdminActivity.class).putExtra("PARTIDA",salas.get(position)));
-            });
-        }else if(tipo==3){
-            holder.nombreChat.setText(salas.get(position));
-            holder.nombreChat.setOnClickListener(v -> {
-                context.startActivity(new Intent(context, ChatActivity.class).putExtra("USUARIO", salas.get(position)).putExtra("SALA",sala).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-            });
-        }else if(tipo == 4){
-            holder.nombreChat.setText(salas.get(position));
-        }else if(tipo==5){
-            holder.nombreChat.setText(nombreAndIDS.get(position).getNombre());
-            holder.nombreChat.setOnClickListener(v -> {
-            context.startActivity(new Intent(context,AdministrarPartidaAdminActivity.class).putExtra("PARTIDA",nombreAndIDS.get(position).getNombre()).putExtra("ID",nombreAndIDS.get(position).getId()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-            });
+        switch (tipo){
+            case 0:
+                holder.nombreChat.setText(salas.get(position));
+                holder.nombreChat.setOnClickListener(v -> {
+                    context.startActivity(new Intent(context, ChatActivity.class).putExtra("SALA", salas.get(position)));
+                });
+                break;
+            case 1:
+                holder.nombreChat.setText(salas.get(position));
+                holder.nombreChat.setOnClickListener(v -> {
+                    //onclick
+                    context.startActivity(new Intent(context, AdministrarPartidaAdminActivity.class).putExtra("PARTIDA",salas.get(position)));
+                });
+                break;
+            case 2:
+                break;
+            case 3:
+                holder.nombreChat.setText(salas.get(position));
+                holder.nombreChat.setOnClickListener(v -> {
+                    context.startActivity(new Intent(context, ChatActivity.class).putExtra("USUARIO", salas.get(position)).putExtra("SALA",sala).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                });
+                break;
+            case 4:
+                holder.nombreChat.setText(salas.get(position));
+                break;
+            case 5:
+                holder.nombreChat.setText(nombreAndIDS.get(position).getNombre());
+                holder.nombreChat.setOnClickListener(v -> {
+                    context.startActivity(new Intent(context,AdministrarPartidaAdminActivity.class).putExtra("PARTIDA",nombreAndIDS.get(position).getNombre()).putExtra("ID",nombreAndIDS.get(position).getId()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                });
+                break;
+            case 6:
+                holder.nombreChat.setText(salas.get(position));
+                context.startActivity(new Intent(context, PuntuarFotoGridAdminActivity.class).putExtra("RETO",salas.get(position)));
+                break;
         }
+
     }
 
     @Override

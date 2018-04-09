@@ -83,9 +83,10 @@ public class RetoFotoActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
         progressDialog = new ProgressDialog(this);
         mAuth = FirebaseAuth.getInstance();
-        reference = FirebaseDatabase.getInstance().getReference().child("Imagenes").child(nombrepartida).child(idreto);
+
         mStorage = FirebaseStorage.getInstance().getReference();
         autor = mAuth.getCurrentUser().getDisplayName();
+        reference = FirebaseDatabase.getInstance().getReference().child("Imagenes").child(nombrepartida).child(autor).child(idreto);
 
         if(validaPermisos()){
             botonCargar.setEnabled(true);
