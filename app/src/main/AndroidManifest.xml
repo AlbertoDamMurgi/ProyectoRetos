@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -45,6 +46,9 @@
         <meta-data
             android:name="com.google.android.gsm.version"
             android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="barcode"/>
 
         <service android:name=".UI.geofences.GeofenceTransiciones" />
 
@@ -69,8 +73,7 @@
 
         <activity android:name=".UI.usuario.RankingActivity" />
         <activity android:name=".UI.admin.PuntuarFotosAdmin" />
-
-        <activity android:name=".UI.admin.PuntuarFotoGridAdminActivity"></activity>
+        <activity android:name=".UI.usuario.QRScannerActivity"></activity>
     </application>
 
 </manifest>

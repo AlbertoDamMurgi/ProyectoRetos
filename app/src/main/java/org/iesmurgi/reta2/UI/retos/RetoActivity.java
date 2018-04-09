@@ -350,7 +350,7 @@ int idUsuario;
                     case 2:     //tipo respuesta unica
 
                         if (!etRetoRespuestaUnica.getText().toString().isEmpty()){
-                            if (etRetoRespuestaUnica.getText().toString().equals(respuestas.get(0).getDescripcion())){
+                            if (etRetoRespuestaUnica.getText().toString().equalsIgnoreCase(respuestas.get(0).getDescripcion())){
 
                                 insertarPuntos(miReto.getPuntuacion(),"Acertaste!! puntuas:"+ miReto.getPuntuacion());
                             }else{
