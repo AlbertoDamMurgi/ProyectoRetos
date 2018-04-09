@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -31,6 +32,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -61,6 +63,8 @@ public class RetoFotoActivity extends AppCompatActivity {
     Button botonCargar;
     @BindView(R.id.img_retoFoto_foto)
     ImageView imagen;
+    @BindView(R.id.bar_reto_foto)
+    ProgressBar bar;
 
     private StorageReference mStorage;
     private FirebaseAuth mAuth;
@@ -100,12 +104,19 @@ public class RetoFotoActivity extends AppCompatActivity {
             //  StorageReference riversRef = mStorage.child("Imagenes").child(nombrepartida).child(autor);
             StorageReference riversRef = mStorage.child("Imagenes").child(nombrepartida).child(autor).child(idreto).child(file.getLastPathSegment());
 
-            riversRef.putFile(file)
+            riversRef.putFile(file).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                    double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                    int currentprogress = (int) progress;
+                    bar.setProgress(currentprogress);
+                }
+            })
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                            reference.push().setValue(riversRef.getPath());
+                            reference.push().setValue(taskSnapshot.getDownloadUrl().getPath());
 
                             Toast.makeText(RetoFotoActivity.this, "La foto se ha subido correctamente.", Toast.LENGTH_SHORT).show();
 
