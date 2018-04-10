@@ -20,11 +20,13 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,7 +36,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
     private int ID_PARTIDA;
     private String NOMBREPARTIDA;
+    private int ULTIMORETO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -212,7 +217,9 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                     startActivity(new Intent(getApplicationContext(), MapPrincActivity.class)
                             .putExtra("IDPARTIDA", ID_PARTIDA)
                             .putExtra("NOMBREPARTIDA", NOMBREPARTIDA)
-                            .putExtra("idUsuario", idUsuario));
+                            .putExtra("idUsuario", idUsuario)
+                            .putExtra("ultimoReto",ULTIMORETO)
+                    );
                     progressDialog.dismiss();
 
                     Log.e("LISTA Respuestas", response.toString());
@@ -234,6 +241,53 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         }
     }
 
+
+    void InsertarEnPartidaYObtenerUltima(){
+        final String URLL = "http://geogame.ml/api/insertar_equipo_partida.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URLL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("LOG Ultimo",response);
+                if (response.contains("success")) {
+                    Log.e("LOG Ultimo",response);
+                    try {
+                        JSONObject jObj = new JSONObject(response);
+                        ULTIMORETO = jObj.getInt("ultimoReto");
+                        new cargarReto().execute();
+                        Log.e("ULTIMORETO",""+ULTIMORETO);
+
+                    } catch (JSONException e) {
+                        e.getStackTrace();
+                    }
+
+                }else{
+                    progressDialog.dismiss();
+                    Toast.makeText(getApplicationContext(), "Ups! Algo ha fallado", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Fallo del servidor", Toast.LENGTH_SHORT).show();
+            }
+
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("idUsuario", ""+idUsuario);
+                params.put("idPartida", ""+ID_PARTIDA);
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(stringRequest);
+
+
+        // fin insertar a db
+    }
 
     class cargarReto extends AsyncTask<Void, Void, Integer> {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -330,7 +384,8 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                         partidadescargada = true;
                     }//endgfor
                     if (partidadescargada) {
-                        new cargarReto().execute();
+                        InsertarEnPartidaYObtenerUltima();
+
                     } else {
                         progressDialog.dismiss();
                         Toast.makeText(getApplicationContext(), "Datos erroneos", Toast.LENGTH_LONG).show();

@@ -19,10 +19,10 @@ public interface RetosDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void retosInsert(Retos... retos);
 
-    @Query("Select * from retos")
+    @Query("Select * from retos  order by idReto")
     List<Retos> getRetos();
 
-    @Query("select * from retos where idPartida = :idpartida")
+    @Query("select * from retos where idPartida = :idpartida order by idReto")
     List<Retos> getRetosPartida(int idpartida);
 
     @Query("select * from retos where idPartida = :idpartida and idReto=:idreto")

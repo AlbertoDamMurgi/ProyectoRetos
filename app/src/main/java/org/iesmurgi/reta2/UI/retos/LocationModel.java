@@ -18,10 +18,9 @@ public class LocationModel extends ViewModel{
     private MutableLiveData<Location> mLocation = new MutableLiveData<>();
     private List<Retos> retos = new ArrayList<>();
     boolean cargados=false;
-    private int numReto=0;
     private String usuario="";
     private String partida ="";
-    private Integer idpartida,idusuario;
+    private Integer idpartida,idusuario,numReto;
     private String nombrepartida;
 
     public Integer getIdpartida() {
@@ -80,11 +79,11 @@ public class LocationModel extends ViewModel{
         this.cargados = cargados;
     }
 
-    public int getNumReto() {
+    public Integer getNumReto() {
         return numReto;
     }
 
-    public void setNumReto(int numReto) {
+    public void setNumReto(Integer numReto) {
         this.numReto = numReto;
     }
 

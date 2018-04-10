@@ -31,16 +31,13 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 import org.iesmurgi.reta2.Data.BasedeDatosApp;
 import org.iesmurgi.reta2.Data.DAOS.RespuestasDao;
 import org.iesmurgi.reta2.Data.DAOS.RetosDao;
-import org.iesmurgi.reta2.Data.entidades.Partidas;
 import org.iesmurgi.reta2.Data.entidades.Respuestas;
 import org.iesmurgi.reta2.Data.entidades.Retos;
 import org.iesmurgi.reta2.R;
-import org.iesmurgi.reta2.UI.usuario.FinPartidaActivity;
 import org.iesmurgi.reta2.UI.usuario.LoginModel;
 
 import static org.iesmurgi.reta2.UI.retos.MapPrincActivity.RETO_FINALIZADO;
@@ -412,12 +409,8 @@ int idUsuario;
         if (requestCode == RETO_FINALIZADO) {
 
             if (resultCode == RESULT_OK) {
+                insertarPuntos(0,"La foto sera puntuada por un administrador");
 
-                setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), MapPrincActivity.class));
-
-
-
-                finish();
 
                 }else{
 
@@ -451,13 +444,10 @@ int idUsuario;
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("ON RESPONDE", response.toString());
+                Log.e("ON RESPONDE insertar", response.toString());
 
                 if (response.contains("success")) {
-                    progressDialog.dismiss();
-                    Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG).show();
-                    setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), MapPrincActivity.class));
-                    finish();
+                   updateNumReto(mensaje);
 
                 } else {
 
@@ -485,6 +475,49 @@ int idUsuario;
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
     }//fin insertarPuntos
+
+
+    void updateNumReto(String mensaje) {
+
+        final String URL = "http://geogame.ml/api/update_numPartida.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("ON RESPONDE", response.toString());
+
+                if (response.contains("success")) {
+                    progressDialog.dismiss();
+                    Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG).show();
+                    setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), MapPrincActivity.class));
+                    finish();
+
+                } else {
+
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Fallo del servidor", Toast.LENGTH_SHORT).show();
+            }
+
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("idUsuario", "" + idUsuario);
+                params.put("idPartida", "" + miReto.getIdPartida());
+                params.put("ultimoReto",""+ getIntent().getIntExtra("numeroRetoArray",0) );
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(stringRequest);
+    }
+
+
 
     public int elegirRandom(int min, int max) {
 
