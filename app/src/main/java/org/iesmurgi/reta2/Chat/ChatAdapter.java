@@ -98,7 +98,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                 break;
             case 6:
                 holder.nombreChat.setText(salas.get(position));
-                context.startActivity(new Intent(context, PuntuarFotoGridAdminActivity.class).putExtra("RETO",salas.get(position)));
+                holder.nombreChat.setOnClickListener(v -> {
+                context.startActivity(new Intent(context, PuntuarFotoGridAdminActivity.class).putExtra("USUARIO",salas.get(position)).putExtra("PARTIDA",sala));
+                });
                 break;
         }
 

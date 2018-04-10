@@ -20,6 +20,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import org.iesmurgi.reta2.Chat.Chat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -121,7 +122,7 @@ public class RetoFotoActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                            reference.push().setValue(taskSnapshot.getDownloadUrl().getPath());
+                            reference.push().setValue(new Chat(taskSnapshot.getDownloadUrl().getPath()));
                             progressDialog.dismiss();
                             Toast.makeText(RetoFotoActivity.this, "La foto se ha subido correctamente.", Toast.LENGTH_SHORT).show();
 
