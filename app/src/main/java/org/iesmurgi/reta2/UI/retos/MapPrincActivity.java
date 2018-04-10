@@ -118,6 +118,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         @Override
         protected Integer doInBackground(Integer... p) {
             retos =  BasedeDatosApp.getAppDatabase(getApplicationContext()).retosDao().getRetosPartida(p[0]);
+
             locationModel.setRetos(retos);
             locationModel.setCargados(true);
             return 0;
@@ -135,12 +136,18 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
     private String nombrepartida;
 
+    int aux;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_princ);
         locationModel = ViewModelProviders.of(this).get(LocationModel.class);
+
+        if(locationModel.getNumReto()==null){
+            locationModel.setNumReto(getIntent().getExtras().getInt("ultimoReto"));
+        }
+
 
         if(locationModel.getIdpartida()==null){
             idpartida= getIntent().getExtras().getInt("IDPARTIDA");
@@ -252,6 +259,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
             locationModel.setPartida(nombrepartida);
         }
 
+
         myRef = database.getReference("Localizaciones").child(nombrepartida).child(usuario);
 
 
@@ -283,6 +291,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
             }
 
         });
+
 
     }
 
@@ -436,6 +445,13 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     @Override
     public void onMapReady(GoogleMap googleMap) {
         Log.e("Numero reto",locationModel.getNumReto()+"");
+        if (locationModel.getNumReto()==retos.size()){
+            Log.d("ENTRE","SI");
+            startActivity(new Intent(getApplicationContext(),FinPartidaActivity.class).putExtra("idPartida",idpartida).putExtra("idUsuario",idUsuario));
+            finish();
+        }else{
+
+
         if (mapa == null) {
             mapa = googleMap;
             mapa.addMarker(marcadores.get(locationModel.getNumReto()));
@@ -491,7 +507,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
                                 int [] aux;
                                 aux = new int[]{idpartida,retos.get(i).getIdReto()};
                               startActivityForResult(
-                                      new Intent(getApplicationContext(),RetoActivity.class).putExtra("idUsuario",idUsuario).putExtra("PARTIDAYRETO",aux).putExtra("NOMBREPARTIDA",nombrepartida),RETO_FINALIZADO);
+                                      new Intent(getApplicationContext(),RetoActivity.class).putExtra("idUsuario",idUsuario).putExtra("PARTIDAYRETO",aux).putExtra("NOMBREPARTIDA",nombrepartida).putExtra("numeroRetoArray",i+1),RETO_FINALIZADO);
                         }
                         }
                     }
@@ -501,7 +517,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
 
 
-    }
+    } }
 
     private ArrayList<MarkerOptions> marcadores = new ArrayList<>();
 

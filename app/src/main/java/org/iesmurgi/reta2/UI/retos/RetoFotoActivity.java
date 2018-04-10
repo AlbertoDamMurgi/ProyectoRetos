@@ -126,7 +126,7 @@ public class RetoFotoActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                             Toast.makeText(RetoFotoActivity.this, "La foto se ha subido correctamente.", Toast.LENGTH_SHORT).show();
 
-                            setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), RetoActivity.class));
+                            setResult(MapPrincActivity.RESULT_OK);
                             finish();
                         }
                     })
