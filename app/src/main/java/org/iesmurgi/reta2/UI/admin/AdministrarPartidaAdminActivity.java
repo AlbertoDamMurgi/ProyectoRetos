@@ -19,6 +19,7 @@ public class AdministrarPartidaAdminActivity extends AppCompatActivity {
 
     private String sala;
     private int idpartida;
+    private String codigoQR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,26 +39,29 @@ public class AdministrarPartidaAdminActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(),ChatAdminActivity.class).putExtra("SALA",sala));
         }
 
-        @OnClick(R.id.btn_admin_mapa)
+    @OnClick(R.id.btn_admin_mapa)
         void abrirMapa(){
             startActivity(new Intent(getApplicationContext(),AdminMapaActivity.class).putExtra("PARTIDA",sala));
         }
-
-
 
     @OnClick(R.id.btn_admin_verjugadores3)
         void verJugadores(){
             startActivity(new Intent(getApplicationContext(),AdminVerJugadoresActivity.class).putExtra("PARTIDA",sala));
         }
     @OnClick(R.id.btn_admin_PuntuarFotos)
-    void verFotos(){
-        startActivity(new Intent(getApplicationContext(),PuntuarFotosAdmin.class).putExtra("PARTIDA",sala));
-    }
+        void verFotos(){
+            startActivity(new Intent(getApplicationContext(),PuntuarFotosAdmin.class).putExtra("PARTIDA",sala));
+        }
 
     @OnClick(R.id.btn_admin_ranking)
-    void verRanking(){
-        startActivity(new Intent(getApplicationContext(),RankingActivity.class).putExtra("PARTIDA",sala).putExtra("idPartida",idpartida));
-    }
+        void verRanking(){
+            startActivity(new Intent(getApplicationContext(),RankingActivity.class).putExtra("PARTIDA",sala).putExtra("idPartida",idpartida));
+        }
+    @OnClick(R.id.btn_admin_codigoQR)
+        void verCodigoQR(){
+            startActivity(new Intent(getApplicationContext(),QRGeneratorActivity.class).putExtra("CODIGOQR",codigoQR));
+
+        }
 
 
 }

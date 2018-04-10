@@ -12,7 +12,7 @@
         style="@style/boton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="76dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="Desconectarse"
@@ -29,25 +29,27 @@
         android:layout_marginStart="8dp"
         android:background="#11000000"
         android:hint="Contraseña de partida"
-        android:textColor="#FFF"
         android:inputType="textPassword"
+        android:textColor="#FFF"
         android:textColorHint="#FFF"
         app:layout_constraintBottom_toTopOf="@+id/bt_iniciarPartida"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline6" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
-        android:textColor="#FFF"
         android:layout_marginStart="8dp"
         android:text="Inicia el juego"
+        android:textColor="#FFF"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/txt_main_nombrepartida"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="@+id/guideline6" />
 
     <android.support.constraint.Guideline
@@ -86,7 +88,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="Iniciar"
-        app:layout_constraintBottom_toTopOf="@+id/btn_logout"
+        app:layout_constraintBottom_toTopOf="@+id/btn_main_scanQR"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline6" />
 
@@ -104,6 +106,19 @@
         android:inputType="textPersonName"
         android:textColorHint="#FFF"
         app:layout_constraintBottom_toTopOf="@+id/txt_contraPartida"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="@+id/guideline6" />
+
+    <Button
+        android:id="@+id/btn_main_scanQR"
+        style="@style/boton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Escanear Codigo QR"
+        app:layout_constraintBottom_toTopOf="@+id/btn_logout"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline6" />
 
