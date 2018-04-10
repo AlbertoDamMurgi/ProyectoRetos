@@ -48,7 +48,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
-            android:value="barcode"/>
+            android:value="barcode" />
 
         <service android:name=".UI.geofences.GeofenceTransiciones" />
 
@@ -74,7 +74,8 @@
         <activity android:name=".UI.usuario.RankingActivity" />
         <activity android:name=".UI.admin.PuntuarFotosAdmin" />
         <activity android:name=".UI.admin.PuntuarFotoGridAdminActivity" />
-        <activity android:name=".UI.usuario.QRScannerActivity"></activity>
+        <activity android:name=".UI.usuario.QRScannerActivity" />
+        <activity android:name=".UI.admin.QRGeneratorActivity"></activity>
     </application>
 
 </manifest>

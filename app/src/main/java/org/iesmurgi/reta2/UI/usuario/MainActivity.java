@@ -394,6 +394,12 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         }
     }
 
+    @OnClick(R.id.btn_main_scanQR)
+    void goScanQR(){
+        Intent i = new Intent(getApplicationContext(), QRScannerActivity.class);
+        startActivity(i);
+    }
+
 
 }
 

@@ -2,6 +2,7 @@ package org.iesmurgi.reta2.UI.usuario;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
@@ -34,6 +35,7 @@ public class QRScannerActivity extends AppCompatActivity {
 
     BarcodeDetector barcodeDetector;
     CameraSource cameraSource;
+    private String cadenaCodigo;
     static final int PEDIR_PERMISOS_COD = 1001;
 
     @Override
@@ -64,6 +66,7 @@ public class QRScannerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrscanner);
         ButterKnife.bind(this);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
 
         barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.QR_CODE).build();
 
@@ -118,7 +121,10 @@ public class QRScannerActivity extends AppCompatActivity {
                         public void run() {
                             Vibrator vibrator = (Vibrator)getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
                             vibrator.vibrate(1000);
-                            txt_result.setText(qrcodes.valueAt(0).displayValue);
+
+                            //TODO control al recojer cadena, si el codigoQR no es nuestro mostrar toast
+                            cadenaCodigo = qrcodes.valueAt(0).displayValue;
+                            txt_result.setText(cadenaCodigo);
                         }
                     });
                 }
