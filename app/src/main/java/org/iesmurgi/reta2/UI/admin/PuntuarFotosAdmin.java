@@ -56,7 +56,7 @@ public class PuntuarFotosAdmin extends AppCompatActivity {
 
                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-                recyclerView.setAdapter(new ChatAdapter(nombres,getApplicationContext(),6));
+                recyclerView.setAdapter(new ChatAdapter(nombres,getApplicationContext(),6,partida));
 
 
             }
