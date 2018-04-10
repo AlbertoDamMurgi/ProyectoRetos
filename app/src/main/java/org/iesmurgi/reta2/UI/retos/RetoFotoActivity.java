@@ -80,7 +80,7 @@ public class RetoFotoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reto_foto);
         ButterKnife.bind(this);
         nombrepartida = getIntent().getExtras().getString("PARTIDA");
-        idreto = String.valueOf(getIntent().getExtras().getInt("IDRETO"));
+        idreto = getIntent().getExtras().getString("RETO");
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
         progressDialog = new ProgressDialog(this);
         mAuth = FirebaseAuth.getInstance();
