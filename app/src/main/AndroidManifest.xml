@@ -75,7 +75,10 @@
         <activity android:name=".UI.admin.PuntuarFotosAdmin" />
         <activity android:name=".UI.admin.PuntuarFotoGridAdminActivity" />
         <activity android:name=".UI.usuario.QRScannerActivity" />
-        <activity android:name=".UI.admin.QRGeneratorActivity"></activity>
+        <activity android:name=".UI.admin.QRGeneratorActivity" />
+        <activity android:name=".UI.admin.AdminListaRetosPuntuarFotos" />
+        <activity android:name=".UI.admin.AdminPuntuarFotoTransicion" />
+        <activity android:name=".UI.admin.AdminPuntuarFotoDefinitiva"></activity>
     </application>
 
 </manifest>

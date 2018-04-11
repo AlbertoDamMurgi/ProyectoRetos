@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.iesmurgi.reta2.R;
+import org.iesmurgi.reta2.UI.admin.AdminPuntuarFotoTransicion;
 import org.iesmurgi.reta2.UI.admin.AdministrarPartidaAdminActivity;
 import org.iesmurgi.reta2.UI.admin.NombreAndID;
 import org.iesmurgi.reta2.UI.admin.PuntuarFotoGridAdminActivity;
@@ -28,9 +29,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     private ArrayList<String> salas;
     private ArrayList<NombreAndID> nombreAndIDS;
+    private String[] nombreretos;
     private Context context;
     private int tipo,size;
-    private String sala ="";
+    private String sala ="",partida,usuario;
+
 
     public ChatAdapter(ArrayList<String> salas, Context context,int tipo) {
         this.salas = salas;
@@ -52,6 +55,15 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         this.context=context;
         this.tipo = tipo;
         size = nombresAndIDs.size();
+    }
+
+    public ChatAdapter(Context context, int tipo,String[] nombreretos,String partida,String usuario) {
+        this.nombreretos = nombreretos;
+        this.context = context;
+        this.tipo = tipo;
+        this.partida = partida;
+        this.usuario=usuario;
+        size = nombreretos.length;
     }
 
     @Override
@@ -100,6 +112,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                 holder.nombreChat.setText(salas.get(position));
                 holder.nombreChat.setOnClickListener(v -> {
                 context.startActivity(new Intent(context, PuntuarFotoGridAdminActivity.class).putExtra("USUARIO",salas.get(position)).putExtra("PARTIDA",sala));
+                });
+                break;
+            case 7:
+                holder.nombreChat.setText(nombreretos[position]);
+                holder.nombreChat.setOnClickListener(v -> {
+                    context.startActivity(new Intent(context, AdminPuntuarFotoTransicion.class).putExtra("NOMBRERETO",nombreretos[position]).putExtra("USUARIO",usuario).putExtra("PARTIDA",partida));
                 });
                 break;
         }
