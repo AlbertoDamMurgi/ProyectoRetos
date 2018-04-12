@@ -505,7 +505,14 @@ void cambiarpregunta(){
             Log.v("long1", String.valueOf(longitud));
             latLng = place.getLatLng();
             latitud = latLng.latitude;
+            String lat = String.valueOf(latitud);
+            lat = lat.substring(0,lat.indexOf(".")+8);
+            latitud = Double.parseDouble(lat);
             longitud = latLng.longitude;
+            String lon = String.valueOf(longitud);
+            lon = lon.substring(0,lat.indexOf(".")+8);
+            longitud = Double.parseDouble(lon);
+
             Log.v("lat2", String.valueOf(latitud));
             Log.v("long2", String.valueOf(longitud));
 
