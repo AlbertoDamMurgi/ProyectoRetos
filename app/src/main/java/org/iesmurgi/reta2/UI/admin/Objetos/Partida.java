@@ -1,13 +1,23 @@
-package org.iesmurgi.reta2.UI.admin;
+package org.iesmurgi.reta2.UI.admin.Objetos;
 
-public class NombreAndID {
+public class Partida {
 
     private String nombre;
     private int id;
+    private String codeqr;
 
-    public NombreAndID(String nombre, int id) {
+    public Partida(String nombre, int id, String codeqr) {
         this.nombre = nombre;
         this.id = id;
+        this.codeqr = codeqr;
+    }
+
+    public String getCodeqr() {
+        return codeqr;
+    }
+
+    public void setCodeqr(String codeqr) {
+        this.codeqr = codeqr;
     }
 
     public String getNombre() {

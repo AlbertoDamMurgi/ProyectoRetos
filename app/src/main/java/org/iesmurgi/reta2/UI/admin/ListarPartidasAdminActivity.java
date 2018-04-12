@@ -15,8 +15,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.iesmurgi.reta2.Chat.ChatAdapter;
-import org.iesmurgi.reta2.Data.entidades.Partidas;
 import org.iesmurgi.reta2.R;
+import org.iesmurgi.reta2.UI.admin.Objetos.Partida;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,7 +32,7 @@ public class ListarPartidasAdminActivity extends AppCompatActivity {
     RecyclerView recyclerView;
 
 
-    private ArrayList<NombreAndID> nombreseIDs = new ArrayList<>();
+    private ArrayList<Partida> nombreseIDs = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,7 @@ public class ListarPartidasAdminActivity extends AppCompatActivity {
                 for (int i=0;i<response.length();i++){
                     try {
                         JSONObject o = response.getJSONObject(i);
-                             nombreseIDs.add( new NombreAndID(o.getString("nombre"),o.getInt("idPartida")));
+                             nombreseIDs.add( new Partida(o.getString("nombre"),o.getInt("idPartida"),o.getString("codigoqr")));
 
                     } catch (JSONException e) {
                         Log.e("Log Json error Partida", e.getMessage());

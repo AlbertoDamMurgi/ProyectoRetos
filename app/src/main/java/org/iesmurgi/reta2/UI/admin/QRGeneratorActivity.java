@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -35,11 +36,13 @@ public class QRGeneratorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_qrgenerator);
         ButterKnife.bind(this);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
-
-
+        cadenaParaQR=getIntent().getStringExtra("codigoqr");
+        generarCodigoQR();
+        ((TextView)findViewById(R.id.txt_qrgenerator_mensaje)).setText(
+                "Este es el codigo QR de acceso a la partida \n\n\n Si necesita generar este codigo debe introducir este texto \n"+cadenaParaQR
+        );
     }
 
-    @OnClick(R.id.btn_qrGenerator_generarCodigo)
     void generarCodigoQR(){
 
 

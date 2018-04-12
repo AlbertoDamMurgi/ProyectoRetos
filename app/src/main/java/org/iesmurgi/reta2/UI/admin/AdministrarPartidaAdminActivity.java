@@ -19,7 +19,7 @@ public class AdministrarPartidaAdminActivity extends AppCompatActivity {
 
     private String sala;
     private int idpartida;
-    private String codigoQR;
+    private String codigoqr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +29,7 @@ public class AdministrarPartidaAdminActivity extends AppCompatActivity {
 
         sala = getIntent().getExtras().getString("PARTIDA");
         idpartida = getIntent().getExtras().getInt("ID");
+        codigoqr=getIntent().getStringExtra("codigoqr");
         Log.e("partida",""+sala);
 
     }
@@ -59,7 +60,7 @@ public class AdministrarPartidaAdminActivity extends AppCompatActivity {
         }
     @OnClick(R.id.btn_admin_codigoQR)
         void verCodigoQR(){
-            startActivity(new Intent(getApplicationContext(),QRGeneratorActivity.class).putExtra("CODIGOQR",codigoQR));
+            startActivity(new Intent(getApplicationContext(),QRGeneratorActivity.class).putExtra("codigoqr",codigoqr));
 
         }
 
