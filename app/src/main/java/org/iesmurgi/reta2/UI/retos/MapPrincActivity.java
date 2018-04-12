@@ -283,7 +283,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
                 for(int i=0;i<retos.size(); i++){
                     Location.distanceBetween(location.getLatitude(),location.getLongitude(),retos.get(i).getLocalizacionLatitud(),retos.get(i).getLocalizacionLongitud(),results);
-                    if(results[0]<20){
+                    if(results[0]<30){
                         if(i==locationModel.getNumReto()) {
                             puedespinchar = true;
 
