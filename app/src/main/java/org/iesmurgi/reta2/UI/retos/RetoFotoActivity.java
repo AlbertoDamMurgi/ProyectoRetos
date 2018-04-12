@@ -127,6 +127,7 @@ public class RetoFotoActivity extends AppCompatActivity {
                             setResult(MapPrincActivity.RESULT_OK);
                             finish();
                         }
+
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override

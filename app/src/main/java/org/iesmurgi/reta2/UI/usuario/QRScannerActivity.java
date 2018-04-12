@@ -376,7 +376,7 @@ public class QRScannerActivity extends AppCompatActivity {
                         partidadescargada = true;
                     }//endgfor
                     if (partidadescargada) {
-                        progressDialog.setMessage("Insertando tu puntuacion ...");
+                        progressDialog.setMessage("Cargando partida ...");
                         // progressDialog.setCancelable(false);
                         progressDialog.show();
                         InsertarEnPartidaYObtenerUltima();
