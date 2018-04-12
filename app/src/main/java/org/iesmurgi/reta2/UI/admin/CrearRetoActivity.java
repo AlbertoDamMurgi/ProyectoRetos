@@ -514,14 +514,14 @@ void cambiarpregunta(){
             Log.v("long1", String.valueOf(longitud));
             latLng = place.getLatLng();
             latitud = latLng.latitude;
-            String lat = String.valueOf(latitud);
+            String lat = String.valueOf(latitud)+"000000000000000000000000";
             lat = lat.substring(0,lat.indexOf(".")+9);
-            lat = comprobarString(lat);
+           // lat = comprobarString(lat);
             latitud = Double.parseDouble(lat);
             longitud = latLng.longitude;
-            String lon = String.valueOf(longitud);
+            String lon = String.valueOf(longitud)+"000000000000000000000000";
             lon = lon.substring(0,lon.indexOf(".")+9);
-            lon = comprobarString(lon);
+         //   lon = comprobarString(lon);
             longitud = Double.parseDouble(lon);
 
             Log.v("lat2", String.valueOf(latitud));
