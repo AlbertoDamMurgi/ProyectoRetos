@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.GridView;
 import android.widget.ScrollView;
@@ -38,21 +39,22 @@ public class PuntuarFotoGridAdminActivity extends AppCompatActivity {
     private ArrayList<String> nombres = new ArrayList<>();
     private ArrayList<String> uris = new ArrayList<>();
     private ArrayList<Uri> urisreal = new ArrayList<>();
-
+    private int idpartida;
     StorageReference storageReference;
-    @BindView(R.id.gridview_fotos)
-    GridView grid;
 
+    @BindView(R.id.recicler_chat_admin)
+     RecyclerView recicler;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_puntuar_foto_grid_admin);
+        setContentView(R.layout.activity_listar_partidas_admin);
         ButterKnife.bind(this);
          usuario = getIntent().getExtras().getString("USUARIO");
          partida = getIntent().getExtras().getString("PARTIDA");
+         idpartida = getIntent().getExtras().getInt("IDPARTIDA");
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
@@ -65,65 +67,11 @@ public class PuntuarFotoGridAdminActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot uniqueKeySnapshot : dataSnapshot.getChildren()){
                     nombres.add(uniqueKeySnapshot.getKey());
-
-                    //Chat aux = uniqueKeySnapshot.child(uniqueKeySnapshot.getValue().toString()).getValue(Chat.class);
-                   // uris.add(aux.getMensaje());
                     Log.e("key",""+uniqueKeySnapshot.getKey());
                 }
-                String [] nombresretos = nombres.toArray(new String[0]);
-                startActivity(new Intent(getApplicationContext(),AdminListaRetosPuntuarFotos.class).putExtra("NOMBRESRETOS",nombresretos).putExtra("PARTIDA",partida).putExtra("USUARIO",usuario));
-             /*   for (int i = 0; i < nombres.size(); i++) {
 
-
-                    int finalI = i;
-                    myRef.child("Imagenes").child(partida).child(usuario).child(nombres.get(i)).addChildEventListener(new ChildEventListener() {
-                        @Override
-                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                            // comprobamos que dataSnapshot sea distinto de null es obligatorio esta comprobacion
-                            if (dataSnapshot != null ) {
-                                try {
-
-                                    Chat msg = dataSnapshot.getValue(Chat.class);
-                                    uris.add(msg.getMensaje().substring(msg.getMensaje().lastIndexOf("/")+1,msg.getMensaje().length()));
-                                    if(){
-                                        descargarUris();
-                                    }
-
-                                } catch (Exception ex) {
-                                    Log.e("Error", ex.getMessage());
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                        }
-
-                        @Override
-                        public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                        }
-
-                        @Override
-                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-
-                    if(finalI == nombres.size()){
-                        descargarUris();
-                    }
-
-                }
-
-
-                */
+                recicler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                recicler.setAdapter(new ChatAdapter(getApplicationContext(),7,nombres,partida,usuario,idpartida));
 
             }
 
@@ -140,20 +88,5 @@ public class PuntuarFotoGridAdminActivity extends AppCompatActivity {
     }
 
 
-    void descargarUris(){
-
-        for (int i = 0; i <uris.size() ; i++) {
-            storageReference.child("Imagenes").child(partida).child(usuario).child(nombres.get(0)).child(uris.get(i)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    urisreal.add(uri);
-                }
-            });
-        }
-
-        grid.setAdapter(new ImageListAdapter(getApplicationContext(),urisreal));
-
-
-    }
 
 }

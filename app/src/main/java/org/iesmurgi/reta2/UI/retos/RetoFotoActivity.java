@@ -1,6 +1,5 @@
 package org.iesmurgi.reta2.UI.retos;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,7 +14,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +23,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -41,8 +38,9 @@ import com.google.firebase.storage.UploadTask;
 import org.iesmurgi.reta2.R;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URI;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,7 +48,6 @@ import butterknife.OnClick;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-import static android.support.v4.content.FileProvider.getUriForFile;
 
 
 public class RetoFotoActivity extends AppCompatActivity {
@@ -64,7 +61,7 @@ public class RetoFotoActivity extends AppCompatActivity {
     @BindView(R.id.btn_retoFoto_dialog)
     Button botonCargar;
     @BindView(R.id.img_retoFoto_foto)
-    ImageView imagen;
+    ImageView iw_imagen;
 
     ProgressDialog progressDialog;
     private StorageReference mStorage;
@@ -72,6 +69,7 @@ public class RetoFotoActivity extends AppCompatActivity {
     private String nombrepartida;
     private String autor;
     String path;
+    File imagen;
     private String idreto;
     private DatabaseReference reference;
     @Override
@@ -263,7 +261,7 @@ public class RetoFotoActivity extends AppCompatActivity {
         path=Environment.getExternalStorageDirectory()+
                 File.separator+RUTA_IMAGEN+File.separator+nombreImagen;
 
-        File imagen=new File(path);
+        imagen=new File(path);
         Log.e("path de tomarfoto",path);
 
         Intent intent=null;
@@ -297,7 +295,7 @@ public class RetoFotoActivity extends AppCompatActivity {
 
 
                     Log.e("path", ""+miPath.getPath());
-                    imagen.setImageURI(miPath);
+                    iw_imagen.setImageURI(miPath);
                     break;
 
                 case COD_FOTO:
@@ -310,12 +308,36 @@ public class RetoFotoActivity extends AppCompatActivity {
                             });
 
                     Bitmap bitmap= BitmapFactory.decodeFile(path);
-                    imagen.setImageBitmap(bitmap);
+                    iw_imagen.setImageBitmap(bitmap);
+                    Log.v("size antes comprimir" ," "+imagen.length());
+                    comprimirFoto();
+                    Log.v("size despues comprim" ," "+imagen.length());
 
                     break;
             }
-
-
         }
+    }
+
+    public void comprimirFoto(){
+        FileOutputStream outputStream;
+        int m_inSampleSize = 0;
+        int m_compress = 20;
+
+        BitmapFactory.Options bmfOptions = new BitmapFactory.Options();
+        bmfOptions.inPurgeable = true;
+        bmfOptions.inSampleSize = m_inSampleSize;
+        Bitmap bitmap = BitmapFactory.decodeFile(path, bmfOptions);
+        try {
+            outputStream = new FileOutputStream(imagen);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, m_compress, outputStream);
+            outputStream.flush();
+            outputStream.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
