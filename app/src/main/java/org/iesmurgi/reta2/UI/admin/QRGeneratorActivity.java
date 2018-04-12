@@ -25,6 +25,8 @@ public class QRGeneratorActivity extends AppCompatActivity {
 
     @BindView(R.id.iw_qrGenerator_imagenQR)
     ImageView imagenQR;
+    @BindView(R.id.txt_qrgenerator_codigoAux)
+    TextView txt_codigoAux;
 
     //TODO setear cadenaParaQR para pasar el string con los datos de la partida
     private String cadenaParaQR="mensaje prueba";
@@ -38,9 +40,8 @@ public class QRGeneratorActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
         cadenaParaQR=getIntent().getStringExtra("codigoqr");
         generarCodigoQR();
-        ((TextView)findViewById(R.id.txt_qrgenerator_mensaje)).setText(
-                "Este es el codigo QR de acceso a la partida \n\n\n Si necesita generar este codigo debe introducir este texto \n"+cadenaParaQR
-        );
+        txt_codigoAux.setText(""+cadenaParaQR);
+
     }
 
     void generarCodigoQR(){
