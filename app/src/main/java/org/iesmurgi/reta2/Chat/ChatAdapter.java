@@ -11,7 +11,7 @@ import android.widget.TextView;
 import org.iesmurgi.reta2.R;
 import org.iesmurgi.reta2.UI.admin.AdminPuntuarFotoTransicion;
 import org.iesmurgi.reta2.UI.admin.AdministrarPartidaAdminActivity;
-import org.iesmurgi.reta2.UI.admin.NombreAndID;
+import org.iesmurgi.reta2.UI.admin.Objetos.Partida;
 import org.iesmurgi.reta2.UI.admin.PuntuarFotoGridAdminActivity;
 
 import java.util.ArrayList;
@@ -27,8 +27,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
 
 
+
+
+    private ArrayList<Partida> partidas;
+ 
+
     private ArrayList<String> salas,nombreretos;
-    private ArrayList<NombreAndID> nombreAndIDS;
+  
 
     private Context context;
     private int tipo,size;
@@ -52,8 +57,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         size= salas.size();
     }
 
-    public ChatAdapter(ArrayList<NombreAndID> nombresAndIDs, Context context, int tipo,int asd) {
-        this.nombreAndIDS = nombresAndIDs;
+    public ChatAdapter(ArrayList<Partida> nombresAndIDs, Context context, int tipo, int asd) {
+        this.partidas = nombresAndIDs;
         this.context=context;
         this.tipo = tipo;
         size = nombresAndIDs.size();
@@ -114,9 +119,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                 holder.nombreChat.setText(salas.get(position));
                 break;
             case 5:
-                holder.nombreChat.setText(nombreAndIDS.get(position).getNombre());
+                holder.nombreChat.setText(partidas.get(position).getNombre());
                 holder.nombreChat.setOnClickListener(v -> {
-                    context.startActivity(new Intent(context,AdministrarPartidaAdminActivity.class).putExtra("PARTIDA",nombreAndIDS.get(position).getNombre()).putExtra("ID",nombreAndIDS.get(position).getId()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                    context.startActivity(new Intent(context,AdministrarPartidaAdminActivity.class).putExtra("PARTIDA", partidas.get(position).getNombre()).putExtra("ID", partidas.get(position).getId()).putExtra("codigoqr",partidas.get(position).getCodeqr()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 });
                 break;
             case 6:
