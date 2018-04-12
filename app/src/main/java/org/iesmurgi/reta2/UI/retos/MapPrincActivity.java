@@ -48,10 +48,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.iesmurgi.reta2.Chat.Chat;
 import org.iesmurgi.reta2.Chat.ChatActivity;
 import org.iesmurgi.reta2.Data.BasedeDatosApp;
 import org.iesmurgi.reta2.Data.entidades.Retos;
 import org.iesmurgi.reta2.R;
+import org.iesmurgi.reta2.UI.admin.Objetos.Partida;
 import org.iesmurgi.reta2.UI.admin.PruebaLoc;
 import org.iesmurgi.reta2.UI.geofences.GeofenceTransiciones;
 import org.iesmurgi.reta2.UI.usuario.FinPartidaActivity;
@@ -259,6 +261,9 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
             locationModel.setPartida(nombrepartida);
         }
 
+        myRef = database.getReference("chat").child(nombrepartida).child(usuario);
+
+        myRef.push().setValue(new Chat(""));
 
         myRef = database.getReference("Localizaciones").child(nombrepartida).child(usuario);
 
