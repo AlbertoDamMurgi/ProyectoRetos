@@ -491,6 +491,15 @@ void cambiarpregunta(){
 
     }
 
+   String comprobarString(String frase){
+
+        while(frase.substring(frase.indexOf("."),frase.length()).length()<9){
+            frase+="0";
+        }
+
+        return frase;
+   }
+
     //este metodo se lanza cuando el metodo RunApiplaces termina
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_PICKER_REQUEST && resultCode == RESULT_OK) {
@@ -506,11 +515,13 @@ void cambiarpregunta(){
             latLng = place.getLatLng();
             latitud = latLng.latitude;
             String lat = String.valueOf(latitud);
-            lat = lat.substring(0,lat.indexOf(".")+8);
+            lat = lat.substring(0,lat.indexOf(".")+9);
+            lat = comprobarString(lat);
             latitud = Double.parseDouble(lat);
             longitud = latLng.longitude;
             String lon = String.valueOf(longitud);
-            lon = lon.substring(0,lat.indexOf(".")+8);
+            lon = lon.substring(0,lon.indexOf(".")+9);
+            lon = comprobarString(lon);
             longitud = Double.parseDouble(lon);
 
             Log.v("lat2", String.valueOf(latitud));
