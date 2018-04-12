@@ -45,6 +45,7 @@ public class QRGeneratorActivity extends AppCompatActivity {
 
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {
+
             BitMatrix bitMatrix = multiFormatWriter.encode(cadenaParaQR, BarcodeFormat.QR_CODE, 500, 500);
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);

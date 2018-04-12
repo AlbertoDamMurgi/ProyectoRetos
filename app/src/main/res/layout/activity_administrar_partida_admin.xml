@@ -27,9 +27,11 @@
         android:layout_width="276dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="Ver jugadores"
         app:layout_constraintBottom_toTopOf="@+id/btn_admin_PuntuarFotos"
+        app:layout_constraintEnd_toStartOf="@+id/guideline9"
         app:layout_constraintStart_toStartOf="@+id/guideline10" />
 
     <Button

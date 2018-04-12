@@ -27,12 +27,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
 
 
-    private ArrayList<String> salas;
+    private ArrayList<String> salas,nombreretos;
     private ArrayList<NombreAndID> nombreAndIDS;
-    private String[] nombreretos;
+
     private Context context;
     private int tipo,size;
     private String sala ="",partida,usuario;
+    private int idpartida;
 
 
     public ChatAdapter(ArrayList<String> salas, Context context,int tipo) {
@@ -42,11 +43,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         size = salas.size();
     }
 
-    public ChatAdapter(ArrayList<String> salas, Context context,int tipo,String sala) {
+    public ChatAdapter(ArrayList<String> salas, Context context,int tipo,String sala,int idpartida) {
         this.salas = salas;
         this.context=context;
         this.tipo = tipo;
         this.sala =sala;
+        this.idpartida=idpartida;
         size= salas.size();
     }
 
@@ -57,13 +59,22 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         size = nombresAndIDs.size();
     }
 
-    public ChatAdapter(Context context, int tipo,String[] nombreretos,String partida,String usuario) {
+    public ChatAdapter(Context context, int tipo,ArrayList<String> nombreretos,String partida,String usuario,int idpartida) {
         this.nombreretos = nombreretos;
         this.context = context;
         this.tipo = tipo;
         this.partida = partida;
         this.usuario=usuario;
-        size = nombreretos.length;
+        this.idpartida=idpartida;
+        size = nombreretos.size();
+    }
+
+    public ChatAdapter(ArrayList<String> nombres, Context applicationContext, int tipo, String partida) {
+        this.salas=nombres;
+        this.context = applicationContext;
+        this.tipo = tipo;
+        this.partida=partida;
+        size= nombres.size();
     }
 
     @Override
@@ -111,13 +122,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             case 6:
                 holder.nombreChat.setText(salas.get(position));
                 holder.nombreChat.setOnClickListener(v -> {
-                context.startActivity(new Intent(context, PuntuarFotoGridAdminActivity.class).putExtra("USUARIO",salas.get(position)).putExtra("PARTIDA",sala));
+                context.startActivity(new Intent(context, PuntuarFotoGridAdminActivity.class).putExtra("USUARIO",salas.get(position)).putExtra("PARTIDA",sala).putExtra("IDPARTIDA",idpartida));
                 });
                 break;
             case 7:
-                holder.nombreChat.setText(nombreretos[position]);
+                holder.nombreChat.setText(nombreretos.get(position));
                 holder.nombreChat.setOnClickListener(v -> {
-                    context.startActivity(new Intent(context, AdminPuntuarFotoTransicion.class).putExtra("NOMBRERETO",nombreretos[position]).putExtra("USUARIO",usuario).putExtra("PARTIDA",partida));
+                    context.startActivity(new Intent(context, AdminPuntuarFotoTransicion.class).putExtra("NOMBRERETO",nombreretos.get(position)).putExtra("USUARIO",usuario).putExtra("PARTIDA",partida).putExtra("IDPARTIDA",idpartida));
                 });
                 break;
         }

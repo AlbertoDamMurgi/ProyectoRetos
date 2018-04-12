@@ -43,6 +43,7 @@ public class PuntuarFotosAdmin extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
         String partida = getIntent().getExtras().getString("PARTIDA");
+        int idpartida = getIntent().getExtras().getInt("IDPARTIDA");
 
 
         myRef.child("Imagenes").child(partida).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -56,7 +57,7 @@ public class PuntuarFotosAdmin extends AppCompatActivity {
 
                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-                recyclerView.setAdapter(new ChatAdapter(nombres,getApplicationContext(),6,partida));
+                recyclerView.setAdapter(new ChatAdapter(nombres,getApplicationContext(),6,partida,idpartida));
 
 
             }
