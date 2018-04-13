@@ -487,19 +487,19 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
 
-        mapa.addMarker(new MarkerOptions()
-                .position(Murgi)
-                .title("IES Murgi")
-                .snippet("Instituto de Educación Secundaria Murgi")
-                .icon(BitmapDescriptorFactory
-                        .fromResource(R.drawable.hojapequenia))
+       // mapa.addMarker(new MarkerOptions()
+          //      .position(Murgi)
+            //    .title("IES Murgi")
+            //    .snippet("Instituto de Educación Secundaria Murgi")
+           //     .icon(BitmapDescriptorFactory
+           //             .fromResource(R.drawable.hojapequenia))
 
-                .anchor(0.5f, 0.5f));
+        //        .anchor(0.5f, 0.5f));
 
 
-        float zoom = 14f;
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(Murgi, zoom);
-        mapa.animateCamera(cameraUpdate);
+      //  float zoom = 14f;
+      //  CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(Murgi, zoom);
+       // mapa.animateCamera(cameraUpdate);
 
 
             mapa.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
