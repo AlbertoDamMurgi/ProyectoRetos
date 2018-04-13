@@ -49,8 +49,8 @@ import org.iesmurgi.reta2.R;
 
 public class CrearRetoActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
-    private double latitud;
-    private double longitud;
+    private String latitud;
+    private String longitud;
     private int idPartida;
     private int idReto;
     private String nombrePartida;
@@ -190,7 +190,7 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
                         !txt_duracion.getText().toString().isEmpty() &&
                         !txt_pregunta.getText().toString().isEmpty() &&
                         !txt_nombre.getText().toString().isEmpty() &&
-                        latitud!=0 && longitud!=0
+                        latitud!="0" && longitud!="0"
                 ) {
                     if (tipoReto==1){
                         if (
@@ -225,8 +225,8 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
         txt_rfalse1.setText("");
         txt_rfalse2.setText("");
         txt_rtrue.setText("");
-        latitud=0;
-        longitud=0;
+        latitud="0";
+        longitud="0";
     }
     void insertarRespuestas() {
         final String URL = "http://geogame.ml/api/insertar_respuestas.php";
@@ -512,20 +512,17 @@ void cambiarpregunta(){
             }
             Log.v("lat1", String.valueOf(latitud));
             Log.v("long1", String.valueOf(longitud));
-            latLng = place.getLatLng();
-            latitud = latLng.latitude;
-            String lat = String.valueOf(latitud)+"000000000000000000000000";
-            lat = lat.substring(0,lat.indexOf(".")+9);
-           // lat = comprobarString(lat);
-            latitud = Double.parseDouble(lat);
-            longitud = latLng.longitude;
-            String lon = String.valueOf(longitud)+"000000000000000000000000";
-            lon = lon.substring(0,lon.indexOf(".")+9);
-         //   lon = comprobarString(lon);
-            longitud = Double.parseDouble(lon);
 
-            Log.v("lat2", String.valueOf(latitud));
-            Log.v("long2", String.valueOf(longitud));
+            latLng = place.getLatLng();
+
+            String lat = String.valueOf(latLng.latitude)+"000000000000000000000000";
+            latitud = lat.substring(0,lat.indexOf(".")+9);
+
+            String lon = String.valueOf(latLng.longitude)+"000000000000000000000000";
+            longitud =  lon.substring(0,lon.indexOf(".")+9);
+
+            Log.v("santi lat2", String.valueOf(latitud));
+            Log.v("santi long2", String.valueOf(longitud));
 
             Toast.makeText(getApplicationContext(), "Ubicacion del reto seleccionada!!", Toast.LENGTH_LONG).show();
         }
