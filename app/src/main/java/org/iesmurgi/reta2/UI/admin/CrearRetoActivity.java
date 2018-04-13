@@ -49,8 +49,8 @@ import org.iesmurgi.reta2.R;
 
 public class CrearRetoActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
-    private String latitud;
-    private String longitud;
+    private String latitud="";
+    private String longitud="";
     private int idPartida;
     private int idReto;
     private String nombrePartida;
@@ -190,7 +190,7 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
                         !txt_duracion.getText().toString().isEmpty() &&
                         !txt_pregunta.getText().toString().isEmpty() &&
                         !txt_nombre.getText().toString().isEmpty() &&
-                        latitud!="0" && longitud!="0"
+                        !latitud.isEmpty() && !longitud.isEmpty()
                 ) {
                     if (tipoReto==1){
                         if (
@@ -225,8 +225,8 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
         txt_rfalse1.setText("");
         txt_rfalse2.setText("");
         txt_rtrue.setText("");
-        latitud="0";
-        longitud="0";
+        latitud="";
+        longitud="";
     }
     void insertarRespuestas() {
         final String URL = "http://geogame.ml/api/insertar_respuestas.php";
