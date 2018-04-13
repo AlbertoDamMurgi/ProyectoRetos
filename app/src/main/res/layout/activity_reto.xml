@@ -21,9 +21,9 @@
         <RadioButton
             android:id="@+id/rb_reto_opcion1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_margin="8dp"
+
             android:layout_weight="1"
             android:text="Respuesta1"
             android:textColor="#FFF" />
@@ -31,9 +31,9 @@
         <RadioButton
             android:id="@+id/rb_reto_opcion2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_margin="8dp"
+
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:text="Respuesta2"
@@ -42,8 +42,8 @@
         <RadioButton
             android:id="@+id/rb_reto_opcion3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_height="match_parent"
+
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:text="Respuesta3"
@@ -95,7 +95,7 @@
     <TextView
         android:id="@+id/txt_reto_descripcion"
         android:layout_width="0dp"
-        android:layout_height="36dp"
+        android:layout_height="123dp"
         android:layout_marginTop="8dp"
         android:text="Descripcion del reto"
         android:textColor="#FFF"
@@ -169,7 +169,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.3" />
+        app:layout_constraintGuide_percent="0.25" />
 
     <EditText
         android:id="@+id/et_reto_respuestaUnica"
