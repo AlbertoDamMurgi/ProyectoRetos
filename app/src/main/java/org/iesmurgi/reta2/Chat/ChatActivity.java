@@ -65,9 +65,9 @@ public class ChatActivity extends AppCompatActivity {
 
 
 
-        if(historial.getText().toString().isEmpty()){
+        if(historial.getText().toString().trim().isEmpty()){
 
-            historial.setText(mChatModel.getTexto().getValue());
+            historial.setText(mChatModel.getTexto().getValue().trim());
 
         }
 
@@ -142,7 +142,7 @@ public class ChatActivity extends AppCompatActivity {
         if (msg.getMensaje() != null) {
             historial.append("\n");
             historial.append(msg.getMensaje());
-            mChatModel.getTexto().postValue(historial.getText().toString());
+            mChatModel.getTexto().postValue(historial.getText().toString().trim());
             scrollchat.fullScroll(ScrollView.FOCUS_DOWN);
         }
     }
@@ -151,7 +151,7 @@ public class ChatActivity extends AppCompatActivity {
     @OnClick(R.id.enviar)
     public void enviarMensaje() {
         // primero sacar lo que el usuario a escrito en el edittext
-        String cadena = entrada.getText().toString();
+        String cadena = entrada.getText().toString().trim();
         // vaciamos el edittext
         limpiarEntrada();
         // instanciamos el objeto que hemos creado con el POI Mensaje

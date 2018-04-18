@@ -83,8 +83,8 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
         idUsuario = getIntent().getIntExtra("idUsuario", 0);
         Log.e("idUsuario", "" + idUsuario);
-        String email = mLoginModel.getConection().getValue().getInstance().getCurrentUser().getEmail();
-        progressDialog = new ProgressDialog(this);
+        String email = mLoginModel.getConection().getValue().getInstance().getCurrentUser().getEmail().trim();
+        progressDialog = new ProgressDialog(MainActivity.this);
         db = BasedeDatosApp.getAppDatabase(this);
 
 
@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         @Override
         protected Integer doInBackground(Respuestas... r) {
 
-            final String URL3 = "http://geogame.ml/api/obtener_respuestas.php?nombre=" + txt_nombrepartida.getText().toString();
+            final String URL3 = "http://geogame.ml/api/obtener_respuestas.php?nombre=" + txt_nombrepartida.getText().toString().trim();
 
 
             JsonArrayRequest request3 = new JsonArrayRequest(Request.Method.POST, URL3, null, new Response.Listener<JSONArray>() {
@@ -292,7 +292,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
     class cargarReto extends AsyncTask<Void, Void, Integer> {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
-        final String URL2 = "http://geogame.ml/api/Lista_Retos_Clave.php?nombre=" + txt_nombrepartida.getText().toString();
+        final String URL2 = "http://geogame.ml/api/Lista_Retos_Clave.php?nombre=" + txt_nombrepartida.getText().toString().trim();
 
 
         @Override
@@ -354,7 +354,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 ////////////////////////////////////////////// Partida
 
 
-            final String URL = "http://geogame.ml/api/obtener_partida.php?nombre=" + txt_nombrepartida.getText().toString() + "&passwd=" + txt_contraPartida.getText().toString();
+            final String URL = "http://geogame.ml/api/obtener_partida.php?nombre=" + txt_nombrepartida.getText().toString().trim() + "&passwd=" + txt_contraPartida.getText().toString().trim();
 
 
             JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {

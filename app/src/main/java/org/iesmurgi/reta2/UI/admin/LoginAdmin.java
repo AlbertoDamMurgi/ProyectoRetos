@@ -95,8 +95,8 @@ public class LoginAdmin extends AppCompatActivity implements LifecycleObserver {
 
     @OnClick(R.id.btn_conectarse_admin)
     void conectarUsuario() {
-        if (!email.getText().toString().isEmpty() && !pass.getText().toString().isEmpty()) {
-            mAuth.signInWithEmailAndPassword(email.getText().toString(), pass.getText().toString())
+        if (!email.getText().toString().trim().isEmpty() && !pass.getText().toString().trim().isEmpty()) {
+            mAuth.signInWithEmailAndPassword(email.getText().toString().trim(), pass.getText().toString().trim())
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -127,7 +127,7 @@ public class LoginAdmin extends AppCompatActivity implements LifecycleObserver {
 
 
         //Sacamos la id de usaario
-        final String URL = "http://geogame.ml/api/obtener_admin.php?correo="+email.getText().toString()+"&passwd="+email.getText().toString();
+        final String URL = "http://geogame.ml/api/obtener_admin.php?correo="+email.getText().toString().trim()+"&passwd="+email.getText().toString().trim();
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {
             @Override

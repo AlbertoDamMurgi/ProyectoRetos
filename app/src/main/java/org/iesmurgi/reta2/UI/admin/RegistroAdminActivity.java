@@ -61,7 +61,7 @@ public class RegistroAdminActivity extends AppCompatActivity {
     void registrarAdmin() {
 
 
-        mAuth.createUserWithEmailAndPassword(correoadmin.getText().toString(), passadmin.getText().toString())
+        mAuth.createUserWithEmailAndPassword(correoadmin.getText().toString().trim(), passadmin.getText().toString().trim())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -112,8 +112,8 @@ public class RegistroAdminActivity extends AppCompatActivity {
                                                     @Override
                                                     protected Map<String, String> getParams() throws AuthFailureError {
                                                         Map<String, String> params = new HashMap<>();
-                                                        params.put("username", correoadmin.getText().toString());
-                                                        params.put("passwd", "" + passadmin.getText().toString());
+                                                        params.put("username", correoadmin.getText().toString().trim());
+                                                        params.put("passwd", "" + passadmin.getText().toString().trim());
 
                                                         return params;
                                                     }

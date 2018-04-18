@@ -61,7 +61,7 @@ public class AdminPuntuarFotoTransicion extends AppCompatActivity {
         storageReference = FirebaseStorage.getInstance().getReference();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
-        progressDialog = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(AdminPuntuarFotoTransicion.this);
 
 
         myRef.child("Imagenes").child(partida).child(usuario).child(nombrereto).addListenerForSingleValueEvent(new ValueEventListener() {

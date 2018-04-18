@@ -80,7 +80,7 @@ public class RetoFotoActivity extends AppCompatActivity {
         nombrepartida = getIntent().getExtras().getString("PARTIDA");
         idreto = getIntent().getExtras().getString("RETO");
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
-        progressDialog = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(RetoFotoActivity.this);
         mAuth = FirebaseAuth.getInstance();
 
         mStorage = FirebaseStorage.getInstance().getReference();

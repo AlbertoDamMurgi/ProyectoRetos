@@ -40,7 +40,7 @@ public class RankingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking);
         ButterKnife.bind(this);
-        progressDialog = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(RankingActivity.this);
         idPartida=getIntent().getIntExtra("idPartida",0);
 
         cargarDatos();

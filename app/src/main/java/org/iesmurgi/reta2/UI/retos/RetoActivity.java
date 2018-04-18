@@ -306,15 +306,15 @@ int idUsuario;
             public void onCheckedChanged(RadioGroup radioGroup, int idBoton) {
                 if (idBoton == R.id.rb_reto_opcion1) {
 
-                    resElegida = rbRetoOpcion1.getText().toString();
+                    resElegida = rbRetoOpcion1.getText().toString().trim();
 
                 } else if (idBoton == R.id.rb_reto_opcion2) {
 
-                    resElegida = rbRetoOpcion2.getText().toString();
+                    resElegida = rbRetoOpcion2.getText().toString().trim();
 
                 } else if (idBoton == R.id.rb_reto_opcion3) {
 
-                    resElegida = rbRetoOpcion3.getText().toString();
+                    resElegida = rbRetoOpcion3.getText().toString().trim();
                 }
             }
         });
@@ -346,8 +346,8 @@ int idUsuario;
 
                     case 2:     //tipo respuesta unica
 
-                        if (!etRetoRespuestaUnica.getText().toString().isEmpty()){
-                            if (etRetoRespuestaUnica.getText().toString().equalsIgnoreCase(respuestas.get(0).getDescripcion())){
+                        if (!etRetoRespuestaUnica.getText().toString().trim().isEmpty()){
+                            if (etRetoRespuestaUnica.getText().toString().trim().equalsIgnoreCase(respuestas.get(0).getDescripcion().trim())){
 
                                 insertarPuntos(miReto.getPuntuacion(),"Acertaste!! puntuas:"+ miReto.getPuntuacion());
                             }else{
