@@ -148,7 +148,7 @@ int idUsuario;
         setContentView(R.layout.activity_reto);
         ButterKnife.bind(this);
 
-        progressDialog = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(RetoActivity.this);
 
         db = BasedeDatosApp.getAppDatabase(this);
 
