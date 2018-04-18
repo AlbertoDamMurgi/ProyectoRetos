@@ -46,7 +46,7 @@ public class CrearPartida extends AppCompatActivity {
         setContentView(R.layout.activity_crear_partida);
         ButterKnife.bind(this);
 
-        progressDialog = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(CrearPartida.this);
 
     }
 
@@ -55,12 +55,12 @@ public class CrearPartida extends AppCompatActivity {
     void BottonInsertarPartida() {
         int nR;
         if (
-                !txt_nombre.getText().toString().isEmpty() &&
-                        !txt_nombre.getText().toString().isEmpty() &&
-                        !txt_nombre.getText().toString().isEmpty() &&
-                        !txt_numeroretos.getText().toString().isEmpty()
+                !txt_nombre.getText().toString().trim().isEmpty() &&
+                        !txt_nombre.getText().toString().trim().isEmpty() &&
+                        !txt_nombre.getText().toString().trim().isEmpty() &&
+                        !txt_numeroretos.getText().toString().trim().isEmpty()
                 ) {
-            nR =Integer.parseInt( txt_numeroretos.getText().toString());
+            nR =Integer.parseInt( txt_numeroretos.getText().toString().trim());
             if (nR<=10 && nR>=1){
 
                 progressDialog.setMessage("Creando partida...");
@@ -73,9 +73,9 @@ public class CrearPartida extends AppCompatActivity {
                     if (response.contains("success")) {
                         Toast.makeText(getApplicationContext(), "Partida creada!", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(getApplicationContext(), CrearRetoActivity.class);
-                        i.putExtra("partidaNombre", txt_nombre.getText().toString());
-                        i.putExtra("partidaContra", txt_contra.getText().toString());
-                        i.putExtra("partidaNumerosRetos", txt_numeroretos.getText().toString());
+                        i.putExtra("partidaNombre", txt_nombre.getText().toString().trim());
+                        i.putExtra("partidaContra", txt_contra.getText().toString().trim());
+                        i.putExtra("partidaNumerosRetos", txt_numeroretos.getText().toString().trim());
 
                         startActivity(i);
                         finish();
@@ -94,9 +94,9 @@ public class CrearPartida extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> params = new HashMap<>();
-                    params.put("nombre", txt_nombre.getText().toString());
-                    params.put("passwd", txt_contra.getText().toString());
-                    params.put("maxDuracion", txt_duracion.getText().toString());
+                    params.put("nombre", txt_nombre.getText().toString().trim());
+                    params.put("passwd", txt_contra.getText().toString().trim());
+                    params.put("maxDuracion", txt_duracion.getText().toString().trim());
                     return params;
                 }
             };

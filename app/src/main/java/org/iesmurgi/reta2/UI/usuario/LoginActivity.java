@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
         String passGuardado = prefs.getString("pass", "");
         email.setText(userGuardado);
         pass.setText(passGuardado);
-        if (!email.getText().toString().isEmpty() && !pass.getText().toString().isEmpty())
+        if (!email.getText().toString().isEmpty() && !pass.getText().toString().trim().isEmpty())
         {
             conectarUsuario();
         }
@@ -113,7 +113,7 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
 
 
 
-        mAuth.createUserWithEmailAndPassword(email.getText().toString(), pass.getText().toString())
+        mAuth.createUserWithEmailAndPassword(email.getText().toString(), pass.getText().toString().trim())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -153,8 +153,8 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
     void conectarUsuario(){
 
 
-        if (!email.getText().toString().isEmpty() && !pass.getText().toString().isEmpty()) {
-            mAuth.signInWithEmailAndPassword(email.getText().toString(), pass.getText().toString())
+        if (!email.getText().toString().trim().isEmpty() && !pass.getText().toString().trim().isEmpty()) {
+            mAuth.signInWithEmailAndPassword(email.getText().toString().trim(), pass.getText().toString().trim())
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -196,7 +196,7 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
     void obtenerid(){
 
         //Sacamos la id de usaario
-        final String URL = "http://geogame.ml/api/obtener_usuario.php?correo="+email.getText().toString()+"&passwd="+pass.getText().toString();
+        final String URL = "http://geogame.ml/api/obtener_usuario.php?correo="+email.getText().toString().trim()+"&passwd="+pass.getText().toString().trim();
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {
             @Override
@@ -238,8 +238,8 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
     }
 void guardarylanzar(){
     SharedPreferences.Editor editor = prefs.edit();
-    editor.putString("usuario", email.getText().toString());
-    editor.putString("pass", pass.getText().toString());
+    editor.putString("usuario", email.getText().toString().trim());
+    editor.putString("pass", pass.getText().toString().trim());
     editor.apply();
     startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("idUsuario",idUsuario));
     finish();

@@ -65,7 +65,7 @@ public class RegistroActivity extends AppCompatActivity {
     void registrarEquipo() {
 
 
-        mAuth.createUserWithEmailAndPassword(correoequipo.getText().toString(), passequipo.getText().toString())
+        mAuth.createUserWithEmailAndPassword(correoequipo.getText().toString().trim(), passequipo.getText().toString().trim())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -77,7 +77,7 @@ public class RegistroActivity extends AppCompatActivity {
                             mLoginModel.getUsuario().setValue(mAuth.getInstance().getCurrentUser());
 
 
-                            String name = nombreequipo.getText().toString();
+                            String name = nombreequipo.getText().toString().trim();
                             UserProfileChangeRequest update = new UserProfileChangeRequest.Builder()
                                     .setDisplayName(name)
                                     .build();
@@ -116,10 +116,10 @@ public class RegistroActivity extends AppCompatActivity {
                                                     @Override
                                                     protected Map<String, String> getParams() throws AuthFailureError {
                                                         Map<String, String> params = new HashMap<>();
-                                                        params.put("username", nombreequipo.getText().toString());
-                                                        params.put("correo", correoequipo.getText().toString());
-                                                        params.put("passwd", "" + passequipo.getText().toString());
-                                                        params.put("participantes", ""+participantesEquipo.getText().toString());
+                                                        params.put("username", nombreequipo.getText().toString().trim());
+                                                        params.put("correo", correoequipo.getText().toString().trim());
+                                                        params.put("passwd", "" + passequipo.getText().toString().trim());
+                                                        params.put("participantes", ""+participantesEquipo.getText().toString().trim());
                                                         return params;
                                                     }
                                                 };

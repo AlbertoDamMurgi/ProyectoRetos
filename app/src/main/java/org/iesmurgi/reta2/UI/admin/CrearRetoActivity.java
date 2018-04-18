@@ -99,7 +99,7 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_reto);
         ButterKnife.bind(this);
-        progressDialog = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(CrearRetoActivity.this);
 
         mClient = new GoogleApiClient.Builder(this)
 
@@ -186,22 +186,22 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
         //Campos obligatorios siempre
 
         if (
-                        !txt_puntos.getText().toString().isEmpty() &&
-                        !txt_duracion.getText().toString().isEmpty() &&
-                        !txt_pregunta.getText().toString().isEmpty() &&
-                        !txt_nombre.getText().toString().isEmpty() &&
+                        !txt_puntos.getText().toString().trim().isEmpty() &&
+                        !txt_duracion.getText().toString().trim().isEmpty() &&
+                        !txt_pregunta.getText().toString().trim().isEmpty() &&
+                        !txt_nombre.getText().toString().trim().isEmpty() &&
                         !latitud.isEmpty() && !longitud.isEmpty()
                 ) {
                     if (tipoReto==1){
                         if (
-                              !txt_rfalse1.getText().toString().isEmpty() &&
-                               !txt_rfalse2.getText().toString().isEmpty() &&
-                               !txt_rtrue.getText().toString().isEmpty() ){
+                              !txt_rfalse1.getText().toString().trim().isEmpty() &&
+                               !txt_rfalse2.getText().toString().trim().isEmpty() &&
+                               !txt_rtrue.getText().toString().trim().isEmpty() ){
                             ok = true;
                         }
                     }else if (tipoReto==2){
                         if (
-                                !txt_rtrue.getText().toString().isEmpty()){
+                                !txt_rtrue.getText().toString().trim().isEmpty()){
 
                             ok = true;
                         }
@@ -260,13 +260,13 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
                 Map<String, String> params = new HashMap<>();
                 params.put("idReto", "" + idReto);
 
-                params.put("descripcion1", txt_rtrue.getText().toString());
+                params.put("descripcion1", txt_rtrue.getText().toString().trim());
                 params.put("verdadero1", "1");
 
-                params.put("descripcion2", txt_rfalse1.getText().toString());
+                params.put("descripcion2", txt_rfalse1.getText().toString().trim());
                 params.put("verdadero2", "0");
 
-                params.put("descripcion3", txt_rfalse2.getText().toString());
+                params.put("descripcion3", txt_rfalse2.getText().toString().trim());
                 params.put("verdadero3", "0");
 
                 return params;
@@ -323,7 +323,7 @@ void cambiarpregunta(){
                 Map<String, String> params = new HashMap<>();
                 params.put("idReto", "" + idReto);
 
-                params.put("descripcion1", txt_rtrue.getText().toString());
+                params.put("descripcion1", txt_rtrue.getText().toString().trim());
                 params.put("verdadero1", "1");
 
                 return params;
@@ -341,8 +341,8 @@ void cambiarpregunta(){
 
 ////////////////////////////////////////////// CargarIDReto
 
-      //  final String URL = "http://geogame.ml/api/obtener_reto_con_datos_de_reto.php?nombre=" + txt_nombre.getText().toString() + "&descripcion=" + txt_pregunta.getText().toString() + "&maxDuracion=" + txt_duracion.getText().toString() + "&tipo="+tipoReto+"&puntuacion=" + txt_puntos.getText().toString() + "&localizacionLatitud=" + latitud + "&localizacionLongitud=" + longitud + "&idPartida=" + idPartida;
-        final String URL = "http://geogame.ml/api/obtener_reto_con_datos_de_reto.php?nombre=" + txt_nombre.getText().toString() + "&maxDuracion=" + txt_duracion.getText().toString() + "&tipo="+tipoReto+"&puntuacion=" + txt_puntos.getText().toString() + "&localizacionLatitud=" + latitud + "&localizacionLongitud=" + longitud + "&idPartida=" + idPartida;
+      //  final String URL = "http://geogame.ml/api/obtener_reto_con_datos_de_reto.php?nombre=" + txt_nombre.getText().toString().trim() + "&descripcion=" + txt_pregunta.getText().toString() + "&maxDuracion=" + txt_duracion.getText().toString() + "&tipo="+tipoReto+"&puntuacion=" + txt_puntos.getText().toString() + "&localizacionLatitud=" + latitud + "&localizacionLongitud=" + longitud + "&idPartida=" + idPartida;
+        final String URL = "http://geogame.ml/api/obtener_reto_con_datos_de_reto.php?nombre=" + txt_nombre.getText().toString().trim() + "&maxDuracion=" + txt_duracion.getText().toString().trim() + "&tipo="+tipoReto+"&puntuacion=" + txt_puntos.getText().toString().trim() + "&localizacionLatitud=" + latitud + "&localizacionLongitud=" + longitud + "&idPartida=" + idPartida;
 
         Log.d("URL SANTI",URL);
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {
@@ -458,12 +458,12 @@ void cambiarpregunta(){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("nombre", txt_nombre.getText().toString());
-                params.put("descripcion", txt_pregunta.getText().toString());
-                params.put("video", txt_video.getText().toString());
-                params.put("maxDuracion", txt_duracion.getText().toString());
+                params.put("nombre", txt_nombre.getText().toString().trim());
+                params.put("descripcion", txt_pregunta.getText().toString().trim());
+                params.put("video", txt_video.getText().toString().trim());
+                params.put("maxDuracion", txt_duracion.getText().toString().trim());
                 params.put("tipo", "" + tipoReto);
-                params.put("puntuacion", txt_puntos.getText().toString());
+                params.put("puntuacion", txt_puntos.getText().toString().trim());
                 params.put("localizacionLatitud", latitud);
                 params.put("localizacionLongitud", longitud);
                 params.put("idPartida", "" + idPartida);
