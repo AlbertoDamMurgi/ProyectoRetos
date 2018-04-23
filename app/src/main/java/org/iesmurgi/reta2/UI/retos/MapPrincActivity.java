@@ -555,9 +555,16 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
             if (resultCode == RESULT_OK) {
                 locationModel.setNumReto(locationModel.getNumReto()+1);
                 if (locationModel.getNumReto() < retos.size()) {
+                    try {
 
-                    mapa.clear();
-                    onMapReady(mapa);
+                        mapa.clear();
+                        onMapReady(mapa);
+
+                    }catch (NullPointerException ex){
+
+                    }
+
+
 
                 }else{
 

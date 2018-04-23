@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -73,8 +74,15 @@ public class AdminPuntuarFotoTransicion extends AppCompatActivity {
                     urisString.add(aux.getMensaje().substring(aux.getMensaje().lastIndexOf("/") + 1, aux.getMensaje().length()));
 
                 }
-                StorageReference reference = storageReference.child("Imagenes").child(partida).child(usuario).child(nombrereto).child(urisString.get(0));
-                Glide.with(getApplicationContext()).using(new FirebaseImageLoader()).load(reference).into(imagen);
+                try {
+                    StorageReference reference = storageReference.child("Imagenes").child(partida).child(usuario).child(nombrereto).child(urisString.get(0));
+                    Glide.with(getApplicationContext()).using(new FirebaseImageLoader()).load(reference).into(imagen);
+                }catch (IndexOutOfBoundsException ex){
+
+                    Log.e("Error array uriString",""+ex.getMessage());
+
+                }
+
 
             }
 
