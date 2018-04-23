@@ -35,7 +35,7 @@ public class AdministrarPartidaAdminActivity extends AppCompatActivity {
     }
 
 
-    @OnClick(R.id.btn_admin_chat)
+    @OnClick(R.id.fab_chat_admin)
         void abrirChat(){
             startActivity(new Intent(getApplicationContext(),ChatAdminActivity.class).putExtra("SALA",sala));
         }
