@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
         idUsuario = getIntent().getIntExtra("idUsuario", 0);
         Log.e("idUsuario", "" + idUsuario);
-        String email = mLoginModel.getConection().getValue().getInstance().getCurrentUser().getEmail().trim();
+        String email = mLoginModel.getConection().getValue().getInstance().getCurrentUser().getEmail();
         progressDialog = new ProgressDialog(MainActivity.this);
         db = BasedeDatosApp.getAppDatabase(this);
 
