@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
+    android:background="@color/colorPrimaryFondo"
     tools:context="org.iesmurgi.reta2.UI.admin.AdministrarPartidaAdminActivity"
     tools:layout_editor_absoluteY="25dp">
 
     <Button
         android:id="@+id/btn_admin_PuntuarFotos"
-        style="@style/boton"
+        style="@style/miboton"
         android:layout_width="276dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -23,7 +23,7 @@
 
     <Button
         android:id="@+id/btn_admin_verjugadores3"
-        style="@style/boton"
+        style="@style/miboton"
         android:layout_width="276dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -36,7 +36,7 @@
 
     <Button
         android:id="@+id/btn_admin_ranking"
-        style="@style/boton"
+        style="@style/miboton"
         android:layout_width="276dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -63,7 +63,7 @@
 
     <Button
         android:id="@+id/btn_admin_mapa"
-        style="@style/boton"
+        style="@style/miboton"
         android:layout_width="276dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -76,7 +76,7 @@
 
     <Button
         android:id="@+id/btn_admin_chat"
-        style="@style/boton"
+        style="@style/miboton"
         android:layout_width="276dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -103,7 +103,7 @@
 
     <Button
         android:id="@+id/btn_admin_codigoQR"
-        style="@style/boton"
+        style="@style/miboton"
         android:layout_width="276dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
