@@ -12,7 +12,8 @@ android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_height"
         android:fitsSystemWindows="true"
-        android:background="@drawable/gradient"
+        android:background="@color/colorPrimaryFondo"
+
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -20,6 +21,7 @@ android:fitsSystemWindows="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
+
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
@@ -28,7 +30,7 @@ android:fitsSystemWindows="true"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
-                android:src="@drawable/logohoja"/>
+                android:src="@drawable/logohoja" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -48,7 +50,7 @@ android:fitsSystemWindows="true"
         android:id="@+id/recicler_chat_admin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/gradient"
+        android:background="@color/colorPrimaryFondo"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
 
         />

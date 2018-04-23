@@ -111,6 +111,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                 break;
             case 3:
                 holder.nombreChat.setText(salas.get(position));
+
                 holder.nombreChat.setOnClickListener(v -> {
                     context.startActivity(new Intent(context, ChatActivity.class).putExtra("USUARIO", salas.get(position)).putExtra("SALA",partida).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 });
