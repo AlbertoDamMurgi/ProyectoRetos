@@ -12,4 +12,25 @@
     <string name="title_activity_admin_mapa">Map</string>
     <string name="title_chat_admin">Admin Chat</string>
     <string name="game_list">Games list</string>
+
+    <!--login usuarios -->
+    <string name="signup_team">Sign up Team</string>
+    <string name="login_team">Log in</string>
+    <string name="user_login">User Log in</string>
+    <string name="user_pass">Password</string>
+    <string name="user_mail">E-mail</string>
+
+    <!--registro equipos -->
+    <string name="tv_signup_team">Sign up Team</string>
+    <string name="team_name">Team name</string>
+    <string name="team_members">Team members</string>
+    <string name="sign_up">Sign up</string>
+
+    <!--iniciar partida-->
+    <string name="start_game">Start the game</string>
+    <string name="game_name">Game name</string>
+    <string name="game_pass">Game password</string>
+    <string name="bt_start">Start</string>
+    <string name="log_out">Log out</string>
+
 </resources>

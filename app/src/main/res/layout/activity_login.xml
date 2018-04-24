@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.iesmurgi.reta2.UI.usuario.LoginActivity"
-    android:background="@color/colorPrimaryFondo"
     tools:layout_editor_absoluteY="81dp">
 
     <EditText
@@ -13,12 +12,12 @@
         style="@style/usuario"
         android:layout_width="0dp"
         android:layout_height="42dp"
-        android:textColor="#000"
+        android:textColor="#FFF"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:ems="10"
-        android:hint="E-mail"
+        android:hint="@string/user_mail"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/et_pass"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
@@ -30,13 +29,13 @@
         android:id="@+id/et_pass"
         style="@style/pass"
         android:layout_width="0dp"
-        android:textColor="#000"
+        android:textColor="#FFF"
         android:layout_height="42dp"
         android:layout_marginBottom="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:ems="10"
-        android:hint="pass"
+        android:hint="@string/user_pass"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/btn_conectarse"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
@@ -46,13 +45,13 @@
 
     <Button
         android:id="@+id/btn_conectarse"
-        style="@style/boton"
+        style="@style/mibotonPrinc"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="Conectarse"
+        android:text="@string/login_team"
         app:layout_constraintBottom_toTopOf="@+id/bt_register"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.0"
@@ -75,14 +74,14 @@
 
     <Button
         android:id="@+id/bt_register"
-        style="@style/boton"
+        style="@style/mibotonSecund"
         android:layout_width="0dp"
         android:layout_height="45dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="Registrar Equipo"
-        app:layout_constraintBottom_toTopOf="@+id/btn_login_acercaDe"
+        android:text="@string/signup_team"
+        app:layout_constraintBottom_toTopOf="@+id/fab_acercade"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
@@ -102,13 +101,13 @@
 
     <TextView
         android:id="@+id/txtLogeate"
+        style="@style/textNegro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="Login Usuario"
-        android:textColor="#000"
+        android:text="@string/user_login"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/et_email"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
@@ -116,18 +115,17 @@
         app:layout_constraintStart_toStartOf="@+id/guideline" />
 
 
-    <Button
-        android:id="@+id/btn_login_acercaDe"
-        style="@style/boton"
-        android:layout_width="167dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="28dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="A cerca de..."
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_acercade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        app:borderWidth="0dp"
+        app:elevation="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toStartOf="@+id/guideline" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/info_icon" />
 
 </android.support.constraint.ConstraintLayout>
