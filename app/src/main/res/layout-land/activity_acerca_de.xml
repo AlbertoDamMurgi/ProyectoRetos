@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
-    tools:context="geogame.proyectoretos.UI.AcercaDeActivity">
+    android:background="@color/colorPrimaryFondo"
+   >
 
     <TextView
         android:id="@+id/textView21"
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:textColor="#FFF"
+        android:textColor="#000"
         android:autoLink="email"
         android:text="santiago.alvarez.dam@gmail.com"
         app:layout_constraintEnd_toStartOf="@+id/imageView8"
@@ -24,7 +24,7 @@
         android:id="@+id/textView22"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:textColor="#FFF"
+        android:textColor="#000"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:autoLink="email"
@@ -36,7 +36,7 @@
     <TextView
         android:id="@+id/textView23"
         android:layout_width="wrap_content"
-        android:textColor="#FFF"
+        android:textColor="#000"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -69,7 +69,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Departamento de Informática del I.E.S. Murgi, el Ejido."
-        android:textColor="#FFF"
+        android:textColor="#000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView9"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
@@ -82,7 +82,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:text="Desarrollo de Aplicaciones Multiplataforma"
-        android:textColor="#FFF"
+        android:textColor="#000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView9"
         app:layout_constraintTop_toTopOf="parent" />
@@ -94,7 +94,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="8dp"
         android:text="Equipo de desarrollo Reta2:"
-        android:textColor="#FFF"
+        android:textColor="#000"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView9" />
@@ -104,7 +104,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:textColor="#FFF"
+        android:textColor="#000"
         android:text="Santiago Álvarez Fernández"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
@@ -113,7 +113,7 @@
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#FFF"
+        android:textColor="#000"
         android:layout_marginTop="16dp"
         android:text="Alberto Fernández Fernández"
         app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -125,7 +125,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Joaquín Pérez Rodríguez"
-        android:textColor="#FFF"
+        android:textColor="#000"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
@@ -134,7 +134,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
-        android:textColor="#FFF"
+        android:textColor="#000"
         android:layout_marginTop="8dp"
         android:text="En colaboración con:"
         android:textStyle="bold"
@@ -159,14 +159,14 @@
         android:layout_marginTop="24dp"
 
         android:text="Proyecto E+ Gamificando el aula"
-        android:textColor="#FFF"
+        android:textColor="#000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
     <TextView
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
-        android:textColor="#FFF"
+        android:textColor="#000"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"

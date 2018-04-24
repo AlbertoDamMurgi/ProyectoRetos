@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
-    tools:context="geogame.proyectoretos.UI.RegistroActivity"
+    android:background="@color/colorPrimaryFondo"
+
     tools:layout_editor_absoluteY="81dp">
 
     <Button
@@ -32,7 +32,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:textColor="#FFF"
+        android:textColor="#000"
         android:hint="Contraseña"
         android:inputType="textPassword"
         android:singleLine="true"
@@ -53,7 +53,7 @@
         android:ems="10"
         android:hint="Correo"
         android:inputType="textEmailAddress"
-        android:textColor="#FFF"
+        android:textColor="#000"
         android:singleLine="true"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
@@ -80,7 +80,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:textColor="#FFF"
+        android:textColor="#000"
         android:text="Registrar Admin"
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
