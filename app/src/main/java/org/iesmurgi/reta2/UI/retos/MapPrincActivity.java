@@ -14,6 +14,7 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -189,7 +190,8 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         }
 
 
-       Button mChat = findViewById(R.id.btn_mapa_chat);
+        FloatingActionButton mChat = findViewById(R.id.btn_mapa_chat);
+        mChat = findViewById(R.id.btn_mapa_chat);
         mChat.setOnClickListener(v -> {
             Log.e("chat","deberia abrir el chat"+nombrepartida);
             startActivity(new Intent(getApplicationContext(),ChatActivity.class)
