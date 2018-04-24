@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_height"
         android:fitsSystemWindows="true"
-        android:background="@color/colorPrimaryFondo"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -20,21 +19,25 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
+            app:collapsedTitleGravity="top|left"
+            app:expandedTitleGravity="center"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
 
             <ImageView
                 android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center"
+                android:layout_height="100dp"
+                android:layout_gravity="right|bottom"
+                android:layout_margin="8dp"
                 android:src="@drawable/logohoja"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
+                app:title="@string/game_list"
+                app:titleMarginBottom="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
@@ -48,12 +51,7 @@
         android:id="@+id/recicler_chat_admin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimaryFondo"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-
         />
-
-
-
 
 </android.support.design.widget.CoordinatorLayout>
