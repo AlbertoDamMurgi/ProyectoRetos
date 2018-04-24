@@ -67,7 +67,7 @@ public class ChatActivity extends AppCompatActivity {
 
         if(historial.getText().toString().trim().isEmpty()){
 
-            historial.setText(mChatModel.getTexto().getValue().trim());
+            historial.setText(mChatModel.getTexto().getValue());
 
         }
 
