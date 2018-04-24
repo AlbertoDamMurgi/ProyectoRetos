@@ -6,6 +6,7 @@ import android.util.Log;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -28,7 +29,7 @@ public class ChatActivity extends AppCompatActivity {
     TextView historial;
 
     @BindView(R.id.enviar)
-    Button enviar;
+    ImageButton enviar;
 
     @BindView(R.id.entrada)
     EditText entrada;
