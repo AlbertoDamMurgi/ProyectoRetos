@@ -2,6 +2,7 @@ package org.iesmurgi.reta2.UI.admin;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -99,6 +100,7 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_reto);
         ButterKnife.bind(this);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
         progressDialog = new ProgressDialog(CrearRetoActivity.this);
 
         mClient = new GoogleApiClient.Builder(this)
