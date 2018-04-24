@@ -60,7 +60,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:ems="10"
-        android:textColor="#000"
         android:hint="@string/team_members"
         android:inputType="textMultiLine"
         app:layout_constraintBottom_toTopOf="@+id/btn_registro_equipo"
@@ -112,12 +111,12 @@
 
     <TextView
         android:id="@+id/textView16"
+        style="@style/textGrande"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:textColor="@color/colorPrimaryDark"
         android:text="@string/tv_signup_team"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/ed_nombre_equipo"

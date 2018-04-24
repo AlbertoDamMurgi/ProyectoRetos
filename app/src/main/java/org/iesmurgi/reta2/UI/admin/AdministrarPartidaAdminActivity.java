@@ -1,6 +1,7 @@
 package org.iesmurgi.reta2.UI.admin;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +27,7 @@ public class AdministrarPartidaAdminActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_administrar_partida_admin);
         ButterKnife.bind(this);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
 
         sala = getIntent().getExtras().getString("PARTIDA");
         idpartida = getIntent().getExtras().getInt("ID");
