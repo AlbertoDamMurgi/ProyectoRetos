@@ -9,10 +9,15 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
+
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -45,6 +50,8 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
     EditText email;
     @BindView(R.id.et_pass)
     EditText pass;
+    @BindView(R.id.toolbar_login)
+    Toolbar toolbar;
 
     SharedPreferences prefs;
 
@@ -65,6 +72,7 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
         //conexion con la base de datos
         mAuth = FirebaseAuth.getInstance();
 
+        setSupportActionBar(toolbar);
 
 
         prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
@@ -99,14 +107,44 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
 
 */
 
-
-
-    @OnClick(R.id.bt_register)
-    void stratRetistro(){
-        startActivity(new Intent(getApplicationContext(),RegistroActivity.class));
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.login_usuario_menu, menu);
+        return true;
     }
 
 
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_add_user:
+                startActivity(new Intent(getApplicationContext(),RegistroActivity.class));
+                return true;
+
+            case R.id.action_about:
+                Intent i = new Intent(getApplicationContext(), AcercaDeActivity.class);
+                startActivity(i);
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+/*
+
+    @OnClick(R.id.bt_register)
+    void stratRetistro(){
+
+    }
+
+*/
 /*
     @OnClick(R.id.btn_registrarse)
     void registrarAdmin() {
@@ -228,21 +266,22 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
 
     }//End
 
-
+/*
     @OnClick(R.id.fab_acercade)
     void acercaDe(){
 
         Intent i = new Intent(getApplicationContext(), AcercaDeActivity.class);
         startActivity(i);
+    }*/
+
+    void guardarylanzar(){
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("usuario", email.getText().toString().trim());
+        editor.putString("pass", pass.getText().toString().trim());
+        editor.apply();
+        startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("idUsuario",idUsuario));
+        finish();
     }
-void guardarylanzar(){
-    SharedPreferences.Editor editor = prefs.edit();
-    editor.putString("usuario", email.getText().toString().trim());
-    editor.putString("pass", pass.getText().toString().trim());
-    editor.apply();
-    startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("idUsuario",idUsuario));
-    finish();
-}
 
 
 
