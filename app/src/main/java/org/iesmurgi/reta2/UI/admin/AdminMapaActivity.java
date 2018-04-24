@@ -1,6 +1,7 @@
 package org.iesmurgi.reta2.UI.admin;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -24,11 +25,15 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import org.iesmurgi.reta2.Chat.Chat;
+import org.iesmurgi.reta2.Chat.ChatAdminActivity;
 import org.iesmurgi.reta2.R;
 import org.iesmurgi.reta2.UI.geofences.Posiciones;
 import org.iesmurgi.reta2.UI.retos.Localizacion;
 
 import java.util.ArrayList;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -41,10 +46,13 @@ public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCal
     private ArrayList<MarkerOptions> marcadores = new ArrayList<>();
     private ArrayList<String> participantes = new ArrayList<>();
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_mapa);
+        ButterKnife.bind(this);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -64,6 +72,11 @@ public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCal
 
       escucharUsuarios();
 
+    }
+
+    @OnClick(R.id.btn_mapa_admin_chat)
+    void abrirChat(){
+        startActivity(new Intent(getApplicationContext(),ChatAdminActivity.class).putExtra("SALA",partida));
     }
 
     void pintarMapa(){
