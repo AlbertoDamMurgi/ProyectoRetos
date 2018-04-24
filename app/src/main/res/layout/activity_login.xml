@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.iesmurgi.reta2.UI.usuario.LoginActivity"
-    android:background="@drawable/gradient"
+    android:background="@color/colorPrimaryFondo"
     tools:layout_editor_absoluteY="81dp">
 
     <EditText
@@ -13,7 +13,7 @@
         style="@style/usuario"
         android:layout_width="0dp"
         android:layout_height="42dp"
-        android:textColor="#FFF"
+        android:textColor="#000"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -30,7 +30,7 @@
         android:id="@+id/et_pass"
         style="@style/pass"
         android:layout_width="0dp"
-        android:textColor="#FFF"
+        android:textColor="#000"
         android:layout_height="42dp"
         android:layout_marginBottom="32dp"
         android:layout_marginEnd="8dp"
@@ -108,7 +108,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="Login Usuario"
-        android:textColor="#fff"
+        android:textColor="#000"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/et_email"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
