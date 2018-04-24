@@ -69,28 +69,15 @@
         style="@style/mibotonPrinc"
         android:layout_width="0dp"
         android:layout_height="52dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="52dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/login_team"
-        app:layout_constraintBottom_toTopOf="@+id/bt_register_admin"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline8" />
 
-
-    <Button
-        android:id="@+id/bt_register_admin"
-        style="@style/boton"
-        android:layout_width="276dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Registrar Admin"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline7"
-        app:layout_constraintStart_toStartOf="@+id/guideline8" />
 
     <ImageView
         android:id="@+id/imageView"
