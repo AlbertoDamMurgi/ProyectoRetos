@@ -57,10 +57,29 @@ public class RegistroAdminActivity extends AppCompatActivity {
 
     }
 
+    private boolean comprobarRegistro() {
+        boolean ok = false;
+        if (
+                !correoadmin.getText().toString().trim().isEmpty() && !passadmin.getText().toString().trim().isEmpty()
+                ) {
+            if (passadmin.getText().toString().trim().toCharArray().length >= 6) {
+                ok=true;
+            }else{
+                Toast.makeText(getApplicationContext(),"La contraseña debe tener 6 caracteres o mas ",Toast.LENGTH_LONG ).show();
+            }
+
+
+        }else{
+            Toast.makeText(getApplicationContext(),"Rellena todos los campos",Toast.LENGTH_LONG ).show();
+
+        }
+        return ok;
+    }
+
     @OnClick(R.id.btn_registro_admin_registrar)
     void registrarAdmin() {
 
-
+if (comprobarRegistro()){
         mAuth.createUserWithEmailAndPassword(correoadmin.getText().toString().trim(), passadmin.getText().toString().trim())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -136,11 +155,11 @@ public class RegistroAdminActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(RegistroAdminActivity.this, "Authentication failed.",
+                            Toast.makeText(RegistroAdminActivity.this, "Correo no valido",
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-    }
+    }}
 
 }
