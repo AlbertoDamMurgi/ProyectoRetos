@@ -3,6 +3,7 @@ package org.iesmurgi.reta2.UI.retos;
 import android.app.ProgressDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -43,7 +44,7 @@ import org.iesmurgi.reta2.UI.usuario.LoginModel;
 import static org.iesmurgi.reta2.UI.retos.MapPrincActivity.RETO_FINALIZADO;
 
 public class RetoActivity extends AppCompatActivity {
-
+    CountDownTimer contador;
     @BindView(R.id.rb_reto_opcion1)
     RadioButton rbRetoOpcion1;
     @BindView(R.id.rb_reto_opcion2)
@@ -147,6 +148,7 @@ int idUsuario;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reto);
         ButterKnife.bind(this);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
 
         progressDialog = new ProgressDialog(RetoActivity.this);
 
@@ -248,13 +250,15 @@ int idUsuario;
         long timeRec = miReto.getMaxDuracion() * 1000*60;
         if (cronoViewModel.getMiTiempo() == null) {
             cronoViewModel.setMiTiempo(timeRec);
-            new CountDownTimer(timeRec, 1000) {
+
+            contador = new CountDownTimer(timeRec, 1000) {
 
                 public void onTick(long tiempo) {
                     int mins =(int) (tiempo/(1000*60))%60;
                     int seg = (int) (tiempo/1000)%60;
                     txtRetoCrono.setText("Tiempo: " + mins+":"+seg);
                     cronoViewModel.setMiTiempo(tiempo);
+                    Log.v("mitiempo", "" + cronoViewModel.getMiTiempo());
                 }
 
                 public void onFinish() {
@@ -267,11 +271,12 @@ int idUsuario;
                     }
                 }
             }.start();
+        }
 
-        } else {
+        else {
 
             final long ntiempo = cronoViewModel.getMiTiempo();
-            new CountDownTimer(ntiempo, 1000) {
+            contador =  new CountDownTimer(ntiempo, 1000) {
 
                 public void onTick(long ntiempo) {
                     int mins =(int) (ntiempo/(1000*60))%60;
@@ -335,7 +340,7 @@ int idUsuario;
 
                                 if (respuestas.get(i).getVerdadero() == 1) {
 
-                                    insertarPuntos(miReto.getPuntuacion(),"Acertaste!! puntuas:"+ miReto.getPuntuacion());
+                                    insertarPuntos(puntuacionPorTiempo(),"Acertaste!! puntuas:"+ puntuacionPorTiempo());
                                 } else {
                                     insertarPuntos(0,"Has fallado el reto, puntuas 0");
                                 }
@@ -349,7 +354,7 @@ int idUsuario;
                         if (!etRetoRespuestaUnica.getText().toString().trim().isEmpty()){
                             if (etRetoRespuestaUnica.getText().toString().trim().equalsIgnoreCase(respuestas.get(0).getDescripcion().trim())){
 
-                                insertarPuntos(miReto.getPuntuacion(),"Acertaste!! puntuas:"+ miReto.getPuntuacion());
+                                insertarPuntos(puntuacionPorTiempo(),"Acertaste!! puntuas:"+ puntuacionPorTiempo());
                             }else{
                                 insertarPuntos(0,"Has fallado el reto, puntuas 0");
                             }
@@ -436,7 +441,29 @@ int idUsuario;
 
     }
 
+    int puntuacionPorTiempo(){
+        Log.e("Tiempo tras","tiempo"+tiempotrascurrido());
+       int tiempo=(int)((tiempotrascurrido()/60));
+        int puntos;
+        Log.e("puntos","el tiempo actual es"+tiempo);
+        if (tiempo<1){
+            puntos=miReto.getPuntuacion();
+        }else{
+            puntos=miReto.getPuntuacion()-(miReto.getPuntuacion()*tiempo/miReto.getMaxDuracion());
+        }
+        Log.e("puntos","Los puntos dados son" +puntos);
+       return puntos;
+    }
+     long tiempoensegundos(){
+        return (cronoViewModel.getMiTiempo()/1000)-miReto.getMaxDuracion();
+    }
+    long tiempotrascurrido(){
+        return (miReto.getMaxDuracion()*60)-tiempoensegundos();
+    }
+
     void insertarPuntos(int puntos,String mensaje) {
+        contador.cancel();
+
         progressDialog.setMessage("Insertando tu puntuacion ...");
        // progressDialog.setCancelable(false);
         progressDialog.show();
@@ -467,7 +494,7 @@ int idUsuario;
                 Map<String, String> params = new HashMap<>();
                 params.put("idUsuario", "" + idUsuario);
                 params.put("idReto", "" + miReto.getIdReto());
-                params.put("tiempo", "11" );
+                params.put("tiempo", ""+tiempotrascurrido());
                 params.put("puntuacion", ""+puntos);
                 return params;
             }
