@@ -33,5 +33,6 @@
     <string name="bt_start">Start</string>
     <string name="log_out">Log out</string>
     <string name="about">about us</string>
+    <string name="signup_admin">sing up admin</string>
 
 </resources>
