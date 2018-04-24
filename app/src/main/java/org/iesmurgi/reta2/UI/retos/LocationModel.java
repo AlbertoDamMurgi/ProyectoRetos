@@ -16,6 +16,8 @@ import org.iesmurgi.reta2.Data.entidades.Retos;
 public class LocationModel extends ViewModel{
 
     private MutableLiveData<Location> mLocation = new MutableLiveData<>();
+
+    private MutableLiveData<Long> time = new MutableLiveData<>();
     private List<Retos> retos = new ArrayList<>();
     boolean cargados=false;
     private String usuario="";
