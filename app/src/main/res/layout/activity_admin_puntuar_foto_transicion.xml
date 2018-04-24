@@ -30,14 +30,14 @@
 
     <Button
         android:id="@+id/btn_aceptarfoto_admin"
-        style="@style/boton"
+        style="@style/mibotonPrinc"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Aceptar"
+        android:text="@string/accept"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline17"
@@ -45,10 +45,10 @@
 
     <Button
         android:id="@+id/btn_rechazarfoto_admin"
-        style="@style/boton"
+        style="@style/mibotonSecund"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="Rechazar"
+        android:text="@string/decline"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline17"
         app:layout_constraintHorizontal_bias="0.5"

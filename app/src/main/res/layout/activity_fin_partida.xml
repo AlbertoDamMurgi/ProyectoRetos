@@ -35,13 +35,13 @@
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="274dp"
+        android:layout_height="37dp"
         android:layout_marginEnd="8dp"
-        android:textColor="#000"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="Enhorabuena!! Has finalizado todos los retos!!!"
+        android:text="@string/finish_msg"
+        android:textAppearance="@style/textGrande"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/imageView7" />
@@ -52,8 +52,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:textColor="#000"
-        android:text="Puntuacion final: "
+        android:text="@string/score_finish"
+        android:textAppearance="@style/textGrande"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
@@ -61,10 +61,10 @@
         android:id="@+id/txt_finpartida_puntos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:text="00"
-        android:textColor="#000"
+        android:textAppearance="@style/textGrande"
         app:layout_constraintStart_toEndOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
@@ -73,9 +73,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:textColor="#000"
         android:layout_marginTop="16dp"
-        android:text="Nombre Equipo :"
+        android:text="@string/team_name"
+        android:textAppearance="@style/textGrande"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -87,7 +87,7 @@
         android:layout_marginTop="16dp"
         android:text="nombre"
 
-        android:textColor="#000"
+        android:textAppearance="@style/textGrande"
 
         app:layout_constraintStart_toEndOf="@+id/textView8"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -95,10 +95,10 @@
     <TextView
         android:id="@+id/textView10"
         android:layout_width="273dp"
-        android:textColor="#000"
-        android:layout_height="70dp"
+        android:layout_height="95dp"
         android:layout_marginBottom="8dp"
-        android:text="Gracias por usar nuestra app, esperamos que hayais disfrutado realizando los retos y aprendiendo de ellos."
+        android:text="@string/thanks"
+        android:textAppearance="@style/textGrande"
         app:layout_constraintBottom_toTopOf="@+id/btn_finpartida_volverLogin"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.526"
@@ -106,23 +106,23 @@
 
     <Button
         android:id="@+id/btn_finpartida_volverLogin"
-        style="@style/boton"
+        style="@style/mibotonSecund"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginStart="8dp"
-        android:text="Volver al inicio"
+        android:text="@string/back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
 
     <Button
         android:id="@+id/btn_finpartida_verranking"
-        style="@style/boton"
+        style="@style/mibotonPrinc"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
-        android:text="Ver Ranking"
+        android:text="@string/ranking"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline2" />
 </android.support.constraint.ConstraintLayout>

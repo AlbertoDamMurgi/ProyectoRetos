@@ -9,14 +9,14 @@
 
     <Button
         android:id="@+id/btn_administrarPartida_main_registro"
-        style="@style/boton"
+        style="@style/miboton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Administrar Partida"
+        android:text="@string/manage_game"
         app:layout_constraintBottom_toTopOf="@+id/btn_main_admin_desconectarse"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
         app:layout_constraintHorizontal_bias="0.5"
@@ -37,13 +37,13 @@
 
     <Button
         android:id="@+id/btn_main_admin_crear_partida"
+        style="@style/miboton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        style="@style/boton"
         android:layout_marginTop="16dp"
-        android:text="crear partida"
+        android:text="@string/make_game"
         app:layout_constraintBottom_toTopOf="@+id/btn_administrarPartida_main_registro"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
         app:layout_constraintHorizontal_bias="0.5"
@@ -53,13 +53,13 @@
 
     <Button
         android:id="@+id/btn_main_admin_desconectarse"
+        style="@style/miboton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="desconectarse"
-        style="@style/boton"
+        android:text="@string/log_out"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
         app:layout_constraintHorizontal_bias="0.5"

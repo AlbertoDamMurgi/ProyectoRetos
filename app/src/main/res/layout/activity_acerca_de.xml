@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="geogame.proyectoretos.UI.AcercaDeActivity">
+    tools:context="org.iesmurgi.reta2.UI.usuario.AcercaDeActivity">
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
@@ -22,38 +22,38 @@
 
     <TextView
         android:id="@+id/textView7"
-        style="@style/textNegro"
+        style="@style/textGrande"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
-        android:text="Departamento de Informática del I.E.S. Murgi, el Ejido."
+        android:text="@string/depart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView11"
         app:layout_constraintTop_toTopOf="@+id/imageView11" />
 
     <TextView
         android:id="@+id/textView9"
-        style="@style/textNegro"
+        style="@style/textGrande"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
-        android:text="Desarrollo de Aplicaciones Multiplataforma"
+        android:text="@string/dam"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView11"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <TextView
         android:id="@+id/textView11"
-        style="@style/textNegro"
+        style="@style/textGrande"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Equipo de desarrollo Reta2:"
+        android:text="@string/dev_team"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -61,7 +61,7 @@
 
     <TextView
         android:id="@+id/textView12"
-        style="@style/textNegro"
+        style="@style/textGrande"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
@@ -74,7 +74,7 @@
 
     <TextView
         android:id="@+id/textView13"
-        style="@style/textNegro"
+        style="@style/textGrande"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
@@ -87,7 +87,7 @@
 
     <TextView
         android:id="@+id/textView14"
-        style="@style/textNegro"
+        style="@style/textGrande"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
@@ -101,13 +101,13 @@
 
     <TextView
         android:id="@+id/textView15"
-        style="@style/textNegro"
+        style="@style/textGrande"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="En colaboración con:"
+        android:text="@string/colaborate"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -125,7 +125,7 @@
 
     <TextView
         android:id="@+id/textView17"
-        style="@style/textNegro"
+        style="@style/textGrande"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -136,7 +136,7 @@
 
     <TextView
         android:id="@+id/textView18"
-        style="@style/textNegro"
+        style="@style/textGrande"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -172,7 +172,7 @@
 
     <TextView
         android:id="@+id/textView3"
-        style="@style/textNegro"
+        style="@style/textGrande"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -185,7 +185,7 @@
 
     <TextView
         android:id="@+id/textView19"
-        style="@style/textNegro"
+        style="@style/textGrande"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -197,7 +197,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     <TextView
-        style="@style/textNegro"
+        style="@style/textGrande"
         android:id="@+id/textView20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

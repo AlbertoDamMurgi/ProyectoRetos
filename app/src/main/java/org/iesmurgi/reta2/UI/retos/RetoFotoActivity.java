@@ -227,16 +227,20 @@ public class RetoFotoActivity extends AppCompatActivity {
 
     private void cargarImagen() {
 
-        final CharSequence[] opciones={"Tomar Foto","Cancelar"};
+        String foto = getResources().getString(R.string.take_photo);
+        String cancel = getResources().getString(R.string.cancel_photo);
+        String option = getResources().getString(R.string.choose_option);
+
+        final CharSequence[] opciones={""+foto,""+cancel};
         final AlertDialog.Builder alertOpciones=new AlertDialog.Builder(RetoFotoActivity.this);
-        alertOpciones.setTitle("Seleccione una Opción");
+        alertOpciones.setTitle(""+option);
         alertOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if (opciones[i].equals("Tomar Foto")){
+                if (opciones[i].equals(""+foto)){
                     tomarFotografia();
                 }else{
-                    if (opciones[i].equals("Cancelar")){
+                    if (opciones[i].equals(""+cancel)){
                         dialogInterface.dismiss();
                     }
                 }

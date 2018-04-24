@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="geogame.proyectoretos.UI.AcercaDeActivity">
+    tools:context="org.iesmurgi.reta2.UI.usuario.AcercaDeActivity">
 
     <TextView
         android:id="@+id/textView21"
-        style="@style/textNegro"
+        style="@style/textGrande"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -21,7 +21,7 @@
 
     <TextView
         android:id="@+id/textView22"
-        style="@style/textNegro"
+        style="@style/textGrande"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginEnd="8dp"
@@ -34,7 +34,7 @@
 
     <TextView
         android:id="@+id/textView23"
-        style="@style/textNegro"
+        style="@style/textGrande"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -61,7 +61,7 @@
 
     <TextView
         android:id="@+id/textView7"
-        style="@style/textNegro"
+        style="@style/textGrande"
         android:layout_width="0dp"
         android:layout_height="38dp"
         android:layout_marginEnd="8dp"
@@ -74,7 +74,7 @@
 
     <TextView
         android:id="@+id/textView9"
-        style="@style/textNegro"
+        style="@style/textGrande"
         android:layout_width="0dp"
         android:layout_height="19dp"
         android:layout_marginEnd="8dp"
@@ -87,7 +87,7 @@
 
     <TextView
         android:id="@+id/textView11"
-        style="@style/textNegro"
+        style="@style/textGrande"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -99,7 +99,7 @@
 
     <TextView
         android:id="@+id/textView12"
-        style="@style/textNegro"
+        style="@style/textGrande"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -109,7 +109,7 @@
 
     <TextView
         android:id="@+id/textView13"
-        style="@style/textNegro"
+        style="@style/textGrande"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -119,7 +119,7 @@
 
     <TextView
         android:id="@+id/textView14"
-        style="@style/textNegro"
+        style="@style/textGrande"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -129,7 +129,7 @@
 
     <TextView
         android:id="@+id/textView15"
-        style="@style/textNegro"
+        style="@style/textGrande"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
@@ -150,7 +150,7 @@
 
     <TextView
         android:id="@+id/textView17"
-        style="@style/textNegro"
+        style="@style/textGrande"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
@@ -161,7 +161,7 @@
 
     <TextView
         android:id="@+id/textView18"
-        style="@style/textNegro"
+        style="@style/textGrande"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"

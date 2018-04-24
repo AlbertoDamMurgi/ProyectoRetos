@@ -26,7 +26,7 @@
 
             android:layout_weight="1"
             android:text="Respuesta1"
-            android:textColor="#000" />
+            android:textColor="@color/colorPrimaryDark" />
 
         <RadioButton
             android:id="@+id/rb_reto_opcion2"
@@ -37,7 +37,7 @@
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:text="Respuesta2"
-            android:textColor="#000" />
+            android:textColor="@color/colorPrimaryDark" />
 
         <RadioButton
             android:id="@+id/rb_reto_opcion3"
@@ -47,7 +47,7 @@
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:text="Respuesta3"
-            android:textColor="#000" />
+            android:textColor="@color/colorPrimaryDark" />
 
     </RadioGroup>
 
@@ -81,36 +81,36 @@
 
     <TextView
         android:id="@+id/textView4"
+        style="@style/textGrande"
         android:layout_width="wrap_content"
         android:layout_height="17dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Responde correctamente para puntuar"
-        android:textColor="#000"
+        android:text="@string/answer_msg"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="@+id/guideline13" />
 
     <TextView
         android:id="@+id/txt_reto_descripcion"
+        style="@style/textGrande"
         android:layout_width="0dp"
         android:layout_height="123dp"
         android:layout_marginTop="8dp"
         android:text="Descripcion del reto"
-        android:textColor="#000"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/txt_reto_nombre" />
 
     <Button
         android:id="@+id/btn_reto_responder"
-        style="@style/boton"
+        style="@style/mibotonPrinc"
         android:layout_width="123dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginStart="8dp"
-        android:text="responder"
+        android:text="@string/submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toEndOf="@+id/guideline"
@@ -118,49 +118,49 @@
 
     <Button
         android:id="@+id/btn_reto_cancelar"
-        style="@style/boton"
+        style="@style/mibotonSecund"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="Saltar"
+        android:text="@string/skip"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toEndOf="@+id/btn_reto_responder" />
 
     <Button
         android:id="@+id/btn_reto_verVideo"
-        style="@style/boton"
+        style="@style/mibotonSecund"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="Ver video"
+        android:text="@string/video"
         app:layout_constraintBottom_toTopOf="@+id/btn_reto_cancelar"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
 
     <TextView
         android:id="@+id/txt_reto_crono"
+        style="@style/textGrande"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:text="Tiempo"
-        android:textColor="#000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txt_reto_nombre"
+        style="@style/textGrande"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Nombre del reto"
-        android:textColor="#000"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -190,13 +190,13 @@
 
     <Button
         android:id="@+id/btn_reto_subirImagen"
-        style="@style/boton"
+        style="@style/mibotonPrinc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Subir imagen"
+        android:text="@string/upload_photo"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/txt_reto_descripcion" />
