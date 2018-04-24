@@ -6,29 +6,26 @@
     android:background="@color/colorPrimaryFondo"
     android:layout_height="match_parent">
 
-    <Button
+    <ImageButton
         android:id="@+id/enviar"
-        style="@style/boton"
         android:layout_width="79dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
-        android:text="enviar"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        android:src="@drawable/ic_action_send_now"
+        app:layout_constraintBottom_toBottomOf="@+id/entrada"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
         android:id="@+id/entrada"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:textColor="#000"
-        android:ems="10"
         android:background="@color/colorPrimary"
+        android:ems="10"
         android:hint="Escribe aqui tu mensaje"
         android:inputType="textPersonName"
+        android:textColor="#000"
         android:textColorHint="#000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/enviar"
