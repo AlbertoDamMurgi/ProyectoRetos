@@ -127,6 +127,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:clickable="true"
+        android:focusable="true"
         app:backgroundTint="@color/colorAccent"
         app:elevation="6dp"
         app:layout_constraintBottom_toBottomOf="parent"

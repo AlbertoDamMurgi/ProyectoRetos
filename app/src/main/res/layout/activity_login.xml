@@ -7,18 +7,27 @@
     tools:context="org.iesmurgi.reta2.UI.usuario.LoginActivity"
     tools:layout_editor_absoluteY="81dp">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_login"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
     <EditText
         android:id="@+id/et_email"
         style="@style/usuario"
         android:layout_width="0dp"
         android:layout_height="42dp"
-        android:textColor="#FFF"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:ems="10"
         android:hint="@string/user_mail"
         android:inputType="textEmailAddress"
+        android:textColor="#FFF"
         app:layout_constraintBottom_toTopOf="@+id/et_pass"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.0"
@@ -29,14 +38,14 @@
         android:id="@+id/et_pass"
         style="@style/pass"
         android:layout_width="0dp"
-        android:textColor="#FFF"
         android:layout_height="42dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:ems="10"
         android:hint="@string/user_pass"
         android:inputType="textPassword"
+        android:textColor="#FFF"
         app:layout_constraintBottom_toTopOf="@+id/btn_conectarse"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.0"
@@ -48,11 +57,11 @@
         style="@style/mibotonPrinc"
         android:layout_width="0dp"
         android:layout_height="45dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="96dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/login_team"
-        app:layout_constraintBottom_toTopOf="@+id/bt_register"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
@@ -72,31 +81,16 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.88" />
 
-    <Button
-        android:id="@+id/bt_register"
-        style="@style/mibotonSecund"
-        android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="@string/signup_team"
-        app:layout_constraintBottom_toTopOf="@+id/fab_acercade"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline" />
-
     <ImageView
         android:id="@+id/loginsecreto_admin"
         style="@style/logo"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/txtLogeate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_login"
         app:srcCompat="@drawable/logohoja" />
 
     <TextView
@@ -104,28 +98,14 @@
         style="@style/textGrande"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/user_login"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/et_email"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
 
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_acercade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:clickable="true"
-        app:borderWidth="0dp"
-        app:elevation="6dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/info_icon" />
 
 </android.support.constraint.ConstraintLayout>
