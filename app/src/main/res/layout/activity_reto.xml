@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
+    android:background="@color/colorPrimaryFondo"
     tools:context="org.iesmurgi.reta2.UI.retos.RetoActivity"
     tools:layout_editor_absoluteY="81dp">
 
@@ -26,7 +26,7 @@
 
             android:layout_weight="1"
             android:text="Respuesta1"
-            android:textColor="#FFF" />
+            android:textColor="#000" />
 
         <RadioButton
             android:id="@+id/rb_reto_opcion2"
@@ -37,7 +37,7 @@
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:text="Respuesta2"
-            android:textColor="#FFF" />
+            android:textColor="#000" />
 
         <RadioButton
             android:id="@+id/rb_reto_opcion3"
@@ -47,7 +47,7 @@
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:text="Respuesta3"
-            android:textColor="#FFF" />
+            android:textColor="#000" />
 
     </RadioGroup>
 
@@ -87,7 +87,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Responde correctamente para puntuar"
-        android:textColor="#FFF"
+        android:textColor="#000"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="@+id/guideline13" />
@@ -98,7 +98,7 @@
         android:layout_height="123dp"
         android:layout_marginTop="8dp"
         android:text="Descripcion del reto"
-        android:textColor="#FFF"
+        android:textColor="#000"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/txt_reto_nombre" />
@@ -149,7 +149,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:text="Tiempo"
-        android:textColor="#FFF"
+        android:textColor="#000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -160,7 +160,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Nombre del reto"
-        android:textColor="#FFF"
+        android:textColor="#000"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -179,8 +179,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:textColor="#FFF"
-        android:textColorHint="#FFF"
+        android:textColor="#000"
+        android:textColorHint="#000"
         android:textSize="18sp"
         android:inputType="textPersonName"
         android:hint="Respuesta"

@@ -11,7 +11,7 @@
     <Button
         android:id="@+id/btn_admin_PuntuarFotos"
         style="@style/miboton"
-        android:layout_width="276dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
@@ -19,12 +19,13 @@
         android:text="Puntuar Fotos"
         app:layout_constraintBottom_toTopOf="@+id/btn_admin_ranking"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline10" />
 
     <Button
         android:id="@+id/btn_admin_verjugadores3"
         style="@style/miboton"
-        android:layout_width="276dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
@@ -32,19 +33,21 @@
         android:text="Ver jugadores"
         app:layout_constraintBottom_toTopOf="@+id/btn_admin_PuntuarFotos"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline10" />
 
     <Button
         android:id="@+id/btn_admin_ranking"
         style="@style/miboton"
-        android:layout_width="276dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="Ver ranking"
-        app:layout_constraintBottom_toTopOf="@+id/btn_admin_chat"
+        app:layout_constraintBottom_toTopOf="@+id/btn_admin_codigoQR"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline10" />
 
     <ImageView
@@ -64,7 +67,7 @@
     <Button
         android:id="@+id/btn_admin_mapa"
         style="@style/miboton"
-        android:layout_width="276dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
@@ -72,6 +75,7 @@
         android:text="Ver Mapa"
         app:layout_constraintBottom_toTopOf="@+id/btn_admin_verjugadores3"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline10" />
 
     <Button
@@ -83,6 +87,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="chat"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/btn_admin_codigoQR"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
         app:layout_constraintStart_toStartOf="@+id/guideline10" />
@@ -104,14 +109,28 @@
     <Button
         android:id="@+id/btn_admin_codigoQR"
         style="@style/miboton"
-        android:layout_width="276dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="68dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="Codigo QR"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline10" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_chat_admin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        app:backgroundTint="@color/colorAccent"
+        app:elevation="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/sym_action_chat" />
 
 </android.support.constraint.ConstraintLayout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
+    android:background="@color/colorPrimaryFondo"
     tools:context="org.iesmurgi.reta2.UI.admin.QRGeneratorActivity">
 
     <ImageView
@@ -36,7 +36,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Este es el codigo QR de acceso a la partida, Si necesita generar este codigo fisicamente debe utilizar este texto : "
-        android:textColor="#FFF"
+        android:textColor="#000"
         android:textSize="16dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline19"
         app:layout_constraintStart_toStartOf="@+id/guideline18"
@@ -63,7 +63,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:textColor="#FFF"
+        android:textColor="#000"
         android:textSize="16dp"
         android:text="TextView"
         app:layout_constraintEnd_toStartOf="@+id/guideline19"
