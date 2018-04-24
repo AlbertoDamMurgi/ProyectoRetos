@@ -8,7 +8,7 @@
 
     <Button
         android:id="@+id/enviar"
-        style="@style/boton"
+        style="@style/mibotonPrinc"
         android:layout_width="79dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -19,17 +19,15 @@
 
     <EditText
         android:id="@+id/entrada"
+        style="@style/et_base"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="44dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:textColor="#000"
         android:ems="10"
-        android:background="@color/colorPrimary"
-        android:hint="Escribe aqui tu mensaje"
+        android:hint="@string/chat_msg"
         android:inputType="textPersonName"
-        android:textColorHint="#000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/enviar"
         app:layout_constraintStart_toStartOf="parent" />

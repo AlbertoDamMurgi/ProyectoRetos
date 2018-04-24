@@ -26,11 +26,81 @@
     <string name="team_members">Team members</string>
     <string name="sign_up">Sign up</string>
 
-    <!--iniciar partida-->
+    <!--iniciar partida - MAIN-->
     <string name="start_game">Start the game</string>
     <string name="game_name">Game name</string>
     <string name="game_pass">Game password</string>
     <string name="bt_start">Start</string>
     <string name="log_out">Log out</string>
+
+    <!--qr scanner -->
+    <string name="focus_msg">Focus QR Code to join game</string>
+
+    <!--reto activity-->
+    <string name="answer_msg">Answer correctly to get points</string>
+    <string name="upload_photo">Upload image</string>
+    <string name="submit">Submit</string>
+    <string name="skip">Skip</string>
+    <string name="video">Watch video</string>
+
+
+    <!--foto activity-->
+    <string name="photo_msg">Preview of picture that you will send</string>
+    <string name="take_photo">Take picture</string>
+    <string name="send_pic">Send picture</string>
+    <string name="cancel_photo">Cancel</string>
+    <string name="choose_option">Choose an option</string>
+
+    <!--fin activity-->
+    <string name="finish_msg">Congratulations!! you have finished all the challenges!!</string>
+    <string name="score_finish">Final score</string>
+    <string name="thanks">Thank you for using our app!! we hope you had enjoyed doing challenges and learning about local culture and history!!</string>
+    <string name="back">Back</string>
+    <string name="ranking">Ranking</string>
+
+    <!--acerca de activity-->
+    <string name="dev_team">Developers</string>
+    <string name="colaborate">In collaboration with</string>
+    <string name="depart">Computing Department, I.E.S Murgi, El Ejido</string>
+    <string name="dam">Multiplatform Apps Development</string>
+
+    <!--admin main activity-->
+    <string name="make_game">Make a new game</string>
+    <string name="manage_game">Manage game</string>
+
+    <!--punt foto activity-->
+    <string name="decline">Decline pic</string>
+    <string name="accept">Accept pic</string>
+
+    <!--admin partida activity-->
+    <string name="see_map">See map</string>
+    <string name="see_players">See players</string>
+    <string name="rate_foto">Rate photos</string>
+    <string name="qr_code">QR Code</string>
+
+    <!--crear partida activity-->
+    <string name="make_game_msg">Enter the data to create a new game</string>
+    <string name="duration_game">Duration(minutes)</string>
+    <string name="challe_num">Number of challenges</string>
+    <string name="make_game_cont">Continue</string>
+
+    <!--chat activity-->
+    <string name="chat_msg">Write here your message</string>
+
+    <!--chat activity-->
+    <string name="make_chal_msg">Enter the data to create a new challenge</string>
+    <string name="challe_name">Challenge name</string>
+    <string name="points">Points</string>
+    <string name="video_link">YouTube video link (optional)</string>
+    <string name="tipo_challe">Type</string>
+    <string name="question_chal">Write here question</string>
+    <string name="correct_ans">Correct answer</string>
+    <string name="wrong_ans">Wrong answer</string>
+
+    <!--qr generato activity-->
+    <string name="qrgen_msg">This is the QR Code to join the game, if you need this code physically use this text to generate it:</string>
+
+    <!--reg admin activity-->
+    <string name="reg_admin_msg">Sign in Admin</string>
 
 </resources>

@@ -91,7 +91,7 @@
     </style>
 
 
-    <style name="textNegro" parent="TextAppearance.AppCompat">
+    <style name="textGrande" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textSize">16dp</item>
     </style>
