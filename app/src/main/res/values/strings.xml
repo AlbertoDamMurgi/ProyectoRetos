@@ -32,5 +32,6 @@
     <string name="game_pass">Game password</string>
     <string name="bt_start">Start</string>
     <string name="log_out">Log out</string>
+    <string name="about">about us</string>
 
 </resources>
