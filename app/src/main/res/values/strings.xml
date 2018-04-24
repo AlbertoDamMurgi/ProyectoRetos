@@ -33,6 +33,7 @@
     <string name="bt_start">Start</string>
     <string name="log_out">Log out</string>
     <string name="about">about us</string>
+    <string name="signup_admin">sing up admin</string>
 
     <!--qr scanner -->
     <string name="focus_msg">Focus QR Code to join game</string>

@@ -8,9 +8,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
+
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,7 +31,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import org.iesmurgi.reta2.R;
+import org.iesmurgi.reta2.UI.usuario.AcercaDeActivity;
 import org.iesmurgi.reta2.UI.usuario.LoginModel;
+import org.iesmurgi.reta2.UI.usuario.RegistroActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,7 +45,8 @@ public class LoginAdmin extends AppCompatActivity implements LifecycleObserver {
     EditText email;
     @BindView(R.id.et_pass_admin)
     EditText pass;
-
+    @BindView(R.id.toolbar_login_admin)
+    Toolbar toolbar;
 
     private LoginModel mLoginModel;
 
@@ -58,12 +65,43 @@ public class LoginAdmin extends AppCompatActivity implements LifecycleObserver {
         //enlace con el viewmodel
         mLoginModel = ViewModelProviders.of(this).get(LoginModel.class);
 
+        setSupportActionBar(toolbar);
+
         //conexion con la base de datos
         mAuth = FirebaseAuth.getInstance();
 
         observador();
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.login_admin_menu, menu);
+        return true;
+    }
+
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_add_admin:
+                startActivity(new Intent(getApplicationContext(),RegistroAdminActivity.class));
+                return true;
+
+
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+
 
     private void observador() {
 
