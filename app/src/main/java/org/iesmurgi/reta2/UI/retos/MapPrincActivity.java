@@ -190,8 +190,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         }
 
 
-        FloatingActionButton mChat = findViewById(R.id.btn_mapa_chat);
-        mChat = findViewById(R.id.btn_mapa_chat);
+       FloatingActionButton mChat = findViewById(R.id.btn_mapa_chat);
         mChat.setOnClickListener(v -> {
             Log.e("chat","deberia abrir el chat"+nombrepartida);
             startActivity(new Intent(getApplicationContext(),ChatActivity.class)

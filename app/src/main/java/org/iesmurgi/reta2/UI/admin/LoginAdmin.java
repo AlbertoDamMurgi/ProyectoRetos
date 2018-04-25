@@ -125,10 +125,7 @@ public class LoginAdmin extends AppCompatActivity implements LifecycleObserver {
     }
 
 
-    @OnClick(R.id.bt_register_admin)
-    void stratRetistro() {
-        startActivity(new Intent(getApplicationContext(), RegistroAdminActivity.class));
-    }
+
 
 
     @OnClick(R.id.btn_conectarse_admin)

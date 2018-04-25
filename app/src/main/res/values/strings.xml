@@ -104,5 +104,6 @@
 
     <!--reg admin activity-->
     <string name="reg_admin_msg">Sign in Admin</string>
+    <string name="map_admin_open">Open admin map</string>
 
 </resources>
