@@ -82,8 +82,6 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         mLoginModel = ViewModelProviders.of(this).get(LoginModel.class);
 
         idUsuario = getIntent().getIntExtra("idUsuario", 0);
-        Log.e("idUsuario", "" + idUsuario);
-        String email = mLoginModel.getConection().getValue().getInstance().getCurrentUser().getEmail();
         progressDialog = new ProgressDialog(MainActivity.this);
         db = BasedeDatosApp.getAppDatabase(this);
 
@@ -107,11 +105,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
         }
     */
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    void comprobarLogin() {
 
-
-    }
 
     boolean comprobarPermisos() {
         boolean ok = false;
@@ -150,8 +144,11 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
     @OnClick(R.id.btn_logout)
     public void desconectarse() {
-
-        mLoginModel.getConection().getValue().getInstance().signOut();
+        try {
+            mLoginModel.getConection().getValue().getInstance().signOut();
+        }catch (NullPointerException ex){
+            Log.w("no conection","no loginmodel conection");
+        }
         mLoginModel.getConection().postValue(null);
         mLoginModel.getUsuario().postValue(null);
 
@@ -228,8 +225,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("Respuestas", error.getMessage());
-                    Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+
                 }
             });
 
@@ -269,7 +265,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Fallo del servidor", Toast.LENGTH_SHORT).show();
+
             }
 
         }) {
@@ -333,8 +329,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("Retos", error.getMessage());
-                    Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+
                 }
             });
             requestQueue.add(request2);
@@ -398,8 +393,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("Partida", error.getMessage());
-                    Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+
                 }
             });
 
