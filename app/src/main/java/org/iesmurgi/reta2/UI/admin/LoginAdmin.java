@@ -109,14 +109,18 @@ public class LoginAdmin extends AppCompatActivity implements LifecycleObserver {
             @Override
             public void onChanged(@Nullable FirebaseAuth firebaseAuth) {
                 if (firebaseAuth != null) {
-                    if (firebaseAuth.getCurrentUser().getDisplayName().equalsIgnoreCase("administrador")) {
+                    try {
+                        if (firebaseAuth.getCurrentUser().getDisplayName().equalsIgnoreCase("administrador")) {
 
-                        startActivity(new Intent(getApplicationContext(), AdminMainActivity.class));
+                            startActivity(new Intent(getApplicationContext(), AdminMainActivity.class));
 
 
-                    } else {
-                        Toast.makeText(LoginAdmin.this, "Credenciales erroneas.", Toast.LENGTH_SHORT).show();
-                        //startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        } else {
+                            Toast.makeText(LoginAdmin.this, "Credenciales erroneas.", Toast.LENGTH_SHORT).show();
+                            //startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        }
+                    }catch (NullPointerException ex){
+                        Log.e("KiRil","kiril el maestro");
                     }
                 }
             }
@@ -187,7 +191,7 @@ public class LoginAdmin extends AppCompatActivity implements LifecycleObserver {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
             }
         });
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
