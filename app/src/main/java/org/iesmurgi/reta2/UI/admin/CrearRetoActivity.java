@@ -252,7 +252,7 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
 
             }
 
@@ -316,7 +316,7 @@ void cambiarpregunta(){
             @Override
             public void onErrorResponse(VolleyError error) {
 
-
+                Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
             }
 
         }) {
@@ -380,7 +380,7 @@ void cambiarpregunta(){
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -422,7 +422,7 @@ void cambiarpregunta(){
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -450,7 +450,7 @@ void cambiarpregunta(){
             @Override
             public void onErrorResponse(VolleyError error) {
 
-
+                Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
             }
 
         }) {

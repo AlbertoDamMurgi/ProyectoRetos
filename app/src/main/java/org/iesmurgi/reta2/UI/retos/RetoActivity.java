@@ -153,10 +153,15 @@ int idUsuario;
         progressDialog = new ProgressDialog(RetoActivity.this);
 
         db = BasedeDatosApp.getAppDatabase(this);
+        try {
+            aux = getIntent().getExtras().getIntArray("PARTIDAYRETO");
+            idUsuario = getIntent().getIntExtra("idUsuario", 0);
+            nombrepartida = getIntent().getExtras().getString("NOMBREPARTIDA");
+        }catch (NullPointerException ex){
 
-        aux = getIntent().getExtras().getIntArray("PARTIDAYRETO");
-        idUsuario= getIntent().getIntExtra("idUsuario",0);
-        nombrepartida = getIntent().getExtras().getString("NOMBREPARTIDA");
+
+
+        }
         Log.e("partidanombrereto",nombrepartida);
         Log.e("idpartida", "" + aux[0]);
         Log.e("idreto", "" + aux[1]);
@@ -471,12 +476,10 @@ int idUsuario;
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("ON RESPONDE insertar", response.toString());
+
 
                 if (response.contains("success")) {
                    updateNumReto(mensaje);
-
-                } else {
 
                 }
 
@@ -485,6 +488,7 @@ int idUsuario;
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
             }
 
         }) {
@@ -509,7 +513,7 @@ int idUsuario;
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("ON RESPONDE", response.toString());
+
 
                 if (response.contains("success")) {
                     progressDialog.dismiss();
@@ -517,15 +521,13 @@ int idUsuario;
                     setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), MapPrincActivity.class));
                     finish();
 
-                } else {
-
                 }
-
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
             }
 
         }) {

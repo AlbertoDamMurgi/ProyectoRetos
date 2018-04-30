@@ -116,20 +116,17 @@ if (comprobarRegistro()){
                                                 StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                                                     @Override
                                                     public void onResponse(String response) {
-                                                        Log.e("ON RESPONDE", response.toString());
+
 
                                                         if (response.contains("success")) {
                                                             finish();
 
-                                                        } else {
-
                                                         }
-
                                                     }
                                                 }, new Response.ErrorListener() {
                                                     @Override
                                                     public void onErrorResponse(VolleyError error) {
-
+                                                        Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
                                                     }
 
                                                 }) {

@@ -55,15 +55,20 @@ public class AdminPuntuarFotoTransicion extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_puntuar_foto_transicion);
         ButterKnife.bind(this);
-        usuario = getIntent().getExtras().getString("USUARIO");
-        partida = getIntent().getExtras().getString("PARTIDA");
-        nombrereto = getIntent().getExtras().getString("NOMBRERETO");
-        idpartida = getIntent().getExtras().getInt("IDPARTIDA");
+        try {
+            usuario = getIntent().getExtras().getString("USUARIO");
+            partida = getIntent().getExtras().getString("PARTIDA");
+            nombrereto = getIntent().getExtras().getString("NOMBRERETO");
+            idpartida = getIntent().getExtras().getInt("IDPARTIDA");
+
+        }catch (NullPointerException ex){
+
+        }
+
         storageReference = FirebaseStorage.getInstance().getReference();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
         progressDialog = new ProgressDialog(AdminPuntuarFotoTransicion.this);
-
 
         myRef.child("Imagenes").child(partida).child(usuario).child(nombrereto).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -120,7 +125,7 @@ public class AdminPuntuarFotoTransicion extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
                 progressDialog.dismiss();
             }
         }) {

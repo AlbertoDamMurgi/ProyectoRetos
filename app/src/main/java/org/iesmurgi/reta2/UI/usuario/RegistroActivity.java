@@ -129,15 +129,12 @@ public class RegistroActivity extends AppCompatActivity {
                                                                         Toast.LENGTH_SHORT).show();
                                                                 finish();
 
-                                                            } else {
-
                                                             }
-
                                                         }
                                                     }, new Response.ErrorListener() {
                                                         @Override
                                                         public void onErrorResponse(VolleyError error) {
-
+                                                            Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
                                                         }
 
                                                     }) {

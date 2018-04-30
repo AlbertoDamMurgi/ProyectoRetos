@@ -106,5 +106,12 @@
     <string name="reg_admin_msg">Sign in Admin</string>
     <string name="map_admin_open">Open admin map</string>
     <string name="user_pass_confirm">Confirm Password</string>
+    <string name="answer1">answer1</string>
+    <string name="answer2">answer2</string>
+    <string name="answer3">answer3</string>
+    <string name="descripcion_del_reto">Description of the challenge</string>
+    <string name="tiempo">Time</string>
+    <string name="nombre_del_reto">Name of the challenge</string>
+    <string name="respuesta">Answer</string>
 
 </resources>

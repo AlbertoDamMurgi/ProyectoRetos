@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-
+                    Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
                 }
             });
 
@@ -265,7 +265,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
             }
 
         }) {
@@ -329,7 +329,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-
+                    Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
                 }
             });
             requestQueue.add(request2);
@@ -393,7 +393,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-
+                    Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
                 }
             });
 
