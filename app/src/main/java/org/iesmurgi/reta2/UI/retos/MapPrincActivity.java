@@ -69,7 +69,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     int idUsuario;
 
     public GoogleMap mapa;
-
+    private ArrayList<MarkerOptions> marcadores = new ArrayList<>();
     FirebaseDatabase database;
     DatabaseReference myRef;
     private String usuario;
@@ -124,7 +124,14 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
             locationModel.setRetos(retos);
             locationModel.setCargados(true);
+
             return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            super.onPostExecute(integer);
+            initMapa();
         }
     }
 
@@ -147,6 +154,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         setContentView(R.layout.activity_map_princ);
         locationModel = ViewModelProviders.of(this).get(LocationModel.class);
 
+
         if(locationModel.getNumReto()==null){
             locationModel.setNumReto(getIntent().getExtras().getInt("ultimoReto"));
         }
@@ -160,6 +168,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         }else{
             idpartida = locationModel.getIdpartida();
         }
+
 
         if(locationModel.getIdusuario()==null){
             idUsuario= getIntent().getExtras().getInt("idUsuario");
@@ -183,11 +192,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
 
         Log.e("nombrepartida mapa",nombrepartida);
-        if (!locationModel.isCargados()) {
-            new RecuperarRetos().execute(idpartida);
-        }else{
-            retos=locationModel.getRetos();
-        }
+
 
 
        FloatingActionButton mChat = findViewById(R.id.btn_mapa_chat);
@@ -247,6 +252,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
 
         database = FirebaseDatabase.getInstance();
+
         mAuth = FirebaseAuth.getInstance();
         usuario = mAuth.getCurrentUser().getDisplayName();
         if(usuario == null){
@@ -450,82 +456,73 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        Log.e("Numero reto",locationModel.getNumReto()+"");
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        //
+        //    ActivityCompat#requestPermissions
+        // here to request the missing permissions, and then overriding
+        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+        //                                          int[] grantResults)
+        // to handle the case where the user grants the permission. See the documentation
+        // for ActivityCompat#requestPermissions for more details.
+        return;
+    }
+
+        if (mapa == null) {
+            mapa = googleMap;
+        }
+
+
+
+        if (!locationModel.isCargados()) {
+            new RecuperarRetos().execute(idpartida);
+        }else{
+            retos=locationModel.getRetos();
+            initMapa();
+        }
+
+
+
+
+    }
+
+    void initMapa(){
+
+        Log.e("Numero reto",locationModel.getNumReto()+""+retos.size());
         if (locationModel.getNumReto()==retos.size()){
             Log.d("ENTRE","SI");
             startActivity(new Intent(getApplicationContext(),FinPartidaActivity.class).putExtra("idPartida",idpartida).putExtra("idUsuario",idUsuario));
             finish();
         }else{
 
-
-        if (mapa == null) {
-            mapa = googleMap;
-            mapa.addMarker(marcadores.get(locationModel.getNumReto()));
-        }else{
+            if (marcadores==null || marcadores.isEmpty()){
+                crearmarcadores();
+            }
             mapa.addMarker(marcadores.get(locationModel.getNumReto()));
         }
-
-
-
-
-
-
-
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            //
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-
 
         mapa.setMyLocationEnabled(true);
         mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-
-       // mapa.addMarker(new MarkerOptions()
-          //      .position(Murgi)
-            //    .title("IES Murgi")
-            //    .snippet("Instituto de Educación Secundaria Murgi")
-           //     .icon(BitmapDescriptorFactory
-           //             .fromResource(R.drawable.hojapequenia))
-
-        //        .anchor(0.5f, 0.5f));
-
-
-      //  float zoom = 14f;
-      //  CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(Murgi, zoom);
-       // mapa.animateCamera(cameraUpdate);
-
-
-            mapa.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                @Override
-                public boolean onMarkerClick(Marker marker) {
-                    if(puedespinchar) {
+        mapa.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                if(puedespinchar) {
                     for (int i = 0; i < marcadores.size() ; i++) {
 
                         if(marcadores.get(i).getTitle().equalsIgnoreCase(marker.getTitle())){
-                                int [] aux;
-                                aux = new int[]{idpartida,retos.get(i).getIdReto()};
-                              startActivityForResult(
-                                      new Intent(getApplicationContext(),RetoActivity.class).putExtra("idUsuario",idUsuario).putExtra("PARTIDAYRETO",aux).putExtra("NOMBREPARTIDA",nombrepartida).putExtra("numeroRetoArray",i+1),RETO_FINALIZADO);
-                        }
+                            int [] aux;
+                            aux = new int[]{idpartida,retos.get(i).getIdReto()};
+                            startActivityForResult(
+                                    new Intent(getApplicationContext(),RetoActivity.class).putExtra("idUsuario",idUsuario).putExtra("PARTIDAYRETO",aux).putExtra("NOMBREPARTIDA",nombrepartida).putExtra("numeroRetoArray",i+1),RETO_FINALIZADO);
                         }
                     }
-                    return false;
                 }
-            });
+                return false;
+            }
+        });
+    }
 
 
-
-    } }
-
-    private ArrayList<MarkerOptions> marcadores = new ArrayList<>();
 
     private void crearmarcadores() {
 
@@ -538,6 +535,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
                     .anchor(0.5f, 0.5f));
 
         }
+        Log.e("Marcodores y retos","Marcadores"+marcadores.size()+"Retos"+retos.size());
 
 
 
