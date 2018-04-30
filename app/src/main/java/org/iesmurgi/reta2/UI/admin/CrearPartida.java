@@ -61,7 +61,7 @@ public class CrearPartida extends AppCompatActivity {
                         !txt_numeroretos.getText().toString().trim().isEmpty()
                 ) {
             nR =Integer.parseInt( txt_numeroretos.getText().toString().trim());
-            if (nR<=10 && nR>=1){
+            if (nR<=11 && nR>=1){
 
                 progressDialog.setMessage("Creando partida...");
             progressDialog.show();
