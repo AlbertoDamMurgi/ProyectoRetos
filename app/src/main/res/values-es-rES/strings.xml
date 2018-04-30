@@ -70,4 +70,5 @@
     <string name="qrgen_msg">Este es el código QR para unirse a la partida, si necesitas este código fisicamente utiliza este texto para generarlo</string>
     <string name="reg_admin_msg">Conectarse Administrador</string>
     <string name="map_admin_open">Abrir mapa de administrador</string>
+    <string name="user_pass_confirm">Confirmar contraseña</string>
 </resources>

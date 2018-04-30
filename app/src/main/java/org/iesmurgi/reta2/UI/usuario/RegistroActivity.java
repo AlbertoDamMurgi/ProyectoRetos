@@ -46,6 +46,9 @@ public class RegistroActivity extends AppCompatActivity {
     @BindView(R.id.ed_participantes_equipo)
     EditText participantesEquipo;
 
+    @BindView(R.id.ed_pass_equipo_confirmar)
+    EditText confirmarpass;
+
     private LoginModel mLoginModel;
 
     private FirebaseAuth mAuth;
@@ -67,8 +70,12 @@ public class RegistroActivity extends AppCompatActivity {
         if (
                 !nombreequipo.getText().toString().trim().isEmpty() && !correoequipo.getText().toString().trim().isEmpty() && !passequipo.getText().toString().trim().isEmpty() && !participantesEquipo.getText().toString().trim().isEmpty()
                 ) {
-            if (passequipo.getText().toString().trim().toCharArray().length >= 6) {
-                ok=true;
+            if (passequipo.getText().toString().trim().length() >= 6) {
+                if(confirmarpass.getText().toString().trim().equals(passequipo.getText().toString().trim())) {
+                    ok = true;
+                }else{
+                    Toast.makeText(getApplicationContext(), "Debes confirmar la contraseña", Toast.LENGTH_SHORT).show();
+                }
             }else{
                 Toast.makeText(getApplicationContext(),"La contraseña debe tener 6 caracteres o mas ",Toast.LENGTH_LONG ).show();
             }
@@ -130,7 +137,7 @@ public class RegistroActivity extends AppCompatActivity {
                                                     }, new Response.ErrorListener() {
                                                         @Override
                                                         public void onErrorResponse(VolleyError error) {
-                                                            Toast.makeText(getApplicationContext(), "Fallo del servidor", Toast.LENGTH_SHORT).show();
+
                                                         }
 
                                                     }) {

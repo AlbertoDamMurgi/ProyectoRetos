@@ -37,7 +37,8 @@ public class RegistroAdminActivity extends AppCompatActivity {
     EditText correoadmin;
     @BindView(R.id.ed_pass_equipo_admin_registrar)
     EditText passadmin;
-
+    @BindView(R.id.ed_pass_admin_confirmar)
+    EditText passadminconfirmar;
 
     private LoginModel mLoginModel;
 
@@ -63,7 +64,11 @@ public class RegistroAdminActivity extends AppCompatActivity {
                 !correoadmin.getText().toString().trim().isEmpty() && !passadmin.getText().toString().trim().isEmpty()
                 ) {
             if (passadmin.getText().toString().trim().toCharArray().length >= 6) {
-                ok=true;
+                if(passadminconfirmar.getText().toString().trim().equals(passadmin.getText().toString().trim())) {
+                    ok = true;
+                }else{
+                    Toast.makeText(getApplicationContext(), "Debes confirmar la contraseña", Toast.LENGTH_SHORT).show();
+                }
             }else{
                 Toast.makeText(getApplicationContext(),"La contraseña debe tener 6 caracteres o mas ",Toast.LENGTH_LONG ).show();
             }
@@ -124,7 +129,7 @@ if (comprobarRegistro()){
                                                 }, new Response.ErrorListener() {
                                                     @Override
                                                     public void onErrorResponse(VolleyError error) {
-                                                        Toast.makeText(getApplicationContext(), "Fallo del servidor", Toast.LENGTH_SHORT).show();
+
                                                     }
 
                                                 }) {

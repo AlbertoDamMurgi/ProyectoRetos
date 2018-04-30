@@ -252,7 +252,7 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+
 
             }
 
@@ -315,7 +315,7 @@ void cambiarpregunta(){
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+
 
             }
 
@@ -380,8 +380,7 @@ void cambiarpregunta(){
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Partida", error.getMessage());
-                Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -423,8 +422,7 @@ void cambiarpregunta(){
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Partida", error.getMessage());
-                Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -444,7 +442,6 @@ void cambiarpregunta(){
                     CargarIDReto();
                 } else {
                     Toast.makeText(getApplicationContext(), "Ups! ha habido algun error", Toast.LENGTH_SHORT).show();
-
                 }
                 Log.e("ON RESPONDE", response.toString());
 
@@ -452,7 +449,7 @@ void cambiarpregunta(){
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+
 
             }
 
