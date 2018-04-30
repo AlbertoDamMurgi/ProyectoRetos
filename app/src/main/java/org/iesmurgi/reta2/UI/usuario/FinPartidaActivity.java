@@ -57,7 +57,7 @@ public class FinPartidaActivity extends AppCompatActivity {
         idPartida=getIntent().getIntExtra("idPartida",0);
         idUsuario=getIntent().getIntExtra("idUsuario",0);
 
-
+  Log.e("Fin usuario y partida",idUsuario+""+idPartida);
 
 
         cargarDatos();
