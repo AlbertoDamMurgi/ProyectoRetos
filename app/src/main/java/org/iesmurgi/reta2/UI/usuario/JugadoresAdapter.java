@@ -32,7 +32,7 @@ public class JugadoresAdapter extends RecyclerView.Adapter<JugadoresAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.ranking_item, parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.jugadores_item, parent,false);
         return new JugadoresAdapter.ViewHolder(v);
     }
 
