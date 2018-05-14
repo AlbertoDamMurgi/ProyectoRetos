@@ -85,7 +85,7 @@ public class AdministrarPartidaAdminActivity extends AppCompatActivity {
 */
     @OnClick(R.id.btn_admin_verjugadores3)
         void verJugadores(){
-            startActivity(new Intent(getApplicationContext(),AdminVerJugadoresActivity.class).putExtra("PARTIDA",sala));
+            startActivity(new Intent(getApplicationContext(),AdminVerJugadoresActivity.class).putExtra("idPartida",idpartida));
         }
     @OnClick(R.id.btn_admin_PuntuarFotos)
         void verFotos(){

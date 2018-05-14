@@ -1,4 +1,4 @@
-package org.iesmurgi.reta2.UI.usuario;
+package org.iesmurgi.reta2.UI.admin;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import org.iesmurgi.reta2.Data.Objetos.RankingEquipos;
 import org.iesmurgi.reta2.R;
+import org.iesmurgi.reta2.UI.admin.Objetos.EquipoParticipantes;
 
 import java.util.ArrayList;
 
@@ -21,11 +22,11 @@ import butterknife.ButterKnife;
 
 public class JugadoresAdapter extends RecyclerView.Adapter<JugadoresAdapter.ViewHolder> {
 
-    private ArrayList<RankingEquipos> puntosEquipos;
+    private ArrayList<EquipoParticipantes> jugadores;
     private Context context;
 
-    public JugadoresAdapter(ArrayList<RankingEquipos> puntosEquipos, Context context) {
-        this.puntosEquipos = puntosEquipos;
+    public JugadoresAdapter(ArrayList<EquipoParticipantes> j, Context context) {
+        this.jugadores = j;
         this.context = context;
     }
 
@@ -39,14 +40,14 @@ public class JugadoresAdapter extends RecyclerView.Adapter<JugadoresAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        holder.nombreEquipo.setText(puntosEquipos.get(position).getNombreEquipo());
-        holder.participantes.setText(String.valueOf(puntosEquipos.get(position).getPuntosTotales()));
+        holder.nombreEquipo.setText(jugadores.get(position).getEquipo());
+        holder.participantes.setText(jugadores.get(position).getParticipantes().replaceAll("\n",", "));
 
     }
 
     @Override
     public int getItemCount() {
-        return puntosEquipos.size();
+        return jugadores.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
