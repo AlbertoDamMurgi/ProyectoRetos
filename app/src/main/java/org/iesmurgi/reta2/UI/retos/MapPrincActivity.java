@@ -495,6 +495,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         }else{
 
             if (marcadores==null || marcadores.isEmpty()){
+                Log.e("if marcadores","if marcadores");
                 crearmarcadores();
             }
             mapa.addMarker(marcadores.get(locationModel.getNumReto()));
