@@ -18,7 +18,7 @@
     <string name="tv_signup_team">Registrar equipo</string>
     <string name="team_name">Nombre del equipo</string>
     <string name="team_members">Miembros del equipo</string>
-    <string name="sign_up">Registrarse</string>
+    <string name="sign_up">Regístrate</string>
     <string name="start_game">Empezar el juego</string>
     <string name="game_name">Nombre de la partida</string>
     <string name="game_pass">Contraseña de la partida</string>
@@ -71,4 +71,11 @@
     <string name="reg_admin_msg">Registrar Administrador</string>
     <string name="map_admin_open">Abrir mapa de administrador</string>
     <string name="user_pass_confirm">Confirmar contraseña</string>
+    <string name="answer1">Respuesta 1</string>
+    <string name="answer2">Respuesta 2</string>
+    <string name="answer3">Respuesta 3</string>
+    <string name="descripcion_del_reto">Descripción del reto</string>
+    <string name="tiempo">Tiempo</string>
+    <string name="nombre_del_reto">Nombre del reto</string>
+    <string name="respuesta">Respuesta</string>
 </resources>
