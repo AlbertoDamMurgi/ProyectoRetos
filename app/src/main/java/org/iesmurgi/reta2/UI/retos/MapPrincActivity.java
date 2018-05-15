@@ -67,7 +67,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     private static final String TAG = "GEOFENCE";
 
     int idUsuario;
-
+    private boolean primeravez = true;
     public GoogleMap mapa;
     private ArrayList<MarkerOptions> marcadores = new ArrayList<>();
     FirebaseDatabase database;
@@ -98,7 +98,6 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
             GEOFENCE_EXPIRATION_IN_HOURS * 60 * 60 * 1000;
 
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -120,7 +119,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     class RecuperarRetos extends AsyncTask<Integer, Void, Integer> {
         @Override
         protected Integer doInBackground(Integer... p) {
-            retos =  BasedeDatosApp.getAppDatabase(getApplicationContext()).retosDao().getRetosPartida(p[0]);
+            retos = BasedeDatosApp.getAppDatabase(getApplicationContext()).retosDao().getRetosPartida(p[0]);
 
             locationModel.setRetos(retos);
             locationModel.setCargados(true);
@@ -136,12 +135,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     }
 
 
-
-
-
-
     private List<Retos> retos = new ArrayList<>();
-
 
 
     private String nombrepartida;
@@ -155,54 +149,50 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         locationModel = ViewModelProviders.of(this).get(LocationModel.class);
 
 
-        if(locationModel.getNumReto()==null){
+        if (locationModel.getNumReto() == null) {
             locationModel.setNumReto(getIntent().getExtras().getInt("ultimoReto"));
         }
 
 
-        if(locationModel.getIdpartida()==null){
-            idpartida= getIntent().getExtras().getInt("IDPARTIDA");
-            Log.e("idpartidamodel",""+idpartida);
+        if (locationModel.getIdpartida() == null) {
+            idpartida = getIntent().getExtras().getInt("IDPARTIDA");
+            Log.e("idpartidamodel", "" + idpartida);
             locationModel.setIdpartida(idpartida);
-            Log.e("idpartidamodeldentro",""+locationModel.getIdpartida());
-        }else{
+            Log.e("idpartidamodeldentro", "" + locationModel.getIdpartida());
+        } else {
             idpartida = locationModel.getIdpartida();
         }
 
 
-        if(locationModel.getIdusuario()==null){
-            idUsuario= getIntent().getExtras().getInt("idUsuario");
-            Log.e("idususmodel",""+idUsuario);
+        if (locationModel.getIdusuario() == null) {
+            idUsuario = getIntent().getExtras().getInt("idUsuario");
+            Log.e("idususmodel", "" + idUsuario);
             locationModel.setIdusuario(idUsuario);
-            Log.e("idusudentro",""+locationModel.getIdusuario());
-        }else{
+            Log.e("idusudentro", "" + locationModel.getIdusuario());
+        } else {
             idUsuario = locationModel.getIdusuario();
         }
 
 
-        if(locationModel.getNombrepartida()==null){
+        if (locationModel.getNombrepartida() == null) {
             nombrepartida = getIntent().getExtras().getString("NOMBREPARTIDA");
-            Log.e("nombreparidamodel",""+nombrepartida);
+            Log.e("nombreparidamodel", "" + nombrepartida);
             locationModel.setNombrepartida(nombrepartida);
-        }else{
-            nombrepartida=locationModel.getNombrepartida();
+        } else {
+            nombrepartida = locationModel.getNombrepartida();
         }
 
 
+        Log.e("nombrepartida mapa", nombrepartida);
 
 
-        Log.e("nombrepartida mapa",nombrepartida);
-
-
-
-       FloatingActionButton mChat = findViewById(R.id.btn_mapa_chat);
+        FloatingActionButton mChat = findViewById(R.id.btn_mapa_chat);
         mChat.setOnClickListener(v -> {
-            Log.e("chat","deberia abrir el chat"+nombrepartida);
-            startActivity(new Intent(getApplicationContext(),ChatActivity.class)
-                    .putExtra("SALA",nombrepartida)
+            Log.e("chat", "deberia abrir el chat" + nombrepartida);
+            startActivity(new Intent(getApplicationContext(), ChatActivity.class)
+                    .putExtra("SALA", nombrepartida)
             );
         });
-
 
 
         locationModel = ViewModelProviders.of(this).get(LocationModel.class);
@@ -210,10 +200,6 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
         mGpsListener = new MyLocationListener(locationModel);
         mGeofenceList = new ArrayList<Geofence>();
-
-
-
-
 
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -235,7 +221,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         mGeofencingClient = LocationServices.getGeofencingClient(this);
 
         buildGoogleApiClient();
-        if(myClient==null) {
+        if (myClient == null) {
 
             myClient = new GoogleApiClient.Builder(this)
                     .addConnectionCallbacks(this)
@@ -255,16 +241,16 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
         mAuth = FirebaseAuth.getInstance();
         usuario = mAuth.getCurrentUser().getDisplayName();
-        if(usuario == null){
+        if (usuario == null) {
             usuario = locationModel.getUsuario();
-        }else{
+        } else {
             locationModel.setUsuario(usuario);
         }
 
-        if(nombrepartida==null){
-            nombrepartida=locationModel.getPartida();
+        if (nombrepartida == null) {
+            nombrepartida = locationModel.getPartida();
 
-        }else{
+        } else {
             locationModel.setPartida(nombrepartida);
         }
 
@@ -278,20 +264,19 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         locationModel.getmLocation().observe(this, location -> {
             if (location != null && mapa != null) {
 
-                puedespinchar=false;
-                Log.e("no puedes pinchar","no puedes pinchar"+puedespinchar);
+                puedespinchar = false;
+                Log.e("no puedes pinchar", "no puedes pinchar" + puedespinchar);
                 Log.e("he entrado", "he entrado" + location.getLatitude() + " " + location.getLongitude());
 
-                PruebaLoc lat = new PruebaLoc(String.valueOf(location.getLatitude()),String.valueOf(location.getLongitude()));
+                PruebaLoc lat = new PruebaLoc(String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude()));
 
                 myRef.push().setValue(lat);
 
 
-
-                for(int i=0;i<retos.size(); i++){
-                    Location.distanceBetween(location.getLatitude(),location.getLongitude(),retos.get(i).getLocalizacionLatitud(),retos.get(i).getLocalizacionLongitud(),results);
-                    if(results[0]<30){
-                        if(i==locationModel.getNumReto()) {
+                for (int i = 0; i < retos.size(); i++) {
+                    Location.distanceBetween(location.getLatitude(), location.getLongitude(), retos.get(i).getLocalizacionLatitud(), retos.get(i).getLocalizacionLongitud(), results);
+                    if (results[0] < 30) {
+                        if (i == locationModel.getNumReto()) {
                             puedespinchar = true;
 
                             Log.e("puedes pinchar", "puedes pinchar" + puedespinchar);
@@ -308,9 +293,6 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     }
 
 
-
-
-
     private void buildGoogleApiClient() {
     }
 
@@ -320,8 +302,6 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         myClient.connect();
         //startGeofences();
         super.onStart();
-
-
 
 
     }
@@ -337,8 +317,8 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     // Create a Intent send by the notification
 
     public static Intent makeNotificationIntent(Context context, String msg) {
-        Intent intent = new Intent( context, MapPrincActivity.class );
-        intent.putExtra( NOTIFICATION_MSG, msg );
+        Intent intent = new Intent(context, MapPrincActivity.class);
+        intent.putExtra(NOTIFICATION_MSG, msg);
         return intent;
     }
 
@@ -347,7 +327,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     private void startGeofences() {
         Log.i(TAG, "startGeofence()");
         for (int i = 0; i < retos.size(); i++) {
-            Geofence geofence = createGeofence(new LatLng(retos.get(i).getLocalizacionLatitud(),retos.get(i).getLocalizacionLongitud()), 150, retos.get(i).getNombre());
+            Geofence geofence = createGeofence(new LatLng(retos.get(i).getLocalizacionLatitud(), retos.get(i).getLocalizacionLongitud()), 150, retos.get(i).getNombre());
             GeofencingRequest geofenceRequest = createGeofenceRequest(geofence);
             addGeofence(geofenceRequest);
         }
@@ -417,7 +397,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     public void onResult(@NonNull Status status) {
 
         Log.e(TAG, "onResult: " + status);
-        if ( status.isSuccess() ) {
+        if (status.isSuccess()) {
             Toast.makeText(this, "yeeah", Toast.LENGTH_SHORT).show();
 
         } else {
@@ -436,20 +416,16 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         ).setResultCallback(new ResultCallback<Status>() {
             @Override
             public void onResult(@NonNull Status status) {
-                if ( status.isSuccess() ) {
+                if (status.isSuccess()) {
                     // remove drawing
-                   Log.e("removidas","removidasGeofences");
+                    Log.e("removidas", "removidasGeofences");
                 }
             }
         });
     }
 
 
-
-
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-
-
 
 
     //-----------------------------------------------------------mapa----------------------------------------------------------------------------
@@ -457,50 +433,63 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     @Override
     public void onMapReady(GoogleMap googleMap) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-        //
-        //    ActivityCompat#requestPermissions
-        // here to request the missing permissions, and then overriding
-        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-        //                                          int[] grantResults)
-        // to handle the case where the user grants the permission. See the documentation
-        // for ActivityCompat#requestPermissions for more details.
-        return;
-    }
+            //
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
 
         if (mapa == null) {
             mapa = googleMap;
-        }
 
+        }
 
 
         if (!locationModel.isCargados()) {
             new RecuperarRetos().execute(idpartida);
-        }else{
-            retos=locationModel.getRetos();
+        } else {
+            retos = locationModel.getRetos();
             initMapa();
         }
 
 
-
-
     }
 
-    void initMapa(){
+    void initMapa() {
 
-        Log.e("Numero reto",locationModel.getNumReto()+""+retos.size());
-        if (locationModel.getNumReto()==retos.size()){
-            Log.d("ENTRE","SI");
-            startActivity(new Intent(getApplicationContext(),FinPartidaActivity.class).putExtra("idPartida",idpartida).putExtra("idUsuario",idUsuario));
+        Log.e("Numero reto", locationModel.getNumReto() + "" + retos.size());
+        if (locationModel.getNumReto() == retos.size()) {
+            Log.d("ENTRE", "SI");
+            startActivity(new Intent(getApplicationContext(), FinPartidaActivity.class).putExtra("idPartida", idpartida).putExtra("idUsuario", idUsuario));
             finish();
-        }else{
+        } else {
 
-            if (marcadores==null || marcadores.isEmpty()){
-                Log.e("if marcadores","if marcadores");
+            if (marcadores == null || marcadores.isEmpty()) {
+                Log.e("if marcadores", "if marcadores");
                 crearmarcadores();
             }
             mapa.addMarker(marcadores.get(locationModel.getNumReto()));
+            if (locationModel.getNumReto() != null && !marcadores.isEmpty()) {
+                mapa.moveCamera(CameraUpdateFactory.newLatLng(marcadores.get(locationModel.getNumReto()).getPosition()));
+                mapa.animateCamera(CameraUpdateFactory.newLatLngZoom(marcadores.get(locationModel.getNumReto()).getPosition(), 17));
+                primeravez = false;
+            }
         }
 
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         mapa.setMyLocationEnabled(true);
         mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
@@ -536,6 +525,8 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
                     .anchor(0.5f, 0.5f));
 
         }
+
+
         Log.e("Marcodores y retos","Marcadores"+marcadores.size()+"Retos"+retos.size());
 
 
