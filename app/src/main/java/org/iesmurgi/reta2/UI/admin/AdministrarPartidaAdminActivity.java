@@ -59,7 +59,7 @@ public class AdministrarPartidaAdminActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_mapa_administrar_partida:
-                startActivity(new Intent(getApplicationContext(),AdminMapaActivity.class).putExtra("PARTIDA",sala));
+                startActivity(new Intent(getApplicationContext(),AdminMapaActivity.class).putExtra("PARTIDA",sala).putExtra("idPartida",idpartida));
                 return true;
 
 
@@ -85,7 +85,7 @@ public class AdministrarPartidaAdminActivity extends AppCompatActivity {
 */
     @OnClick(R.id.btn_admin_verjugadores3)
         void verJugadores(){
-            startActivity(new Intent(getApplicationContext(),AdminVerJugadoresActivity.class).putExtra("PARTIDA",sala));
+            startActivity(new Intent(getApplicationContext(),AdminVerJugadoresActivity.class).putExtra("idPartida",idpartida));
         }
     @OnClick(R.id.btn_admin_PuntuarFotos)
         void verFotos(){
