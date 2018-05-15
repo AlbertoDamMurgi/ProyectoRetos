@@ -46,7 +46,7 @@ public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCal
     private GoogleMap mMap;
     private String partida;
     private int idPartida;
-    private final LatLng Murgi = new LatLng(36.7822801, -2.815255);
+   // private final LatLng Murgi = new LatLng(36.7822801, -2.815255);
     FirebaseDatabase database;
     DatabaseReference myRef, mRefAux;
     private ArrayList<MarkerOptions> marcadores = new ArrayList<>();
@@ -66,9 +66,10 @@ public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCal
         mapFragment.getMapAsync(this);
 
         partida = getIntent().getExtras().getString("PARTIDA");
+
         idPartida = getIntent().getIntExtra("idPartida",0);
 
-        Log.e("PArtida", partida);
+
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
@@ -183,7 +184,7 @@ public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCal
                         String participante = dataSnapshot.getKey();
                         Log.e("participante", participante);
                         // participantes.add(participante);
-                        marcadores.add(new MarkerOptions().position(Murgi).title(participante));
+                        //marcadores.add(new MarkerOptions().position(Murgi).title(participante));
                         // Log.e("size",""+participantes.size());
                         actualizarPosiciones(participante);
                     } catch (Exception ex) {
@@ -226,9 +227,8 @@ public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCal
 
         }
 
-        float zoom = 14f;
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(Murgi, zoom);
-        mMap.animateCamera(cameraUpdate);
+
+
         cargarRetos();
 
     }
@@ -260,6 +260,8 @@ public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCal
                         Log.e("Log Json error Retos", e.getMessage());
                     }
                 }//endgfor
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(marcadoresRetos.get(0).getPosition()));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marcadoresRetos.get(0).getPosition(),17));
                 pintarMapa();
                 Log.e("LISTA Retos", response.toString());
 
