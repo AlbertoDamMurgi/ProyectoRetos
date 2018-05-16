@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:title="@string/saltar_reto"
+        android:id="@+id/op_saltar_reto"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        />
+    <item android:title="@string/cancel_photo"
+        android:id="@+id/op_cancelar"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        />
+</menu>

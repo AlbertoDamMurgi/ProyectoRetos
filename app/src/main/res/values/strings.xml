@@ -113,5 +113,8 @@
     <string name="tiempo">Time</string>
     <string name="nombre_del_reto">Name of the challenge</string>
     <string name="respuesta">Answer</string>
+    <!--mapa principal activity-->
+
+    <string name="saltar_reto">Skip challenge</string>
 
 </resources>

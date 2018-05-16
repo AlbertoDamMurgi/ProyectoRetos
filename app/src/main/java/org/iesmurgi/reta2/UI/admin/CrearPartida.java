@@ -61,7 +61,7 @@ public class CrearPartida extends AppCompatActivity {
                         !txt_numeroretos.getText().toString().trim().isEmpty()
                 ) {
             nR =Integer.parseInt( txt_numeroretos.getText().toString().trim());
-            if (nR<=11 && nR>=1){
+            if (nR<=15 && nR>=1){
 
                 progressDialog.setMessage("Creando partida...");
             progressDialog.show();
@@ -104,7 +104,7 @@ public class CrearPartida extends AppCompatActivity {
             RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
             requestQueue.add(stringRequest);
             }else{
-                Toast.makeText(getApplicationContext(), "La cantidad de retos debe ser de 1 a 10", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "La cantidad de retos debe ser de 1 a 15", Toast.LENGTH_LONG).show();
             }
         } else {
 
