@@ -26,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -72,6 +73,8 @@ import org.iesmurgi.reta2.UI.admin.PruebaLoc;
 import org.iesmurgi.reta2.UI.geofences.GeofenceTransiciones;
 import org.iesmurgi.reta2.UI.usuario.FinPartidaActivity;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ResultCallback<Status> {
@@ -104,6 +107,10 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     private int idpartida;
     private final LatLng Murgi = new LatLng(36.7822801, -2.815255);
     private FirebaseAuth mAuth;
+
+    @BindView(R.id.toolbar_mapaUsuario)
+    Toolbar toolbar;
+
 
     public static final long GEOFENCE_EXPIRATION_IN_HOURS = 1;
 
@@ -160,7 +167,8 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_princ);
         locationModel = ViewModelProviders.of(this).get(LocationModel.class);
-
+        ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
 
         if (locationModel.getNumReto() == null) {
             locationModel.setNumReto(getIntent().getExtras().getInt("ultimoReto"));
@@ -332,8 +340,6 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     }
     private void cargarDialogoSaltar() {
 
-        String saltarReto = getResources().getString(R.string.saltar_reto);
-        String cancel = getResources().getString(R.string.cancel_photo);
         String option = getResources().getString(R.string.choose_option);
 
         final AlertDialog.Builder alertOpciones=new AlertDialog.Builder(MapPrincActivity.this);
