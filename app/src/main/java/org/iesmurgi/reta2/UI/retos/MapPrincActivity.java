@@ -321,8 +321,6 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     }
 
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -338,19 +336,21 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
         }
     }
+
     private void cargarDialogoSaltar() {
 
         String option = getResources().getString(R.string.choose_option);
 
-        final AlertDialog.Builder alertOpciones=new AlertDialog.Builder(MapPrincActivity.this);
-        alertOpciones.setTitle(""+option);
+        final AlertDialog.Builder alertOpciones = new AlertDialog.Builder(MapPrincActivity.this);
+        alertOpciones.setTitle("" + option);
         alertOpciones.setMessage("Estas seguro que deseas saltar el reto?");
         alertOpciones.setPositiveButton("Si", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                //si salta aqui
-
+                cambiarReto();
+                updateNumReto("Reto saltado");
+                Log.e("Santi", "Estoy en si");
             }
         });
 
@@ -364,6 +364,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         alertOpciones.show();
 
     }
+
     void updateNumReto(String mensaje) {
 
         final String URL = "http://geogame.ml/api/update_numPartida.php";
@@ -375,9 +376,6 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
                 if (response.contains("success")) {
                     //progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG).show();
-                    setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), MapPrincActivity.class));
-                    finish();
-
                 }
 
             }
@@ -392,8 +390,8 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("idUsuario", "" + idUsuario);
-                params.put("idPartida", "" +idpartida);
-                params.put("ultimoReto",""+ locationModel.getNumReto()+1);
+                params.put("idPartida", "" + idpartida);
+                params.put("ultimoReto", "" + locationModel.getNumReto());
                 return params;
             }
         };
@@ -604,14 +602,14 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         mapa.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                if(puedespinchar) {
-                    for (int i = 0; i < marcadores.size() ; i++) {
+                if (puedespinchar) {
+                    for (int i = 0; i < marcadores.size(); i++) {
 
-                        if(marcadores.get(i).getTitle().equalsIgnoreCase(marker.getTitle())){
-                            int [] aux;
-                            aux = new int[]{idpartida,retos.get(i).getIdReto()};
+                        if (marcadores.get(i).getTitle().equalsIgnoreCase(marker.getTitle())) {
+                            int[] aux;
+                            aux = new int[]{idpartida, retos.get(i).getIdReto()};
                             startActivityForResult(
-                                    new Intent(getApplicationContext(),RetoActivity.class).putExtra("idUsuario",idUsuario).putExtra("PARTIDAYRETO",aux).putExtra("NOMBREPARTIDA",nombrepartida).putExtra("numeroRetoArray",i+1),RETO_FINALIZADO);
+                                    new Intent(getApplicationContext(), RetoActivity.class).putExtra("idUsuario", idUsuario).putExtra("PARTIDAYRETO", aux).putExtra("NOMBREPARTIDA", nombrepartida).putExtra("numeroRetoArray", i + 1), RETO_FINALIZADO);
                         }
                     }
                 }
@@ -621,11 +619,10 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     }
 
 
-
     private void crearmarcadores() {
 
-        for (int i = 0; i < retos.size() ; i++) {
-            marcadores.add(new MarkerOptions().position(new LatLng(retos.get(i).getLocalizacionLatitud(),retos.get(i).getLocalizacionLongitud()))
+        for (int i = 0; i < retos.size(); i++) {
+            marcadores.add(new MarkerOptions().position(new LatLng(retos.get(i).getLocalizacionLatitud(), retos.get(i).getLocalizacionLongitud()))
                     .title(retos.get(i).getNombre())
 
                     .icon(BitmapDescriptorFactory
@@ -635,15 +632,32 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         }
 
 
-        Log.e("Marcodores y retos","Marcadores"+marcadores.size()+"Retos"+retos.size());
-
+        Log.e("Marcodores y retos", "Marcadores" + marcadores.size() + "Retos" + retos.size());
 
 
     }
 
+    private void cambiarReto() {
+        locationModel.setNumReto(locationModel.getNumReto() + 1);
+        if (locationModel.getNumReto() < retos.size()) {
+            try {
+                mapa.clear();
+                onMapReady(mapa);
+
+            } catch (NullPointerException ex) {
+
+            }
 
 
+        } else {
 
+            // finalizar juego
+            startActivity(new Intent(getApplicationContext(), FinPartidaActivity.class).putExtra("idPartida", idpartida).putExtra("idUsuario", idUsuario));
+            Log.e("FINISH", "FINISH");
+            finish();
+
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -652,27 +666,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         if (requestCode == RETO_FINALIZADO) {
 
             if (resultCode == RESULT_OK) {
-                locationModel.setNumReto(locationModel.getNumReto()+1);
-                if (locationModel.getNumReto() < retos.size()) {
-                    try {
-
-                        mapa.clear();
-                        onMapReady(mapa);
-
-                    }catch (NullPointerException ex){
-
-                    }
-
-
-
-                }else{
-
-                    // finalizar juego
-                    startActivity(new Intent(getApplicationContext(),FinPartidaActivity.class).putExtra("idPartida",idpartida).putExtra("idUsuario",idUsuario));
-                    Log.e("FINISH","FINISH");
-                    finish();
-
-                }
+                cambiarReto();
 
             }
 
@@ -696,36 +690,38 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     }
 }
 
-     class MyLocationListener implements LocationListener {
+class MyLocationListener implements LocationListener {
 
-       private LocationModel model;
+    private LocationModel model;
 
-         public MyLocationListener(LocationModel locationModel) {
-             model = locationModel;
-         }
-
-         @Override
-        public void onLocationChanged(Location location) {
-            Log.d("onLocationChanged","Changed 1");
-                if(location!=null&&model.getmLocation()!=null) {model.setmLocation(location);}
-            Log.d("onLocationChanged","Changed 2");
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-
-        }
+    public MyLocationListener(LocationModel locationModel) {
+        model = locationModel;
     }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        Log.d("onLocationChanged", "Changed 1");
+        if (location != null && model.getmLocation() != null) {
+            model.setmLocation(location);
+        }
+        Log.d("onLocationChanged", "Changed 2");
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+}
 
 
 
