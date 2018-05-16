@@ -336,7 +336,6 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         String cancel = getResources().getString(R.string.cancel_photo);
         String option = getResources().getString(R.string.choose_option);
 
-        final CharSequence[] opciones={""+saltarReto,""+cancel};
         final AlertDialog.Builder alertOpciones=new AlertDialog.Builder(MapPrincActivity.this);
         alertOpciones.setTitle(""+option);
         alertOpciones.setMessage("Estas seguro que deseas saltar el reto?");
