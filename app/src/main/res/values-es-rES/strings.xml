@@ -78,4 +78,5 @@
     <string name="tiempo">Tiempo</string>
     <string name="nombre_del_reto">Nombre del reto</string>
     <string name="respuesta">Respuesta</string>
+    <string name="saltar_reto">Saltar reto</string>
 </resources>
