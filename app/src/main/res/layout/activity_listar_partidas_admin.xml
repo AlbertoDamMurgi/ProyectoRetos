@@ -30,7 +30,7 @@
                 android:layout_height="100dp"
                 android:layout_gravity="right|bottom"
                 android:layout_margin="8dp"
-                android:src="@drawable/logohoja"/>
+                android:src="@drawable/ic_launcher"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
