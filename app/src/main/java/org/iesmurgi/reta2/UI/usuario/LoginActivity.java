@@ -36,7 +36,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
+
 import org.iesmurgi.reta2.R;
+import org.iesmurgi.reta2.Seguridad.Cifrar;
 import org.iesmurgi.reta2.UI.admin.LoginAdmin;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -59,6 +61,7 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
     private LoginModel mLoginModel;
 
     private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,8 +83,7 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
         String passGuardado = prefs.getString("pass", "");
         email.setText(userGuardado);
         pass.setText(passGuardado);
-        if (!email.getText().toString().isEmpty() && !pass.getText().toString().trim().isEmpty())
-        {
+        if (!email.getText().toString().isEmpty() && !pass.getText().toString().trim().isEmpty()) {
             conectarUsuario();
         }
     }
@@ -115,13 +117,11 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
     }
 
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add_user:
-                startActivity(new Intent(getApplicationContext(),RegistroActivity.class));
+                startActivity(new Intent(getApplicationContext(), RegistroActivity.class));
                 return true;
 
             case R.id.action_about:
@@ -179,16 +179,16 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
     */
 
     @OnLongClick(R.id.loginsecreto_admin)
-    boolean loginAdminSecreto(){
+    boolean loginAdminSecreto() {
 
-        startActivity(new Intent(getApplicationContext(),LoginAdmin.class));
+        startActivity(new Intent(getApplicationContext(), LoginAdmin.class));
 
         return true;
     }
 
 
     @OnClick(R.id.btn_conectarse)
-    void conectarUsuario(){
+    void conectarUsuario() {
 
 
         if (!email.getText().toString().trim().isEmpty() && !pass.getText().toString().trim().isEmpty()) {
@@ -203,14 +203,12 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
                                 mLoginModel.getUsuario().setValue(mAuth.getInstance().getCurrentUser());
                                 mLoginModel.getConection().setValue(mAuth);
 
-                                if( !mLoginModel.getConection().getValue().getCurrentUser().getDisplayName().equalsIgnoreCase("administrador")) {
-
-
+                                if (!mLoginModel.getConection().getValue().getCurrentUser().getDisplayName().equalsIgnoreCase("administrador")) {
 
 
                                     obtenerid();
 
-                                }else {
+                                } else {
                                     Toast.makeText(LoginActivity.this, "Credenciales erroneas.", Toast.LENGTH_SHORT).show();
                                 }
 
@@ -225,34 +223,31 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
                         }
                     });
 
-        }else {
+        } else {
             Toast.makeText(getApplicationContext(), "Porfavor rellena todos los campos.", Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    void obtenerid(){
+    void obtenerid() {
 
         //Sacamos la id de usaario
-        final String URL = "http://geogame.ml/api/obtener_usuario.php?correo="+email.getText().toString().trim()+"&passwd="+pass.getText().toString().trim();
+        final String URL = "http://geogame.ml/api/obtener_usuario.php?correo=" + email.getText().toString().trim() + "&passwd=" + pass.getText().toString().trim();
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {
+        StringRequest request = new StringRequest(Request.Method.POST, URL , new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONArray response) {
-
-                for (int i = 0; i < response.length(); i++) {
-
-                    try {
+            public void onResponse(String response2) {
+                try {
+                    JSONArray response = new JSONArray(Cifrar.decrypt(response2));
+                    for (int i = 0; i < response.length(); i++) {
                         JSONObject o = response.getJSONObject(i);
-                       idUsuario=o.getInt("idUsuario");
-
-                    } catch (JSONException e) {
-                        Log.e("Log Json error Partida", e.getMessage());
+                        idUsuario = o.getInt("idUsuario");
                     }
+                    guardarylanzar();
+                    Log.e("LISTA SACAR RETO", response.toString());
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
                 }
-                guardarylanzar();
-                //endgfor
-                Log.e("LISTA SACAR RETO", response.toString());
             }
         }, new Response.ErrorListener() {
             @Override
@@ -273,15 +268,14 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
         startActivity(i);
     }*/
 
-    void guardarylanzar(){
+    void guardarylanzar() {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("usuario", email.getText().toString().trim());
         editor.putString("pass", pass.getText().toString().trim());
         editor.apply();
-        startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("idUsuario",idUsuario));
+        startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("idUsuario", idUsuario));
         finish();
     }
-
 
 
 }
