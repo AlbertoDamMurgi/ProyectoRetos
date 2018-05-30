@@ -37,6 +37,7 @@ import org.iesmurgi.reta2.Data.entidades.Partidas;
 import org.iesmurgi.reta2.Data.entidades.Respuestas;
 import org.iesmurgi.reta2.Data.entidades.Retos;
 import org.iesmurgi.reta2.R;
+import org.iesmurgi.reta2.Seguridad.Cifrar;
 import org.iesmurgi.reta2.UI.retos.MapPrincActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -169,10 +170,6 @@ public class QRScannerActivity extends AppCompatActivity {
 
 
 
-
-
-
-
     ///ESPAGUETTIS
 
     class cargarRespuesta extends AsyncTask<Respuestas, Void, Integer> {
@@ -184,13 +181,13 @@ public class QRScannerActivity extends AppCompatActivity {
             final String URL3 = "http://geogame.ml/api/obtener_respuestas.php?nombre=" + NOMBREPARTIDA;
 
 
-            JsonArrayRequest request3 = new JsonArrayRequest(Request.Method.POST, URL3, null, new Response.Listener<JSONArray>() {
+            StringRequest request3 = new StringRequest(Request.Method.POST, URL3, new Response.Listener<String>() {
                 @Override
-                public void onResponse(JSONArray response) {
+                public void onResponse(String response2) {
+                    try {
+                        JSONArray response = new JSONArray(Cifrar.decrypt(response2));
 
-                    for (int i = 0; i < response.length(); i++) {
-
-                        try {
+                        for (int i = 0; i < response.length(); i++) {
                             JSONObject o = response.getJSONObject(i);
                             Log.e("LISTA AA AAA Respuestas", "una vuelta");
 
@@ -201,9 +198,7 @@ public class QRScannerActivity extends AppCompatActivity {
                                     o.getInt("verdadero")
                             ));
 
-                        } catch (JSONException e) {
-                            Log.e("Json error Respuestas", e.getMessage());
-                        }
+
 
                     }//endgfor
                     startActivity(new Intent(getApplicationContext(), MapPrincActivity.class)
@@ -213,9 +208,11 @@ public class QRScannerActivity extends AppCompatActivity {
                             .putExtra("ultimoReto",ULTIMORETO)
                     );
                     progressDialog.dismiss();
-
                     Log.e("LISTA Respuestas", response.toString());
 
+                } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
+                }
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -289,16 +286,14 @@ public class QRScannerActivity extends AppCompatActivity {
 
         @Override
         protected Integer doInBackground(Void... r) {
-            JsonArrayRequest request2 = new JsonArrayRequest(Request.Method.POST, URL2, null, new Response.Listener<JSONArray>() {
+            StringRequest request2 = new StringRequest(Request.Method.POST, URL2, new Response.Listener<String>() {
                 @Override
-                public void onResponse(JSONArray response) {
-
+                public void onResponse(String response2) {
+                    try {
+                    JSONArray response = new JSONArray(Cifrar.decrypt(response2));
                     for (int i = 0; i < response.length(); i++) {
-
-                        try {
                             JSONObject o = response.getJSONObject(i);
                             Log.e("LISTA Retos ", "una vuelta");
-
                             new InsertarReto().execute(new Retos(
 
                                     o.getInt("idReto"),
@@ -312,15 +307,12 @@ public class QRScannerActivity extends AppCompatActivity {
                                     o.getDouble("localizacionLongitud"),
                                     o.getInt("idPartida")
                             ));
-
-                        } catch (JSONException e) {
-                            Log.e("Log Json error Retos", e.getMessage());
-                        }
                     }//endgfor
                     new cargarRespuesta().execute();
-
                     Log.e("LISTA Retos", response.toString());
-
+                } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
+                }
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -347,16 +339,16 @@ public class QRScannerActivity extends AppCompatActivity {
 
             final String URL = "http://geogame.ml/api/obtener_partida_codigoqr.php?codeqr="+cadenaCodigo;
 
-
-            JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {
+            StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override
-                public void onResponse(JSONArray response) {
-
+                public void onResponse(String response2) {
+                    try {
+                    JSONArray response = new JSONArray(Cifrar.decrypt(response2));
                     boolean partidadescargada = false;
                     for (int i = 0; i < response.length(); i++) {
 
 
-                        try {
+
                             JSONObject o = response.getJSONObject(i);
                             Log.e("LISTA Partida", "una vuelta");
                             ID_PARTIDA = o.getInt("idPartida");
@@ -368,10 +360,6 @@ public class QRScannerActivity extends AppCompatActivity {
                                     o.getString("passwd"),
                                     o.getInt("maxDuracion")
                             ));
-
-                        } catch (JSONException e) {
-                            Log.e("Log Json error Partida", e.getMessage());
-                        }
                         partidadescargada = true;
                     }//endgfor
                     if (partidadescargada) {
@@ -385,10 +373,10 @@ public class QRScannerActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Datos erroneos", Toast.LENGTH_LONG).show();
                         comprobar=true;
                     }
-
-
                     Log.e("LISTA Partida", response.toString());
-
+                } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
+                }
                 }
             }, new Response.ErrorListener() {
                 @Override
