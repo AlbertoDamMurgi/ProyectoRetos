@@ -35,6 +35,7 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 
+import org.iesmurgi.reta2.Seguridad.Cifrar;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,16 +51,16 @@ import org.iesmurgi.reta2.R;
 
 public class CrearRetoActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
-    private String latitud="";
-    private String longitud="";
+    private String latitud = "";
+    private String longitud = "";
     private int idPartida;
     private int idReto;
     private String nombrePartida;
     private String clavePartida;
-    private int tipoReto=1;
+    private int tipoReto = 1;
 
     private int partidaNumerosRetos;
-    private int partidaNumerosRetosActual=1;
+    private int partidaNumerosRetosActual = 1;
 
     private LatLng latLng;
     GoogleApiClient mClient;
@@ -126,27 +127,27 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                switch (i){
+                switch (i) {
 
                     case 0:
                         txt_rtrue.setVisibility(View.VISIBLE);
                         txt_rfalse1.setVisibility(View.VISIBLE);
                         txt_rfalse2.setVisibility(View.VISIBLE);
-                        tipoReto=1;
+                        tipoReto = 1;
                         break;
 
                     case 1:
                         txt_rtrue.setVisibility(View.VISIBLE);
                         txt_rfalse1.setVisibility(View.GONE);
                         txt_rfalse2.setVisibility(View.GONE);
-                        tipoReto=2;
+                        tipoReto = 2;
                         break;
 
                     case 2:
                         txt_rtrue.setVisibility(View.GONE);
                         txt_rfalse1.setVisibility(View.GONE);
                         txt_rfalse2.setVisibility(View.GONE);
-                        tipoReto=3;
+                        tipoReto = 3;
                         break;
 
                 }
@@ -162,7 +163,7 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
         ImageButton btnMapa = findViewById(R.id.btn_crearReto_mapaLugares);
         btnMapa.setOnClickListener(view -> runApiPlaces(view));
 
-        txt_mensaje.setText("Introduce los datos del reto "+partidaNumerosRetosActual+"/"+partidaNumerosRetos);
+        txt_mensaje.setText("Introduce los datos del reto " + partidaNumerosRetosActual + "/" + partidaNumerosRetos);
     }
 
 
@@ -188,37 +189,36 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
         //Campos obligatorios siempre
 
         if (
-                        !txt_puntos.getText().toString().trim().isEmpty() &&
+                !txt_puntos.getText().toString().trim().isEmpty() &&
                         !txt_duracion.getText().toString().trim().isEmpty() &&
                         !txt_pregunta.getText().toString().trim().isEmpty() &&
                         !txt_nombre.getText().toString().trim().isEmpty() &&
                         !latitud.isEmpty() && !longitud.isEmpty()
                 ) {
-                    if (tipoReto==1){
-                        if (
-                              !txt_rfalse1.getText().toString().trim().isEmpty() &&
-                               !txt_rfalse2.getText().toString().trim().isEmpty() &&
-                               !txt_rtrue.getText().toString().trim().isEmpty() ){
-                            ok = true;
-                        }
-                    }else if (tipoReto==2){
-                        if (
-                                !txt_rtrue.getText().toString().trim().isEmpty()){
+            if (tipoReto == 1) {
+                if (
+                        !txt_rfalse1.getText().toString().trim().isEmpty() &&
+                                !txt_rfalse2.getText().toString().trim().isEmpty() &&
+                                !txt_rtrue.getText().toString().trim().isEmpty()) {
+                    ok = true;
+                }
+            } else if (tipoReto == 2) {
+                if (
+                        !txt_rtrue.getText().toString().trim().isEmpty()) {
 
-                            ok = true;
-                        }
-                    }else{
-                        ok = true;
-                    }
+                    ok = true;
+                }
+            } else {
+                ok = true;
+            }
 
 
-
-                  }
+        }
 
         return ok;
     }
 
-    void limpiarcampos(){
+    void limpiarcampos() {
         txt_puntos.setText("");
         txt_duracion.setText("");
         txt_pregunta.setText("");
@@ -227,9 +227,10 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
         txt_rfalse1.setText("");
         txt_rfalse2.setText("");
         txt_rtrue.setText("");
-        latitud="";
-        longitud="";
+        latitud = "";
+        longitud = "";
     }
+
     void insertarRespuestas() {
         final String URL = "http://geogame.ml/api/insertar_respuestas.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
@@ -238,7 +239,6 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
                 if (response.contains("success")) {
 
                     cambiarpregunta();
-
 
 
                 } else {
@@ -279,20 +279,21 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
     }//fin insertarPreguntas
-void cambiarpregunta(){
-        progressDialog.dismiss();
-    partidaNumerosRetosActual++;
-    if (partidaNumerosRetosActual<=partidaNumerosRetos){
-        txt_mensaje.setText("Introduce los datos del reto "+partidaNumerosRetosActual+"/"+partidaNumerosRetos);
-        limpiarcampos();
-        Toast.makeText(getApplicationContext(), "Reto creado, rellena el siguiente", Toast.LENGTH_SHORT).show();
-    }else{
-        Toast.makeText(getApplicationContext(), "Todos los retos creados, Ya puede jugar la partida!", Toast.LENGTH_LONG).show();
-        startActivity(new Intent(getApplicationContext(),AdminMainActivity.class));
-        finish();
-    }
 
-}
+    void cambiarpregunta() {
+        progressDialog.dismiss();
+        partidaNumerosRetosActual++;
+        if (partidaNumerosRetosActual <= partidaNumerosRetos) {
+            txt_mensaje.setText("Introduce los datos del reto " + partidaNumerosRetosActual + "/" + partidaNumerosRetos);
+            limpiarcampos();
+            Toast.makeText(getApplicationContext(), "Reto creado, rellena el siguiente", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "Todos los retos creados, Ya puede jugar la partida!", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(getApplicationContext(), AdminMainActivity.class));
+            finish();
+        }
+
+    }
 
     void insertarRespuesta() {
         final String URL = "http://geogame.ml/api/insertar_respuesta.php";
@@ -343,39 +344,33 @@ void cambiarpregunta(){
 
 ////////////////////////////////////////////// CargarIDReto
 
-      //  final String URL = "http://geogame.ml/api/obtener_reto_con_datos_de_reto.php?nombre=" + txt_nombre.getText().toString().trim() + "&descripcion=" + txt_pregunta.getText().toString() + "&maxDuracion=" + txt_duracion.getText().toString() + "&tipo="+tipoReto+"&puntuacion=" + txt_puntos.getText().toString() + "&localizacionLatitud=" + latitud + "&localizacionLongitud=" + longitud + "&idPartida=" + idPartida;
-        final String URL = "http://geogame.ml/api/obtener_reto_con_datos_de_reto.php?nombre=" + txt_nombre.getText().toString().trim() + "&maxDuracion=" + txt_duracion.getText().toString().trim() + "&tipo="+tipoReto+"&puntuacion=" + txt_puntos.getText().toString().trim() + "&localizacionLatitud=" + latitud + "&localizacionLongitud=" + longitud + "&idPartida=" + idPartida;
+        //  final String URL = "http://geogame.ml/api/obtener_reto_con_datos_de_reto.php?nombre=" + txt_nombre.getText().toString().trim() + "&descripcion=" + txt_pregunta.getText().toString() + "&maxDuracion=" + txt_duracion.getText().toString() + "&tipo="+tipoReto+"&puntuacion=" + txt_puntos.getText().toString() + "&localizacionLatitud=" + latitud + "&localizacionLongitud=" + longitud + "&idPartida=" + idPartida;
+        final String URL = "http://geogame.ml/api/obtener_reto_con_datos_de_reto.php?nombre=" + txt_nombre.getText().toString().trim() + "&maxDuracion=" + txt_duracion.getText().toString().trim() + "&tipo=" + tipoReto + "&puntuacion=" + txt_puntos.getText().toString().trim() + "&localizacionLatitud=" + latitud + "&localizacionLongitud=" + longitud + "&idPartida=" + idPartida;
 
-        Log.d("URL SANTI",URL);
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {
+        Log.d("URL SANTI", URL);
+        StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONArray response) {
+            public void onResponse(String response2) {
+                try {
+                    JSONArray response = new JSONArray(Cifrar.decrypt(response2));
+                    for (int i = 0; i < response.length(); i++) {
 
-                for (int i = 0; i < response.length(); i++) {
-
-                    try {
                         JSONObject o = response.getJSONObject(i);
-
-
                         idReto = o.getInt("idReto");
-
-                        if (tipoReto==1){
-                           insertarRespuestas();
-                        }else if (tipoReto==2){
+                        if (tipoReto == 1) {
+                            insertarRespuestas();
+                        } else if (tipoReto == 2) {
                             insertarRespuesta();
-                        }else if(tipoReto==3){
+                        } else if (tipoReto == 3) {
                             cambiarpregunta();
                         }
-
                         Log.e("Obteniendo id reto", "" + idReto);
-
-                    } catch (JSONException e) {
-                        Log.e("Log Json error Partida", e.getMessage());
                     }
-                }
+                    Log.e("LISTA SACAR RETO", response.toString());
 
-                //endgfor
-                Log.e("LISTA SACAR RETO", response.toString());
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -396,28 +391,28 @@ void cambiarpregunta(){
 
         final String URL = "http://geogame.ml/api/obtener_partida.php?nombre=" + nombrePartida + "&passwd=" + clavePartida;
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {
+        StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONArray response) {
+            public void onResponse(String response2) {
+                try {
+                    JSONArray response = new JSONArray(Cifrar.decrypt(response2));
 
-                for (int i = 0; i < response.length(); i++) {
-
-                    try {
+                    for (int i = 0; i < response.length(); i++) {
                         JSONObject o = response.getJSONObject(i);
                         Log.e("LISTA Partida", "una vuelta");
-
 
                         idPartida = o.getInt("idPartida");
                         o.getString("nombre");
                         o.getString("passwd");
                         o.getInt("maxDuracion");
-
                         InsertarReto();
-                    } catch (JSONException e) {
-                        Log.e("Log Json error Partida", e.getMessage());
-                    }
-                }//endgfor
-                Log.e("LISTA Partida", response.toString());
+
+                    }//endgfor
+                    Log.e("LISTA Partida", response.toString());
+
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -493,14 +488,14 @@ void cambiarpregunta(){
 
     }
 
-   String comprobarString(String frase){
+    String comprobarString(String frase) {
 
-        while(frase.substring(frase.indexOf("."),frase.length()).length()<9){
-            frase+="0";
+        while (frase.substring(frase.indexOf("."), frase.length()).length() < 9) {
+            frase += "0";
         }
 
         return frase;
-   }
+    }
 
     //este metodo se lanza cuando el metodo RunApiplaces termina
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -517,11 +512,11 @@ void cambiarpregunta(){
 
             latLng = place.getLatLng();
 
-            String lat = String.valueOf(latLng.latitude)+"000000000000000000000000";
-            latitud = lat.substring(0,lat.indexOf(".")+9);
+            String lat = String.valueOf(latLng.latitude) + "000000000000000000000000";
+            latitud = lat.substring(0, lat.indexOf(".") + 9);
 
-            String lon = String.valueOf(latLng.longitude)+"000000000000000000000000";
-            longitud =  lon.substring(0,lon.indexOf(".")+9);
+            String lon = String.valueOf(latLng.longitude) + "000000000000000000000000";
+            longitud = lon.substring(0, lon.indexOf(".") + 9);
 
             Log.v("santi lat2", String.valueOf(latitud));
             Log.v("santi long2", String.valueOf(longitud));

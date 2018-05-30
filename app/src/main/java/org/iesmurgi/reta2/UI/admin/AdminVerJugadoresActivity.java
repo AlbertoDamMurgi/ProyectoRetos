@@ -13,6 +13,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.iesmurgi.reta2.Chat.ChatAdapter;
 import org.iesmurgi.reta2.Data.Objetos.RankingEquipos;
 import org.iesmurgi.reta2.R;
+import org.iesmurgi.reta2.Seguridad.Cifrar;
 import org.iesmurgi.reta2.UI.admin.Objetos.EquipoParticipantes;
 import org.iesmurgi.reta2.UI.usuario.RankingActivity;
 import org.iesmurgi.reta2.UI.usuario.RankingAdapter;
@@ -66,24 +68,25 @@ public class AdminVerJugadoresActivity extends AppCompatActivity {
         progressDialog.show();
         final String URL = "http://geogame.ml/api/obtener_jugadores_partida.php?idPartida="+idPartida;
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {
+        StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONArray response) {
-                for (int i=0;i<response.length();i++){
-                    try {
+            public void onResponse(String response2) {
+                try {
+                    JSONArray response = new JSONArray(Cifrar.decrypt(response2));
+                    for (int i = 0; i < response.length(); i++) {
                         JSONObject o = response.getJSONObject(i);
-                        jugadores.add(new EquipoParticipantes(o.getString("username"),o.getString("participantes")));
+                        jugadores.add(new EquipoParticipantes(o.getString("username"), o.getString("participantes")));
+                    }//endgfor
 
-                    } catch (JSONException e) {
-                        Log.e("Log Json error Partida", e.getMessage());
-                    }
-                }//endgfor
+                    Log.e("LISTA jugadores ", response.toString());
 
-                Log.e("LISTA jugadores ", response.toString());
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    recyclerView.setAdapter(new JugadoresAdapter(jugadores, getApplicationContext()));
+                    progressDialog.dismiss();
 
-                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                recyclerView.setAdapter(new JugadoresAdapter(jugadores, getApplicationContext()));
-                progressDialog.dismiss();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
+                }
             }
         }, new Response.ErrorListener() {
             @Override

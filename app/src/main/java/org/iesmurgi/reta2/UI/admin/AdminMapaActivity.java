@@ -14,6 +14,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -31,6 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.iesmurgi.reta2.Chat.ChatAdminActivity;
 import org.iesmurgi.reta2.R;
+import org.iesmurgi.reta2.Seguridad.Cifrar;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -237,13 +239,14 @@ public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCal
     private void cargarRetos() {
         marcadoresRetos.clear();
         final String URL2 = "http://geogame.ml/api/Lista_Retos_idPartida.php?idPartida="+idPartida;
-        JsonArrayRequest request2 = new JsonArrayRequest(Request.Method.POST, URL2, null, new Response.Listener<JSONArray>() {
+        StringRequest request2 = new StringRequest(Request.Method.POST, URL2, new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONArray response) {
-
-                for (int i = 0; i < response.length(); i++) {
+            public void onResponse(String response2) {
 
                     try {
+                        JSONArray response = new JSONArray(Cifrar.decrypt(response2));
+
+                        for (int i = 0; i < response.length(); i++) {
                         JSONObject o = response.getJSONObject(i);
 
                         marcadoresRetos.add( new MarkerOptions().position(
@@ -256,9 +259,7 @@ public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCal
                                         .fromResource(R.drawable.ic_launcher))
                                 .anchor(0.5f, 0.5f));
 
-                    } catch (JSONException e) {
-                        Log.e("Log Json error Retos", e.getMessage());
-                    }
+
                 }//endgfor
                 if(!marcadoresRetos.isEmpty()) {
                     try {
@@ -269,6 +270,9 @@ public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCal
                 }
 
 
+                } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
