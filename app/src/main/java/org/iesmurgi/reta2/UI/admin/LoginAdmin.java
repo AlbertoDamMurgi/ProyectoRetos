@@ -21,6 +21,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,6 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import org.iesmurgi.reta2.R;
+import org.iesmurgi.reta2.Seguridad.Cifrar;
 import org.iesmurgi.reta2.UI.usuario.AcercaDeActivity;
 import org.iesmurgi.reta2.UI.usuario.LoginModel;
 import org.iesmurgi.reta2.UI.usuario.RegistroActivity;
@@ -168,25 +170,23 @@ public class LoginAdmin extends AppCompatActivity implements LifecycleObserver {
         //Sacamos la id de usaario
         final String URL = "http://geogame.ml/api/obtener_admin.php?correo="+email.getText().toString().trim()+"&passwd="+email.getText().toString().trim();
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {
+        StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONArray response) {
-
+            public void onResponse(String response2) {
+                try {
+                JSONArray response = new JSONArray(Cifrar.decrypt(response2));
                 for (int i = 0; i < response.length(); i++) {
-
-                    try {
                         JSONObject o = response.getJSONObject(i);
                         idAdmin=o.getInt("idAdmin");
-
-                    } catch (JSONException e) {
-                        Log.e("Log Json error Partida", e.getMessage());
-                    }
                 }
                 startActivity(new Intent(getApplicationContext(), AdminMainActivity.class).putExtra("idAdmin",idAdmin));
 
                 finish();
                 //endgfor
                 Log.e("ADMIN RESPONDE ", response.toString());
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
+                }
             }
         }, new Response.ErrorListener() {
             @Override

@@ -17,10 +17,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.iesmurgi.reta2.Data.Objetos.RankingEquipos;
 import org.iesmurgi.reta2.R;
+import org.iesmurgi.reta2.Seguridad.Cifrar;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,9 +43,6 @@ public class FinPartidaActivity extends AppCompatActivity {
     TextView txt_finpartida_puntos;
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,15 +53,13 @@ public class FinPartidaActivity extends AppCompatActivity {
         Button btnVolver = findViewById(R.id.btn_finpartida_volverLogin);
         Button btnRanking = findViewById(R.id.btn_finpartida_verranking);
 
-        idPartida=getIntent().getIntExtra("idPartida",0);
-        idUsuario=getIntent().getIntExtra("idUsuario",0);
+        idPartida = getIntent().getIntExtra("idPartida", 0);
+        idUsuario = getIntent().getIntExtra("idUsuario", 0);
 
-  Log.e("Fin usuario y partida",idUsuario+""+idPartida);
+        Log.e("Fin usuario y partida", idUsuario + "" + idPartida);
 
 
         cargarDatos();
-
-
 
 
         btnVolver.setOnClickListener(new View.OnClickListener() {
@@ -75,36 +72,30 @@ public class FinPartidaActivity extends AppCompatActivity {
         btnRanking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              startActivity(new Intent(getApplicationContext(),RankingActivity.class).putExtra("idPartida",idPartida));
+                startActivity(new Intent(getApplicationContext(), RankingActivity.class).putExtra("idPartida", idPartida));
             }
         });
 
     }
 
 
+    public void cargarDatos() {
 
-    public void cargarDatos(){
+        final String URL = "http://geogame.ml/api/obtener_puntos_usuario.php?idPartida=" + idPartida + "&idUsuario=" + idUsuario;
 
-        final String URL = "http://geogame.ml/api/obtener_puntos_usuario.php?idPartida="+idPartida+"&idUsuario="+idUsuario;
-
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, URL, null, new Response.Listener<JSONArray>() {
+        StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONArray response) {
-                for (int i=0;i<response.length();i++){
-                    try {
+            public void onResponse(String response2) {
+                try {
+                    JSONArray response = new JSONArray(Cifrar.decrypt(response2));
+                    for (int i = 0; i < response.length(); i++) {
                         JSONObject o = response.getJSONObject(i);
-                        txt_finpartida_nombreEquip.setText( o.getString("username"));
-                        txt_finpartida_puntos.setText(""+ o.getInt("puntuaciontotal"));
-
-
-                    } catch (JSONException e) {
-                        Log.e("Log Json error Partida", e.getMessage());
-                    }
-                }//endgfor
-
-                Log.e("LISTA puntuacion", response.toString());
-
-
+                        txt_finpartida_nombreEquip.setText(o.getString("username"));
+                        txt_finpartida_puntos.setText("" + o.getInt("puntuaciontotal"));
+                    }//endgfor
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
+                }
             }
         }, new Response.ErrorListener() {
             @Override

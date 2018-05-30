@@ -9,9 +9,6 @@ import java.util.List;
 
 import org.iesmurgi.reta2.Data.entidades.Retos;
 
-/**
- * Created by Farra on 10/03/2018.
- */
 
 public class LocationModel extends ViewModel{
 
