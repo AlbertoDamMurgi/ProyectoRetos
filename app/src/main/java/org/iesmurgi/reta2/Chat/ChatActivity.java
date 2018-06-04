@@ -23,6 +23,13 @@ import butterknife.OnClick;
 import org.iesmurgi.reta2.R;
 import org.iesmurgi.reta2.UI.usuario.LoginModel;
 
+/**
+ *
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
+
 public class ChatActivity extends AppCompatActivity {
 
     @BindView(R.id.historial)

@@ -626,7 +626,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
                     .title(retos.get(i).getNombre())
 
                     .icon(BitmapDescriptorFactory
-                            .fromResource(R.drawable.hojapequenia))
+                            .fromResource(R.drawable.ic_launcher))
                     .anchor(0.5f, 0.5f));
 
         }
