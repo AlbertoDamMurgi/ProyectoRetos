@@ -256,15 +256,19 @@ public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCal
                         )
                                 .title(o.getString("nombre"))
                                 .icon(BitmapDescriptorFactory
-                                        .fromResource(R.drawable.hojapequenia))
+                                        .fromResource(R.drawable.ic_launcher))
                                 .anchor(0.5f, 0.5f));
 
 
                 }//endgfor
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(marcadoresRetos.get(0).getPosition()));
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marcadoresRetos.get(0).getPosition(),17));
-                pintarMapa();
-                Log.e("LISTA Retos", response.toString());
+                if(!marcadoresRetos.isEmpty()) {
+                    try {
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(marcadoresRetos.get(0).getPosition()));
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marcadoresRetos.get(0).getPosition(), 17));
+                        pintarMapa();
+                    }catch (Exception ex){}
+                }
+
 
                 } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();

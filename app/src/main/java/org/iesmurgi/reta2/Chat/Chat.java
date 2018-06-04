@@ -1,7 +1,13 @@
 package org.iesmurgi.reta2.Chat;
 
 /**
- * Created by usuario on 21/02/18.
+ * Esta es la clase base para los mensajes de los chats.
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ * @see ChatActivity
+ * @see ChatAdapter
+ * @see ChatAdminActivity
  */
 
 public class Chat {
