@@ -101,7 +101,7 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_reto);
         ButterKnife.bind(this);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
+       // setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
         progressDialog = new ProgressDialog(CrearRetoActivity.this);
 
         mClient = new GoogleApiClient.Builder(this)
@@ -438,7 +438,7 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
                 } else {
                     Toast.makeText(getApplicationContext(), "Ups! ha habido algun error", Toast.LENGTH_SHORT).show();
                 }
-                Log.e("ON RESPONDE", response.toString());
+                Log.e("ON RESPONDE2", response.toString());
 
             }
         }, new Response.ErrorListener() {

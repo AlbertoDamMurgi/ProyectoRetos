@@ -4,24 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryFondo">
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.88" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.12" />
+    tools:context="org.iesmurgi.reta2.UI.usuario.LoginActivity"
+    tools:layout_editor_absoluteY="81dp">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_login_admin"
+        android:id="@+id/toolbar_login"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
@@ -30,8 +17,7 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <EditText
-
-        android:id="@+id/et_email_admin"
+        android:id="@+id/et_email"
         style="@style/usuario"
         android:layout_width="0dp"
         android:layout_height="42dp"
@@ -41,14 +27,15 @@
         android:ems="10"
         android:hint="@string/user_mail"
         android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/et_pass_admin"
-        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintBottom_toTopOf="@+id/et_pass"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toBottomOf="@+id/txtLogeate_admin" />
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/txtLogeate" />
 
     <EditText
-        android:id="@+id/et_pass_admin"
+
+        android:id="@+id/et_pass"
         style="@style/pass"
         android:layout_width="0dp"
         android:layout_height="42dp"
@@ -58,57 +45,75 @@
         android:ems="10"
         android:hint="@string/user_pass"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/btn_conectarse_admin"
-        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintBottom_toTopOf="@+id/btn_conectarse"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toBottomOf="@+id/et_email_admin" />
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/et_email" />
 
 
     <Button
-        android:id="@+id/btn_conectarse_admin"
+        android:id="@+id/btn_conectarse"
         style="@style/mibotonPrinc"
         android:layout_width="0dp"
-        android:layout_height="42dp"
+        android:layout_height="45dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/login_team"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toBottomOf="@+id/et_pass_admin" />
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/et_pass" />
 
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.12" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.88" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/loginsecreto_admin"
         style="@style/logo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtLogeate_admin"
-        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/txtLogeate"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_login_admin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_login"
         app:layout_constraintVertical_chainStyle="packed"
         app:srcCompat="@drawable/ic_launcher" />
 
     <TextView
-        android:id="@+id/txtLogeate_admin"
+        android:id="@+id/txtLogeate"
+        style="@style/textGrande"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:text="Login Admin"
-        android:textAppearance="@style/textGrande"
-        android:textSize="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/et_email_admin"
-        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        android:layout_marginTop="8dp"
+        android:text="@string/user_login"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/et_email"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/loginsecreto_admin" />
+
+
 </android.support.constraint.ConstraintLayout>
