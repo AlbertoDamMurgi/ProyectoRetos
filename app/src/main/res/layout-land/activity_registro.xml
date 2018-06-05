@@ -4,21 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryFondo">
+    android:background="@color/colorPrimaryFondo"
+    tools:layout_editor_absoluteY="25dp">
 
     <Button
         android:id="@+id/btn_registro_equipo"
         style="@style/mibotonPrinc"
-        android:layout_width="0dp"
+        android:layout_width="437dp"
         android:layout_height="42dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="@string/sign_up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toBottomOf="@+id/ed_participantes_equipo" />
 
@@ -27,13 +26,14 @@
         style="@style/usuario"
         android:layout_width="0dp"
         android:layout_height="42dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/team_name"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/ed_pass_equipo"
+        app:layout_constraintBottom_toTopOf="@+id/ed_pass_equipo_confirmar"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
@@ -44,27 +44,24 @@
         style="@style/pass"
         android:layout_width="0dp"
         android:layout_height="42dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/user_pass"
         android:inputType="textPassword"
         android:singleLine="true"
-        app:layout_constraintBottom_toTopOf="@+id/ed_pass_equipo_confirmar"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintBaseline_toBaselineOf="@+id/ed_pass_equipo_confirmar"
+        app:layout_constraintEnd_toStartOf="@+id/ed_pass_equipo_confirmar"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/ed_nombre_equipo" />
+        app:layout_constraintStart_toEndOf="@+id/guideline4" />
 
     <EditText
         android:id="@+id/ed_pass_equipo_confirmar"
         style="@style/pass"
         android:layout_width="0dp"
         android:layout_height="42dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/user_pass_confirm"
         android:inputType="textPassword"
@@ -72,41 +69,37 @@
         app:layout_constraintBottom_toTopOf="@+id/ed_correo_equipo"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/ed_pass_equipo" />
+        app:layout_constraintStart_toEndOf="@+id/ed_pass_equipo"
+        app:layout_constraintTop_toBottomOf="@+id/ed_nombre_equipo" />
 
     <EditText
         android:id="@+id/ed_participantes_equipo"
         style="@style/et_base"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_width="434dp"
+        android:layout_height="42dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/team_members"
         android:inputType="textMultiLine"
         app:layout_constraintBottom_toTopOf="@+id/btn_registro_equipo"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toBottomOf="@+id/ed_correo_equipo" />
 
     <EditText
         android:id="@+id/ed_correo_equipo"
         style="@style/et_base"
-        android:layout_width="0dp"
+        android:layout_width="434dp"
         android:layout_height="42dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/user_mail"
         android:inputType="textEmailAddress"
         android:singleLine="true"
         app:layout_constraintBottom_toTopOf="@+id/ed_participantes_equipo"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toBottomOf="@+id/ed_pass_equipo_confirmar" />
 
@@ -127,16 +120,14 @@
     <ImageView
         android:id="@+id/imageView2"
         style="@style/logo"
-        android:layout_height="120dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView16"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginTop="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/ed_nombre_equipo"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
         app:srcCompat="@drawable/ic_launcher" />
 
     <TextView
@@ -144,15 +135,16 @@
         style="@style/textGrande"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="@string/tv_signup_team"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/ed_nombre_equipo"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
 </android.support.constraint.ConstraintLayout>

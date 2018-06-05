@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/colorPrimaryFondo"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryFondo"
     tools:context="org.iesmurgi.reta2.UI.admin.CrearRetoActivity"
     tools:layout_editor_absoluteY="81dp">
 
@@ -27,13 +27,15 @@
     <EditText
         android:id="@+id/txt_crearReto_nombre"
         style="@style/et_base"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="40dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/challe_name"
         android:inputType="textPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/txt_crearReto_duracion"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/txt_crearreto_mensaje" />
 
@@ -54,29 +56,33 @@
         android:id="@+id/txt_crearReto_pregunta"
         style="@style/et_base"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/question_chal"
         android:inputType="textMultiLine"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintBottom_toTopOf="@+id/btn_crearReto_next"
+        app:layout_constraintEnd_toStartOf="@+id/txt_crearReto_respuestaTrue"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_crearreto_tipos" />
+        app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
     <EditText
         android:id="@+id/txt_crearReto_duracion"
         style="@style/et_base"
-        android:layout_width="163dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/duration_game"
         android:inputType="number"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/txt_crearReto_nombre" />
+        app:layout_constraintEnd_toStartOf="@+id/btn_crearReto_mapaLugares"
+        app:layout_constraintTop_toBottomOf="@+id/txt_crearreto_mensaje" />
 
     <EditText
         android:id="@+id/txt_crearReto_puntuacion"
@@ -84,33 +90,31 @@
         android:layout_width="97dp"
         android:layout_height="40dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/points"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toEndOf="@+id/txt_crearReto_duracion"
         app:layout_constraintTop_toBottomOf="@+id/txt_crearReto_nombre" />
 
     <EditText
         android:id="@+id/txt_crearReto_respuestaTrue"
         style="@style/et_base"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/correct_ans"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/txt_crearReto_pregunta" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/txt_crearReto_pregunta"
+        app:layout_constraintTop_toBottomOf="@+id/txt_crearReto_puntuacion" />
 
     <EditText
         android:id="@+id/txt_crearReto_respuestaFalse1"
         style="@style/et_base"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -119,13 +123,13 @@
         android:hint="@string/wrong_ans"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toEndOf="@+id/txt_crearReto_pregunta"
         app:layout_constraintTop_toBottomOf="@+id/txt_crearReto_respuestaTrue" />
 
     <EditText
         android:id="@+id/txt_crearReto_respuestaFalse2"
         style="@style/et_base"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -134,7 +138,7 @@
         android:hint="@string/wrong_ans"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toEndOf="@+id/txt_crearReto_pregunta"
         app:layout_constraintTop_toBottomOf="@+id/txt_crearReto_respuestaFalse1" />
 
     <ImageButton
@@ -142,12 +146,9 @@
         android:layout_width="wrap_content"
         android:layout_height="49dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="2dp"
         app:layout_constraintBottom_toTopOf="@+id/txt_crearReto_puntuacion"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/txt_crearReto_nombre"
         app:layout_constraintTop_toBottomOf="@+id/txt_crearreto_mensaje"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@android:drawable/ic_dialog_map" />
@@ -156,8 +157,8 @@
         android:id="@+id/btn_crearReto_next"
         style="@style/miboton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/make_game_cont"
@@ -174,7 +175,7 @@
         android:layout_marginTop="8dp"
         android:textColor="#000"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintEnd_toStartOf="@+id/txt_crearReto_respuestaTrue"
         app:layout_constraintStart_toEndOf="@+id/textView24"
         app:layout_constraintTop_toBottomOf="@+id/txt_crearReto_urlVideo" />
 
@@ -196,11 +197,11 @@
         android:layout_height="40dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/video_link"
         android:inputType="textUri"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintEnd_toStartOf="@+id/txt_crearReto_puntuacion"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/txt_crearReto_duracion" />
 
