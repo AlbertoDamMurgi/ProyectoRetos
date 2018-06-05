@@ -93,6 +93,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/points"
+        android:inputType="number"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/txt_crearReto_nombre" />
 
