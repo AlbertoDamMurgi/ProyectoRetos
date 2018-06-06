@@ -12,7 +12,7 @@
     <string name="game_list">Lista de partidas</string>
     <string name="signup_team">Registrar equipo</string>
     <string name="login_team">Conectarse</string>
-    <string name="user_login">Conectar usuario</string>
+    <string name="user_login">Login usuario</string>
     <string name="user_pass">Contraseña</string>
     <string name="user_mail">Correo electrónico</string>
     <string name="tv_signup_team">Registrar equipo</string>
