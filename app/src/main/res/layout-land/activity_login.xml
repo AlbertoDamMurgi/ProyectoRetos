@@ -47,7 +47,7 @@
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/btn_conectarse"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/et_email" />
 
@@ -86,17 +86,14 @@
     <ImageView
         android:id="@+id/loginsecreto_admin"
         style="@style/logo"
-        android:layout_width="0dp"
+        android:layout_width="96dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtLogeate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/et_email"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_login"
-        app:layout_constraintVertical_chainStyle="packed"
         app:srcCompat="@drawable/ic_launcher" />
 
     <TextView
@@ -111,9 +108,9 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/et_email"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/loginsecreto_admin" />
+        app:layout_constraintHorizontal_bias="0.254"
+        app:layout_constraintStart_toEndOf="@+id/loginsecreto_admin"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_login" />
 
 
 </android.support.constraint.ConstraintLayout>
