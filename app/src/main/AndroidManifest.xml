@@ -53,7 +53,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <service android:name=".UI.geofences.GeofenceTransiciones" />
+        <service android:name=".papelera.GeofenceTransiciones" />
 
         <activity android:name=".Chat.ChatAdminActivity" />
         <activity android:name=".UI.admin.ListarPartidasAdminActivity" />

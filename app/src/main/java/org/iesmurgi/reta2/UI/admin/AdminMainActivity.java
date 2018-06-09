@@ -18,6 +18,12 @@ import org.iesmurgi.reta2.R;
 import org.iesmurgi.reta2.UI.usuario.LoginActivity;
 import org.iesmurgi.reta2.UI.usuario.LoginModel;
 
+/**
+ * Actividad principal del administrador
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
 public class AdminMainActivity extends AppCompatActivity {
 
 
@@ -49,6 +55,9 @@ public class AdminMainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Método que desloguea al administrador
+     */
     private void desconectarAdmin() {
 
         mLoginModel.getConection().getValue().getInstance().signOut();
@@ -59,6 +68,9 @@ public class AdminMainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Método que lanza un escuchador para que si no hay ningun usuario logueado se cargue la actividad de login
+     */
     private void escuchador() {
 
         mLoginModel.getUsuario().observe(this, new Observer<FirebaseUser>() {

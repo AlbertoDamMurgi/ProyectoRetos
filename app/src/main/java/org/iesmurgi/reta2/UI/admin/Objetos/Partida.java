@@ -1,5 +1,6 @@
 package org.iesmurgi.reta2.UI.admin.Objetos;
 
+
 public class Partida {
 
     private String nombre;

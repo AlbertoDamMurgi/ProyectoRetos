@@ -1,4 +1,4 @@
-package org.iesmurgi.reta2.UI.geofences;
+package org.iesmurgi.reta2.papelera;
 
 import com.google.android.gms.maps.model.LatLng;
 

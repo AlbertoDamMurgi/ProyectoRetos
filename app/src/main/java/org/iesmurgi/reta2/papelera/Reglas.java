@@ -1,9 +1,11 @@
-package org.iesmurgi.reta2.Data.entidades;
+package org.iesmurgi.reta2.papelera;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+
+import org.iesmurgi.reta2.Data.entidades.Partidas;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 

@@ -21,7 +21,12 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
+/**
+ * Actividad que muestra una lista con los retos de los equipos que tienen alguna foto por puntuar.
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
 public class PuntuarFotosAdmin extends AppCompatActivity {
 
     @BindView(R.id.recicler_chat_admin)

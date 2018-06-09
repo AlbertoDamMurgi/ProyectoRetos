@@ -1,4 +1,4 @@
-package org.iesmurgi.reta2.UI.retos;
+package org.iesmurgi.reta2.papelera;
 
 import android.location.Location;
 

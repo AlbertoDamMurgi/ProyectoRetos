@@ -28,7 +28,12 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
+/**
+ * Actividad que muestra una lista con las partidas que el administrador puede gestionar
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
 public class ListarPartidasAdminActivity extends AppCompatActivity {
 
     @BindView(R.id.recicler_chat_admin)

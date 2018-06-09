@@ -19,8 +19,15 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by Farra on 26/03/2018.
+
+
+ /**
+ * Adapter que se usa para el chat y algunas listas.
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ * @see ChatAdapter
+ * @see ChatAdminActivity
  */
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
@@ -40,7 +47,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private String sala ="",partida,usuario;
     private int idpartida;
 
-
+     /**
+      * Constructor del chat
+      * @param salas  salas del chat
+      * @param context contexto de la aplicación
+      * @param tipo tipo del adapter
+      */
     public ChatAdapter(ArrayList<String> salas, Context context,int tipo) {
         this.salas = salas;
         this.context=context;
@@ -48,6 +60,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         size = salas.size();
     }
 
+     /**
+      * Constructor que recibe tambien el id de partida
+      * @param salas salas del chat
+      * @param context contexto de la app
+      * @param tipo tipo del adapter
+      * @param sala sala actual
+      * @param idpartida id de la partida
+      */
     public ChatAdapter(ArrayList<String> salas, Context context,int tipo,String sala,int idpartida) {
         this.salas = salas;
         this.context=context;
@@ -57,13 +77,29 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         size= salas.size();
     }
 
-    public ChatAdapter(ArrayList<Partida> nombresAndIDs, Context context, int tipo, int asd) {
+     /**
+      * Constructor que recibe nombres e IDs de las partidas
+      * @param nombresAndIDs nombres e ids de las partidas
+      * @param context contexto de la aplicación
+      * @param tipo tipo del adapter
+      * @param aux auxiliar para diferenciar el constructor
+      */
+    public ChatAdapter(ArrayList<Partida> nombresAndIDs, Context context, int tipo, int aux) {
         this.partidas = nombresAndIDs;
         this.context=context;
         this.tipo = tipo;
         size = nombresAndIDs.size();
     }
 
+     /**
+      * Constructor que recibe el nombre de los retos, la partida , el usuario que la esta jugando y el id de la partida
+      * @param context contexto de la app
+      * @param tipo tipo del adapter
+      * @param nombreretos lista con los nombres de los retos
+      * @param partida partida a la que pertenecen los retos
+      * @param usuario usuario que está jugando la partida
+      * @param idpartida id de la partida que se está jugando
+      */
     public ChatAdapter(Context context, int tipo,ArrayList<String> nombreretos,String partida,String usuario,int idpartida) {
         this.nombreretos = nombreretos;
         this.context = context;
@@ -74,6 +110,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         size = nombreretos.size();
     }
 
+     /**
+      * Constructor que recibe los nombres de los participantes y la partida
+      * @param nombres nombres de los participantes
+      * @param applicationContext contexto de la app
+      * @param tipo tipo del adapter
+      * @param partida partida que se está jugando
+      */
     public ChatAdapter(ArrayList<String> nombres, Context applicationContext, int tipo, String partida) {
         this.salas=nombres;
         this.context = applicationContext;
@@ -141,6 +184,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     }
 
+     /**
+      * Método que retorna el número de items del adapter
+      * @return tamaño del adapter
+      */
     @Override
     public int getItemCount() {
         return size;

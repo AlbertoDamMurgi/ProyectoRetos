@@ -24,10 +24,12 @@ import org.iesmurgi.reta2.R;
 import org.iesmurgi.reta2.UI.usuario.LoginModel;
 
 /**
- *
+ * Clase que usamos para leer y escribir en el chat.
  * @author Alberto Fernández
  * @author Santiago Álvarez
  * @author Joaquín Pérez
+ * @see ChatAdapter
+ * @see ChatAdminActivity
  */
 
 public class ChatActivity extends AppCompatActivity {
@@ -59,7 +61,7 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        // para que funcione el ButterKnife
+
         ButterKnife.bind(this);
 
         sala = getIntent().getExtras().getString("SALA");
@@ -81,7 +83,7 @@ public class ChatActivity extends AppCompatActivity {
 
         conectarFirebase();
 
-        // implementando para leer de la firebase
+
         leerFirebase();
 
 
@@ -90,11 +92,12 @@ public class ChatActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * Método para conectar con la base de datos Firebase
+     */
     public void conectarFirebase() {
-        // copiado del asistente de firebase
-        // Write a message to the database
-        database = FirebaseDatabase.getInstance(); // instancia la base de datos
+
+        database = FirebaseDatabase.getInstance();
         if(autor.equalsIgnoreCase("administrador")){
             admin = true;
 
@@ -102,10 +105,13 @@ public class ChatActivity extends AppCompatActivity {
         }else{
             admin = false;
         }
-        myRef = database.getReference("chat").child(sala).child(autor); // parecido a crear una tabla llamada chat
+        myRef = database.getReference("chat").child(sala).child(autor);
     }
 
 
+    /**
+     * Método que refresca el chat cuando un cambio ocurre en la base de datos.
+     */
     public void leerFirebase() {
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
@@ -144,9 +150,12 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Método que escribe un mensaje en el historial.
+     * @param msg mensaje que se va a insertar en el historial
+     */
+    public void insertarMensaje(Chat msg) {
 
-    public void insertarMensaje(Chat msg) {// método que añade al textView historial el recargo de pagina y un mensaje.
-        // comprobamos que exista mensaje
         if (msg.getMensaje() != null) {
             historial.append("\n");
             historial.append(msg.getMensaje());
@@ -155,14 +164,17 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
-    // manejador de enventos para el botón con butterknife ("más easy")
+
+    /**
+     * Método que envia el mensaje a la base de datos y borra la entrada de texto
+     */
     @OnClick(R.id.enviar)
     public void enviarMensaje() {
-        // primero sacar lo que el usuario a escrito en el edittext
+
         String cadena = entrada.getText().toString().trim();
-        // vaciamos el edittext
+
         limpiarEntrada();
-        // instanciamos el objeto que hemos creado con el POI Mensaje
+
         if(admin){
             Chat msg = new Chat("Administrador: "+cadena);
             guardarMensaje(msg);
@@ -173,17 +185,23 @@ public class ChatActivity extends AppCompatActivity {
 
         }
 
-        // guardamos en firebase
 
 
 
 
     }
 
+    /**
+     * Método que borra la entrada de texto.
+     */
     public void limpiarEntrada() {
         entrada.setText("");
     }
 
+    /**
+     * Método que envia el mensaje a la base de datos
+     * @param msg mensaje que se envia a la base de datos.
+     */
     public void guardarMensaje(Chat msg) {
         myRef.push().setValue(msg);
     }

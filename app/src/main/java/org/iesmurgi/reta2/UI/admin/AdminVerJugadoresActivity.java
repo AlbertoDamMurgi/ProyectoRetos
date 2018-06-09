@@ -36,7 +36,12 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
+/**
+ * Actividad que muestra una lista con los equipos y sus participantes
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
 public class AdminVerJugadoresActivity extends AppCompatActivity {
 
     @BindView(R.id.recicler_chat_admin)
@@ -61,8 +66,9 @@ public class AdminVerJugadoresActivity extends AppCompatActivity {
             }
 
 
-
-
+    /**
+     * Método que carga los jugadores y los equipos de la base de datos en el adapter
+     */
     public void cargarDatos(){
         progressDialog.setMessage("Cargando participantes...");
         progressDialog.show();

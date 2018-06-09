@@ -1,8 +1,6 @@
-package org.iesmurgi.reta2.UI.geofences;
+package org.iesmurgi.reta2.papelera;
 
-/**
- * Created by Farra on 11/03/2018.
- */
+
 
 import android.app.IntentService;
 import android.app.Notification;
@@ -26,9 +24,7 @@ import java.util.List;
 import org.iesmurgi.reta2.UI.usuario.MainActivity;
 import org.iesmurgi.reta2.UI.retos.MapPrincActivity;
 
-/**
- * Created by delaroy on 4/18/17.
- */
+
 public class GeofenceTransiciones extends IntentService {
 
 

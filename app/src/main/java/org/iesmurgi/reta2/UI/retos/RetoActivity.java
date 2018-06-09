@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +17,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -30,6 +30,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.work.Constraints;
+import androidx.work.Data;
+import androidx.work.NetworkType;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -473,75 +478,48 @@ int idUsuario;
        // progressDialog.setCancelable(false);
         progressDialog.show();
         final String URL = "http://geogame.ml/api/insertar_puntuacion.php";
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
 
+        Constraints myConstraints = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED)
+                // Many other constraints are available, see the
+                // Constraints.Builder reference
+                .build();
+        //todo fracaso
+        Data.Builder builder = new Data.Builder();
 
-                if (response.contains("success")) {
-                   updateNumReto(mensaje);
+        builder.putString("idUsuario",String.valueOf(idUsuario));
+        builder.putString("idReto",String.valueOf(miReto.getIdReto()));
+        builder.putString("tiempo",String.valueOf(tiempotrascurrido()));
+        builder.putString("puntuacion",String.valueOf(puntos));
 
-                }
+        OneTimeWorkRequest insertarpoints = new OneTimeWorkRequest.Builder(RetoNormalWorker.class).setInputData(builder.build()).setConstraints(myConstraints).build();
+        cronoViewModel.mWorkManager.enqueue(insertarpoints);
+        updateNumReto(mensaje);
 
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
-            }
-
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("idUsuario", "" + idUsuario);
-                params.put("idReto", "" + miReto.getIdReto());
-                params.put("tiempo", ""+tiempotrascurrido());
-                params.put("puntuacion", ""+puntos);
-                return params;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        requestQueue.add(stringRequest);
     }//fin insertarPuntos
 
 
     void updateNumReto(String mensaje) {
 
-        final String URL = "http://geogame.ml/api/update_numPartida.php";
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
+
+        Constraints myConstraints = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED)
+                // Many other constraints are available, see the
+                // Constraints.Builder reference
+                .build();
+        Data.Builder builder = new Data.Builder();
+        builder.putString("idUsuario", String.valueOf(idUsuario));
+        builder.putString("idPartida", String.valueOf(miReto.getIdPartida()));
+        builder.putString("ultimoReto",String.valueOf(getIntent().getIntExtra("numeroRetoArray",0) ));
+        OneTimeWorkRequest updatenumretos = new OneTimeWorkRequest.Builder(RetoUpdateNumRetoWorker.class).setInputData(builder.build()).setConstraints(myConstraints).build();
+        cronoViewModel.mWorkManager.enqueue(updatenumretos);
 
 
-                if (response.contains("success")) {
-                    progressDialog.dismiss();
-                    Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG).show();
-                    setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), MapPrincActivity.class));
-                    finish();
+        progressDialog.dismiss();
+        Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG).show();
+        setResult(MapPrincActivity.RESULT_OK, new Intent(getApplicationContext(), MapPrincActivity.class));
+        finish();
 
-                }
 
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
-            }
 
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("idUsuario", "" + idUsuario);
-                params.put("idPartida", "" + miReto.getIdPartida());
-                params.put("ultimoReto",""+ getIntent().getIntExtra("numeroRetoArray",0) );
-                return params;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        requestQueue.add(stringRequest);
     }
 
 

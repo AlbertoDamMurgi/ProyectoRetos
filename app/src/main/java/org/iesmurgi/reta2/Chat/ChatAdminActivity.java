@@ -19,6 +19,15 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * Clase que muestra la lista de equipos con las que el administrador de la partida puede hablar.
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ * @see ChatAdapter
+ * @see Chat
+ * @see ChatActivity
+ */
 public class ChatAdminActivity extends AppCompatActivity {
 
     @BindView(R.id.recicler_chat_admin)

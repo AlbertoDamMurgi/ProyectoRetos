@@ -18,7 +18,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-
+/**
+ * Actividad que proporciona la interfaz necesaria para administrar la partida desde el perfil de administrador
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
 public class AdministrarPartidaAdminActivity extends AppCompatActivity {
 
 
@@ -72,7 +77,10 @@ public class AdministrarPartidaAdminActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * Método que lanza la actividad de chat del administrador
+     * @see ChatAdminActivity
+     */
     @OnClick(R.id.fab_chat_admin)
         void abrirChat(){
             startActivity(new Intent(getApplicationContext(),ChatAdminActivity.class).putExtra("SALA",sala));
@@ -83,19 +91,38 @@ public class AdministrarPartidaAdminActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(),AdminMapaActivity.class).putExtra("PARTIDA",sala));
         }
 */
+
+    /**
+     * Método que lanza la actividad de ver jugadores y sus equipos
+     * @see AdminVerJugadoresActivity
+     */
     @OnClick(R.id.btn_admin_verjugadores3)
         void verJugadores(){
             startActivity(new Intent(getApplicationContext(),AdminVerJugadoresActivity.class).putExtra("idPartida",idpartida));
         }
+
+    /**
+     * Método que lanza la actividad de puntuar las fotos
+     * @see PuntuarFotosAdmin
+     */
     @OnClick(R.id.btn_admin_PuntuarFotos)
         void verFotos(){
             startActivity(new Intent(getApplicationContext(),PuntuarFotosAdmin.class).putExtra("PARTIDA",sala).putExtra("IDPARTIDA",idpartida));
         }
 
+    /**
+     * Método que lanza la actividad de ver el ranking de los equipos
+     * @see RankingActivity
+     */
     @OnClick(R.id.btn_admin_ranking)
         void verRanking(){
             startActivity(new Intent(getApplicationContext(),RankingActivity.class).putExtra("PARTIDA",sala).putExtra("idPartida",idpartida));
         }
+
+    /**
+     * Método que lanza la actividad de crear un código QR con los datos de la partida
+     * @see QRGeneratorActivity
+     */
     @OnClick(R.id.btn_admin_codigoQR)
         void verCodigoQR(){
 

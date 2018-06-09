@@ -29,7 +29,12 @@ import org.iesmurgi.reta2.UI.usuario.LoginModel;
 
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * Actividad que permite al administrador registrarse en la aplicación
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
 public class RegistroAdminActivity extends AppCompatActivity {
 
     private static final String TAG = "REGISTROADMIN";
@@ -58,6 +63,10 @@ public class RegistroAdminActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Método que comprueba si todos los campos estan rellenos y la pass tiene la longitud adecuada.
+     * @return true o false
+     */
     private boolean comprobarRegistro() {
         boolean ok = false;
         if (
@@ -81,6 +90,9 @@ public class RegistroAdminActivity extends AppCompatActivity {
         return ok;
     }
 
+    /**
+     * Método que inserta los datos del administrador en la base de datos
+     */
     @OnClick(R.id.btn_registro_admin_registrar)
     void registrarAdmin() {
 
