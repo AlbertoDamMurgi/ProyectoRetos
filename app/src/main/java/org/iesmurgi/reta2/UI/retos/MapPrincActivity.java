@@ -349,6 +349,9 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         }
     }
 
+    /**
+     * Método que permite saltar el reto actual
+     */
     private void cargarDialogoSaltar() {
 
         String option = getResources().getString(R.string.choose_option);
@@ -376,7 +379,11 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         alertOpciones.show();
 
     }
-//todo fracaso mapa
+
+    /**
+     * Método que lanza una tarea para actualizar el reto y la puntuacion en la base de datos
+     * @param mensaje mensaje que se manda en el toast
+     */
     void updateNumReto(String mensaje) {
 
         Constraints myConstraints = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED)
@@ -562,6 +569,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
     //-----------------------------------------------------------mapa----------------------------------------------------------------------------
 
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -591,6 +599,9 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
     }
 
+    /**
+     * Método que inica el mapa con los marcadores de los retos
+     */
     void initMapa() {
 
         Log.e("Numero reto", locationModel.getNumReto() + "" + retos.size());
@@ -644,7 +655,9 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         });
     }
 
-
+    /**
+     * Método que crea los marcadores de los retos del mapa
+     */
     private void crearmarcadores() {
 
         for (int i = 0; i < retos.size(); i++) {
@@ -663,6 +676,9 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
 
     }
 
+    /**
+     * Método que cambia el reto actual al siguiente, si el reto actual era el ultimo lanza la actividad finpartida
+     */
     private void cambiarReto() {
         locationModel.setNumReto(locationModel.getNumReto() + 1);
         if (locationModel.getNumReto() < retos.size()) {
@@ -716,10 +732,17 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     }
 }
 
+/**
+ * Clase que se usa para el observador de la localizacion
+ */
 class MyLocationListener implements LocationListener {
 
     private LocationModel model;
 
+    /**
+     * Constructor
+     * @param locationModel viewmodel de la localizacion
+     */
     public MyLocationListener(LocationModel locationModel) {
         model = locationModel;
     }
@@ -751,123 +774,3 @@ class MyLocationListener implements LocationListener {
 
 
 
-/*
-
-
-
-
-
-
-
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
-
-
-}
-
-     class MyLocationListener implements LocationListener {
-
-       private LocationModel model;
-
-         public MyLocationListener(LocationModel locationModel) {
-             model = locationModel;
-         }
-
-         @Override
-        public void onLocationChanged(Location location) {
-            Log.d("onLocationChanged","Changed 1");
-                if(location!=null&&model.getmLocation()!=null) {model.setmLocation(location);}
-            Log.d("onLocationChanged","Changed 2");
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-
-        }
-    }
-
-
-
-/*
-
-
-
-
-
-
-
-
-    @Override
-    public void onMapClick(LatLng latLng) {
-
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-
-        if (mapa == null) {
-            mapa = googleMap;
-
-            // probar que el marker cargar la foto como icono
-            mapa.setMyLocationEnabled(true);
-            mapa.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-            mapa.addMarker(new MarkerOptions()
-                    .position(Murgi)
-                    .title("IES Murgi")
-                    .snippet("Instituto de Educación Secundaria Murgi")
-                    .icon(BitmapDescriptorFactory
-                            .fromResource(R.drawable.logohoja))
-                    .anchor(0.5f, 0.5f));
-        }
-
-
-        if(myLocation==null) {
-
-            gestorLoc.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,1,this);
-            myLocation=gestorLoc.getLastKnownLocation(proveedor);
-
-        }
-        gestorLoc.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,1,this);
-
-        myLocation=gestorLoc.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        myPos=new LatLng(myLocation.getLatitude(),myLocation.getLongitude());
-
-
-
-
-        CircleOptions co = new CircleOptions().center(myPos).radius(50).strokeColor(Color.RED).fillColor(Color.TRANSPARENT);
-
-        mapa.addCircle(co);
-
-        // recorrer array que contendrá retos para ver cercano
-
-
-        for(int i=0;i<posiciones.size(); i++){
-            Location.distanceBetween(myLocation.getLatitude(),myLocation.getLongitude(),posiciones.get(i).getCoordenadas().latitude,posiciones.get(i).getCoordenadas().longitude,results);
-            if(results[0]<150){
-                mapa.addMarker(new MarkerOptions().position(posiciones.get(i).getCoordenadas()).title(posiciones.get(i).getNombre()));
-            }
-        }
-
-
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION) ==
-                PackageManager.PERMISSION_GRANTED) {
-                mapa.setMyLocationEnabled(true);
-                mapa.getUiSettings().setZoomControlsEnabled(false);
-                mapa.getUiSettings().setCompassEnabled(true);
-                }
-                }*/

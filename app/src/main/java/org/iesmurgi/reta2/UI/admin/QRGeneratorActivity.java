@@ -1,5 +1,8 @@
 package org.iesmurgi.reta2.UI.admin;
 
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
@@ -35,15 +38,21 @@ public class QRGeneratorActivity extends AppCompatActivity {
 
 
     private String cadenaParaQR="mensaje prueba";
-
+    private AdminModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrgenerator);
         ButterKnife.bind(this);
+        model = ViewModelProviders.of(this).get(AdminModel.class);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
-        cadenaParaQR=getIntent().getStringExtra("codigoqr");
+        if(model.getCodigoqr()==null) {
+            cadenaParaQR = getIntent().getStringExtra("codigoqr");
+            model.setCodigoqr(cadenaParaQR);
+        }else{
+            cadenaParaQR=model.getCodigoqr();
+        }
         generarCodigoQR();
         txt_codigoAux.setText(""+cadenaParaQR);
 
@@ -65,6 +74,8 @@ public class QRGeneratorActivity extends AppCompatActivity {
 
         } catch (WriterException e) {
             e.printStackTrace();
+        }catch (Exception ex){
+
         }
 
     }
