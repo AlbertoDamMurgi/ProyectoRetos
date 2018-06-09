@@ -17,14 +17,21 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by jota on 05/04/2018.
+ * Adapter para ver los equipos y sus participantes.
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
  */
-
 public class JugadoresAdapter extends RecyclerView.Adapter<JugadoresAdapter.ViewHolder> {
 
     private ArrayList<EquipoParticipantes> jugadores;
     private Context context;
 
+    /**
+     * Constructor
+     * @param j lista de los jugadores y sus equipos
+     * @param context contexto de la app
+     */
     public JugadoresAdapter(ArrayList<EquipoParticipantes> j, Context context) {
         this.jugadores = j;
         this.context = context;

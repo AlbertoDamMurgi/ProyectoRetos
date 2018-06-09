@@ -1,6 +1,7 @@
 package org.iesmurgi.reta2.UI.retos;
 
 import android.app.ProgressDialog;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -36,12 +37,17 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import org.iesmurgi.reta2.R;
+import org.iesmurgi.reta2.UI.usuario.LoginModel;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import androidx.work.Constraints;
+import androidx.work.Data;
+import androidx.work.NetworkType;
+import androidx.work.OneTimeWorkRequest;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -70,6 +76,7 @@ public class RetoFotoActivity extends AppCompatActivity {
     private String autor;
     String path;
     File imagen;
+    private LoginModel model;
     private String idreto;
     private DatabaseReference reference;
     @Override
@@ -77,6 +84,7 @@ public class RetoFotoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reto_foto);
         ButterKnife.bind(this);
+        model = ViewModelProviders.of(this).get(LoginModel.class);
         nombrepartida = getIntent().getExtras().getString("PARTIDA");
         idreto = getIntent().getExtras().getString("RETO");
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
@@ -99,48 +107,25 @@ public class RetoFotoActivity extends AppCompatActivity {
     @OnClick(R.id.btn_retoFoto_subirfoto)
     void subirFotoFirebase(){
 
-        if (path!=null){
-            Uri file = Uri.fromFile(new File(path));
-            //  StorageReference riversRef = mStorage.child("Imagenes").child(nombrepartida).child(autor);
-            StorageReference riversRef = mStorage.child("Imagenes").child(nombrepartida).child(autor).child(idreto).child(file.getLastPathSegment());
-            progressDialog.setMessage("Subiendo imagen");
-            progressDialog.show();
-            riversRef.putFile(file).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                    double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                    int currentprogress = (int) progress;
+        if(path!=null) {
+            Constraints myConstraints = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED)
+                    // Many other constraints are available, see the
+                    // Constraints.Builder reference
+                    .build();
+            Data.Builder builder = new Data.Builder();
+            builder.putString("path", path);
+            builder.putString("nombrepartida", nombrepartida);
+            builder.putString("autor", autor);
+            builder.putString("idreto", idreto);
 
-                    progressDialog.setProgress(currentprogress);
-                }
+            OneTimeWorkRequest subirpic = new OneTimeWorkRequest.Builder(RetoFotoWorker.class).setInputData(builder.build()).setConstraints(myConstraints).build();
+            model.mWorkManager.enqueue(subirpic);
 
-
-            })
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                            reference.push().setValue(new Chat(taskSnapshot.getDownloadUrl().getPath()));
-                            progressDialog.dismiss();
-                            Toast.makeText(RetoFotoActivity.this, "La foto se ha subido correctamente.", Toast.LENGTH_SHORT).show();
-
-                            setResult(MapPrincActivity.RESULT_OK);
-                            finish();
-                        }
-
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-
-                            Toast.makeText(RetoFotoActivity.this, "Error al subir la foto.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+            setResult(MapPrincActivity.RESULT_OK);
+            finish();
         }else{
             Toast.makeText(getApplicationContext(),"Ninguna foto para enviar!!!!",Toast.LENGTH_SHORT).show();
         }
-
-
 
     }
 

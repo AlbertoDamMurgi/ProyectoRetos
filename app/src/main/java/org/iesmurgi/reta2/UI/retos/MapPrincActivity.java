@@ -23,8 +23,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
@@ -44,7 +42,6 @@ import com.google.android.gms.location.GeofencingClient;
 import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -68,15 +65,24 @@ import org.iesmurgi.reta2.Chat.ChatActivity;
 import org.iesmurgi.reta2.Data.BasedeDatosApp;
 import org.iesmurgi.reta2.Data.entidades.Retos;
 import org.iesmurgi.reta2.R;
-import org.iesmurgi.reta2.UI.admin.Objetos.Partida;
 import org.iesmurgi.reta2.UI.admin.PruebaLoc;
-import org.iesmurgi.reta2.UI.geofences.GeofenceTransiciones;
+import org.iesmurgi.reta2.papelera.GeofenceTransiciones;
 import org.iesmurgi.reta2.UI.usuario.FinPartidaActivity;
 
+import androidx.work.Constraints;
+import androidx.work.Data;
+import androidx.work.NetworkType;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
+/**
+ * Actividad que muestra el mapa de la partida al usuario
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
 public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ResultCallback<Status> {
 
     private static final int REQUEST_LOCATION_PERMISSION_CODE = 1;
@@ -118,6 +124,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
             GEOFENCE_EXPIRATION_IN_HOURS * 60 * 60 * 1000;
 
 
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -131,11 +138,16 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
     }
 
 
+    /**
+     * Método que instancia el escuchador de la localización.
+     */
     private void bindLocationListener() {
         BoundLocationManager.bindLocationListenerIn(this, mGpsListener, getApplicationContext());
     }
 
-
+    /**
+     * Clase que hereda de AsynTask para poder hacer una consulta al room en un hilo secundario y obtener los retos de la partida
+     */
     class RecuperarRetos extends AsyncTask<Integer, Void, Integer> {
         @Override
         protected Integer doInBackground(Integer... p) {
@@ -364,10 +376,23 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         alertOpciones.show();
 
     }
-
+//todo fracaso mapa
     void updateNumReto(String mensaje) {
 
-        final String URL = "http://geogame.ml/api/update_numPartida.php";
+        Constraints myConstraints = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED)
+                // Many other constraints are available, see the
+                // Constraints.Builder reference
+                .build();
+        Data.Builder builder = new Data.Builder();
+        builder.putString("idUsuario", String.valueOf(idUsuario));
+        builder.putString("idPartida", String.valueOf(idpartida));
+        builder.putString("ultimoReto",String.valueOf(locationModel.getNumReto()));
+        OneTimeWorkRequest updatenumretos = new OneTimeWorkRequest.Builder(RetoUpdateNumRetoWorker.class).setInputData(builder.build()).setConstraints(myConstraints).build();
+        WorkManager.getInstance().enqueue(updatenumretos);
+
+
+
+       /* final String URL = "http://geogame.ml/api/update_numPartida.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -397,6 +422,7 @@ public class MapPrincActivity extends AppCompatActivity implements OnMapReadyCal
         };
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
+        */
     }
 
     private void buildGoogleApiClient() {

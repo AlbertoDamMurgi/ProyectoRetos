@@ -20,7 +20,12 @@ import org.iesmurgi.reta2.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
+/**
+ * Actividad que crea un codigo QR con los datos de la partida
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
 public class QRGeneratorActivity extends AppCompatActivity {
 
     @BindView(R.id.iw_qrGenerator_imagenQR)
@@ -28,7 +33,7 @@ public class QRGeneratorActivity extends AppCompatActivity {
     @BindView(R.id.txt_qrgenerator_codigoAux)
     TextView txt_codigoAux;
 
-    //TODO setear cadenaParaQR para pasar el string con los datos de la partida
+
     private String cadenaParaQR="mensaje prueba";
 
 
@@ -44,6 +49,9 @@ public class QRGeneratorActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Método que genera el codigo QR y lo añade a un imageview
+     */
     void generarCodigoQR(){
 
 

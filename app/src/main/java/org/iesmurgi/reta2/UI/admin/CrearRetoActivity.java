@@ -48,7 +48,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import org.iesmurgi.reta2.R;
-
+/**
+ * Actividad que crea el reto que se va a agregar a la partida
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
 public class CrearRetoActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private String latitud = "";
@@ -167,10 +172,11 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
     }
 
 
+    /**
+     * Método que muestra un dialogo mientras el reto se crea
+     */
     @OnClick(R.id.btn_crearReto_next)
     void ClickBotonReto() {
-        Log.i("LOOOOOOOOOOOG", "ENTRE EN CLIK");
-
 
         if (comprobarcampos()) {
             progressDialog.setMessage("Creando reto...");
@@ -183,6 +189,10 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
 
     }//End OnClick
 
+    /**
+     * Método que comprueba que no hay ningún campo vacío
+     * @return true si no hay ningun campo vacío, false de lo contrario
+     */
     boolean comprobarcampos() {
         boolean ok = false;
 
@@ -218,6 +228,9 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
         return ok;
     }
 
+    /**
+     * Método que vacía todos lo campos
+     */
     void limpiarcampos() {
         txt_puntos.setText("");
         txt_duracion.setText("");
@@ -231,6 +244,9 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
         longitud = "";
     }
 
+    /**
+     * Método que inserta las respuestas de un reto de seleccion multiple en la base de datos
+     */
     void insertarRespuestas() {
         final String URL = "http://geogame.ml/api/insertar_respuestas.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
@@ -280,6 +296,9 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
         requestQueue.add(stringRequest);
     }//fin insertarPreguntas
 
+    /**
+     * Método que se lanza cuando un reto se rellena por completo, si es el ultimo se vuelve a la actividad principal, si no se rellena el siguiente reto.
+     */
     void cambiarpregunta() {
         progressDialog.dismiss();
         partidaNumerosRetosActual++;
@@ -295,6 +314,9 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
 
     }
 
+    /**
+     * Método que inserta la respuesta de un reto de respuesta única en la base de datos.
+     */
     void insertarRespuesta() {
         final String URL = "http://geogame.ml/api/insertar_respuesta.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
@@ -338,7 +360,9 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
         requestQueue.add(stringRequest);
     }//fin insertarPregunta
 
-
+    /**
+     * Método que obtiene el id del reto ya que no sabemos cual va a ser hasta que no se inserta en la base de datos.
+     */
     void CargarIDReto() {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
@@ -383,7 +407,9 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
 
     }//End CargarIDReto
 
-
+    /**
+     * Método que obtiene el id de la partida ya que no sabemos cual va a ser hasta que no se inserta en la base de datos.
+     */
     void CargarIDPartida() {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
@@ -426,7 +452,9 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
     }//End CargarIDPartida
 
 
-    //////////////////////////////////////
+    /**
+     * Método que inserta el reto en la base de datos
+     */
     void InsertarReto() {
         //INSERTART
         final String URL = "http://geogame.ml/api/insertar_reto.php";
@@ -472,10 +500,13 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
     }//InsertarReto
 
 
+    /**
+     * Método que lanza la API de Google Places para seleccionar la ubicación del reto.
+     * @param view
+     */
     public void runApiPlaces(View view) {
         try {
-            // Start a new Activity for the Place Picker API, this will trigger {@code #onActivityResult}
-            // when a place is selected or with the user cancels.
+
             PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
             Intent i = builder.build(this);
             startActivityForResult(i, PLACE_PICKER_REQUEST);
@@ -488,16 +519,7 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
 
     }
 
-    String comprobarString(String frase) {
 
-        while (frase.substring(frase.indexOf("."), frase.length()).length() < 9) {
-            frase += "0";
-        }
-
-        return frase;
-    }
-
-    //este metodo se lanza cuando el metodo RunApiplaces termina
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_PICKER_REQUEST && resultCode == RESULT_OK) {
 
@@ -507,8 +529,7 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
                 Log.i(TAG, "ningun lugar seleccionado");
                 return;
             }
-            Log.v("lat1", String.valueOf(latitud));
-            Log.v("long1", String.valueOf(longitud));
+
 
             latLng = place.getLatLng();
 
@@ -518,8 +539,7 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
             String lon = String.valueOf(latLng.longitude) + "000000000000000000000000";
             longitud = lon.substring(0, lon.indexOf(".") + 9);
 
-            Log.v("santi lat2", String.valueOf(latitud));
-            Log.v("santi long2", String.valueOf(longitud));
+
 
             Toast.makeText(getApplicationContext(), "Ubicacion del reto seleccionada!!", Toast.LENGTH_LONG).show();
         }

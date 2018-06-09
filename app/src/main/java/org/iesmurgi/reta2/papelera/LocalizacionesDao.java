@@ -1,4 +1,4 @@
-package org.iesmurgi.reta2.Data.DAOS;
+package org.iesmurgi.reta2.papelera;
 
 import android.arch.persistence.room.Dao;
 

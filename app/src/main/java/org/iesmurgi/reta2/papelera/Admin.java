@@ -1,4 +1,4 @@
-package org.iesmurgi.reta2.Data.entidades;
+package org.iesmurgi.reta2.papelera;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;

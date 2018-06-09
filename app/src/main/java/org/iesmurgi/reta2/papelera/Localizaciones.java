@@ -1,4 +1,4 @@
-package org.iesmurgi.reta2.Data.entidades;
+package org.iesmurgi.reta2.papelera;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
@@ -11,7 +11,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 /**
  * Created by usuario on 15/02/18.
  */
-//TODO: Si explota es esto
+
 @Entity(tableName = "localizaciones",
         primaryKeys ={"idUsuario","fecha"},
         foreignKeys = @ForeignKey(entity = Usuarios.class,

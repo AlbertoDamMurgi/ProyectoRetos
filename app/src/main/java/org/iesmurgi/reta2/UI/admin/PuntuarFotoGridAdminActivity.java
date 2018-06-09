@@ -30,6 +30,13 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * Actividad que muestra una lista con los equipos que tienen alguna foto de algun reto por puntuar
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
+
 public class PuntuarFotoGridAdminActivity extends AppCompatActivity {
 
     private String nombrereto;

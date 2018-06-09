@@ -24,7 +24,12 @@ import org.iesmurgi.reta2.R;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-
+/**
+ * Actividad que permite al administrador crear una partida
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
 public class CrearPartida extends AppCompatActivity {
 
     ProgressDialog progressDialog;
@@ -50,7 +55,9 @@ public class CrearPartida extends AppCompatActivity {
 
     }
 
-
+    /**
+     * Método que inserta una partida en la base de datos
+     */
     @OnClick(R.id.bt_crearpartida_continuar)
     void BottonInsertarPartida() {
         int nR;
@@ -65,7 +72,7 @@ public class CrearPartida extends AppCompatActivity {
 
                 progressDialog.setMessage("Creando partida...");
             progressDialog.show();
-            //TODO Insertar el admin que creo la partida
+
             final String URL = "http://geogame.ml/api/insertar_partida.php";
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override

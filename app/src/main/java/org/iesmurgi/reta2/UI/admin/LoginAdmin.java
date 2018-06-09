@@ -40,6 +40,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Clase que permite al usuario logearse en la aplicación
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
 public class LoginAdmin extends AppCompatActivity implements LifecycleObserver {
  int idAdmin;
     private static final String TAG = "LOGIN_ADMIN";
@@ -104,7 +110,9 @@ public class LoginAdmin extends AppCompatActivity implements LifecycleObserver {
     }
 
 
-
+    /**
+     * Método que comprueba que se ha logueado un administrador
+     */
     private void observador() {
 
         mLoginModel.getConection().observe(this, new Observer<FirebaseAuth>() {
@@ -131,9 +139,9 @@ public class LoginAdmin extends AppCompatActivity implements LifecycleObserver {
     }
 
 
-
-
-
+    /**
+     * Método que conecta con Firebase y se loguea
+     */
     @OnClick(R.id.btn_conectarse_admin)
     void conectarUsuario() {
         if (!email.getText().toString().trim().isEmpty() && !pass.getText().toString().trim().isEmpty()) {
@@ -163,7 +171,7 @@ public class LoginAdmin extends AppCompatActivity implements LifecycleObserver {
         }
 
     }
-
+/*
     void obtenerIDyLanzar(){
 
 
@@ -197,7 +205,7 @@ public class LoginAdmin extends AppCompatActivity implements LifecycleObserver {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(request);
 
-    }
+    }*/
 
 
 }

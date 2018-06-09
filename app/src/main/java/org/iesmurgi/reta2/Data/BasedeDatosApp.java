@@ -7,24 +7,33 @@ import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
-import org.iesmurgi.reta2.Data.DAOS.AdminDao;
-import org.iesmurgi.reta2.Data.DAOS.LocalizacionesDao;
 import org.iesmurgi.reta2.Data.DAOS.PartidasDao;
 import org.iesmurgi.reta2.Data.DAOS.RespuestasDao;
 import org.iesmurgi.reta2.Data.DAOS.RetosDao;
-import org.iesmurgi.reta2.Data.DAOS.UsuariosDao;
-import org.iesmurgi.reta2.Data.entidades.Admin;
-import org.iesmurgi.reta2.Data.entidades.Localizaciones;
 import org.iesmurgi.reta2.Data.entidades.Partidas;
-import org.iesmurgi.reta2.Data.entidades.Reglas;
 import org.iesmurgi.reta2.Data.entidades.Respuestas;
 import org.iesmurgi.reta2.Data.entidades.Retos;
-import org.iesmurgi.reta2.Data.entidades.Usuarios;
+import org.iesmurgi.reta2.papelera.Admin;
+import org.iesmurgi.reta2.papelera.AdminDao;
+import org.iesmurgi.reta2.papelera.Localizaciones;
+import org.iesmurgi.reta2.papelera.LocalizacionesDao;
+import org.iesmurgi.reta2.papelera.Reglas;
+import org.iesmurgi.reta2.papelera.Usuarios;
+import org.iesmurgi.reta2.papelera.UsuariosDao;
+
 
 /**
- * Created by usuario on 15/02/18.
+ * Database para el Room
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ * @see RetosDao
+ * @see RespuestasDao
+ * @see PartidasDao
+ * @see android.arch.persistence.room.RoomDatabase
+ * @see Retos
+ * @see Respuestas
  */
-
 
 
 @Database(entities = {Partidas.class,Localizaciones.class,Usuarios.class,Admin.class, Retos.class,Reglas.class, Respuestas.class},version = 1)
@@ -33,6 +42,8 @@ public abstract class BasedeDatosApp extends RoomDatabase {
 
     private static final String DATABASE_NAME = "ProyectoRetos";
     private static BasedeDatosApp INSTANCE;
+
+
 
     public abstract AdminDao adminDao();
     public abstract LocalizacionesDao localizacionesDao();

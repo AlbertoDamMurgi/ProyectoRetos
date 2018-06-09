@@ -41,7 +41,12 @@ import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
+/**
+ * Actividad del mapa que se muestra al administrador con todos los retos y participantes.
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
 public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private static final int REQUEST_LOCATION_PERMISSION_CODE = 1;
@@ -62,7 +67,7 @@ public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_mapa);
         ButterKnife.bind(this);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -88,11 +93,17 @@ public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCal
 
     }
 
+    /**
+     * Método que lanza el chat del administrador
+     */
     @OnClick(R.id.btn_mapa_admin_chat)
     void abrirChat() {
         startActivity(new Intent(getApplicationContext(), ChatAdminActivity.class).putExtra("SALA", partida));
     }
 
+    /**
+     * Método que añade los marcadores al mapa
+     */
     void pintarMapa() {
 
         mMap.clear();
@@ -106,6 +117,10 @@ public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCal
 
     }
 
+    /**
+     * Método que borra el marcador de un participante
+     * @param participante nombre del equipo participante
+     */
     void comprobarMarcador(String participante) {
 
         for (int i = 0; i < marcadores.size(); i++) {
@@ -120,6 +135,10 @@ public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCal
 
     }
 
+    /**
+     * Método que actualiza la posicion del marcador de un participante en el mapa
+     * @param participante nombre del equipo participante
+     */
     void actualizarPosiciones(String participante) {
 
 
@@ -171,7 +190,9 @@ public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCal
 
     }
 
-
+    /**
+     * Método que escucha los cambios de las localizaciones de los equipos
+     */
     void escucharUsuarios() {
 
         database = FirebaseDatabase.getInstance();
@@ -236,6 +257,9 @@ public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCal
     }
 
 
+    /**
+     * Método que carga los retos de la partida de la base de datos
+     */
     private void cargarRetos() {
         marcadoresRetos.clear();
         final String URL2 = "http://geogame.ml/api/Lista_Retos_idPartida.php?idPartida="+idPartida;

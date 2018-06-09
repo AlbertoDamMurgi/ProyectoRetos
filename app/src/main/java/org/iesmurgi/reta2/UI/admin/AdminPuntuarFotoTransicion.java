@@ -39,6 +39,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * Actividad que muestra la foto que ha hecho un equipo en un reto determinado y permite que el administrador pueda puntuarla
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
 public class AdminPuntuarFotoTransicion extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference myRef;
@@ -100,6 +106,9 @@ public class AdminPuntuarFotoTransicion extends AppCompatActivity {
 
     }
 
+    /**
+     * Método que valida la foto y suma los puntos al equipo.
+     */
     @OnClick(R.id.btn_aceptarfoto_admin)
     void aceptarFoto() {
 
@@ -144,7 +153,9 @@ public class AdminPuntuarFotoTransicion extends AppCompatActivity {
 
     }
 
-
+    /**
+     * Método que rechaza la foto, la cual no puntua nada a ese equipo.
+     */
     @OnClick(R.id.btn_rechazarfoto_admin)
     void rechazarFoto() {
         myRef.child("Imagenes").child(partida).child(usuario).child(nombrereto).removeValue();

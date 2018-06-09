@@ -26,18 +26,33 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.util.Log;
 
+/**
+ * Clase que maneja los escuchadores de la posición del usuario
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
 public class BoundLocationManager {
     public static void bindLocationListenerIn(LifecycleOwner lifecycleOwner,
                                               LocationListener listener, Context context) {
         new BoundLocationListener(lifecycleOwner, listener, context);
     }
 
+    /**
+     * Clase estática que permite que solo se pida la ubicación cuando la actividad esté visible
+     */
     @SuppressWarnings("MissingPermission")
     static class BoundLocationListener implements LifecycleObserver {
         private final Context mContext;
         private LocationManager mLocationManager;
         private final LocationListener mListener;
 
+        /**
+         * Constructor
+         * @param lifecycleOwner actividad que se va a observar
+         * @param listener escuchador de la ubicación
+         * @param context contexto de la app
+         */
         public BoundLocationListener(LifecycleOwner lifecycleOwner,
                                      LocationListener listener, Context context) {
             mContext = context;
@@ -45,6 +60,9 @@ public class BoundLocationManager {
             lifecycleOwner.getLifecycle().addObserver(this);
         }
 
+        /**
+         * Método que observa el ciclo de vida de la actividad, cuando está en On Resume se añadé el listener de la ubicación
+         */
         @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
         void addLocationListener() {
             // Note: Use the Fused Location Provider from Google Play Services instead.
@@ -64,6 +82,9 @@ public class BoundLocationManager {
         }
 
 
+        /**
+         * Método que cuando la actividad que observa pasa al estado On Pause remueve el escuchador de la ubicaciñon
+         */
         @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
         void removeLocationListener() {
             if (mLocationManager == null) {
