@@ -140,14 +140,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             case 0:
                 holder.nombreChat.setText(salas.get(position));
                 holder.nombreChat.setOnClickListener(v -> {
-                    context.startActivity(new Intent(context, ChatActivity.class).putExtra("SALA", salas.get(position)));
+                    context.startActivity(new Intent(context, ChatActivity.class).putExtra("SALA", salas.get(position)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 });
                 break;
             case 1:
                 holder.nombreChat.setText(salas.get(position));
                 holder.nombreChat.setOnClickListener(v -> {
                     //onclick
-                    context.startActivity(new Intent(context, AdministrarPartidaAdminActivity.class).putExtra("PARTIDA",salas.get(position)));
+                    context.startActivity(new Intent(context, AdministrarPartidaAdminActivity.class).putExtra("PARTIDA",salas.get(position)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 });
                 break;
             case 2:
@@ -171,13 +171,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             case 6:
                 holder.nombreChat.setText(salas.get(position));
                 holder.nombreChat.setOnClickListener(v -> {
-                context.startActivity(new Intent(context, PuntuarFotoGridAdminActivity.class).putExtra("USUARIO",salas.get(position)).putExtra("PARTIDA",sala).putExtra("IDPARTIDA",idpartida));
+                context.startActivity(new Intent(context, PuntuarFotoGridAdminActivity.class).putExtra("USUARIO",salas.get(position)).putExtra("PARTIDA",sala).putExtra("IDPARTIDA",idpartida).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 });
                 break;
             case 7:
                 holder.nombreChat.setText(nombreretos.get(position));
                 holder.nombreChat.setOnClickListener(v -> {
-                    context.startActivity(new Intent(context, AdminPuntuarFotoTransicion.class).putExtra("NOMBRERETO",nombreretos.get(position)).putExtra("USUARIO",usuario).putExtra("PARTIDA",partida).putExtra("IDPARTIDA",idpartida));
+                    context.startActivity(new Intent(context, AdminPuntuarFotoTransicion.class).putExtra("NOMBRERETO",nombreretos.get(position)).putExtra("USUARIO",usuario).putExtra("PARTIDA",partida).putExtra("IDPARTIDA",idpartida).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 });
                 break;
         }
