@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -64,7 +65,9 @@ public class PuntuarFotosAdmin extends AppCompatActivity {
 
                 recyclerView.setAdapter(new ChatAdapter(nombres,getApplicationContext(),6,partida,idpartida,getIntent().getStringExtra("codigoqr")));
 
-
+                if (nombres.isEmpty()){
+                    Toast.makeText(getApplicationContext(), "No hay fotos para puntuar", Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override
