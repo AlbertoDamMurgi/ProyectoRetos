@@ -32,6 +32,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import org.iesmurgi.reta2.Seguridad.Cifrar;
+import org.iesmurgi.reta2.Seguridad.Permisos;
 import org.iesmurgi.reta2.UI.retos.MapPrincActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -108,40 +109,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
     */
 
 
-    boolean comprobarPermisos() {
-        boolean ok = false;
 
-        if (
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
-                        ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
-                        ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
-                        ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
-                        ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                ) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{
-                            Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION,
-                            Manifest.permission.CAMERA,
-                            Manifest.permission.READ_EXTERNAL_STORAGE,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE
-
-                    },
-
-
-                    REQUEST_LOCATION_PERMISSION_CODE);
-        }
-        if (
-                          ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-                                  ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-                        ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
-                        ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
-                        ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-                ) {
-            ok = true;
-        }
-        return ok;
-    }
 
     @OnClick(R.id.btn_logout)
     public void desconectarse() {
@@ -166,15 +134,17 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
     @OnClick(R.id.bt_iniciarPartida)
     void iniciarPartida() {
 
-        if (comprobarPermisos()) {
-
+        if (Permisos.comprobarPermisos(this,this)) {
 
             progressDialog.setMessage("Cargando partida...");
-            progressDialog.show();
-            new cargarPartida().execute();
+            if (!txt_contraPartida.getText().toString().isEmpty() && !txt_nombrepartida.getText().toString().isEmpty()) {
+                progressDialog.show();
+                new cargarPartida().execute();
+                new comprobarDescargado().execute();
+            }else{
+                Toast.makeText(getApplicationContext(), "Rellena los campos de partida", Toast.LENGTH_LONG).show();
 
-
-            new comprobarDescargado().execute();
+            }
         } else {
             Toast.makeText(getApplicationContext(), "Necesitas todos los permisos para poder jugar", Toast.LENGTH_LONG).show();
         }
@@ -221,6 +191,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
                 }
             });
@@ -380,6 +351,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
                 }
             });

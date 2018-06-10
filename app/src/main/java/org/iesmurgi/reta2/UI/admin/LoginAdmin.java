@@ -33,6 +33,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import org.iesmurgi.reta2.R;
 import org.iesmurgi.reta2.Seguridad.Cifrar;
+import org.iesmurgi.reta2.Seguridad.Permisos;
 import org.iesmurgi.reta2.UI.usuario.AcercaDeActivity;
 import org.iesmurgi.reta2.UI.usuario.LoginModel;
 import org.iesmurgi.reta2.UI.usuario.RegistroActivity;
@@ -144,32 +145,36 @@ public class LoginAdmin extends AppCompatActivity implements LifecycleObserver {
      */
     @OnClick(R.id.btn_conectarse_admin)
     void conectarUsuario() {
-        if (!email.getText().toString().trim().isEmpty() && !pass.getText().toString().trim().isEmpty()) {
-            mAuth.signInWithEmailAndPassword(email.getText().toString().trim(), pass.getText().toString().trim())
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d(TAG, "signInWithEmail:success");
-                                mLoginModel.getUsuario().setValue(mAuth.getInstance().getCurrentUser());
-                                mLoginModel.getConection().setValue(mAuth);
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                Toast.makeText(LoginAdmin.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
+        if (Permisos.comprobarPermisos(this,this)) {
+            if (!email.getText().toString().trim().isEmpty() && !pass.getText().toString().trim().isEmpty()) {
+                mAuth.signInWithEmailAndPassword(email.getText().toString().trim(), pass.getText().toString().trim())
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    Log.d(TAG, "signInWithEmail:success");
+                                    mLoginModel.getUsuario().setValue(mAuth.getInstance().getCurrentUser());
+                                    mLoginModel.getConection().setValue(mAuth);
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                    Toast.makeText(LoginAdmin.this, "Authentication failed.",
+                                            Toast.LENGTH_SHORT).show();
+
+                                }
 
                             }
-
-                        }
-                    });
+                        });
 
 
-        } else {
-            Toast.makeText(getApplicationContext(), "Porfavor rellena todos los campos.", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Porfavor rellena todos los campos.", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            Toast.makeText(getApplicationContext(), "Necesitas todos los permisos para poder entrar", Toast.LENGTH_LONG).show();
+
         }
-
     }
 /*
     void obtenerIDyLanzar(){

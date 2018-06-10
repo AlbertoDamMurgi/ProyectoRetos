@@ -62,7 +62,7 @@ public class PuntuarFotosAdmin extends AppCompatActivity {
 
                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-                recyclerView.setAdapter(new ChatAdapter(nombres,getApplicationContext(),6,partida,idpartida));
+                recyclerView.setAdapter(new ChatAdapter(nombres,getApplicationContext(),6,partida,idpartida,getIntent().getStringExtra("codigoqr")));
 
 
             }

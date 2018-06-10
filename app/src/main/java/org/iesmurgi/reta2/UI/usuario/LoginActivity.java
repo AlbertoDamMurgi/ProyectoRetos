@@ -1,14 +1,17 @@
 package org.iesmurgi.reta2.UI.usuario;
 
+import android.Manifest;
 import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -39,6 +42,7 @@ import butterknife.OnLongClick;
 
 import org.iesmurgi.reta2.R;
 import org.iesmurgi.reta2.Seguridad.Cifrar;
+import org.iesmurgi.reta2.Seguridad.Permisos;
 import org.iesmurgi.reta2.UI.admin.LoginAdmin;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -190,43 +194,46 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
     @OnClick(R.id.btn_conectarse)
     void conectarUsuario() {
 
+        if (Permisos.comprobarPermisos(this,this)) {
+            if (!email.getText().toString().trim().isEmpty() && !pass.getText().toString().trim().isEmpty()) {
+                mAuth.signInWithEmailAndPassword(email.getText().toString().trim(), pass.getText().toString().trim())
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
 
-        if (!email.getText().toString().trim().isEmpty() && !pass.getText().toString().trim().isEmpty()) {
-            mAuth.signInWithEmailAndPassword(email.getText().toString().trim(), pass.getText().toString().trim())
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    Log.d(TAG, "signInWithEmail:success");
+                                    mLoginModel.getUsuario().setValue(mAuth.getInstance().getCurrentUser());
+                                    mLoginModel.getConection().setValue(mAuth);
 
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d(TAG, "signInWithEmail:success");
-                                mLoginModel.getUsuario().setValue(mAuth.getInstance().getCurrentUser());
-                                mLoginModel.getConection().setValue(mAuth);
-
-                                if (!mLoginModel.getConection().getValue().getCurrentUser().getDisplayName().equalsIgnoreCase("administrador")) {
+                                    if (!mLoginModel.getConection().getValue().getCurrentUser().getDisplayName().equalsIgnoreCase("administrador")) {
 
 
-                                    obtenerid();
+                                        obtenerid();
+
+                                    } else {
+                                        Toast.makeText(LoginActivity.this, "Credenciales erroneas.", Toast.LENGTH_SHORT).show();
+                                    }
 
                                 } else {
-                                    Toast.makeText(LoginActivity.this, "Credenciales erroneas.", Toast.LENGTH_SHORT).show();
+                                    // If sign in fails, display a message to the user.
+                                    Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                    Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                            Toast.LENGTH_SHORT).show();
+
                                 }
 
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
-
                             }
+                        });
 
-                        }
-                    });
+            } else {
+                Toast.makeText(getApplicationContext(), "Porfavor rellena todos los campos.", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            Toast.makeText(getApplicationContext(), "Necesitas todos los permisos para poder entrar", Toast.LENGTH_LONG).show();
 
-        } else {
-            Toast.makeText(getApplicationContext(), "Porfavor rellena todos los campos.", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     void obtenerid() {
@@ -276,6 +283,9 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
         startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("idUsuario", idUsuario));
         finish();
     }
+
+
+
 
 
 }
