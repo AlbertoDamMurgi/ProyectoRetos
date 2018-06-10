@@ -1,6 +1,8 @@
 package org.iesmurgi.reta2.UI.admin;
 
 import android.app.ProgressDialog;
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.annotation.NonNull;
@@ -36,6 +38,7 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.iesmurgi.reta2.Seguridad.Cifrar;
+import org.iesmurgi.reta2.papelera.Admin;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -65,7 +68,7 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
     private int tipoReto = 1;
 
     private int partidaNumerosRetos;
-    private int partidaNumerosRetosActual = 1;
+    private int partidaNumerosRetosActual=1;
 
     private LatLng latLng;
     GoogleApiClient mClient;
@@ -100,14 +103,20 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
     @BindView(R.id.txt_crearReto_urlVideo)
     TextView txt_video;
 
-
+    private AdminModel model;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_reto);
         ButterKnife.bind(this);
-       // setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
+        model = ViewModelProviders.of(this).get(AdminModel.class);
+        if(model.getRetoactual()!=0){
+            partidaNumerosRetosActual = model.getRetoactual();
+        }
+        // setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
         progressDialog = new ProgressDialog(CrearRetoActivity.this);
+
+
 
         mClient = new GoogleApiClient.Builder(this)
 
@@ -302,6 +311,7 @@ public class CrearRetoActivity extends AppCompatActivity implements GoogleApiCli
     void cambiarpregunta() {
         progressDialog.dismiss();
         partidaNumerosRetosActual++;
+        model.setRetoactual(partidaNumerosRetosActual);
         if (partidaNumerosRetosActual <= partidaNumerosRetos) {
             txt_mensaje.setText("Introduce los datos del reto " + partidaNumerosRetosActual + "/" + partidaNumerosRetos);
             limpiarcampos();
