@@ -29,7 +29,12 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
+/**
+ * Actividad que muestra el ranking de los equipos y su puntuacion
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
 public class RankingActivity extends AppCompatActivity {
     int idPartida;
     @BindView(R.id.recycler_ranking)
@@ -49,7 +54,9 @@ public class RankingActivity extends AppCompatActivity {
         cargarDatos();
     }
 
-
+    /**
+     * Método que carga los datos de los equipos y sus puntuaciones y los muestra en una lista
+     */
     public void cargarDatos() {
         progressDialog.setMessage("Cargando ranking...");
         progressDialog.show();

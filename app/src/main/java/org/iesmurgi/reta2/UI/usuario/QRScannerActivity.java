@@ -49,7 +49,12 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
+/**
+ * Actividad que permite al usuario escanear un codigo qr con los datos de la partida
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
 public class QRScannerActivity extends AppCompatActivity {
 
     @BindView(R.id.sw_scanner_codePreview)
@@ -66,8 +71,6 @@ public class QRScannerActivity extends AppCompatActivity {
     private String NOMBREPARTIDA;
     private int ULTIMORETO;
     int idUsuario;
-
-
     ProgressDialog progressDialog;
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -162,16 +165,9 @@ public class QRScannerActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
-
-
-    ///ESPAGUETTIS
-
+    /**
+     * Tarea asincrona que obtiene la partida de la base de datos
+     */
     class cargarRespuesta extends AsyncTask<Respuestas, Void, Integer> {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
@@ -230,7 +226,9 @@ public class QRScannerActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * Método que inserta al equipo en la partida y obtiene el reto por el que va el equipo
+     */
     void InsertarEnPartidaYObtenerUltima(){
         final String URLL = "http://geogame.ml/api/insertar_equipo_partida.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URLL, new Response.Listener<String>() {
@@ -277,7 +275,9 @@ public class QRScannerActivity extends AppCompatActivity {
 
         // fin insertar a db
     }
-
+    /**
+     * Tarea asincrona que carga el reto actual
+     */
     class cargarReto extends AsyncTask<Void, Void, Integer> {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
@@ -327,14 +327,14 @@ public class QRScannerActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * Tarea asincrona que carga la partida actual
+     */
     class cargarPartida extends AsyncTask<Void, Void, Integer> {
         @Override
         protected Integer doInBackground(Void... r) {
 
             RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-
-////////////////////////////////////////////// Partida
 
 
             final String URL = "http://geogame.ml/api/obtener_partida_codigoqr.php?codeqr="+cadenaCodigo;
@@ -391,7 +391,9 @@ public class QRScannerActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * Tarea asincrona que comprueba si se ha insertado correctamente la partida en el room
+     */
     class comprobarDescargado extends AsyncTask<Void, Void, Integer> {
         @Override
         protected Integer doInBackground(Void... v) {
@@ -406,7 +408,9 @@ public class QRScannerActivity extends AppCompatActivity {
         }
 
     }
-
+    /**
+     * Tarea asincrona que inserta un reto en el room
+     */
     class InsertarReto extends AsyncTask<Retos, Void, Integer> {
         @Override
         protected Integer doInBackground(Retos... r) {
@@ -414,7 +418,9 @@ public class QRScannerActivity extends AppCompatActivity {
             return 0;
         }
     }
-
+    /**
+     * Tarea asincrona que inserta una partida en el room
+     */
     class InsertarPartida extends AsyncTask<Partidas, Void, Integer> {
         @Override
         protected Integer doInBackground(Partidas... p) {
@@ -422,7 +428,9 @@ public class QRScannerActivity extends AppCompatActivity {
             return 0;
         }
     }
-
+    /**
+     * Tarea asincrona que inserta una respuesta en el room
+     */
     class InsertarRespuesta extends AsyncTask<Respuestas, Void, Integer> {
         @Override
         protected Integer doInBackground(Respuestas... r) {

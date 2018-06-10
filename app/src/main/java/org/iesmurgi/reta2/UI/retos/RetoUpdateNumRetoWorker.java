@@ -16,7 +16,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import androidx.work.Worker;
-
+/**
+ * Clase que lanza la tarea de actualizar el reto por el que va el usuario en la base de datos
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
 public class RetoUpdateNumRetoWorker extends Worker {
 
     @NonNull

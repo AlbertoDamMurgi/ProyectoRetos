@@ -15,7 +15,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import androidx.work.Worker;
-
+/**
+ * Clase que lanza la tarea de insertar la puntuacion de un reto a la base de datos
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
 public class RetoNormalWorker extends Worker {
     @NonNull
     @Override

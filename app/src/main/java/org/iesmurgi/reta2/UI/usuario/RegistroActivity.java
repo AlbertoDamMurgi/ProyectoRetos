@@ -30,7 +30,12 @@ import org.iesmurgi.reta2.R;
 
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * Actividad que permite al usuario registrarse
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
 public class RegistroActivity extends AppCompatActivity {
 
     private static final String TAG = "Registro_Equipo";
@@ -65,6 +70,10 @@ public class RegistroActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Método que comprueba si todos los campos estan cumplimentados correctamente
+     * @return
+     */
     private boolean comprobarRegistro() {
         boolean ok = false;
         if (
@@ -88,7 +97,9 @@ public class RegistroActivity extends AppCompatActivity {
         return ok;
     }
 
-
+    /**
+     * Método que registra al equipo en la base de datos
+     */
     @OnClick(R.id.btn_registro_equipo)
     void registrarEquipo() {
 

@@ -18,7 +18,12 @@ import org.iesmurgi.reta2.Chat.Chat;
 import java.io.File;
 
 import androidx.work.Worker;
-
+/**
+ * Clase que lanza la tarea de subir una foto a la base de datos
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
 public class RetoFotoWorker extends Worker {
     @NonNull
     @Override

@@ -21,7 +21,12 @@ import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
+/**
+ * Clase que permite al usuario ver un video de youtube en el reto
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
 public class RetoVideoActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener , YouTubePlayer.PlaybackEventListener{
 
     private String claveAPI = "AIzaSyBWtLJ5YAfriw0Iw_Rx4Zz00-_ersN0KMQ";
@@ -106,6 +111,11 @@ public class RetoVideoActivity extends YouTubeBaseActivity implements YouTubePla
 
     }
 
+    /**
+     * Método que permite sacar la id del video desde la url
+     * @param ytUrl url de youtube
+     * @return id del video
+     */
     public static String extractYTId(String ytUrl) {
         if (TextUtils.isEmpty(ytUrl)) {
             return "";
