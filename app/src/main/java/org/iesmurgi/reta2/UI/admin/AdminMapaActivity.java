@@ -107,13 +107,13 @@ public class AdminMapaActivity extends FragmentActivity implements OnMapReadyCal
     void pintarMapa() {
 
         mMap.clear();
-
-        for (int i = 0; i < marcadores.size(); i++) {
-            mMap.addMarker(marcadores.get(i));
-        }
         for (int i = 0; i < marcadoresRetos.size(); i++) {
             mMap.addMarker(marcadoresRetos.get(i));
         }
+        for (int i = 0; i < marcadores.size(); i++) {
+            mMap.addMarker(marcadores.get(i));
+        }
+
 
     }
 

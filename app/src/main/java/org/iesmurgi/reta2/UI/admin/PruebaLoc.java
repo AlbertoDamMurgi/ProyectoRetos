@@ -5,9 +5,14 @@ package org.iesmurgi.reta2.UI.admin;
  * @author Santiago Álvarez
  * @author Joaquín Pérez
  */
+
 public class PruebaLoc {
     private String latitud;
     private String longitud;
+
+
+    public PruebaLoc() {
+    }
 
     /**
      * Constructor
