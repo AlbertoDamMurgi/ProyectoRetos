@@ -89,7 +89,9 @@ public class AdminVerJugadoresActivity extends AppCompatActivity {
                     recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                     recyclerView.setAdapter(new JugadoresAdapter(jugadores, getApplicationContext()));
                     progressDialog.dismiss();
-
+                    if (jugadores.isEmpty()){
+                        Toast.makeText(getApplicationContext(), "No hay jugadores en la partida", Toast.LENGTH_LONG).show();
+                    }
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
                 }

@@ -71,7 +71,9 @@ public class RankingActivity extends AppCompatActivity {
                     recyclerRanking.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                     recyclerRanking.setAdapter(new RankingAdapter(puntuacionEquipos, getApplicationContext()));
                     progressDialog.dismiss();
-
+                    if (puntuacionEquipos.isEmpty()){
+                        Toast.makeText(getApplicationContext(), "No hay jugadores en el ranking", Toast.LENGTH_LONG).show();
+                    }
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Error al conectar con el servidor", Toast.LENGTH_LONG).show();
                 }
