@@ -123,7 +123,7 @@ public class AdminPuntuarFotoTransicion extends AppCompatActivity {
 
                     myRef.child("Imagenes").child(partida).child(usuario).child(nombrereto).removeValue();
                     Toast.makeText(getApplicationContext(), "Foto validada, puntos añadidos con exito.", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), AdministrarPartidaAdminActivity.class).putExtra("ID", idpartida).putExtra("PARTIDA", partida));
+                    startActivity(new Intent(getApplicationContext(), AdministrarPartidaAdminActivity.class).putExtra("ID", idpartida).putExtra("PARTIDA", partida).putExtra("codigoqr",getIntent().getStringExtra("codigoqr")));
                     finish();
 
                 } else {

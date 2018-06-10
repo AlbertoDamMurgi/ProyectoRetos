@@ -107,7 +107,7 @@ public class AdministrarPartidaAdminActivity extends AppCompatActivity {
      */
     @OnClick(R.id.btn_admin_PuntuarFotos)
         void verFotos(){
-            startActivity(new Intent(getApplicationContext(),PuntuarFotosAdmin.class).putExtra("PARTIDA",sala).putExtra("IDPARTIDA",idpartida));
+            startActivity(new Intent(getApplicationContext(),PuntuarFotosAdmin.class).putExtra("PARTIDA",sala).putExtra("IDPARTIDA",idpartida).putExtra("codigoqr",codigoqr));
         }
 
     /**

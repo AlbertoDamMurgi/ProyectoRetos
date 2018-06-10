@@ -72,10 +72,8 @@ public class QRGeneratorActivity extends AppCompatActivity {
             Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
             imagenQR.setImageBitmap(bitmap);
 
-        } catch (WriterException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        }catch (Exception ex){
-
         }
 
     }

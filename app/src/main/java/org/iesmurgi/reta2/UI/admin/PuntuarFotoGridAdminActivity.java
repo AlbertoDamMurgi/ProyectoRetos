@@ -78,7 +78,7 @@ public class PuntuarFotoGridAdminActivity extends AppCompatActivity {
                 }
 
                 recicler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                recicler.setAdapter(new ChatAdapter(getApplicationContext(),7,nombres,partida,usuario,idpartida));
+                recicler.setAdapter(new ChatAdapter(getApplicationContext(),7,nombres,partida,usuario,idpartida,getIntent().getStringExtra("codigoqr")));
 
             }
 

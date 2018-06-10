@@ -46,6 +46,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private int tipo,size;
     private String sala ="",partida,usuario;
     private int idpartida;
+    private String codigoQR;
+
 
      /**
       * Constructor del chat
@@ -76,7 +78,24 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         this.idpartida=idpartida;
         size= salas.size();
     }
-
+     /**
+      * Constructor que recibe tambien el id de partida y qr
+      * @param salas salas del chat
+      * @param context contexto de la app
+      * @param tipo tipo del adapter
+      * @param sala sala actual
+      * @param idpartida id de la partida
+      * @param qr String con el codigo del qr
+      */
+     public ChatAdapter(ArrayList<String> salas, Context context,int tipo,String sala,int idpartida,String qr) {
+         this.salas = salas;
+         this.context=context;
+         this.tipo = tipo;
+         this.sala =sala;
+         this.idpartida=idpartida;
+         codigoQR=qr;
+         size= salas.size();
+     }
      /**
       * Constructor que recibe nombres e IDs de las partidas
       * @param nombresAndIDs nombres e ids de las partidas
@@ -99,14 +118,16 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
       * @param partida partida a la que pertenecen los retos
       * @param usuario usuario que está jugando la partida
       * @param idpartida id de la partida que se está jugando
+      * @param qr String con el codigo del qr
       */
-    public ChatAdapter(Context context, int tipo,ArrayList<String> nombreretos,String partida,String usuario,int idpartida) {
+    public ChatAdapter(Context context, int tipo,ArrayList<String> nombreretos,String partida,String usuario,int idpartida,String qr) {
         this.nombreretos = nombreretos;
         this.context = context;
         this.tipo = tipo;
         this.partida = partida;
         this.usuario=usuario;
         this.idpartida=idpartida;
+        codigoQR=qr;
         size = nombreretos.size();
     }
 
@@ -171,13 +192,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             case 6:
                 holder.nombreChat.setText(salas.get(position));
                 holder.nombreChat.setOnClickListener(v -> {
-                context.startActivity(new Intent(context, PuntuarFotoGridAdminActivity.class).putExtra("USUARIO",salas.get(position)).putExtra("PARTIDA",sala).putExtra("IDPARTIDA",idpartida).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                context.startActivity(new Intent(context, PuntuarFotoGridAdminActivity.class).putExtra("USUARIO",salas.get(position)).putExtra("PARTIDA",sala).putExtra("IDPARTIDA",idpartida).putExtra("codigoqr",codigoQR).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 });
                 break;
             case 7:
                 holder.nombreChat.setText(nombreretos.get(position));
                 holder.nombreChat.setOnClickListener(v -> {
-                    context.startActivity(new Intent(context, AdminPuntuarFotoTransicion.class).putExtra("NOMBRERETO",nombreretos.get(position)).putExtra("USUARIO",usuario).putExtra("PARTIDA",partida).putExtra("IDPARTIDA",idpartida).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                    context.startActivity(new Intent(context, AdminPuntuarFotoTransicion.class).putExtra("NOMBRERETO",nombreretos.get(position)).putExtra("USUARIO",usuario).putExtra("PARTIDA",partida).putExtra("IDPARTIDA",idpartida).putExtra("codigoqr",codigoQR).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 });
                 break;
         }
