@@ -29,7 +29,12 @@ import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
+/**
+ * Actividad que se muestra cuando el usuario termina la partida.
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
 public class FinPartidaActivity extends AppCompatActivity {
     int idPartida;
     int idUsuario;
@@ -78,7 +83,9 @@ public class FinPartidaActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * Método que carga los datos del equipo y su puntuacion.
+     */
     public void cargarDatos() {
 
         final String URL = "http://geogame.ml/api/obtener_puntos_usuario.php?idPartida=" + idPartida + "&idUsuario=" + idUsuario;

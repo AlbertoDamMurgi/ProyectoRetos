@@ -17,9 +17,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by jota on 05/04/2018.
+ * Adapter para mostrar los datos del ranking
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
  */
-
 public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.ViewHolder> {
 
     private ArrayList<RankingEquipos> puntosEquipos;

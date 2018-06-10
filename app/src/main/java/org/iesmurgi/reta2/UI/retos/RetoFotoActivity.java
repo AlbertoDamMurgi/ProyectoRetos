@@ -55,7 +55,12 @@ import butterknife.OnClick;
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
-
+/**
+ * Actividad que permite al usuario realizar el reto de subir una foto
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
 public class RetoFotoActivity extends AppCompatActivity {
 
     private final String CARPETA_RAIZ="Reta2/";
@@ -103,7 +108,9 @@ public class RetoFotoActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * Método que sube la foto a la base de datos
+     */
     @OnClick(R.id.btn_retoFoto_subirfoto)
     void subirFotoFirebase(){
 
@@ -130,7 +137,10 @@ public class RetoFotoActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * Método que solicita al usuario los permisos de la camara
+     * @return true o false
+     */
     private boolean validaPermisos() {
 
         if(Build.VERSION.SDK_INT<Build.VERSION_CODES.M){
@@ -166,7 +176,9 @@ public class RetoFotoActivity extends AppCompatActivity {
         }
 
     }
-
+    /**
+     * Método que solicita al usuario los permisos de la camara
+     */
     private void solicitarPermisosManual() {
         final CharSequence[] opciones={"si","no"};
         final AlertDialog.Builder alertOpciones=new AlertDialog.Builder(RetoFotoActivity.this);
@@ -210,6 +222,9 @@ public class RetoFotoActivity extends AppCompatActivity {
         cargarImagen();
     }
 
+    /**
+     * Método que carga la imagen en el imageview
+     */
     private void cargarImagen() {
 
         String foto = getResources().getString(R.string.take_photo);
@@ -235,6 +250,9 @@ public class RetoFotoActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Método que crea un archivo con la foto realizada
+     */
     private void tomarFotografia() {
         File fileImagen=new File(Environment.getExternalStorageDirectory(),RUTA_IMAGEN);
         boolean isCreada=fileImagen.exists();
@@ -308,6 +326,9 @@ public class RetoFotoActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Método que comprime la foto para que al subirla cueste menos datos y recursos
+     */
     public void comprimirFoto(){
         FileOutputStream outputStream;
         int m_inSampleSize = 0;
@@ -323,8 +344,6 @@ public class RetoFotoActivity extends AppCompatActivity {
             outputStream.flush();
             outputStream.close();
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -47,7 +47,12 @@ import org.iesmurgi.reta2.UI.admin.LoginAdmin;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+/**
+ * Actividad que permite al usuario loguearse en la aplicacion
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
 public class LoginActivity extends AppCompatActivity implements LifecycleObserver {
 
     int idUsuario;
@@ -182,6 +187,10 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
     }
     */
 
+    /**
+     * Método que inicia el login admin
+     * @return
+     */
     @OnLongClick(R.id.loginsecreto_admin)
     boolean loginAdminSecreto() {
 
@@ -190,7 +199,9 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
         return true;
     }
 
-
+    /**
+     * Método que conecta al usuario y comprueba que no es un administrador.
+     */
     @OnClick(R.id.btn_conectarse)
     void conectarUsuario() {
 
@@ -236,6 +247,9 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
         }
     }
 
+    /**
+     * Método que obtiene la id del usuario de la base de datos.
+     */
     void obtenerid() {
 
         //Sacamos la id de usaario
@@ -275,6 +289,9 @@ public class LoginActivity extends AppCompatActivity implements LifecycleObserve
         startActivity(i);
     }*/
 
+    /**
+     * Método que guarda los datos del login en el movil para no tener que volver a loguearse si la app se cierra.
+     */
     void guardarylanzar() {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("usuario", email.getText().toString().trim());

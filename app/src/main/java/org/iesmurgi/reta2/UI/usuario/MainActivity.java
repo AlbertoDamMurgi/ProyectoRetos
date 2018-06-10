@@ -52,7 +52,12 @@ import org.iesmurgi.reta2.Data.entidades.Partidas;
 import org.iesmurgi.reta2.Data.entidades.Respuestas;
 import org.iesmurgi.reta2.Data.entidades.Retos;
 import org.iesmurgi.reta2.R;
-
+/**
+ * Actividad principal del usuario.
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
 public class MainActivity extends AppCompatActivity implements LifecycleObserver {
     int idUsuario;
 
@@ -109,8 +114,9 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
     */
 
 
-
-
+    /**
+     * Método que desconecta al usuario
+     */
     @OnClick(R.id.btn_logout)
     public void desconectarse() {
         try {
@@ -130,7 +136,9 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
     }
 
-
+    /**
+     * Método que inicia la partida
+     */
     @OnClick(R.id.bt_iniciarPartida)
     void iniciarPartida() {
 
@@ -150,7 +158,9 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         }
     }//fin onclick
 
-
+    /**
+     * Clase que hereda de AsyncTask para crear una tarea que cargue la partida
+     */
     class cargarRespuesta extends AsyncTask<Respuestas, Void, Integer> {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
@@ -204,7 +214,9 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         }
     }
 
-
+    /**
+     * Método que carga el ultimo reto por el que va el usuario
+     */
     void InsertarEnPartidaYObtenerUltima(){
         final String URLL = "http://geogame.ml/api/insertar_equipo_partida.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URLL, new Response.Listener<String>() {
@@ -252,6 +264,9 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         // fin insertar a db
     }
 
+    /**
+     * Tarea asincrona que carga el reto actual
+     */
     class cargarReto extends AsyncTask<Void, Void, Integer> {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
@@ -304,7 +319,9 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         }
     }
 
-
+    /**
+     * Tarea asincrona que carga el reto actual
+     */
     class cargarPartida extends AsyncTask<Void, Void, Integer> {
         @Override
         protected Integer doInBackground(Void... r) {
@@ -362,7 +379,9 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         }
     }
 
-
+    /**
+     * Tarea asincrona que comprueba si se ha insertado correctamente la partida en el room
+     */
     class comprobarDescargado extends AsyncTask<Void, Void, Integer> {
         @Override
         protected Integer doInBackground(Void... v) {
@@ -378,6 +397,9 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
     }
 
+    /**
+     * Tarea asincrona que inserta un reto en el room
+     */
     class InsertarReto extends AsyncTask<Retos, Void, Integer> {
         @Override
         protected Integer doInBackground(Retos... r) {
@@ -385,7 +407,9 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
             return 0;
         }
     }
-
+    /**
+     * Tarea asincrona que inserta una partida en el room
+     */
     class InsertarPartida extends AsyncTask<Partidas, Void, Integer> {
         @Override
         protected Integer doInBackground(Partidas... p) {
@@ -393,7 +417,9 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
             return 0;
         }
     }
-
+    /**
+     * Tarea asincrona que inserta una respuesta en el room
+     */
     class InsertarRespuesta extends AsyncTask<Respuestas, Void, Integer> {
         @Override
         protected Integer doInBackground(Respuestas... r) {
@@ -402,6 +428,9 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         }
     }
 
+    /**
+     * Método que lanza la actividad de escanear el codigo qr
+     */
     @OnClick(R.id.fab_scanqrcode)
     void goScanQR(){
         Intent i = new Intent(getApplicationContext(), QRScannerActivity.class).putExtra("idUsuario",idUsuario);

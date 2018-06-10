@@ -47,7 +47,12 @@ import org.iesmurgi.reta2.R;
 import org.iesmurgi.reta2.UI.usuario.LoginModel;
 
 import static org.iesmurgi.reta2.UI.retos.MapPrincActivity.RETO_FINALIZADO;
-
+/**
+ * Actividad que permite al usuario jugar un reto
+ * @author Alberto Fernández
+ * @author Santiago Álvarez
+ * @author Joaquín Pérez
+ */
 public class RetoActivity extends AppCompatActivity {
     CountDownTimer contador;
     @BindView(R.id.rb_reto_opcion1)
@@ -83,7 +88,7 @@ public class RetoActivity extends AppCompatActivity {
     private Retos miReto;
     private String resElegida;
 
-int idUsuario;
+    int idUsuario;
     private LoginModel cronoViewModel;
     private long nTiempo;
     private String nombrepartida;
@@ -179,6 +184,9 @@ int idUsuario;
     }
 
 
+    /**
+     * Método que inicializa la pantalla del reto con los datos obtenidos en la consulta a la base de datos.
+     */
     void init() {
 
 
@@ -439,7 +447,9 @@ int idUsuario;
         }
 
 
-
+    /**
+     * Método que rellena los arrayslist con las respuestas del reto
+     */
     public void rellenarArray() {
 
         for (int i = 0; i < respuestas.size(); i++) {
@@ -451,6 +461,10 @@ int idUsuario;
 
     }
 
+    /**
+     * Método que calcula la puntuacion obtenida en el reto en funcion del tiempo empleado en responderla.
+     * @return puntos obtenidos en el reto
+     */
     int puntuacionPorTiempo(){
         Log.e("Tiempo tras","tiempo"+tiempotrascurrido());
        int tiempo=(int)((tiempotrascurrido()/60));
@@ -464,13 +478,28 @@ int idUsuario;
         Log.e("puntos","Los puntos dados son" +puntos);
        return puntos;
     }
+
+    /**
+     * Método que devuelve el tiempo en segundos
+     * @return tiempo en segundos
+     */
      long tiempoensegundos(){
         return (cronoViewModel.getMiTiempo()/1000)-miReto.getMaxDuracion();
     }
+
+    /**
+     * Método que devuelve el tiempo transcurrido en el reto.
+     * @return
+     */
     long tiempotrascurrido(){
         return (miReto.getMaxDuracion()*60)-tiempoensegundos();
     }
 
+    /**
+     * Método que inserta los puntos obtenidos del reto en la base de datos
+     * @param puntos puntos del reto
+     * @param mensaje mensaje que acompaña, para los toast
+     */
     void insertarPuntos(int puntos,String mensaje) {
         contador.cancel();
 
@@ -483,7 +512,7 @@ int idUsuario;
                 // Many other constraints are available, see the
                 // Constraints.Builder reference
                 .build();
-        //todo fracaso
+
         Data.Builder builder = new Data.Builder();
 
         builder.putString("idUsuario",String.valueOf(idUsuario));
@@ -498,6 +527,10 @@ int idUsuario;
     }//fin insertarPuntos
 
 
+    /**
+     * Método que actualiza el reto actual por el que va el usuario en la base de datos
+     * @param mensaje mensaje para los toast
+     */
     void updateNumReto(String mensaje) {
 
 
@@ -523,7 +556,12 @@ int idUsuario;
     }
 
 
-
+    /**
+     * Método que devuelve un numero random en un intervalo
+     * @param min numero minimo
+     * @param max numero maximo
+     * @return numero aleatorio en el intervalo
+     */
     public int elegirRandom(int min, int max) {
 
         int rango = (max - min) + 1;
